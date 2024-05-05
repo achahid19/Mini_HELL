@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hellGate.c                                         :+:      :+:    :+:   */
+/*   putnbr_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:30:08 by achahid-         ###   ########.fr       */
+/*   Created: 2023/11/12 14:11:47 by achahid-          #+#    #+#             */
+/*   Updated: 2023/11/12 14:11:49 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-
-#include "../includes/miniHell.h"
-
-
-int main(int ac, char **av, char **envp)
+/**
+ * ft_putstr_fd - function that outputs the string s to the given
+ * file descriptor
+ * @s: pointer to the string
+ * @fd: index of the file descriptor
+ * Return: void.
+*/
+void	ft_putstr_fd(char *s, int fd)
 {
-    while (true)
-    {
-        char *str = readline("prompt$ ");
-        printf("str: %s\n", str);
-        free(str);
-    }
+	size_t	count;
+
+	if (!s || fd < 0)
+		return ;
+	count = 0;
+	while (s[count])
+	{
+		ft_putchar_fd(s[count], fd);
+		count++;
+	}
 }

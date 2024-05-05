@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hellGate.c                                         :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:30:08 by achahid-         ###   ########.fr       */
+/*   Created: 2023/12/01 08:46:01 by achahid-          #+#    #+#             */
+/*   Updated: 2023/12/01 08:46:03 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif /* BUFFER_SIZE */
+# include <stdlib.h>
+# include <unistd.h>
 
-#include "../includes/miniHell.h"
+char	*get_next_line(int fd);
+int		ft_strchr(const char *s, int c);
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlen(char *str);
 
-
-int main(int ac, char **av, char **envp)
-{
-    while (true)
-    {
-        char *str = readline("prompt$ ");
-        printf("str: %s\n", str);
-        free(str);
-    }
-}
+#endif /* GET_NEXT_LINE_H */

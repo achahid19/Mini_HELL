@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hellGate.c                                         :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:30:08 by achahid-         ###   ########.fr       */
+/*   Created: 2023/11/12 10:08:30 by achahid-          #+#    #+#             */
+/*   Updated: 2023/11/12 10:08:31 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-
-#include "../includes/miniHell.h"
-
-
-int main(int ac, char **av, char **envp)
+/**
+ * ft_striteri - function that applies function f in each iteration
+ * @s: pointer to the string
+ * @f: pointer to the function
+ * Return: void
+*/
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-    while (true)
-    {
-        char *str = readline("prompt$ ");
-        printf("str: %s\n", str);
-        free(str);
-    }
+	unsigned int	count;
+
+	if (!s || !f)
+		return ;
+	count = 0;
+	while (s[count])
+	{
+		(*f)(count, &s[count]);
+		count++;
+	}
 }

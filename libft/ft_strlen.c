@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hellGate.c                                         :+:      :+:    :+:   */
+/*   strlen.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:30:08 by achahid-         ###   ########.fr       */
+/*   Created: 2023/10/31 12:30:09 by achahid-          #+#    #+#             */
+/*   Updated: 2023/10/31 12:30:11 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-
-#include "../includes/miniHell.h"
-
-
-int main(int ac, char **av, char **envp)
+/**
+*ft_strlen - function that computes the length of a string
+*@s: string
+*Return: string's length
+*/
+size_t	ft_strlen(const char *s)
 {
-    while (true)
-    {
-        char *str = readline("prompt$ ");
-        printf("str: %s\n", str);
-        free(str);
-    }
+	size_t	count;
+
+	count = 0;
+	while (s[count])
+		count++;
+	return (count);
 }
