@@ -16,10 +16,15 @@
 
 int main(int ac, char **av, char **envp)
 {
-    while (true)
-    {
-        char *str = readline("prompt$ ");
-        printf("str: %s\n", str);
-        free(str);
-    }
+	char	*user_input;
+	char	*tokens;
+
+	while (true)
+	{
+		user_input = readline("kssh$ ");
+		// tokenization of retrived intput
+		tokens = lexer(user_input);
+		printf("str: %s\n", user_input);
+		free(user_input);
+	}
 }

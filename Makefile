@@ -34,11 +34,14 @@ $(LIBFT_AR):
 
 clean:
 		@rm -rf $(OBJ)
+		@$(MAKE) clean -C ./libft
 		@echo "Objects files removed"
 
 fclean: clean
 		@rm -rf $(NAME)
+		@$(MAKE) fclean -C ./libft
 		@echo "miniHell program destructed"
+		@echo "libft archive cleaned"
 
 re: fclean all
 
