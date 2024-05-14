@@ -38,7 +38,7 @@ typedef enum e_type
     whitespace_token = 0,
     pipe_token = 1,
     word_token = 2,
-    string_token = 3,
+    string_token = 3,   
     singlequote_token = 4,
     doublequote_token = 5,
     right_parenthesis_token = 6,
@@ -66,5 +66,13 @@ typedef t_token *token_ptr;
 
 /* Lexical analyzer */
 token_ptr   lexer(char *user_input);
+void	    lexer_helper(char **user_input, token_ptr *tokens_head,
+                int type, int order);
+void		token_create(char **user_input, token_ptr *tokens_head,
+				int type, int order);
+
+/* utilities */
+token_ptr	find_last_node(token_ptr head);
+t_bool      ft_isspace(char c);
 
 #endif /* MINIHELL_H */

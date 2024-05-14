@@ -6,13 +6,13 @@ CC = cc
 
 MAKE = make
 
-SRC = $(addprefix sources/, hellGate.c lexer.c) \
+SRC = $(addprefix sources/, hellGate.c lexer.c utils1.c) \
 
 OBJ = $(SRC:.c=.o)
 
 INCLUDES = includes/miniHell.h
 
-READLINE_LIB = -lreadline # should install readline library "https://ftp.gnu.org/gnu/readline/" v8.1.2
+READLINE_LIB = -lreadline
 
 NAME = miniHell
 
@@ -25,7 +25,7 @@ TOKEN = ghp_PcXPXcNDtE5TkUNF2s2kEcVhWCC9f0dZ33c
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT_AR)
-		$(CC) $(CFLAGS) $(READLINE_LIB) $(LIBFT_AR) $(OBJ) -o $(NAME)
+		$(CC) $(CFLAGS) $(READLINE_LIB) $(OBJ) $(LIBFT_AR) -o $(NAME)
 
 $(LIBFT_AR):
 		@$(MAKE) -C ./libft
