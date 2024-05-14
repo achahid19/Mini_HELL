@@ -17,7 +17,7 @@
 # include <unistd.h> // write ...
 # include <limits.h> // INT_MAX ...
 # include <stdlib.h> // malloc, free ...
-# include "../get_next_line/get_next_line.h" // read user's line
+# include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -39,21 +39,32 @@ typedef enum e_type
     pipe_token = 1,
     word_token = 2,
     string_token = 3,
-    singlequote_token = 5,
-    doublequote_token = 6,
-    right_parenthesis_token = 7,
-    left_parenthesis_token = 8,
-    option_token = 9
+    singlequote_token = 4,
+    doublequote_token = 5,
+    right_parenthesis_token = 6,
+    left_parenthesis_token = 7,
+    option_token = 8
 }   t_type;
+
+/**
+ * I know u for compiler
+*/
+typedef struct  s_token t_token;
+typedef t_token *token_ptr;
 
 // lexer: token's data
 typedef struct s_token
 {
-    char    *token;
-    int     order; // index of the token on the input
-    t_type  token_type; // define a type of each encoutred token
+    char        *token;
+    int         order; // index of the token on the input
+    t_type      token_type; // define a type of each encoutred token
+    int         token_length;
+    token_ptr   next;
 }   t_token;
 
 typedef t_token *token_ptr;
+
+/* Lexical analyzer */
+token_ptr   lexer(char *user_input);
 
 #endif /* MINIHELL_H */
