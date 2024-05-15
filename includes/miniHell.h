@@ -41,8 +41,8 @@ typedef enum e_type
     string_token = 3, 
     singlequote_token = 4,
     doublequote_token = 5,
-    right_parenthesis_token = 6,
-    left_parenthesis_token = 7,
+    rbracket_token = 6,
+    lbracket_token = 7,
     option_token = 8,
     leftred_token = 9,
     rightred_token = 10
