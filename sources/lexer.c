@@ -28,7 +28,7 @@ static char	*get_token(char *user_input, int token_len);
 token_ptr	lexer(char *user_input)
 {
 	token_ptr	tokens_head;
-	static int 	order;
+	int			order;
 
 	tokens_head = NULL;
 	order = 1;
@@ -39,9 +39,9 @@ token_ptr	lexer(char *user_input)
 		else if(*user_input == '|')
 			token_create(&user_input, &tokens_head, pipe_token, order++);
 		else if (*user_input == '\'')
-			lexer_helper(&user_input, &tokens_head, singlequote_token, order++);
+			lexer_helper(&user_input, &tokens_head, singlequote_token, &order);
 		else if (*user_input == '"')
-			lexer_helper(&user_input, &tokens_head, doublequote_token, order++);
+			lexer_helper(&user_input, &tokens_head, doublequote_token, &order);
 		else if (*user_input == '(')
 			token_create(&user_input, &tokens_head, left_parenthesis_token, order++);
 		else if (*user_input == ')')
@@ -53,7 +53,6 @@ token_ptr	lexer(char *user_input)
 		if (*user_input)
 			user_input++;
 	}
-	order = 0;
 	return (tokens_head);
 }
 
