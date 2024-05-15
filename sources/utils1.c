@@ -71,4 +71,12 @@ void	lexer_helper(char **user_input, token_ptr *tokens_head, int type, int *orde
 		token_create(user_input, tokens_head, string_token, *order);
 		*order += 1;
 	}
+	c = user_input[0][1];
+	printf("----------> %c\n", c);
+	if (c == '"' || c == '\'')
+	{
+		*user_input += 1; // move the user_input pointer
+		token_create(user_input, tokens_head, type, *order);
+		*order += 1;
+	}
 }

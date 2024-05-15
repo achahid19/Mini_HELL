@@ -34,6 +34,7 @@ token_ptr	lexer(char *user_input)
 	order = 1;
 	while (*user_input)
 	{
+		printf("pointing in: %s\n", user_input);
 		if (ft_isspace(*user_input) == true)
 			token_create(&user_input, &tokens_head, whitespace_token, order++);
 		else if(*user_input == '|')
@@ -52,6 +53,7 @@ token_ptr	lexer(char *user_input)
 			token_create(&user_input, &tokens_head, word_token, order++);
 		if (*user_input)
 			user_input++;
+		
 	}
 	return (tokens_head);
 }
@@ -81,7 +83,7 @@ void	token_create(char **user_input, token_ptr *tokens_head, int type, int order
 		last->next = new;
 	if (*tokens_head == NULL)
 		*tokens_head = new;
-	*user_input += new->token_length - 1;
+	*user_input += new->token_length - 1; // move user_input pointer.
 }
 
 /**
@@ -98,7 +100,8 @@ static int	get_token_length(char *user_input, int type)
 	length = 0;
 	if (type == word_token)
 	{
-		while (ft_isspace(*user_input) == false && *user_input)
+		while (ft_isspace(*user_input) == false && *user_input
+				&& *user_input != '"' && *user_input != '\'')
 		{
 			user_input++;
 			length++;
