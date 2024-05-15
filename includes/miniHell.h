@@ -38,7 +38,7 @@ typedef enum e_type
     whitespace_token = 0,
     pipe_token = 1,
     word_token = 2,
-    string_token = 3,   
+    string_token = 3, 
     singlequote_token = 4,
     doublequote_token = 5,
     right_parenthesis_token = 6,
