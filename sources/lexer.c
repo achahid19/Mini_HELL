@@ -34,7 +34,6 @@ token_ptr	lexer(char *user_input)
 	order = 1;
 	while (*user_input)
 	{
-		printf("pointing in: %s\n", user_input);
 		if (ft_isspace(*user_input) == true)
 			token_create(&user_input, &tokens_head, whitespace_token, order++);
 		else if(*user_input == '|')
@@ -44,16 +43,19 @@ token_ptr	lexer(char *user_input)
 		else if (*user_input == '"')
 			lexer_helper(&user_input, &tokens_head, doublequote_token, &order);
 		else if (*user_input == '(')
-			token_create(&user_input, &tokens_head, left_parenthesis_token, order++);
+			token_create(&user_input, &tokens_head, lbracket_token, order++);
 		else if (*user_input == ')')
-			token_create(&user_input, &tokens_head, right_parenthesis_token, order++);
+			token_create(&user_input, &tokens_head, rbracket_token, order++);
 		else if (*user_input == '-')
 			token_create(&user_input, &tokens_head, option_token, order++);
-		else if (ft_isalpha(*user_input) == true)
+		else if (*user_input == '<')
+			token_create(&user_input, &tokens_head, leftred_token, order++);
+		else if (*user_input == '>')
+			token_create(&user_input, &tokens_head, rightred_token, order++);
+		else
 			token_create(&user_input, &tokens_head, word_token, order++);
 		if (*user_input)
 			user_input++;
-		
 	}
 	return (tokens_head);
 }
@@ -95,29 +97,29 @@ void	token_create(char **user_input, token_ptr *tokens_head, int type, int order
 */
 static int	get_token_length(char *user_input, int type)
 {
-	int	length;
+	int	len;
 
-	length = 0;
+	len = 0;
 	if (type == word_token)
 	{
-		while (ft_isspace(*user_input) == false && *user_input
-				&& *user_input != '"' && *user_input != '\'')
-		{
-			user_input++;
-			length++;
-		}
+		while (ft_isspace(user_input[len]) == false && user_input[len]
+			&& user_input[len] != '"' && user_input[len] != '\'')
+			len++;
 	}
 	else if (type == string_token)
 	{
-		while (*user_input != '"' && *user_input != '\'' && *user_input)
-		{
-			user_input++;
-			length++;
-		}
+		while (user_input[len] != '"' && user_input[len] != '\''
+			&& user_input[len])
+			len++;
+	}
+	else if (type == option_token)
+	{
+		while (ft_isspace(user_input[len]) == false && user_input[len])
+			len++;
 	}
 	else
-		length = 1;
-	return (length);
+		len = 1;
+	return (len);
 }
 
 /**
