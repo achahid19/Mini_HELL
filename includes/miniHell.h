@@ -43,7 +43,9 @@ typedef enum e_type
     doublequote_token = 5,
     right_parenthesis_token = 6,
     left_parenthesis_token = 7,
-    option_token = 8
+    option_token = 8,
+    leftred_token = 9,
+    rightred_token = 10
 }   t_type;
 
 /**
@@ -67,7 +69,7 @@ typedef t_token *token_ptr;
 /* Lexical analyzer */
 token_ptr   lexer(char *user_input);
 void	    lexer_helper(char **user_input, token_ptr *tokens_head,
-                int type, int order);
+                int type, int *order);
 void		token_create(char **user_input, token_ptr *tokens_head,
 				int type, int order);
 
