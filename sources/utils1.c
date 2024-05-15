@@ -14,6 +14,8 @@
 
 token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
+void		lexer_helper(char **user_input, token_ptr *tokens_head,
+				int type, int *order);
 
 /**
  * find_last_node - iterates over a linked list
@@ -56,12 +58,11 @@ t_bool	ft_isspace(char c)
  * 
  * Return: void.
 */
-void	lexer_helper(char **user_input, token_ptr *tokens_head, int type, int *order)
+void	lexer_helper(char **user_input, token_ptr *tokens_head,
+			int type, int *order)
 {
 	char	c;
-	char	*error;
 
-	error = NULL;
 	token_create(user_input, tokens_head, type, *order);
 	*order += 1;
 	c = user_input[0][1];
@@ -72,11 +73,13 @@ void	lexer_helper(char **user_input, token_ptr *tokens_head, int type, int *orde
 		*order += 1;
 	}
 	c = user_input[0][1];
-	printf("----------> %c\n", c);
 	if (c == '"' || c == '\'')
 	{
 		*user_input += 1; // move the user_input pointer
-		token_create(user_input, tokens_head, type, *order);
+		if (c == '"')
+			token_create(user_input, tokens_head, doublequote_token, *order);
+		else if (c == '\'')
+			token_create(user_input, tokens_head, singlequote_token, *order);
 		*order += 1;
 	}
 }

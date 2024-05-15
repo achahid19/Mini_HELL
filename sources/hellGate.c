@@ -31,14 +31,14 @@ void    check_tokens(token_ptr print_tk)
 int main(int ac, char **av, char **envp)
 {
 	char        *user_input;
-	token_ptr   tokens;
+	token_ptr   tokens_list;
 
 	while (true)
 	{
 		user_input = readline("kssh$ ");
 		// tokenization of retrived intput
-		tokens = lexer(user_input);
-        check_tokens(tokens);
+		tokens_list = lexer(user_input);
+        check_tokens(tokens_list);
 		printf("str: %s\n", user_input);
 		free(user_input);
 	}
