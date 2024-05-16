@@ -71,7 +71,8 @@ int	get_token_length(char *user_input, int type)
 	}
 	else if (type == option_token)
 	{
-		while (ft_isspace(user_input[len]) == false && user_input[len])
+		while ((get_type(user_input[len]) == 2 || get_type(user_input[len]) == 8)
+			&& user_input[len])
 			len++;
 	}
 	else
