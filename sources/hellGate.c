@@ -35,7 +35,7 @@ int main(int ac, char **av, char **envp)
 
 	while (true)
 	{
-		user_input = readline("kssh$ ");
+        user_input = readline("kssh$ ");
 		// tokenization of retrived intput
 		tokens_list = lexer(user_input);
         check_tokens(tokens_list);

@@ -12,7 +12,6 @@
 
 #ifndef MINIHELL_H
 # define MINIHELL_H
-
 # include <stdio.h> // for debugging
 # include <unistd.h> // write ...
 # include <limits.h> // INT_MAX ...
@@ -29,23 +28,23 @@
 // define a set of named integer constant
 typedef enum e_bool
 {
-    false = 0,
-    true = 1
+	false = 0,
+	true = 1
 }   t_bool;
 
 typedef enum e_type
 {
-    whitespace_token = 0,
-    pipe_token = 1,
-    word_token = 2,
-    string_token = 3, 
-    singlequote_token = 4,
-    doublequote_token = 5,
-    rbracket_token = 6,
-    lbracket_token = 7,
-    option_token = 8,
-    leftred_token = 9,
-    rightred_token = 10
+	whitespace_token = 0,
+	pipe_token = 1,
+	word_token = 2,
+	string_token = 3, 
+	singlequote_token = 4,
+	doublequote_token = 5,
+	rbracket_token = 6,
+	lbracket_token = 7,
+	option_token = 8,
+	leftred_token = 9,
+	rightred_token = 10
 }   t_type;
 
 /**
@@ -57,24 +56,31 @@ typedef t_token *token_ptr;
 // lexer: token's data
 typedef struct s_token
 {
-    char        *token;
-    int         order; // index of the token on the input
-    t_type      token_type; // define a type of each encoutred token
-    int         token_length;
-    token_ptr   next;
+	char		*token;
+	int			order; // index of the token on the input
+	t_type		token_type; // define a type of each encoutred token
+	int			token_length;
+	token_ptr	next;
 }   t_token;
 
 typedef t_token *token_ptr;
 
 /* Lexical analyzer */
-token_ptr   lexer(char *user_input);
-void	    lexer_helper(char **user_input, token_ptr *tokens_head,
-                int type, int *order);
+token_ptr	lexer(char *user_input);
+void		string_tokens(char **user_input, token_ptr *tokens_head,
+							int type, int *order);
+void		char_tokens(char **user_input, token_ptr *tokens_head,
+							int type, int order);
+
+/* Lexer utils */
 void		token_create(char **user_input, token_ptr *tokens_head,
-				int type, int order);
+							int type, int order);
+int			get_token_length(char *user_input, int type);
+char		*get_token(char *user_input, int token_len);
+int			get_type(char user_input);
 
 /* utilities */
 token_ptr	find_last_node(token_ptr head);
-t_bool      ft_isspace(char c);
+t_bool		ft_isspace(char c);
 
 #endif /* MINIHELL_H */
