@@ -13,10 +13,10 @@
 #include "../includes/miniHell.h"
 
 token_ptr	lexer(char *user_input);
-void		token_create(char **user_input, token_ptr *tokens_head,
-				int type, int order);
-static int	get_token_length(char *user_input, int type);
-static char	*get_token(char *user_input, int token_len);
+void		string_tokens(char **user_input, token_ptr *tokens_head,
+							int type, int *order);
+void		char_tokens(char **user_input, token_ptr *tokens_head,
+							int type, int order);
 
 /**
  * lexer - Lexical Analyser; tokenize the
@@ -29,31 +29,18 @@ token_ptr	lexer(char *user_input)
 {
 	token_ptr	tokens_head;
 	int			order;
+	int			type;
 
 	tokens_head = NULL;
 	order = 1;
 	while (*user_input)
 	{
-		if (ft_isspace(*user_input) == true)
-			token_create(&user_input, &tokens_head, whitespace_token, order++);
-		else if(*user_input == '|')
-			token_create(&user_input, &tokens_head, pipe_token, order++);
-		else if (*user_input == '\'')
-			lexer_helper(&user_input, &tokens_head, singlequote_token, &order);
-		else if (*user_input == '"')
-			lexer_helper(&user_input, &tokens_head, doublequote_token, &order);
-		else if (*user_input == '(')
-			token_create(&user_input, &tokens_head, lbracket_token, order++);
-		else if (*user_input == ')')
-			token_create(&user_input, &tokens_head, rbracket_token, order++);
-		else if (*user_input == '-')
-			token_create(&user_input, &tokens_head, option_token, order++);
-		else if (*user_input == '<')
-			token_create(&user_input, &tokens_head, leftred_token, order++);
-		else if (*user_input == '>')
-			token_create(&user_input, &tokens_head, rightred_token, order++);
+		printf("------> pointing at: %s\n", user_input);
+		type = get_type(*user_input);
+		if (type == singlequote_token || type == doublequote_token)
+			string_tokens(&user_input, &tokens_head, type, &order);
 		else
-			token_create(&user_input, &tokens_head, word_token, order++);
+			char_tokens(&user_input, &tokens_head, type, order++);
 		if (*user_input)
 			user_input++;
 	}
@@ -61,87 +48,68 @@ token_ptr	lexer(char *user_input)
 }
 
 /**
- * token_create - create the specified token based on the type.
+ * string_tokens - handler of complicated cases
+ * such as: string_token for doublequote_token
+ * and singlequote_token
  * @user_input: double pointer to the input
- * @tokes_head: double pointer to the tokens list
- * @type: define the type of the token
- * @order: order of the token on the input
+ * @tokens_head: double pointer to the list of tokens
+ * @type: token's type
+ * @order: order of token on the input
  * 
  * Return: void.
 */
-void	token_create(char **user_input, token_ptr *tokens_head, int type, int order)
+void	string_tokens(char **user_input, token_ptr *tokens_head,
+			int type, int *order)
 {
-	token_ptr	new;
-	token_ptr	last;
+	char	c;
 
-	last = find_last_node(*tokens_head);
-	new = malloc(sizeof(t_token)); // TODO if fail.
-	new->token_length = get_token_length(*user_input, type);
-	new->token = get_token(*user_input, new->token_length);
-	new->order = order++;
-	new->token_type = type;
-	new->next = NULL;
-	if (last != NULL)
-		last->next = new;
-	if (*tokens_head == NULL)
-		*tokens_head = new;
-	*user_input += new->token_length - 1; // move user_input pointer.
+	token_create(user_input, tokens_head, type, *order);
+	*order += 1;
+	c = user_input[0][1];
+	if (c != '"' && c != '\'' && c)
+	{
+		*user_input += 1;
+		token_create(user_input, tokens_head, string_token, *order);
+		*order += 1;
+	}
+	c = user_input[0][1];
+	if (get_type(c) == type)
+	{
+		*user_input += 1; // move the user_input pointer
+		if (c == '"')
+			token_create(user_input, tokens_head, doublequote_token, *order);
+		else if (c == '\'')
+			token_create(user_input, tokens_head, singlequote_token, *order);
+		*order += 1;
+	}
 }
 
 /**
- * get_token_length - get token's length
- * @input: pointer to the input
- * @type: type of the token (defined t_type)
+ * char_token - create the token based on his type
+ * @user_input: double pointer to user_input
+ * @tokens_head: pointer to the list of tokens
+ * @type: token's type
+ * @order: order of the token on user_input
  * 
- * Return: token's length
+ * Return: void.
 */
-static int	get_token_length(char *user_input, int type)
+void	char_tokens(char **user_input, token_ptr *tokens_head,
+						int type, int order)
 {
-	int	len;
-
-	len = 0;
-	if (type == word_token)
-	{
-		while (ft_isspace(user_input[len]) == false && user_input[len]
-			&& user_input[len] != '"' && user_input[len] != '\'')
-			len++;
-	}
-	else if (type == string_token)
-	{
-		while (user_input[len] != '"' && user_input[len] != '\''
-			&& user_input[len])
-			len++;
-	}
+	if (type == whitespace_token)
+		token_create(user_input, tokens_head, whitespace_token, order);
+	else if(type == pipe_token)
+		token_create(user_input, tokens_head, pipe_token, order);
+	else if (type == lbracket_token)
+		token_create(user_input, tokens_head, lbracket_token, order);
+	else if (type == rbracket_token)
+		token_create(user_input, tokens_head, rbracket_token, order);
 	else if (type == option_token)
-	{
-		while (ft_isspace(user_input[len]) == false && user_input[len])
-			len++;
-	}
+		token_create(user_input, tokens_head, option_token, order);
+	else if (type == leftred_token)
+		token_create(user_input, tokens_head, leftred_token, order);
+	else if (type == rightred_token)
+		token_create(user_input, tokens_head, rightred_token, order);
 	else
-		len = 1;
-	return (len);
-}
-
-/**
- * get_token - allocates n bytes based on token_len
- * to store the token
- * @user_input: pointer to the input
- * @token_len: token's length
- * 
- * Return: pointer to the new token.
-*/
-static char	*get_token(char *user_input, int token_len)
-{
-	char	*token;
-	size_t	index;
-
-	token = malloc(sizeof(char) * token_len + 1); // TO FREE WHEN DONE WITH IT + TO DO PROTECT
-	index = 0;
-	while (token_len--)
-	{
-		token[index] = user_input[index];
-		index++;
-	}
-	token[index] = '\0';
-	return (token);
+		token_create(user_input, tokens_head, word_token, order);
 }
