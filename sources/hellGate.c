@@ -14,12 +14,32 @@
 #include "../includes/miniHell.h"
 
 
+void    check_tokens(token_ptr print_tk)
+{
+    while (print_tk != NULL)
+    {
+        printf("------------------------------\n");
+        printf("token: %s\n", print_tk->token);
+        printf("order: %d\n", print_tk->order);
+        printf("type: %d\n", print_tk->token_type);
+        printf("lenght: %d\n", print_tk->token_length);
+        printf("------------------------------\n");
+        print_tk = print_tk->next;
+    }
+}
+
 int main(int ac, char **av, char **envp)
 {
-    while (true)
-    {
-        char *str = readline("prompt$ ");
-        printf("str: %s\n", str);
-        free(str);
-    }
+	char        *user_input;
+	token_ptr   tokens_list;
+
+	while (true)
+	{
+        user_input = readline("kssh$ ");
+		// tokenization of retrived intput
+		tokens_list = lexer(user_input);
+        check_tokens(tokens_list);
+		printf("str: %s\n", user_input);
+		free(user_input);
+	}
 }
