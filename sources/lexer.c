@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:17 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:30:19 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:36:13 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ token_ptr	lexer(char *user_input)
 	order = 1;
 	while (*user_input)
 	{
-		printf("------> pointing at: %s\n", user_input);
+		// printf("------> pointing at: %s\n", user_input);
 		type = get_type(*user_input);
 		if (type == singlequote_token || type == doublequote_token)
 			string_tokens(&user_input, &tokens_head, type, &order);

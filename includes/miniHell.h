@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   miniHell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:31:12 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/05/19 02:03:39 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIHELL_H
 # define MINIHELL_H
+#include <signal.h> // for handling signals
 # include <stdio.h> // for debugging
 # include <unistd.h> // write ...
 # include <limits.h> // INT_MAX ...
@@ -82,5 +83,8 @@ int			get_type(char user_input);
 /* utilities */
 token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
+
+/* Parser */
+int		parser_tokens(token_ptr tokens_list);
 
 #endif /* MINIHELL_H */
