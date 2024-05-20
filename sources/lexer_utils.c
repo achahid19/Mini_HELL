@@ -69,6 +69,8 @@ int	get_token_length(char *user_input, int type)
 			&& user_input[len])
 			len++;
 	}
+	else if (type == heredoc_token)
+		len = 2;
 	else
 		len = 1;
 	return (len);

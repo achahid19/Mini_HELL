@@ -44,21 +44,3 @@ t_bool	ft_isspace(char c)
 {
 	return (c == ' ' || (c >= 9 && c <= 13));
 }
-
-/**
- * find_last_node - iterates over a linked list
- * to find the last node.
- * @head: pointer to the first node
- * 
- * Return: pointer to the last node.
-*/
-token_ptr	find_blast_node(token_ptr head)
-{
-	while (head != NULL)
-	{
-		if (head->next->next == NULL)
-			break ;
-		head = head->next;
-	}
-	return (head);
-}
