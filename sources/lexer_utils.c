@@ -60,18 +60,12 @@ int	get_token_length(char *user_input, int type)
 	len = 0;
 	if (type == word_token)
 	{
-		while (get_type(user_input[len]) == 2 && user_input[len])
+		while (get_type(user_input[len]) == word_token && user_input[len])
 			len++;
 	}
 	else if (type == string_token)
 	{
 		while (user_input[len] != '"' && user_input[len] != '\''
-			&& user_input[len])
-			len++;
-	}
-	else if (type == option_token)
-	{
-		while ((get_type(user_input[len]) == 2 || get_type(user_input[len]) == 8)
 			&& user_input[len])
 			len++;
 	}
@@ -121,8 +115,6 @@ int	get_type(char user_input)
 		return (lbracket_token);
 	else if (user_input == ')')
 		return (rbracket_token);
-	else if (user_input == '-')
-		return (option_token);
 	else if (user_input == '<')
 		return (leftred_token);
 	else if (user_input == '>')
