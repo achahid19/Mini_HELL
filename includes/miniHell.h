@@ -84,6 +84,5 @@ int			get_type(char user_input);
 token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
 token_ptr	find_last_node(token_ptr head);
-int			node_list_count(token_ptr head);
 
 #endif /* MINIHELL_H */
