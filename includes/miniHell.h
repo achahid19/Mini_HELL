@@ -43,9 +43,9 @@ typedef enum e_type
 	doublequote_token = 5,
 	rbracket_token = 6,
 	lbracket_token = 7,
-	option_token = 8,
-	leftred_token = 9,
-	rightred_token = 10
+	leftred_token = 8,
+	rightred_token = 9,
+	heredoc_token = 10
 }   t_type;
 
 /**
@@ -83,6 +83,7 @@ int			get_type(char user_input);
 /* utilities */
 token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
+token_ptr	find_blast_node(token_ptr head);
 
 /* Parser */
 int		parser_tokens(token_ptr tokens_list);
