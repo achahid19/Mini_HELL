@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/19 02:03:39 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/05/20 01:00:31 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,11 @@ t_bool		ft_isspace(char c);
 
 /* Parser */
 int		parser_tokens(token_ptr tokens_list);
+int     pipe_checker(token_ptr tokens_list);
+
+
+/* signal handler */
+void	handler(int signum);
+void	signal_handler();
 
 #endif /* MINIHELL_H */

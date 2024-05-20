@@ -6,25 +6,14 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/19 02:08:38 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/05/19 22:43:39 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../includes/miniHell.h"
 
-void   handler(int signum)
-{
-    write(STDOUT, "\n", 1);
-    write(STDOUT, "kssh$ ", 6);
-}
 
-void   signal_handler()
-{
-    signal(SIGINT, handler);
-    signal(SIGQUIT, handler);
-    signal(SIGTSTP, handler);
-}
 void    check_tokens(token_ptr print_tk)
 {
     while (print_tk != NULL)
@@ -48,9 +37,12 @@ int main(int ac, char **av, char **envp)
 	while (true)
 	{
         user_input = readline("kssh$ ");
+        if (user_input == NULL) // for (ctrl + d)
+            exit (1);
         if (strcmp(user_input,"\0") != 0) // for history
             add_history(user_input);
 		tokens_list = lexer(user_input);
+        // check_tokens(tokens_list);
         if (parser_tokens(tokens_list) == 1)
             continue;
 		free(user_input);
