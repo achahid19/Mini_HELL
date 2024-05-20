@@ -61,6 +61,7 @@ typedef struct s_token
 	t_type		token_type; // define a type of each encoutred token
 	int			token_length;
 	token_ptr	next;
+	token_ptr	previous;
 }   t_token;
 
 typedef t_token *token_ptr;
@@ -82,6 +83,6 @@ int			get_type(char user_input);
 /* utilities */
 token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
-token_ptr	find_blast_node(token_ptr head);
+token_ptr	find_last_node(token_ptr head);
 
 #endif /* MINIHELL_H */

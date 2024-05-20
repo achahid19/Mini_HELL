@@ -39,6 +39,7 @@ void	token_create(char **user_input, token_ptr *tokens_head, int type, int order
 	new->order = order++;
 	new->token_type = type;
 	new->next = NULL;
+	new->previous = last;
 	if (last != NULL)
 		last->next = new;
 	if (*tokens_head == NULL)

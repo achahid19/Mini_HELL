@@ -35,7 +35,7 @@ token_ptr	lexer(char *user_input)
 	order = 1;
 	while (*user_input)
 	{
-		printf("------> pointing at: %s\n", user_input);
+		/* printf("------> pointing at: %s\n", user_input); */
 		type = get_type(*user_input);
 		if ((type == rightred_token || type == leftred_token)
 			&& type == get_type(*(user_input + 1)))
