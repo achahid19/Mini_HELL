@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/19 22:43:39 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/05/20 16:47:14 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int main(int ac, char **av, char **envp)
         if (strcmp(user_input,"\0") != 0) // for history
             add_history(user_input);
 		tokens_list = lexer(user_input);
-        // check_tokens(tokens_list);
+        check_tokens(tokens_list);
         if (parser_tokens(tokens_list) == 1)
             continue;
 		free(user_input);
