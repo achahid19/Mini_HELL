@@ -34,6 +34,22 @@ token_ptr	find_last_node(token_ptr head)
 }
 
 /**
+ * node_list_count
+*/
+int		node_list_count(token_ptr head)
+{
+	int	node_count;
+
+	node_count = 0;
+	while (head != NULL)
+	{
+		node_count++;
+		head = head->next;
+	}
+	return (node_count);
+}
+
+/**
  * ft_isspace - checks if the character c
  * is a space or not.
  * @c: character
