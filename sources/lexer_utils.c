@@ -14,7 +14,7 @@
 
 void    token_create(char **user_input, token_ptr *tokens_head,
 	    				int type, int order);
-int	    get_token_length(char *user_input, int type);
+int	    get_token_length(char *user_input, int type, token_ptr tokens_head);
 char    *get_token(char *user_input, int token_len);
 int	    get_type(char user_input);
 
@@ -34,7 +34,7 @@ void	token_create(char **user_input, token_ptr *tokens_head, int type, int order
 
 	last = find_last_node(*tokens_head);
 	new = malloc(sizeof(t_token)); // TODO if fail.
-	new->token_length = get_token_length(*user_input, type);
+	new->token_length = get_token_length(*user_input, type, *tokens_head);
 	new->token = get_token(*user_input, new->token_length);
 	new->order = order++;
 	new->token_type = type;
@@ -54,11 +54,13 @@ void	token_create(char **user_input, token_ptr *tokens_head, int type, int order
  * 
  * Return: token's length
 */
-int	get_token_length(char *user_input, int type)
+int	get_token_length(char *user_input, int type, token_ptr tokens_head)
 {
-	int	len;
+	int			len;
+	token_ptr	last;
 
 	len = 0;
+	last = find_last_node(tokens_head);
 	if (type == word_token)
 	{
 		while (get_type(user_input[len]) == word_token && user_input[len])
@@ -66,9 +68,17 @@ int	get_token_length(char *user_input, int type)
 	}
 	else if (type == string_token)
 	{
-		while (user_input[len] != '"' && user_input[len] != '\''
-			&& user_input[len])
+		while (last->token_type != get_type(user_input[len]) && user_input[len])
 			len++;
+		if (user_input[len] == '\0')
+		{
+			if (last->token_type == doublequote_token)
+				printf("bash: Error for double quotes\n");
+			else if (last->token_type == singlequote_token)
+				printf("bash: Error for single quotes\n");
+			// re-prompt
+			exit(EXIT_FAILURE);
+		}
 	}
 	else if (type == heredoc_token || type == append_token)
 		len = 2;
