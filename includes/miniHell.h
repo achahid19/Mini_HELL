@@ -69,13 +69,13 @@ typedef t_token *token_ptr;
 
 /* Lexical analyzer */
 token_ptr	lexer(char *user_input);
-void		string_tokens(char **user_input, token_ptr *tokens_head,
+t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
 							int type, int *order);
 void		char_tokens(char **user_input, token_ptr *tokens_head,
 							int type, int order);
 
 /* Lexer utils */
-void		token_create(char **user_input, token_ptr *tokens_head,
+t_bool		token_create(char **user_input, token_ptr *tokens_head,
 							int type, int order);
 int			get_token_length(char *user_input, int type, token_ptr tokens_head);
 char		*get_token(char *user_input, int token_len);
