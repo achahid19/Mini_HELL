@@ -37,9 +37,10 @@ token_ptr	lexer(char *user_input)
 	{
 		/* printf("------> pointing at: %s\n", user_input); */
 		type = get_type(*user_input);
-		if ((type == rightred_token || type == leftred_token)
-			&& type == get_type(*(user_input + 1)))
+		if (type == leftred_token && type == get_type(*(user_input + 1)))
 			token_create(&user_input, &tokens_head, heredoc_token, order++);
+		else if (type == rightred_token && type == get_type(*(user_input + 1)))
+			token_create(&user_input, &tokens_head, append_token, order++);
 		else if (type == singlequote_token || type == doublequote_token)
 			string_tokens(&user_input, &tokens_head, type, &order);
 		else

@@ -70,7 +70,7 @@ int	get_token_length(char *user_input, int type)
 			&& user_input[len])
 			len++;
 	}
-	else if (type == heredoc_token)
+	else if (type == heredoc_token || type == append_token)
 		len = 2;
 	else
 		len = 1;
