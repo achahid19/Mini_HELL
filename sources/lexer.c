@@ -79,7 +79,10 @@ t_bool	string_tokens(char **user_input, token_ptr *tokens_head,
 		*user_input += 1;
 	}
 	else
-		return (false);
+	{
+		if (get_type(**user_input) != type)
+			return (false);
+	}
 	token_create(user_input, tokens_head, type, *order);
 	*order += 1;
 	return (true);
