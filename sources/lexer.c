@@ -13,7 +13,7 @@
 #include "../includes/miniHell.h"
 
 token_ptr	lexer(char *user_input);
-void		string_tokens(char **user_input, token_ptr *tokens_head,
+t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
 							int type, int *order);
 void		char_tokens(char **user_input, token_ptr *tokens_head,
 							int type, int order);
@@ -37,11 +37,15 @@ token_ptr	lexer(char *user_input)
 	{
 		/* printf("------> pointing at: %s\n", user_input); */
 		type = get_type(*user_input);
-		if ((type == rightred_token || type == leftred_token)
-			&& type == get_type(*(user_input + 1)))
+		if (type == leftred_token && type == get_type(*(user_input + 1)))
 			token_create(&user_input, &tokens_head, heredoc_token, order++);
+		else if (type == rightred_token && type == get_type(*(user_input + 1)))
+			token_create(&user_input, &tokens_head, append_token, order++);
 		else if (type == singlequote_token || type == doublequote_token)
-			string_tokens(&user_input, &tokens_head, type, &order);
+		{
+			if (string_tokens(&user_input, &tokens_head, type, &order) == false)
+				return (NULL);
+		}
 		else
 			char_tokens(&user_input, &tokens_head, type, order++);
 		if (*user_input)
@@ -61,34 +65,27 @@ token_ptr	lexer(char *user_input)
  * 
  * Return: void.
 */
-void	string_tokens(char **user_input, token_ptr *tokens_head,
+t_bool	string_tokens(char **user_input, token_ptr *tokens_head,
 			int type, int *order)
 {
-	char	c;
-	int 	len;
-
 	token_create(user_input, tokens_head, type, *order);
 	*order += 1;
-	c = user_input[0][1];
-	if (get_type(c) != doublequote_token && get_type(c) != singlequote_token && c)
+	*user_input += 1;
+	if (get_token_length(*user_input, string_token, *tokens_head) != 0)
 	{
-		len = get_token_length(*user_input + 1, string_token);
-		if (user_input[0][len + 1] == '\0')
-			return ;
+		if (token_create(user_input, tokens_head, string_token, *order) == false)
+			return (false);
+		*order += 1;
 		*user_input += 1;
-		token_create(user_input, tokens_head, string_token, *order);
-		*order += 1;
 	}
-	c = user_input[0][1];
-	if (get_type(c) == type)
+	else
 	{
-		*user_input += 1; // move the user_input pointer
-		if (get_type(c) == doublequote_token)
-			token_create(user_input, tokens_head, doublequote_token, *order);
-		else if (get_type(c) == singlequote_token)
-			token_create(user_input, tokens_head, singlequote_token, *order);
-		*order += 1;
+		if (get_type(**user_input) != type)
+			return (false);
 	}
+	token_create(user_input, tokens_head, type, *order);
+	*order += 1;
+	return (true);
 }
 
 /**
