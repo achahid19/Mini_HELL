@@ -44,7 +44,8 @@ typedef enum e_type
 	lbracket_token = 7,
 	leftred_token = 8,
 	rightred_token = 9,
-	heredoc_token = 10
+	heredoc_token = 10,
+	append_token = 11
 }   t_type;
 
 /**
