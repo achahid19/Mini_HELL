@@ -77,7 +77,7 @@ void		char_tokens(char **user_input, token_ptr *tokens_head,
 /* Lexer utils */
 void		token_create(char **user_input, token_ptr *tokens_head,
 							int type, int order);
-int			get_token_length(char *user_input, int type);
+int			get_token_length(char *user_input, int type, token_ptr tokens_head);
 char		*get_token(char *user_input, int token_len);
 int			get_type(char user_input);
 
