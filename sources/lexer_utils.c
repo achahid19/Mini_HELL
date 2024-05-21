@@ -12,7 +12,7 @@
 
 #include "../includes/miniHell.h"
 
-void    token_create(char **user_input, token_ptr *tokens_head,
+t_bool  token_create(char **user_input, token_ptr *tokens_head,
 	    				int type, int order);
 int	    get_token_length(char *user_input, int type, token_ptr tokens_head);
 char    *get_token(char *user_input, int token_len);
@@ -27,13 +27,15 @@ int	    get_type(char user_input);
  * 
  * Return: void.
 */
-void	token_create(char **user_input, token_ptr *tokens_head, int type, int order)
+t_bool	token_create(char **user_input, token_ptr *tokens_head, int type, int order)
 {
 	token_ptr	new;
 	token_ptr	last;
 
 	last = find_last_node(*tokens_head);
 	new = malloc(sizeof(t_token)); // TODO if fail.
+	if (get_token_length(*user_input, type, *tokens_head) == false)
+		return (false);
 	new->token_length = get_token_length(*user_input, type, *tokens_head);
 	new->token = get_token(*user_input, new->token_length);
 	new->order = order++;
@@ -45,6 +47,7 @@ void	token_create(char **user_input, token_ptr *tokens_head, int type, int order
 	if (*tokens_head == NULL)
 		*tokens_head = new;
 	*user_input += new->token_length - 1; // move user_input pointer.
+	return (true);
 }
 
 /**
@@ -77,7 +80,7 @@ int	get_token_length(char *user_input, int type, token_ptr tokens_head)
 			else if (last->token_type == singlequote_token)
 				printf("bash: Error for single quotes\n");
 			// re-prompt
-			exit(EXIT_FAILURE);
+			return (false);
 		}
 	}
 	else if (type == heredoc_token || type == append_token)

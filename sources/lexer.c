@@ -13,7 +13,7 @@
 #include "../includes/miniHell.h"
 
 token_ptr	lexer(char *user_input);
-void		string_tokens(char **user_input, token_ptr *tokens_head,
+t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
 							int type, int *order);
 void		char_tokens(char **user_input, token_ptr *tokens_head,
 							int type, int order);
@@ -42,7 +42,10 @@ token_ptr	lexer(char *user_input)
 		else if (type == rightred_token && type == get_type(*(user_input + 1)))
 			token_create(&user_input, &tokens_head, append_token, order++);
 		else if (type == singlequote_token || type == doublequote_token)
-			string_tokens(&user_input, &tokens_head, type, &order);
+		{
+			if (string_tokens(&user_input, &tokens_head, type, &order) == false)
+				return (NULL);
+		}
 		else
 			char_tokens(&user_input, &tokens_head, type, order++);
 		if (*user_input)
@@ -62,7 +65,7 @@ token_ptr	lexer(char *user_input)
  * 
  * Return: void.
 */
-void	string_tokens(char **user_input, token_ptr *tokens_head,
+t_bool	string_tokens(char **user_input, token_ptr *tokens_head,
 			int type, int *order)
 {
 	token_create(user_input, tokens_head, type, *order);
@@ -70,12 +73,16 @@ void	string_tokens(char **user_input, token_ptr *tokens_head,
 	*user_input += 1;
 	if (get_token_length(*user_input, string_token, *tokens_head) != 0)
 	{
-		token_create(user_input, tokens_head, string_token, *order);
+		if (token_create(user_input, tokens_head, string_token, *order) == false)
+			return (false);
 		*order += 1;
 		*user_input += 1;
 	}
+	else
+		return (false);
 	token_create(user_input, tokens_head, type, *order);
 	*order += 1;
+	return (true);
 }
 
 /**
