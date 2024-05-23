@@ -14,6 +14,7 @@
 
 token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
+char *		ft_realloc(char *to_free, int new_len);
 
 /**
  * find_last_node - iterates over a linked list
@@ -43,4 +44,16 @@ token_ptr	find_last_node(token_ptr head)
 t_bool	ft_isspace(char c)
 {
 	return (c == ' ' || (c >= 9 && c <= 13));
+}
+
+/**
+ * ft_realloc -
+*/
+char	*ft_realloc(char *to_free, int new_len)
+{
+	char	*new_ptr;
+
+	free(to_free);
+	new_ptr = (char *)malloc(sizeof(char) * new_len + 1);
+	return (new_ptr);
 }
