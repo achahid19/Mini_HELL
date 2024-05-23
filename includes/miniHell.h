@@ -67,6 +67,18 @@ typedef struct s_token
 
 typedef t_token *token_ptr;
 
+/**
+ * struct for data expander
+*/
+typedef struct s_expand
+{
+	int 	new_tk_len;
+	char	*new_token;
+	int		dollar_tk_len;
+	int		tmp_tk_len;
+	size_t	i;
+}	t_expand;
+
 /* Lexical analyzer */
 token_ptr	lexer(char *user_input);
 t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
@@ -84,6 +96,10 @@ int			get_type(char user_input);
 /* utilities */
 token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
-token_ptr	find_last_node(token_ptr head);
+char		*ft_realloc(char *to_free, int new_len);
+
+/* expanser */
+void	tokens_expander(token_ptr tokens_list, char **envp);
+t_bool	check_expander_chars(char c);
 
 #endif /* MINIHELL_H */
