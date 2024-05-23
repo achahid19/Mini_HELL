@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// handle $ sign for expansion then clean all mem leaks.
+    // for $, chars to take (a..z, A..Z, '0'..'9', '_')
+    // optimize get_token_length function
+
+// Integrate dollar token for lexer
 
 #include "../includes/miniHell.h"
 
@@ -40,10 +45,8 @@ int main(int ac, char **av, char **envp)
 	while (true)
 	{
         user_input = readline("kssh$ ");
-		// tokenization of retrived intput
 		tokens_list = lexer(user_input);
-        /* if (tokens_list == NULL)
-            continue ; */
+        tokens_expander(tokens_list, envp);
         check_tokens(tokens_list);
 		printf("str: %s\n", user_input);
 		free(user_input);
