@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   miniHell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/20 01:00:31 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/05/05 10:31:12 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIHELL_H
 # define MINIHELL_H
-#include <signal.h> // for handling signals
 # include <stdio.h> // for debugging
 # include <unistd.h> // write ...
 # include <limits.h> // INT_MAX ...
@@ -45,7 +44,8 @@ typedef enum e_type
 	lbracket_token = 7,
 	leftred_token = 8,
 	rightred_token = 9,
-	heredoc_token = 10
+	heredoc_token = 10,
+	append_token = 11
 }   t_type;
 
 /**
@@ -62,36 +62,44 @@ typedef struct s_token
 	t_type		token_type; // define a type of each encoutred token
 	int			token_length;
 	token_ptr	next;
+	token_ptr	previous;
 }   t_token;
 
 typedef t_token *token_ptr;
 
+/**
+ * struct for data expander
+*/
+typedef struct s_expand
+{
+	int 	new_tk_len;
+	char	*new_token;
+	int		dollar_tk_len;
+	int		tmp_tk_len;
+	size_t	i;
+}	t_expand;
+
 /* Lexical analyzer */
 token_ptr	lexer(char *user_input);
-void		string_tokens(char **user_input, token_ptr *tokens_head,
+t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
 							int type, int *order);
 void		char_tokens(char **user_input, token_ptr *tokens_head,
 							int type, int order);
 
 /* Lexer utils */
-void		token_create(char **user_input, token_ptr *tokens_head,
+t_bool		token_create(char **user_input, token_ptr *tokens_head,
 							int type, int order);
-int			get_token_length(char *user_input, int type);
+int			get_token_length(char *user_input, int type, token_ptr tokens_head);
 char		*get_token(char *user_input, int token_len);
 int			get_type(char user_input);
 
 /* utilities */
 token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
-token_ptr	find_blast_node(token_ptr head);
+char		*ft_realloc(char *to_free, int new_len);
 
-/* Parser */
-int		parser_tokens(token_ptr tokens_list);
-int     pipe_checker(token_ptr tokens_list);
-
-
-/* signal handler */
-void	handler(int signum);
-void	signal_handler();
+/* expanser */
+void	tokens_expander(token_ptr tokens_list, char **envp);
+t_bool	check_expander_chars(char c);
 
 #endif /* MINIHELL_H */

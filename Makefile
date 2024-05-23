@@ -2,11 +2,12 @@
 
 CC = cc
 
-# CFLAGS = -Wall -Wextra -Werror -g
+# CFLAGS = -Wall -Wextra -Werror
 
 MAKE = make
 
-SRC = $(addprefix sources/, hellGate.c lexer.c utils1.c lexer_utils.c pipe_checker.c parser.c extra_cases.c) \
+SRC = $(addprefix sources/, hellGate.c lexer.c utils1.c lexer_utils.c \
+		expander.c)
 
 OBJ = $(SRC:.c=.o)
 
@@ -25,7 +26,7 @@ TOKEN = ghp_PcXPXcNDtE5TkUNF2s2kEcVhWCC9f0dZ33c
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT_AR)
-		$(CC) $(CFLAGS)  $(OBJ) $(LIBFT_AR) $(READLINE_LIB) -o $(NAME)
+		$(CC) $(CFLAGS) $(READLINE_LIB) $(OBJ) $(LIBFT_AR) -o $(NAME)
 
 $(LIBFT_AR):
 		@$(MAKE) -C ./libft
