@@ -124,5 +124,6 @@ t_bool		string_handler(token_ptr *tokens_list);
 t_bool		check_if_dollar(char c, token_ptr *tokens_list);
 void		tokens_expander_helper(token_ptr tokens_list, char **envp,
 			t_expand d);
+int			get_biggest_len(char *envp, char *dollar_tk);
 
 #endif /* MINIHELL_H */
