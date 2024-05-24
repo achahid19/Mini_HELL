@@ -98,8 +98,14 @@ token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
 char		*ft_realloc(char *to_free, int new_len);
 
-/* expanser */
-void	tokens_expander(token_ptr tokens_list, char **envp);
-t_bool	check_expander_chars(char c);
+/* expander */
+void		tokens_expander(token_ptr tokens_list, char **envp);
+t_bool		check_expander_chars(char c);
+
+/* expander utils */
+char		*find_dollar(char *ptr_token);
+t_bool  	check_expander_chars(char c);
+int			get_variable_len(char *envp);
+char		*retrieve_value(char *envp, char *dollar_tk);
 
 #endif /* MINIHELL_H */
