@@ -16,6 +16,7 @@ char	*find_dollar(char *ptr_token);
 t_bool	check_expander_chars(char c);
 int		get_variable_len(char *envp);
 char	*retrieve_value(char *envp, char *dollar_tk);
+t_bool	check_type(int token_type);
 
 /**
  * find_dollar -
@@ -84,4 +85,13 @@ char	*retrieve_value(char *envp, char *dollar_tk)
 	}
 	dollar_tk[value_len] = '\0';
 	return (dollar_tk);
+}
+
+/**
+ * check_type -
+*/
+t_bool	check_type(int token_type)
+{
+	return (token_type == word_token
+			|| token_type == doublequote_token);
 }

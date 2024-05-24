@@ -12,7 +12,8 @@
 
 #include "../includes/miniHell.h"
 
-// add expanding for doublequotes
+// add expanding for doublequotes (DONE)
+// reduce tokens_expander function for norminette (in progress)
 // Case to handle: $$ and $?
 // handle leaks
 // DO protect if envp is NULL
@@ -38,8 +39,10 @@ void	tokens_expander(token_ptr tokens_list, char **envp)
 	tmp_dollar_len = 0;
 	while (tokens_list != NULL)
 	{
-		if (tokens_list->token_type == word_token)
+		if (check_type(tokens_list->token_type) == true)
 		{
+			if (string_handler(&tokens_list) == false)
+				return;
 			ptr_token = tokens_list->token;
 			ptr_token = find_dollar(ptr_token);
 			if (*ptr_token == '\0')
@@ -56,7 +59,7 @@ void	tokens_expander(token_ptr tokens_list, char **envp)
 			dollar_tk = get_value(dollar_tk, &dollar_tk_len, envp);
 			tokens_list->token = expanding(dollar_tk, tokens_list->token, tmp_dollar_len);
 			tokens_list->token_length = ft_strlen(tokens_list->token);
-				printf("---> dollar_tk: %s\n", dollar_tk);
+			printf("---> dollar_tk: %s\n", dollar_tk);
 		}
 		tokens_list = tokens_list->next;
 	}
