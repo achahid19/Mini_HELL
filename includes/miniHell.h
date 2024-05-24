@@ -107,5 +107,9 @@ char		*find_dollar(char *ptr_token);
 t_bool  	check_expander_chars(char c);
 int			get_variable_len(char *envp);
 char		*retrieve_value(char *envp, char *dollar_tk);
+t_bool		check_type(int token_type);
+
+/* expnader utils2 */
+t_bool		string_handler(token_ptr *tokens_list);
 
 #endif /* MINIHELL_H */
