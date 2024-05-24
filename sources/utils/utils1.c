@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 08:36:20 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/14 08:36:22 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/05/24 18:37:47 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniHell.h"
+#include "../../includes/miniHell.h"
 
 token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);

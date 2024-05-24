@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 22:46:43 by akajjou           #+#    #+#             */
-/*   Updated: 2024/05/24 17:06:53 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/05/24 18:46:58 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int     last_pipe_checker(token_ptr tokens_list)
     tmp = tokens_list;
     while (tmp->next->next)
         tmp = tmp->next;
-    printf("tmp->order = %d\n", tmp->order);
-    exit(0);
     tmp = tmp->previous;
     if (tmp->token_type == 0)
         while (tmp->order != 1 && tmp->previous->token_type == 0)
@@ -63,20 +61,10 @@ int     last_pipe_checker(token_ptr tokens_list)
 
 int     pipe_checker(token_ptr tokens_list)
 {
-    token_ptr  tmp = tokens_list;
-
-        tmp = tmp->next;
-        tmp = tmp->next;
-        tmp = tmp->next;
-    while (tmp->order >= 1)
-    {
-        printf("%s\n",tmp->token);
-        tmp = tmp->previous;
-    }
-        exit (0);
+    
     if (first_pipe_checker(tokens_list) == 1) // check for the first pipe and double pipe
         return 1;
-    if (last_pipe_checker(tokens_list) == 1) // check for the last pipe
-        return 1;
+    // if (last_pipe_checker(tokens_list) == 1) // check for the last pipe
+    //     return 1;
     return 0;
 }

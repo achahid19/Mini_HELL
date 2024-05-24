@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 09:28:12 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/16 09:28:14 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/05/24 18:37:20 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniHell.h"
+#include "../../includes/miniHell.h"
 
 t_bool  token_create(char **user_input, token_ptr *tokens_head,
 	    				int type, int order);
