@@ -14,6 +14,8 @@
 
 // add expanding for doublequotes (DONE)
 // reduce tokens_expander function for norminette (in progress)
+// fix urgent problem: $PWDa, only envp lenght is compared!
+	// handle each one $PWD$PWD (SegFault)
 // Case to handle: $$ and $?
 // handle leaks
 // DO protect if envp is NULL
@@ -30,39 +32,13 @@ void	move_data(t_expand *data, char *dollar_tk, char *token);
 */
 void	tokens_expander(token_ptr tokens_list, char **envp)
 {
-	char	*ptr_token;
-	int		dollar_tk_len;
-	char	*dollar_tk;
-	int		tmp_dollar_len;
+	t_expand	d;
 
-	dollar_tk_len = 0;
-	tmp_dollar_len = 0;
-	while (tokens_list != NULL)
-	{
-		if (check_type(tokens_list->token_type) == true)
-		{
-			if (string_handler(&tokens_list) == false)
-				return;
-			ptr_token = tokens_list->token;
-			ptr_token = find_dollar(ptr_token);
-			if (*ptr_token == '\0')
-			{
-				tokens_list = tokens_list->next;
-				continue ;
-			}
-			while (check_expander_chars(ptr_token[dollar_tk_len + 1]) == true)
-				dollar_tk_len++;
-			if (dollar_tk_len == 0) // if we have only dollar token
-				break;
-			tmp_dollar_len = dollar_tk_len;
-			dollar_tk = extract_dollar_token(ptr_token, dollar_tk, dollar_tk_len);
-			dollar_tk = get_value(dollar_tk, &dollar_tk_len, envp);
-			tokens_list->token = expanding(dollar_tk, tokens_list->token, tmp_dollar_len);
-			tokens_list->token_length = ft_strlen(tokens_list->token);
-			printf("---> dollar_tk: %s\n", dollar_tk);
-		}
-		tokens_list = tokens_list->next;
-	}
+	d.dollar_tk_len = 0;
+	d.tmp_dollar_len = 0;
+	d.ptr_token = NULL;
+	d.new_token = NULL;
+	tokens_expander_helper(tokens_list, envp, d);
 }
 
 /**

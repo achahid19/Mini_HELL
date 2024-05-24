@@ -27,3 +27,49 @@ t_bool	string_handler(token_ptr *tokens_list)
 	}
 	return (true);
 }
+
+/**
+ * check_if_dollar -
+*/
+t_bool	check_if_dollar(char c, token_ptr *tokens_list)
+{
+	if (c == '\0')
+	{
+		(*tokens_list) = (*tokens_list)->next;
+		return (false);
+	}
+	// its a dollar $.
+	return (true);
+}
+
+/**
+ * tokens_expander_helper -
+*/
+void	tokens_expander_helper(token_ptr tokens_list, char **envp,
+			t_expand d)
+{
+	while (tokens_list != NULL)
+	{
+		if (check_type(tokens_list->token_type) == true)
+		{
+			if (string_handler(&tokens_list) == false)
+				return ;
+			d.ptr_token = find_dollar(tokens_list->token);
+			if (check_if_dollar(*d.ptr_token, &tokens_list) == false)
+				continue ;
+			while (check_expander_chars(d.ptr_token[d.dollar_tk_len + 1])
+					== true)
+				d.dollar_tk_len++;
+			if (d.dollar_tk_len == 0) // if we have only dollar token
+				break;
+			d.tmp_dollar_len = d.dollar_tk_len;
+			d.dollar_tk = extract_dollar_token(d.ptr_token, d.dollar_tk,
+							d.dollar_tk_len);
+			d.dollar_tk = get_value(d.dollar_tk, &d.dollar_tk_len, envp);
+			tokens_list->token = expanding(d.dollar_tk, tokens_list->token,
+									d.tmp_dollar_len);
+			tokens_list->token_length = ft_strlen(tokens_list->token);
+		}
+		tokens_list = tokens_list->next;
+	}
+}
