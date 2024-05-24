@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniHell.h"
+#include "../../includes/miniHell.h"
 
 t_bool  token_create(char **user_input, token_ptr *tokens_head,
 	    				int type, int order);
