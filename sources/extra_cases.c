@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   extra_cases.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 10:30:47 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/23 18:49:14 by akajjou          ###   ########.fr       */
+/*   Created: 2024/05/19 17:29:00 by akajjou           #+#    #+#             */
+/*   Updated: 2024/05/23 18:59:40 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/miniHell.h"
 
-int    ft_type_check(token_ptr tokens_list)
+void   handler(int signum)
 {
-    if (pipe_checker(tokens_list) == 1)
-        return 1;
-    return 0;
+    write(STDOUT, "\n", 1);
+    write(STDOUT, "kssh$ ", 6);
 }
 
-int   parser_tokens(token_ptr tokens_list)
+void   signal_handler()
 {
-    if (tokens_list == NULL)
-        return  0;
-    if (ft_type_check(tokens_list) == 1)
-        return 1;
-    return 0;
+    signal(SIGINT, handler);
+    signal(SIGQUIT, handler);
 }

@@ -6,7 +6,7 @@ CC = cc
 
 MAKE = make
 
-SRC = $(addprefix sources/, hellGate.c lexer.c utils1.c lexer_utils.c \
+SRC = $(addprefix sources/, hellGate.c lexer.c utils1.c parser.c pipe_checker.c extra_cases.c lexer_utils.c \
 		expander.c)
 
 OBJ = $(SRC:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hellGate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:30:08 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:53:11 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,19 @@ int main(int ac, char **av, char **envp)
 {
 	char        *user_input;
 	token_ptr   tokens_list;
-
+    
+    signal_handler();
 	while (true)
 	{
         user_input = readline("kssh$ ");
+        if (user_input == NULL) // for (ctrl + d)
+            exit (1);
+        if (strcmp(user_input,"\0") != 0) // for history
+            add_history(user_input);
 		tokens_list = lexer(user_input);
         tokens_expander(tokens_list, envp);
-        check_tokens(tokens_list);
-		printf("str: %s\n", user_input);
+        if (parser_tokens(tokens_list) == 1)
+            continue;
 		free(user_input);
 	}
 }

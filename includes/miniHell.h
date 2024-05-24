@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   miniHell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:31:12 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:47:05 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIHELL_H
 # define MINIHELL_H
+# include <signal.h> // for handling signals
 # include <stdio.h> // for debugging
 # include <unistd.h> // write ...
 # include <limits.h> // INT_MAX ...
@@ -101,5 +102,13 @@ char		*ft_realloc(char *to_free, int new_len);
 /* expanser */
 void	tokens_expander(token_ptr tokens_list, char **envp);
 t_bool	check_expander_chars(char c);
+
+/* Parser */
+int             parser_tokens(token_ptr tokens_list);
+int     pipe_checker(token_ptr tokens_list);
+
+/* signal handler */
+void    handler(int signum);
+void    signal_handler();
 
 #endif /* MINIHELL_H */
