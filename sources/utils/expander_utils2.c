@@ -12,6 +12,12 @@
 
 #include "../../includes/miniHell.h"
 
+t_bool	string_handler(token_ptr *tokens_list);
+t_bool	check_if_dollar(char c, token_ptr *tokens_list);
+int		get_biggest_len(char *envp, char *dollar_tk);
+void	tokens_expander_helper(token_ptr tokens_list, char **envp,
+			t_expand d);
+
 /**
  * string_hanlder - handle the execution of the
  * expansion of dollar sign, in double quoted string
@@ -40,6 +46,21 @@ t_bool	check_if_dollar(char c, token_ptr *tokens_list)
 	}
 	// its a dollar $.
 	return (true);
+}
+
+/**
+ * get_biggest_len -
+*/
+int		get_biggest_len(char *envp, char *dollar_tk)
+{
+	int	envp_len;
+	int dollar_tk_len;
+
+	envp_len = 	get_variable_len(envp);
+	dollar_tk_len = ft_strlen(dollar_tk);
+	if (envp_len > dollar_tk_len)
+		return (envp_len);
+	return (dollar_tk_len);
 }
 
 /**

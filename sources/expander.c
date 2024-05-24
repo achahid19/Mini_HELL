@@ -14,7 +14,7 @@
 
 // add expanding for doublequotes (DONE)
 // reduce tokens_expander function for norminette (in progress)
-// fix urgent problem: $PWDa, only envp lenght is compared!
+// fix urgent problem: $PWDa, only envp lenght is compared! (in progress)
 	// handle each one $PWD$PWD (SegFault)
 // Case to handle: $$ and $?
 // handle leaks
@@ -74,7 +74,7 @@ char	*get_value(char *dollar_tk, int *dtk_len, char **envp)
 	i = 0;
 	while (envp[i] != NULL)
 	{
-		cmp_len = get_variable_len(envp[i]);
+		cmp_len = get_biggest_len(envp[i], dollar_tk);
 		if (ft_strncmp(dollar_tk, envp[i], cmp_len) == 0)
 		{
 			// must return the new one
