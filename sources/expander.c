@@ -32,13 +32,13 @@ void	move_data(t_expand *data, char *dollar_tk, char *token);
 */
 void	tokens_expander(token_ptr tokens_list, char **envp)
 {
-	t_expand	d;
+	t_expand	data;
 
-	d.dollar_tk_len = 0;
-	d.tmp_dollar_len = 0;
-	d.ptr_token = NULL;
-	d.new_token = NULL;
-	tokens_expander_helper(tokens_list, envp, d);
+	data.dollar_tk_len = 0;
+	data.tmp_dollar_len = 0;
+	data.ptr_token = NULL;
+	data.new_token = NULL;
+	tokens_expander_helper(tokens_list, envp, data);
 }
 
 /**
