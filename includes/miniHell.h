@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   miniHell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:31:12 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/05/24 18:28:47 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIHELL_H
 # define MINIHELL_H
+# include <signal.h> // for handling signals
 # include <stdio.h> // for debugging
 # include <unistd.h> // write ...
 # include <limits.h> // INT_MAX ...
@@ -90,6 +91,13 @@ t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
 void		char_tokens(char **user_input, token_ptr *tokens_head,
 							int type, int order);
 
+/* Lexical analyzer */
+token_ptr	lexer(char *user_input);
+t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
+							int type, int *order);
+void		char_tokens(char **user_input, token_ptr *tokens_head,
+							int type, int order);
+
 /* Lexer utils */
 t_bool		token_create(char **user_input, token_ptr *tokens_head,
 							int type, int order);
@@ -125,5 +133,13 @@ t_bool		check_if_dollar(char c, token_ptr *tokens_list);
 void		tokens_expander_helper(token_ptr tokens_list, char **envp,
 			t_expand d);
 int			get_biggest_len(char *envp, char *dollar_tk);
+
+/* Parser */
+int             parser_tokens(token_ptr tokens_list);
+int     pipe_checker(token_ptr tokens_list);
+
+/* signal handler */
+void    handler(int signum);
+void    signal_handler();
 
 #endif /* MINIHELL_H */
