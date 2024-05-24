@@ -77,6 +77,10 @@ typedef struct s_expand
 	int		dollar_tk_len;
 	int		tmp_tk_len;
 	size_t	i;
+	/* tokens_expander data */
+	char	*ptr_token;
+	char	*dollar_tk;
+	int		tmp_dollar_len;
 }	t_expand;
 
 /* Lexical analyzer */
@@ -98,8 +102,28 @@ token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
 char		*ft_realloc(char *to_free, int new_len);
 
-/* expanser */
-void	tokens_expander(token_ptr tokens_list, char **envp);
-t_bool	check_expander_chars(char c);
+/* expander */
+void		tokens_expander(token_ptr tokens_list, char **envp);
+t_bool		check_expander_chars(char c);
+char		*extract_dollar_token(char *ptr_token, char *dollar_tk,
+				int dollar_tk_len);
+char		*get_value(char *dollar_tk, int *dtk_len, char **envp);
+char		*expanding(char *dollar_tk, char *token, int tmp_tk_len);
+void		move_data(t_expand *data, char *dollar_tk, char *token);
+
+
+/* expander utils */
+char		*find_dollar(char *ptr_token);
+t_bool  	check_expander_chars(char c);
+int			get_variable_len(char *envp);
+char		*retrieve_value(char *envp, char *dollar_tk);
+t_bool		check_type(int token_type);
+
+/* expnader utils2 */
+t_bool		string_handler(token_ptr *tokens_list);
+t_bool		check_if_dollar(char c, token_ptr *tokens_list);
+void		tokens_expander_helper(token_ptr tokens_list, char **envp,
+			t_expand d);
+int			get_biggest_len(char *envp, char *dollar_tk);
 
 #endif /* MINIHELL_H */

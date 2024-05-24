@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniHell.h"
+#include "../../includes/miniHell.h"
 
 token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
