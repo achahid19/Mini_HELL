@@ -82,6 +82,7 @@ typedef struct s_expand
 	char	*ptr_token;
 	char	*dollar_tk;
 	int		tmp_dollar_len;
+	int		dollars_count;
 }	t_expand;
 
 /* Lexical analyzer */
@@ -135,11 +136,11 @@ void		tokens_expander_helper(token_ptr tokens_list, char **envp,
 int			get_biggest_len(char *envp, char *dollar_tk);
 
 /* Parser */
-int             parser_tokens(token_ptr tokens_list);
-int     pipe_checker(token_ptr tokens_list);
+int			parser_tokens(token_ptr tokens_list);
+int			pipe_checker(token_ptr tokens_list);
 
 /* signal handler */
-void    handler(int signum);
-void    signal_handler();
+void		handler(int signum);
+void		signal_handler();
 
 #endif /* MINIHELL_H */
