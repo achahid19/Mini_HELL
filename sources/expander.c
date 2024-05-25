@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 09:40:19 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/24 18:38:07 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/05/22 09:40:21 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniHell.h"
 
 // add expanding for doublequotes (DONE)
-// reduce tokens_expander function for norminette (in progress)
-// fix urgent problem: $PWDa, only envp lenght is compared! (in progress)
-	// handle each one $PWD$PWD (SegFault)
+// reduce tokens_expander function for norminette (Done)
+// fix urgent problem: $PWDa, only envp lenght is compared! (Done)
+	// handle each one $PWD$PWD (SegFault) (in progress)
+		// solution: treat each dollar as word_token. (only working for words_tokens)
+		// Problem still in strings tokens;
 // Case to handle: $$ and $?
 // handle leaks
 // DO protect if envp is NULL
@@ -130,6 +132,7 @@ char	*expanding(char *dollar_tk, char *token, int tmp_tk_len)
 void	move_data(t_expand *data, char *dollar_tk, char *token)
 {
 	data->i = 0;
+
 	while (data->i < data->new_tk_len)
 	{
 		if (*token != '$')
