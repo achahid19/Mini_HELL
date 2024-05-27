@@ -83,13 +83,13 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 {
 	while (tokens_list != NULL)
 	{
+		if (string_handler(&tokens_list) == false)
+			return ;
 		d.dollars_count = dollars_count(tokens_list->token);
 		while (d.dollars_count-- > 0)
 		{
 			if (check_type(tokens_list->token_type) == true)
 			{
-				if (string_handler(&tokens_list) == false)
-					return ;
 				d.ptr_token = find_dollar(tokens_list->token);
 				printf("next dollar found: %s\n", d.ptr_token);
 				if (check_if_dollar(*d.ptr_token, &tokens_list) == false)

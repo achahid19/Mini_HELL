@@ -93,5 +93,5 @@ char	*retrieve_value(char *envp, char *dollar_tk)
 t_bool	check_type(int token_type)
 {
 	return (token_type == word_token
-			|| token_type == doublequote_token);
+			|| token_type == string_token);
 }

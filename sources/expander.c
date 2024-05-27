@@ -15,10 +15,11 @@
 // add expanding for doublequotes (DONE)
 // reduce tokens_expander function for norminette (Done)
 // fix urgent problem: $PWDa, only envp lenght is compared! (Done)
-	// handle each one $PWD$PWD (SegFault) (in progress)
+	// handle each one $PWD$PWD (SegFault) (DONE)
 		// solution: treat each dollar as word_token. (only working for words_tokens)
 		// Problem still in strings tokens;
-// Case to handle: $$ and $?
+// Problem still on: $$ and $? and "$" (in progress)
+	// working on doublequotes "$".
 // handle leaks
 // DO protect if envp is NULL
 
