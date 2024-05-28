@@ -35,20 +35,6 @@ t_bool	string_handler(token_ptr *tokens_list)
 }
 
 /**
- * check_if_dollar -
-*/
-t_bool	check_if_dollar(char c, token_ptr *tokens_list)
-{
-	if (c == '\0')
-	{
-		(*tokens_list) = (*tokens_list)->next;
-		return (false);
-	}
-	// its a dollar $.
-	return (true);
-}
-
-/**
  * get_biggest_len -
 */
 int		get_biggest_len(char *envp, char *dollar_tk)
@@ -92,11 +78,9 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 			{
 				d.ptr_token = find_dollar(tokens_list->token);
 				printf("next dollar found: %s\n", d.ptr_token);
-				if (check_if_dollar(*d.ptr_token, &tokens_list) == false)
-					continue ;
-				while (check_expander_chars(d.ptr_token[d.dollar_tk_len + 1])
-						== true)
-					d.dollar_tk_len++;
+				if (*d.ptr_token == '\0')
+					break ;
+				check_expander_chars(&d);
 				printf("dollar len: %d in %d\n", d.dollar_tk_len, d.dollars_count);
 				if (d.dollar_tk_len == 0) // if we have only dollar token
 					break;
