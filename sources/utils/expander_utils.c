@@ -23,10 +23,14 @@ t_bool	check_type(int token_type);
 */
 char	*find_dollar(char *ptr_token)
 {
+	char c;
+
 	while (*ptr_token)
 	{
-		if (*ptr_token == '$')
-			break;
+		c = *(ptr_token + 1);
+		if (*ptr_token == '$' && *(ptr_token + 1) != '$'
+			&& (ft_isalpha(c) || ft_isdigit(c) || c == '_'))
+				break;
 		ptr_token++;
 	}
 	return (ptr_token);

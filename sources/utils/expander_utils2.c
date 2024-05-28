@@ -55,7 +55,7 @@ int	dollars_count(char *token)
 
 	while (*token)
 	{
-		if (*token == '$')
+		if (*token == '$' && *(token + 1) != '$')
 			dollars++;
 		token++;
 	}
@@ -72,30 +72,28 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 		if (string_handler(&tokens_list) == false)
 			return ;
 		d.dollars_count = dollars_count(tokens_list->token);
+		printf("dollars: %d\n", d.dollars_count);
 		while (d.dollars_count-- > 0)
-		{
-			if (check_type(tokens_list->token_type) == true)
-			{
-				d.ptr_token = find_dollar(tokens_list->token);
-				printf("next dollar found: %s\n", d.ptr_token);
-				if (*d.ptr_token == '\0')
-					break ;
-				check_expander_chars(&d);
-				printf("dollar len: %d in %d\n", d.dollar_tk_len, d.dollars_count);
-				if (d.dollar_tk_len == 0) // if we have only dollar token
-					break;
-				d.tmp_dollar_len = d.dollar_tk_len;
-				d.dollar_tk = extract_dollar_token(d.ptr_token, d.dollar_tk,
-								d.dollar_tk_len);
-				d.dollar_tk = get_value(d.dollar_tk, &d.dollar_tk_len, envp);
-				// free tokens_list before pointig to new memory address
-				tokens_list->token = expanding(d.dollar_tk, tokens_list->token,
-										d.tmp_dollar_len);
-				tokens_list->token_length = ft_strlen(tokens_list->token);
-				printf("token now is: %s\n", tokens_list->token);
-				d.ptr_token = NULL;
-				d.dollar_tk_len = 0;
-			}
+		{	
+			if (check_type(tokens_list->token_type) == false)
+				return ;
+			d.ptr_token = find_dollar(tokens_list->token);
+			printf("next dollar found: %s\n", d.ptr_token);
+			if (*d.ptr_token == '\0')
+				break ;
+			check_expander_chars(&d);
+			printf("dollar token len: %d\n", d.dollar_tk_len);
+			if (d.dollar_tk_len == 0) // if we have only dollar token
+				break ;
+			d.tmp_dollar_len = d.dollar_tk_len;
+			d.dollar_tk = extract_dollar_token(d.ptr_token, d.dollar_tk,
+							d.dollar_tk_len);
+			d.dollar_tk = get_value(d.dollar_tk, &d.dollar_tk_len, envp);
+			tokens_list->token = expanding(d.dollar_tk, tokens_list->token,
+									d.tmp_dollar_len);
+			d.ptr_token = NULL;
+			d.dollar_tk_len = 0;
+			printf("token now is: %s\n", tokens_list->token);
 		}
 		tokens_list = tokens_list->next;
 	}

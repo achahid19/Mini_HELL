@@ -42,6 +42,7 @@ void	tokens_expander(token_ptr tokens_list, char **envp)
 	data.ptr_token = NULL;
 	data.new_token = NULL;
 	tokens_expander_helper(tokens_list, envp, data);
+	tokens_list->token_length = ft_strlen(tokens_list->token);
 }
 
 /**
@@ -110,7 +111,7 @@ char	*expanding(char *dollar_tk, char *token, int tmp_tk_len)
 	data.tmp_tk_len = tmp_tk_len;
 	while (token[data.i])
 	{
-		if (token[data.i] == '$')
+		if (token[data.i] == '$' && token[data.i + 1] != '$')
 		{
 			while (tmp_tk_len-- >= 0)
 				data.i++;
@@ -123,8 +124,6 @@ char	*expanding(char *dollar_tk, char *token, int tmp_tk_len)
 	data.new_tk_len += data.dollar_tk_len;
 	data.new_token = malloc(sizeof(char) * data.new_tk_len  + 1);
 	move_data(&data, dollar_tk, token);
-	// free what is needed to be freed
-	// token list to be freed
 	free(token);
 	return (data.new_token);
 }
@@ -145,7 +144,9 @@ void	move_data(t_expand *data, char *dollar_tk, char *token)
 			token++;
 			data->i++;
 		}
-		else if (*token == '$' && flag == 0)
+		else if (*token == '$' && flag == 0 && *(token + 1) != '$'
+				&& (ft_isalpha(*(token + 1))
+				|| ft_isdigit(*(token + 1)) || *(token + 1) == '_'))
 		{
 			flag = 1;
 			/* printf("sdkfjs %d\n", data->tmp_tk_len); */
