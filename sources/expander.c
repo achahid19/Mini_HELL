@@ -145,8 +145,7 @@ void	move_data(t_expand *data, char *dollar_tk, char *token)
 			data->i++;
 		}
 		else if (*token == '$' && flag == 0 && *(token + 1) != '$'
-				&& (ft_isalpha(*(token + 1))
-				|| ft_isdigit(*(token + 1)) || *(token + 1) == '_'))
+				&& (ft_isalpha(*(token + 1)) || *(token + 1) == '_'))
 		{
 			flag = 1;
 			/* printf("sdkfjs %d\n", data->tmp_tk_len); */

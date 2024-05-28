@@ -29,7 +29,7 @@ char	*find_dollar(char *ptr_token)
 	{
 		c = *(ptr_token + 1);
 		if (*ptr_token == '$' && *(ptr_token + 1) != '$'
-			&& (ft_isalpha(c) || ft_isdigit(c) || c == '_'))
+			&& (ft_isalpha(c) || c == '_'))
 				break;
 		ptr_token++;
 	}
@@ -48,15 +48,10 @@ void	check_expander_chars(t_expand *d)
 	while (d->ptr_token[i])
 	{
 		c = d->ptr_token[i + 1];
-		if (ft_isalpha(c) ||  c == '_')
+		if (ft_isalpha(c) ||  c == '_' || ft_isdigit(c))
 		{
 			i++;
 			d->dollar_tk_len++;
-		}
-		else if (ft_isdigit(c))
-		{
-			d->dollar_tk_len++;
-			break;
 		}
 		else
 			break;
