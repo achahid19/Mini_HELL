@@ -16,9 +16,8 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 			t_expand d);
 int		dollars_count(char *token);
 t_bool	string_handler(token_ptr *tokens_list);
-t_bool	check_if_dollar(char c, token_ptr *tokens_list);
 int		get_biggest_len(char *envp, char *dollar_tk);
-
+void	data_move_helper(t_expand *data, char **token);
 
 /**
  * tokens_expander_helper -
@@ -107,3 +106,12 @@ int		get_biggest_len(char *envp, char *dollar_tk)
 	return (dollar_tk_len);
 }
 
+/**
+ * data_move_helper -
+*/
+void	data_move_helper(t_expand *data, char **token)
+{
+	data->new_token[data->i] = token[0][0];
+	*token += 1;
+	data->i++;
+}

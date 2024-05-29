@@ -28,6 +28,7 @@ char	*extract_dollar_token(char *ptr_token, char *dollar_tk,
 			int dollar_tk_len);
 char	*get_value(char *dollar_tk, int *dtk_len, char **envp);
 char	*expanding(char *dollar_tk, char *token, int tmp_tk_len);
+void	move_data(t_expand *data, char *dollar_tk, char *token);
 
 /**
  * tokens_expander -
@@ -129,4 +130,35 @@ char	*expanding(char *dollar_tk, char *token, int tmp_tk_len)
 	move_data(&data, dollar_tk, token);
 	free(token);
 	return (data.new_token);
+}
+
+/**
+ * move-data -
+*/
+void	move_data(t_expand *data, char *dollar_tk, char *token)
+{
+	data->i = 0;
+	data->flag = false;
+	while (data->i < data->new_tk_len)
+	{
+		
+		if (*token != '$')
+			data_move_helper(data, &token);
+		else if (*token == '$' && data->flag == 0 && *(token + 1) != '$'
+				&& (ft_isalpha(*(token + 1)) || *(token + 1) == '_'))
+		{
+			data->flag = true;
+			while (data->tmp_tk_len-- >= 0)
+				token++;
+				while (data->dollar_tk_len--)
+			{
+				data->new_token[data->i] = *dollar_tk;
+				dollar_tk++;
+				data->i++;
+			}
+		}
+		else
+			data_move_helper(data, &token);
+	}
+	data->new_token[data->i] = '\0';
 }
