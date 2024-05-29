@@ -18,6 +18,7 @@ int		get_variable_len(char *envp);
 char	*retrieve_value(char *envp, char *dollar_tk);
 t_bool	check_type(int token_type);
 
+
 /**
  * find_dollar -
 */

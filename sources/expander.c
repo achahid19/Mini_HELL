@@ -28,7 +28,6 @@ char	*extract_dollar_token(char *ptr_token, char *dollar_tk,
 			int dollar_tk_len);
 char	*get_value(char *dollar_tk, int *dtk_len, char **envp);
 char	*expanding(char *dollar_tk, char *token, int tmp_tk_len);
-void	move_data(t_expand *data, char *dollar_tk, char *token);
 
 /**
  * tokens_expander -
@@ -41,8 +40,12 @@ void	tokens_expander(token_ptr tokens_list, char **envp)
 	data.tmp_dollar_len = 0;
 	data.ptr_token = NULL;
 	data.new_token = NULL;
-	tokens_expander_helper(tokens_list, envp, data);
-	tokens_list->token_length = ft_strlen(tokens_list->token);
+	if (envp != NULL)
+	{
+		tokens_expander_helper(tokens_list, envp, data);
+		tokens_list->token_length = ft_strlen(tokens_list->token);
+	}
+	// 
 }
 
 /**
@@ -126,45 +129,4 @@ char	*expanding(char *dollar_tk, char *token, int tmp_tk_len)
 	move_data(&data, dollar_tk, token);
 	free(token);
 	return (data.new_token);
-}
-
-/**
- * move-data -
-*/
-void	move_data(t_expand *data, char *dollar_tk, char *token)
-{
-	data->i = 0;
-	int flag = 0;
-
-	while (data->i < data->new_tk_len)
-	{
-		if (*token != '$')
-		{
-			data->new_token[data->i] = *token;
-			token++;
-			data->i++;
-		}
-		else if (*token == '$' && flag == 0 && *(token + 1) != '$'
-				&& (ft_isalpha(*(token + 1)) || *(token + 1) == '_'))
-		{
-			flag = 1;
-			/* printf("sdkfjs %d\n", data->tmp_tk_len); */
-			while (data->tmp_tk_len-- >= 0)
-				token++;
-			/* printf("pointing at %c\n", *token); */
-			while (data->dollar_tk_len--)
-			{
-				data->new_token[data->i] = *dollar_tk;
-				dollar_tk++;
-				data->i++;
-			}
-		}
-		else
-		{
-			data->new_token[data->i] = *token;
-			token++;
-			data->i++;
-		}
-	}
-	data->new_token[data->i] = '\0';
 }

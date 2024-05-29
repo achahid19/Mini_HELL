@@ -12,55 +12,14 @@
 
 #include "../../includes/miniHell.h"
 
+void	tokens_expander_helper(token_ptr tokens_list, char **envp,
+			t_expand d);
+int		dollars_count(char *token);
 t_bool	string_handler(token_ptr *tokens_list);
 t_bool	check_if_dollar(char c, token_ptr *tokens_list);
 int		get_biggest_len(char *envp, char *dollar_tk);
-void	tokens_expander_helper(token_ptr tokens_list, char **envp,
-			t_expand d);
 
-/**
- * string_hanlder - handle the execution of the
- * expansion of dollar sign, in double quoted string
-*/
-t_bool	string_handler(token_ptr *tokens_list)
-{
-	if ((*tokens_list)->token_type == doublequote_token)
-	{
-		*tokens_list = (*tokens_list)->next;
-		if ((*tokens_list) == NULL
-			|| (*tokens_list)->token_type == doublequote_token)
-			return (false);
-	}
-	return (true);
-}
 
-/**
- * get_biggest_len -
-*/
-int		get_biggest_len(char *envp, char *dollar_tk)
-{
-	int	envp_len;
-	int dollar_tk_len;
-
-	envp_len = 	get_variable_len(envp);
-	dollar_tk_len = ft_strlen(dollar_tk);
-	if (envp_len > dollar_tk_len)
-		return (envp_len);
-	return (dollar_tk_len);
-}
-
-int	dollars_count(char *token)
-{
-	int	dollars = 0;
-
-	while (*token)
-	{
-		if (*token == '$' && *(token + 1) != '$')
-			dollars++;
-		token++;
-	}
-	return (dollars);
-}
 /**
  * tokens_expander_helper -
 */
@@ -93,3 +52,58 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 		tokens_list = tokens_list->next;
 	}
 }
+
+/**
+ * dollars_count -
+*/
+int	dollars_count(char *token)
+{
+	int	dollars = 0;
+
+	while (*token)
+	{
+		if (*token == '$' && *(token + 1) != '$')
+			dollars++;
+		token++;
+	}
+	return (dollars);
+}
+
+/**
+ * string_hanlder - handle the execution of the
+ * expansion of dollar sign, in double quoted string
+*/
+t_bool	string_handler(token_ptr *tokens_list)
+{
+	if ((*tokens_list)->token_type == doublequote_token)
+	{
+		*tokens_list = (*tokens_list)->next;
+		if ((*tokens_list) == NULL
+			|| (*tokens_list)->token_type == doublequote_token)
+			return (false);
+	}
+	else if ((*tokens_list)->token_type == singlequote_token)
+	{
+		*tokens_list = (*tokens_list)->next;
+		if ((*tokens_list)->token_type == string_token)
+			*tokens_list = (*tokens_list)->next;
+		return (false);
+	}
+	return (true);
+}
+
+/**
+ * get_biggest_len -
+*/
+int		get_biggest_len(char *envp, char *dollar_tk)
+{
+	int	envp_len;
+	int dollar_tk_len;
+
+	envp_len = 	get_variable_len(envp);
+	dollar_tk_len = ft_strlen(dollar_tk);
+	if (envp_len > dollar_tk_len)
+		return (envp_len);
+	return (dollar_tk_len);
+}
+
