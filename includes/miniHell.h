@@ -83,6 +83,7 @@ typedef struct s_expand
 	char	*dollar_tk;
 	int		tmp_dollar_len;
 	int		dollars_count;
+	t_bool	flag;
 }	t_expand;
 
 /* Lexical analyzer */
@@ -127,11 +128,13 @@ int			get_variable_len(char *envp);
 char		*retrieve_value(char *envp, char *dollar_tk);
 t_bool		check_type(int token_type);
 
-/* expnader utils2 */
-t_bool		string_handler(token_ptr *tokens_list);
+/* expander utils2 */
 void		tokens_expander_helper(token_ptr tokens_list, char **envp,
-			t_expand d);
+				t_expand d);
+int			dollars_count(char *token);
+t_bool		string_handler(token_ptr *tokens_list);
 int			get_biggest_len(char *envp, char *dollar_tk);
+void		data_move_helper(t_expand *data, char **token);
 
 /* Parser */
 int			parser_tokens(token_ptr tokens_list);
