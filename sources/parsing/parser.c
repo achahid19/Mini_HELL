@@ -31,6 +31,6 @@ int	parser_tokens(token_ptr tokens_list)
 		return  0;
 	if (ft_type_check(tokens_list) == 1)
 		return 1;
-	build_in(tokens_list);
+	//build_in(tokens_list);
 	return 0;
 }
