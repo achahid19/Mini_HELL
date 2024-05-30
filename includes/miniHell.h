@@ -154,5 +154,6 @@ void	check_tokens(token_ptr print_tk);
 /*
 	semicolon and backsalsh handler in : sources/parsing/extra_parse.c
 */
+/* to test */
 
 #endif /* MINIHELL_H */
