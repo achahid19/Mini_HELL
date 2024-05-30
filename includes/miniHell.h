@@ -9,7 +9,7 @@
 /*   Updated: 2024/05/24 18:28:47 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/* lfkdsjfkldsjf  */
+
 #ifndef MINIHELL_H
 # define MINIHELL_H
 # include <signal.h> // for handling signals
