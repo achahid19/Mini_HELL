@@ -15,10 +15,11 @@
 // add expanding for doublequotes (DONE)
 // reduce tokens_expander function for norminette (Done)
 // fix urgent problem: $PWDa, only envp lenght is compared! (Done)
-	// handle each one $PWD$PWD (SegFault) (in progress)
+	// handle each one $PWD$PWD (SegFault) (DONE)
 		// solution: treat each dollar as word_token. (only working for words_tokens)
 		// Problem still in strings tokens;
-// Case to handle: $$ and $?
+// Problem still on: $$ and $? and "$" (in progress)
+	// working on doublequotes "$".
 // handle leaks
 // DO protect if envp is NULL
 
@@ -40,7 +41,12 @@ void	tokens_expander(token_ptr tokens_list, char **envp)
 	data.tmp_dollar_len = 0;
 	data.ptr_token = NULL;
 	data.new_token = NULL;
-	tokens_expander_helper(tokens_list, envp, data);
+	if (envp != NULL)
+	{
+		tokens_expander_helper(tokens_list, envp, data);
+		tokens_list->token_length = ft_strlen(tokens_list->token);
+	}
+	// 
 }
 
 /**
@@ -109,7 +115,7 @@ char	*expanding(char *dollar_tk, char *token, int tmp_tk_len)
 	data.tmp_tk_len = tmp_tk_len;
 	while (token[data.i])
 	{
-		if (token[data.i] == '$')
+		if (token[data.i] == '$' && token[data.i + 1] != '$')
 		{
 			while (tmp_tk_len-- >= 0)
 				data.i++;
@@ -122,8 +128,6 @@ char	*expanding(char *dollar_tk, char *token, int tmp_tk_len)
 	data.new_tk_len += data.dollar_tk_len;
 	data.new_token = malloc(sizeof(char) * data.new_tk_len  + 1);
 	move_data(&data, dollar_tk, token);
-	// free what is needed to be freed
-	// token list to be freed
 	free(token);
 	return (data.new_token);
 }
@@ -134,24 +138,19 @@ char	*expanding(char *dollar_tk, char *token, int tmp_tk_len)
 void	move_data(t_expand *data, char *dollar_tk, char *token)
 {
 	data->i = 0;
-	int flag = 0;
-
+	data->flag = false;
 	while (data->i < data->new_tk_len)
 	{
+		
 		if (*token != '$')
+			data_move_helper(data, &token);
+		else if (*token == '$' && data->flag == 0 && *(token + 1) != '$'
+				&& (ft_isalpha(*(token + 1)) || *(token + 1) == '_'))
 		{
-			data->new_token[data->i] = *token;
-			token++;
-			data->i++;
-		}
-		else if (*token == '$' && flag == 0)
-		{
-			flag = 1;
-			/* printf("sdkfjs %d\n", data->tmp_tk_len); */
+			data->flag = true;
 			while (data->tmp_tk_len-- >= 0)
 				token++;
-			/* printf("pointing at %c\n", *token); */
-			while (data->dollar_tk_len--)
+				while (data->dollar_tk_len--)
 			{
 				data->new_token[data->i] = *dollar_tk;
 				dollar_tk++;
@@ -159,11 +158,7 @@ void	move_data(t_expand *data, char *dollar_tk, char *token)
 			}
 		}
 		else
-		{
-			data->new_token[data->i] = *token;
-			token++;
-			data->i++;
-		}
+			data_move_helper(data, &token);
 	}
 	data->new_token[data->i] = '\0';
 }

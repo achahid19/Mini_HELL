@@ -13,20 +13,25 @@
 #include "../../includes/miniHell.h"
 
 char	*find_dollar(char *ptr_token);
-t_bool	check_expander_chars(char c);
+void	check_expander_chars(t_expand *d);
 int		get_variable_len(char *envp);
 char	*retrieve_value(char *envp, char *dollar_tk);
 t_bool	check_type(int token_type);
+
 
 /**
  * find_dollar -
 */
 char	*find_dollar(char *ptr_token)
 {
+	char c;
+
 	while (*ptr_token)
 	{
-		if (*ptr_token == '$')
-			break;
+		c = *(ptr_token + 1);
+		if (*ptr_token == '$' && *(ptr_token + 1) != '$'
+			&& (ft_isalpha(c) || c == '_'))
+				break;
 		ptr_token++;
 	}
 	return (ptr_token);
@@ -35,15 +40,23 @@ char	*find_dollar(char *ptr_token)
 /**
  * check_expander_chars -
 */
-t_bool	check_expander_chars(char c)
+void	check_expander_chars(t_expand *d)
 {
-	if (ft_isalpha(c))
-		return (true);
-	else if (ft_isdigit(c))
-		return (true);
-	else if (c == '_')
-		return (true);
-	return (false);
+	size_t	i;
+	char	c;
+
+	i = 0;
+	while (d->ptr_token[i])
+	{
+		c = d->ptr_token[i + 1];
+		if (ft_isalpha(c) ||  c == '_' || ft_isdigit(c))
+		{
+			i++;
+			d->dollar_tk_len++;
+		}
+		else
+			break;
+	}
 }
 
 /**
@@ -93,5 +106,5 @@ char	*retrieve_value(char *envp, char *dollar_tk)
 t_bool	check_type(int token_type)
 {
 	return (token_type == word_token
-			|| token_type == doublequote_token);
+			|| token_type == string_token);
 }
