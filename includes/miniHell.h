@@ -17,6 +17,7 @@
 # include <unistd.h> // write ...
 # include <limits.h> // INT_MAX ...
 # include <stdlib.h> // malloc, free ...
+# include <terminos.h>
 # include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -139,9 +140,19 @@ void		data_move_helper(t_expand *data, char **token);
 /* Parser */
 int			parser_tokens(token_ptr tokens_list);
 int			pipe_checker(token_ptr tokens_list);
+int			redirections_checker(token_ptr tokens_list);
+int     semicolon_checker(token_ptr tokens_list);
+int     backslash_checker(token_ptr tokens_list);
+void    build_in(token_ptr tokens_list);
 
 /* signal handler */
 void		handler(int signum);
 void		signal_handler();
+
+void	check_tokens(token_ptr print_tk);
+
+/*
+	semicolon and backsalsh handler in : sources/parsing/extra_parse.c
+*/
 
 #endif /* MINIHELL_H */
