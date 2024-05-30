@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   miniHell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:31:12 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/05/24 18:28:47 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIHELL_H
 # define MINIHELL_H
+# include <signal.h> // for handling signals
 # include <stdio.h> // for debugging
 # include <unistd.h> // write ...
 # include <limits.h> // INT_MAX ...
 # include <stdlib.h> // malloc, free ...
+# include <termios.h>
 # include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -81,7 +83,16 @@ typedef struct s_expand
 	char	*ptr_token;
 	char	*dollar_tk;
 	int		tmp_dollar_len;
+	int		dollars_count;
+	t_bool	flag;
 }	t_expand;
+
+/* Lexical analyzer */
+token_ptr	lexer(char *user_input);
+t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
+							int type, int *order);
+void		char_tokens(char **user_input, token_ptr *tokens_head,
+							int type, int order);
 
 /* Lexical analyzer */
 token_ptr	lexer(char *user_input);
@@ -104,7 +115,6 @@ char		*ft_realloc(char *to_free, int new_len);
 
 /* expander */
 void		tokens_expander(token_ptr tokens_list, char **envp);
-t_bool		check_expander_chars(char c);
 char		*extract_dollar_token(char *ptr_token, char *dollar_tk,
 				int dollar_tk_len);
 char		*get_value(char *dollar_tk, int *dtk_len, char **envp);
@@ -114,16 +124,35 @@ void		move_data(t_expand *data, char *dollar_tk, char *token);
 
 /* expander utils */
 char		*find_dollar(char *ptr_token);
-t_bool  	check_expander_chars(char c);
+void	  	check_expander_chars(t_expand *d);
 int			get_variable_len(char *envp);
 char		*retrieve_value(char *envp, char *dollar_tk);
 t_bool		check_type(int token_type);
 
-/* expnader utils2 */
-t_bool		string_handler(token_ptr *tokens_list);
-t_bool		check_if_dollar(char c, token_ptr *tokens_list);
+/* expander utils2 */
 void		tokens_expander_helper(token_ptr tokens_list, char **envp,
-			t_expand d);
+				t_expand d);
+int			dollars_count(char *token);
+t_bool		string_handler(token_ptr *tokens_list);
 int			get_biggest_len(char *envp, char *dollar_tk);
+void		data_move_helper(t_expand *data, char **token);
+
+/* Parser */
+int			parser_tokens(token_ptr tokens_list);
+int			pipe_checker(token_ptr tokens_list);
+int			redirections_checker(token_ptr tokens_list);
+int     semicolon_checker(token_ptr tokens_list);
+int     backslash_checker(token_ptr tokens_list);
+void    build_in(token_ptr tokens_list);
+
+/* signal handler */
+void		handler(int signum);
+void		signal_handler();
+
+void	check_tokens(token_ptr print_tk);
+
+/*
+	semicolon and backsalsh handler in : sources/parsing/extra_parse.c
+*/
 
 #endif /* MINIHELL_H */
