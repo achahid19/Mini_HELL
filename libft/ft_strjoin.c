@@ -58,8 +58,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_strcpy(new_str, s1);
 	if (s2 != NULL)
 		ft_strcpy(new_str + len_s1, s2);
-	if (s1 != NULL)
-		free((void *)s1);
 	return (new_str);
 }
 /* #include <stdio.h>
