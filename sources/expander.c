@@ -37,6 +37,8 @@ void	tokens_expander(token_ptr tokens_list, char **envp)
 {
 	t_expand	data;
 
+	if (tokens_list == NULL)
+		return ;
 	data.dollar_tk_len = 0;
 	data.tmp_dollar_len = 0;
 	data.ptr_token = NULL;
