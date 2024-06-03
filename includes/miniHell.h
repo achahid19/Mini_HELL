@@ -91,14 +91,7 @@ typedef struct s_expand
 token_ptr	lexer(char *user_input);
 t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
 							int type, int *order);
-void		char_tokens(char **user_input, token_ptr *tokens_head,
-							int type, int order);
-
-/* Lexical analyzer */
-token_ptr	lexer(char *user_input);
-t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
-							int type, int *order);
-void		char_tokens(char **user_input, token_ptr *tokens_head,
+t_bool		char_tokens(char **user_input, token_ptr *tokens_head,
 							int type, int order);
 
 /* Lexer utils */
@@ -157,5 +150,6 @@ void	check_tokens(token_ptr print_tk);
 
 /* free_and_errors */
 void	free_tokens(token_ptr tokens_list);
+void	quotes_error(int quotes_type);
 
 #endif /* MINIHELL_H */
