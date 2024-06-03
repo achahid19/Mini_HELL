@@ -14,9 +14,9 @@
 
 token_ptr	lexer(char *user_input);
 t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
-							int type, int *order);
-void		char_tokens(char **user_input, token_ptr *tokens_head,
-							int type, int order);
+				int type, int *order);
+t_bool		char_tokens(char **user_input, token_ptr *tokens_head,
+				int type, int order);
 
 /**
  * lexer - Lexical Analyser; tokenize the
@@ -30,27 +30,27 @@ token_ptr	lexer(char *user_input)
 	token_ptr	tokens_head;
 	int			order;
 	int			type;
+	t_bool		s;
 
 	tokens_head = NULL;
 	order = 1;
+	s = true;
 	while (*user_input)
 	{
-		/* printf("------> pointing at: %s\n", user_input); */
 		type = get_type(*user_input);
 		if (type == leftred_token && type == get_type(*(user_input + 1)))
-			token_create(&user_input, &tokens_head, heredoc_token, order++);
+			s = token_create(&user_input, &tokens_head, heredoc_token, order++);
 		else if (type == rightred_token && type == get_type(*(user_input + 1)))
-			token_create(&user_input, &tokens_head, append_token, order++);
+			s = token_create(&user_input, &tokens_head, append_token, order++);
 		else if (type == singlequote_token || type == doublequote_token)
-		{
-			if (string_tokens(&user_input, &tokens_head, type, &order) == false)
-				return (NULL);
-		}
+			s = string_tokens(&user_input, &tokens_head, type, &order);
 		else
-			char_tokens(&user_input, &tokens_head, type, order++);
+			s = char_tokens(&user_input, &tokens_head, type, order++);
 		if (*user_input)
 			user_input++;
 	}
+	if (s == false)
+		return (NULL);
 	return (tokens_head);
 }
 
@@ -68,12 +68,18 @@ token_ptr	lexer(char *user_input)
 t_bool	string_tokens(char **user_input, token_ptr *tokens_head,
 			int type, int *order)
 {
-	token_create(user_input, tokens_head, type, *order);
+	t_bool	s;
+
+	s = true;
+	s = token_create(user_input, tokens_head, type, *order);
+	if (s == false)
+		return (s);
 	*order += 1;
 	*user_input += 1;
 	if (get_token_length(*user_input, string_token, *tokens_head) != 0)
 	{
-		if (token_create(user_input, tokens_head, string_token, *order) == false)
+		if (token_create(user_input, tokens_head,
+				string_token, *order) == false)
 			return (false);
 		*order += 1;
 		*user_input += 1;
@@ -83,9 +89,9 @@ t_bool	string_tokens(char **user_input, token_ptr *tokens_head,
 		if (get_type(**user_input) != type)
 			return (false);
 	}
-	token_create(user_input, tokens_head, type, *order);
+	s = token_create(user_input, tokens_head, type, *order);
 	*order += 1;
-	return (true);
+	return (s);
 }
 
 /**
@@ -95,23 +101,27 @@ t_bool	string_tokens(char **user_input, token_ptr *tokens_head,
  * @type: token's type
  * @order: order of the token on user_input
  * 
- * Return: void.
+ * Return: boolean.
 */
-void	char_tokens(char **user_input, token_ptr *tokens_head,
+t_bool	char_tokens(char **user_input, token_ptr *tokens_head,
 						int type, int order)
 {
+	t_bool	s;
+
+	s = true;
 	if (type == whitespace_token)
-		token_create(user_input, tokens_head, whitespace_token, order);
-	else if(type == pipe_token)
-		token_create(user_input, tokens_head, pipe_token, order);
+		s = token_create(user_input, tokens_head, whitespace_token, order);
+	else if (type == pipe_token)
+		s = token_create(user_input, tokens_head, pipe_token, order);
 	else if (type == lbracket_token)
-		token_create(user_input, tokens_head, lbracket_token, order);
+		s = token_create(user_input, tokens_head, lbracket_token, order);
 	else if (type == rbracket_token)
-		token_create(user_input, tokens_head, rbracket_token, order);
+		s = token_create(user_input, tokens_head, rbracket_token, order);
 	else if (type == leftred_token)
-		token_create(user_input, tokens_head, leftred_token, order);
+		s = token_create(user_input, tokens_head, leftred_token, order);
 	else if (type == rightred_token)
-		token_create(user_input, tokens_head, rightred_token, order);
+		s = token_create(user_input, tokens_head, rightred_token, order);
 	else
-		token_create(user_input, tokens_head, word_token, order);
+		s = token_create(user_input, tokens_head, word_token, order);
+	return (s);
 }

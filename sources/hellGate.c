@@ -50,10 +50,9 @@ int	main(int ac, char **av, char **envp)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
 		tokens_expander(tokens_list, envp);
-		// check_tokens(tokens_list);
+		check_tokens(tokens_list);
 		// exit(1);
-		if (parser_tokens(tokens_list) == 1)
-			continue;
+		parser_tokens(tokens_list);
 		// build_in(tokens_list);
 		free_tokens(tokens_list);
 		free(user_input);
