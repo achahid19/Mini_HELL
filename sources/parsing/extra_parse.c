@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 06:55:10 by akajjou           #+#    #+#             */
-/*   Updated: 2024/05/29 07:08:44 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/06/02 19:19:52 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int     semicolon_checker(token_ptr tokens_list)
     tmp = tokens_list;
     while (tmp)
     {
-        if (ft_strchr(tmp->token, ';') != NULL)
+        if (ft_strchr(tmp->token, ';') != NULL && tmp->token_type != 3)
         {
             ft_putstr_fd("minishell: syntax error near unexpected token `;'\n", 2);
             return 1;
@@ -36,7 +36,7 @@ int     backslash_checker(token_ptr tokens_list)
     tmp = tokens_list;
     while (tmp)
     {
-        if (ft_strchr(tmp->token, '\\') != NULL)
+        if (ft_strchr(tmp->token, '\\') != NULL && tmp->token_type != 3)
         {
             ft_putstr_fd("minishell: syntax error near unexpected token `\\'\n", 2);
             return 1;

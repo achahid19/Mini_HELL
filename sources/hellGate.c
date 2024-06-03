@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/29 06:37:50 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/06/02 19:24:34 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int	main(int ac, char **av, char **envp)
 	char        *user_input;
 	token_ptr   tokens_list;
 	
-	signal_handler();
 	while (true)
 	{
+		signal_handler();
 		user_input = readline("kssh$ ");
 		if (user_input == NULL) // for (ctrl + d)
 			exit (1);

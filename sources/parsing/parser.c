@@ -6,11 +6,13 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:47 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/29 10:56:09 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/06/03 15:39:37 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/miniHell.h"
+
+
 
 int    ft_type_check(token_ptr tokens_list)
 {
@@ -21,6 +23,8 @@ int    ft_type_check(token_ptr tokens_list)
 	if (semicolon_checker(tokens_list) == 1)
 		return 1;
 	if (backslash_checker(tokens_list) == 1)
+		return 1;
+	if (heredoc_checker(tokens_list) == 1)
 		return 1;
 	return 0;
 }
