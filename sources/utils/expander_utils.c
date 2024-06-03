@@ -89,7 +89,6 @@ char	*retrieve_value(char *envp, char *dollar_tk)
 	envp++; // after '='
 	while (envp[value_len])
 		value_len++;
-	printf("envp pointer: %s and len: %d\n", envp, value_len);
 	dollar_tk = ft_realloc(dollar_tk, value_len); // TO do free dollar token.
 	while (envp[i])
 	{

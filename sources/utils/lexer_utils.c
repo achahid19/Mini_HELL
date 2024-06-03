@@ -12,11 +12,11 @@
 
 #include "../../includes/miniHell.h"
 
-t_bool  token_create(char **user_input, token_ptr *tokens_head,
-	    				int type, int order);
-int	    get_token_length(char *user_input, int type, token_ptr tokens_head);
-char    *get_token(char *user_input, int token_len);
-int	    get_type(char user_input);
+t_bool	token_create(char **user_input, token_ptr *tokens_head,
+			int type, int order);
+int		get_token_length(char *user_input, int type, token_ptr tokens_head);
+char	*get_token(char *user_input, int token_len);
+int		get_type(char user_input);
 
 /**
  * token_create - create the specified token based on the type.
@@ -27,17 +27,22 @@ int	    get_type(char user_input);
  * 
  * Return: void.
 */
-t_bool	token_create(char **user_input, token_ptr *tokens_head, int type, int order)
+t_bool	token_create(char **user_input, token_ptr *tokens_head,
+			int type, int order)
 {
 	token_ptr	new;
 	token_ptr	last;
 
 	last = find_last_node(*tokens_head);
-	new = malloc(sizeof(t_token)); // TODO if fail.
+	new = malloc(sizeof(t_token));
+	if (!new)
+		return (false);
 	if (get_token_length(*user_input, type, *tokens_head) == false)
 		return (false);
 	new->token_length = get_token_length(*user_input, type, *tokens_head);
 	new->token = get_token(*user_input, new->token_length);
+	if (new->token == NULL)
+		return (free(new), false);
 	new->order = order++;
 	new->token_type = type;
 	new->next = NULL;
@@ -46,7 +51,7 @@ t_bool	token_create(char **user_input, token_ptr *tokens_head, int type, int ord
 		last->next = new;
 	if (*tokens_head == NULL)
 		*tokens_head = new;
-	*user_input += new->token_length - 1; // move user_input pointer.
+	*user_input += new->token_length - 1;
 	return (true);
 }
 
@@ -75,12 +80,8 @@ int	get_token_length(char *user_input, int type, token_ptr tokens_head)
 			len++;
 		if (user_input[len] == '\0')
 		{
-			if (last->token_type == doublequote_token)
-				printf("bash: Error for double quotes\n");
-			else if (last->token_type == singlequote_token)
-				printf("bash: Error for single quotes\n");
-			// re-prompt
-			return (false);
+			quotes_error(last->token_type);
+			return (free_tokens(tokens_head), false);
 		}
 	}
 	else if (type == heredoc_token || type == append_token)
@@ -103,7 +104,9 @@ char	*get_token(char *user_input, int token_len)
 	char	*token;
 	size_t	index;
 
-	token = malloc(sizeof(char) * token_len + 1); // TO FREE WHEN DONE WITH IT + TO DO PROTECT
+	token = malloc(sizeof(char) * token_len + 1);
+	if (!token)
+		return (NULL);
 	index = 0;
 	while (token_len--)
 	{
