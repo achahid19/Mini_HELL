@@ -44,11 +44,8 @@ void	tokens_expander(token_ptr tokens_list, char **envp)
 	data.ptr_token = NULL;
 	data.new_token = NULL;
 	if (envp != NULL)
-	{
 		tokens_expander_helper(tokens_list, envp, data);
-		tokens_list->token_length = ft_strlen(tokens_list->token);
-	}
-	// 
+	tokens_list->token_length = ft_strlen(tokens_list->token);
 }
 
 /**
@@ -130,8 +127,7 @@ char	*expanding(char *dollar_tk, char *token, int tmp_tk_len)
 	data.new_tk_len += data.dollar_tk_len;
 	data.new_token = malloc(sizeof(char) * data.new_tk_len  + 1);
 	move_data(&data, dollar_tk, token);
-	free(token);
-	return (data.new_token);
+	return (free(token), free(dollar_tk), data.new_token);
 }
 
 /**
