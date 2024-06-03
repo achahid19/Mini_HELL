@@ -55,6 +55,7 @@ int	main(int ac, char **av, char **envp)
 		if (parser_tokens(tokens_list) == 1)
 			continue;
 		// build_in(tokens_list);
+		free_tokens(tokens_list);
 		free(user_input);
 	}
 }
