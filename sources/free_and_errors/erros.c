@@ -18,7 +18,7 @@
 void	quotes_error(int type)
 {
 	if (type == doublequote_token)
-		ft_putstr_fd("bash: Error for double quotes\n", 2);
+		ft_putstr_fd("bash: Error for double quotes\n", STDERR);
 	else if (type == singlequote_token)
-		ft_putstr_fd("bash: Error for single quotes\n", 2);
+		ft_putstr_fd("bash: Error for single quotes\n", STDERR);
 }
