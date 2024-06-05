@@ -69,6 +69,7 @@ t_bool	string_tokens(char **user_input, token_ptr *tokens_head,
 			int type, int *order)
 {
 	t_bool	s;
+	int		len;
 
 	s = true;
 	s = token_create(user_input, tokens_head, type, *order);
@@ -76,19 +77,16 @@ t_bool	string_tokens(char **user_input, token_ptr *tokens_head,
 		return (s);
 	*order += 1;
 	*user_input += 1;
-	if (get_token_length(*user_input, string_token, *tokens_head) != 0)
+	if (get_type(**user_input) != type)
 	{
 		if (token_create(user_input, tokens_head,
 				string_token, *order) == false)
-			return (false);
+			return (move_user_input(user_input), false);
 		*order += 1;
 		*user_input += 1;
 	}
-	else
-	{
-		if (get_type(**user_input) != type)
-			return (false);
-	}
+	if (get_type(**user_input) != type)
+		return (false);
 	s = token_create(user_input, tokens_head, type, *order);
 	*order += 1;
 	return (s);

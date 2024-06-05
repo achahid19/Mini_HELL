@@ -84,6 +84,9 @@ t_bool	string_handler(token_ptr *tokens_list)
 	else if ((*tokens_list)->token_type == singlequote_token)
 	{
 		*tokens_list = (*tokens_list)->next;
+		if ((*tokens_list) == NULL
+			|| (*tokens_list)->token_type == singlequote_token)
+			return (false);
 		if ((*tokens_list)->token_type == string_token)
 			*tokens_list = (*tokens_list)->next;
 		return (false);
