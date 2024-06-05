@@ -18,20 +18,19 @@ int		get_variable_len(char *envp);
 char	*retrieve_value(char *envp, char *dollar_tk);
 t_bool	check_type(int token_type);
 
-
 /**
  * find_dollar -
 */
 char	*find_dollar(char *ptr_token)
 {
-	char c;
+	char	c;
 
 	while (*ptr_token)
 	{
 		c = *(ptr_token + 1);
 		if (*ptr_token == '$' && *(ptr_token + 1) != '$'
 			&& (ft_isalpha(c) || c == '_'))
-				break;
+			break ;
 		ptr_token++;
 	}
 	return (ptr_token);
@@ -49,13 +48,13 @@ void	check_expander_chars(t_expand *d)
 	while (d->ptr_token[i])
 	{
 		c = d->ptr_token[i + 1];
-		if (ft_isalpha(c) ||  c == '_' || ft_isdigit(c))
+		if (ft_isalpha(c) || c == '_' || ft_isdigit(c))
 		{
 			i++;
 			d->dollar_tk_len++;
 		}
 		else
-			break;
+			break ;
 	}
 }
 
@@ -81,15 +80,16 @@ int	get_variable_len(char *envp)
 char	*retrieve_value(char *envp, char *dollar_tk)
 {
 	int	value_len;
-	int i = 0;
+	int	i;
 
 	value_len = 0;
+	i = 0;
 	while (*envp != '=' && *envp)
 		envp++;
-	envp++; // after '='
+	envp++;
 	while (envp[value_len])
 		value_len++;
-	dollar_tk = ft_realloc(dollar_tk, value_len); // TO do free dollar token.
+	dollar_tk = ft_realloc(dollar_tk, value_len);
 	while (envp[i])
 	{
 		dollar_tk[i] = envp[i];
@@ -105,5 +105,5 @@ char	*retrieve_value(char *envp, char *dollar_tk)
 t_bool	check_type(int token_type)
 {
 	return (token_type == word_token
-			|| token_type == string_token);
+		|| token_type == string_token);
 }
