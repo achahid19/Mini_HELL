@@ -31,22 +31,22 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 			return ;
 		d.dollars_count = dollars_count(tokens_list->token);
 		while (d.dollars_count-- > 0)
-		{	
+		{
 			if (check_type(tokens_list->token_type) == false)
 				return ;
 			d.ptr_token = find_dollar(tokens_list->token);
 			if (*d.ptr_token == '\0')
 				break ;
 			check_expander_chars(&d);
-			if (d.dollar_tk_len == 0) // if we have only dollar token
+			if (d.dollar_tk_len == 0)
 				break ;
 			d.tmp_dollar_len = d.dollar_tk_len;
 			d.dollar_tk = extract_dollar_token(d.ptr_token, d.dollar_tk,
-							d.dollar_tk_len);
+					d.dollar_tk_len);
 			d.dollar_tk = get_value(d.dollar_tk, &d.dollar_tk_len, envp);
 			tokens_list->token = expanding(d.dollar_tk, tokens_list->token,
-									d.tmp_dollar_len);
-			d.dollar_tk_len = 0;
+					d.tmp_dollar_len);
+			tokens_list->token_length = ft_strlen(tokens_list->token);
 		}
 		tokens_list = tokens_list->next;
 	}
@@ -57,8 +57,9 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 */
 int	dollars_count(char *token)
 {
-	int	dollars = 0;
+	int	dollars;
 
+	dollars = 0;
 	while (*token)
 	{
 		if (*token == '$' && *(token + 1) != '$')
@@ -97,12 +98,12 @@ t_bool	string_handler(token_ptr *tokens_list)
 /**
  * get_biggest_len -
 */
-int		get_biggest_len(char *envp, char *dollar_tk)
+int	get_biggest_len(char *envp, char *dollar_tk)
 {
 	int	envp_len;
-	int dollar_tk_len;
+	int	dollar_tk_len;
 
-	envp_len = 	get_variable_len(envp);
+	envp_len = get_variable_len(envp);
 	dollar_tk_len = ft_strlen(dollar_tk);
 	if (envp_len > dollar_tk_len)
 		return (envp_len);

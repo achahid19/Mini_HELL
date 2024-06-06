@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/03 15:39:07 by akajjou           #+#    #+#             */
-/*   Updated: 2024/06/03 17:57:22 by akajjou          ###   ########.fr       */
+/*   Created: 2024/06/06 18:13:04 by akajjou           #+#    #+#             */
+/*   Updated: 2024/06/06 18:13:18 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniHell.h"
-
+# include "../../includes/miniHell.h"
 
 int		heredoc_checker_first(token_ptr tokens_list)
 {

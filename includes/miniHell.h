@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/06/03 17:56:18 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/06/06 18:14:34 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,21 +138,25 @@ int			redirections_checker(token_ptr tokens_list);
 int     semicolon_checker(token_ptr tokens_list);
 int     backslash_checker(token_ptr tokens_list);
 void    build_in(token_ptr tokens_list);
-int     heredoc_append_checker(token_ptr tokens_list);
-
+int		parentheses_checker(token_ptr tokens_list);
+int		heredoc_append_checker(token_ptr tokens_list);
 
 /* signal handler */
 void		handler(int signum);
 void		signal_handler();
-
-void	check_tokens(token_ptr print_tk);
 
 /*
 	semicolon and backsalsh handler in : sources/parsing/extra_parse.c
 */
 
 /* free_and_errors */
-void	free_tokens(token_ptr tokens_list);
-void	quotes_error(int quotes_type);
+void		free_tokens(token_ptr tokens_list);
+void		quotes_error(int quotes_type);
+void		print_error(char *error);
+
+void	check_tokens(token_ptr print_tk);
+
+/* tk_list_optimizer */
+void	tokens_list_optimizer(token_ptr *tokens_list);
 
 #endif /* MINIHELL_H */

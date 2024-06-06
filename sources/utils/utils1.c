@@ -12,9 +12,9 @@
 
 #include "../../includes/miniHell.h"
 
-token_ptr	find_last_node(token_ptr head);
-t_bool		ft_isspace(char c);
-char *		ft_realloc(char *to_free, int new_len);
+token_ptr		find_last_node(token_ptr head);
+t_bool			ft_isspace(char c);
+char			*ft_realloc(char *to_free, int new_len);
 
 /**
  * find_last_node - iterates over a linked list
