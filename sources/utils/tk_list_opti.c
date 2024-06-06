@@ -12,7 +12,6 @@
 
 #include "../../includes/miniHell.h"
 
-
 void		tokens_list_optimizer(token_ptr *tokens_list);
 static void	whitespace_remover(token_ptr *tokens_list,
 				token_ptr free_node, token_ptr previous);
