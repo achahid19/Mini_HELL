@@ -17,7 +17,7 @@ void	free_tokens(token_ptr tokens_list)
 	token_ptr	tmp;
 
 	while (tokens_list)
-	{ 
+	{
 		tmp = tokens_list;
 		free(tokens_list->token);
 		tokens_list = tokens_list->next;

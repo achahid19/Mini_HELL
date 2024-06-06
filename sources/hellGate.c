@@ -10,14 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// handle $ sign for expansion then clean all mem leaks.
-    // for $, chars to take (a..z, A..Z, '0'..'9', '_')
-    // optimize get_token_length function
-
-// Integrate dollar token for lexer
-
 #include "../includes/miniHell.h"
 
+/**
+ * $() - Error
+ * (pwd) - should be threated. as well as ((((cmd)))). (akajjou's work)
+ * 
+ * Optimize the token list
+ * 	1 - skip all spaces and tokens with length == 0. (DONE)
+ * 	2 - reorder the list.
+*/
 void	check_tokens(token_ptr print_tk)
 {
 	while (print_tk != NULL)
@@ -35,24 +37,25 @@ void	check_tokens(token_ptr print_tk)
 		print_tk = print_tk->next;
 	}
 }
+
 int	main(int ac, char **av, char **envp)
 {
-	char        *user_input;
-	token_ptr   tokens_list;
-	
+	char		*user_input;
+	token_ptr	tokens_list;
+
 	signal_handler();
 	while (true)
 	{
 		user_input = readline("kssh$ ");
-		if (user_input == NULL) // for (ctrl + d)
+		if (user_input == NULL)
 			exit(EXIT_SUCCESS);
-		if (ft_strncmp(user_input, "\0", 1) != 0) // for history
+		if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
 		tokens_expander(tokens_list, envp);
-		check_tokens(tokens_list);
+		//check_tokens(tokens_list);
 		parser_tokens(tokens_list);
-		// build_in(tokens_list);
+		tokens_list_optimizer(&tokens_list);
 		free_tokens(tokens_list);
 		free(user_input);
 	}
