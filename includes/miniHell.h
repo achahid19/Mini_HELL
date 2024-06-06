@@ -100,6 +100,7 @@ t_bool		token_create(char **user_input, token_ptr *tokens_head,
 int			get_token_length(char *user_input, int type, token_ptr tokens_head);
 char		*get_token(char *user_input, int token_len);
 int			get_type(char user_input);
+void		move_user_input(char **user_input);
 
 /* utilities */
 token_ptr	find_last_node(token_ptr head);

@@ -17,6 +17,7 @@ t_bool	token_create(char **user_input, token_ptr *tokens_head,
 int		get_token_length(char *user_input, int type, token_ptr tokens_head);
 char	*get_token(char *user_input, int token_len);
 int		get_type(char user_input);
+void	move_user_input(char **user_input);
 
 /**
  * token_create - create the specified token based on the type.
@@ -37,9 +38,9 @@ t_bool	token_create(char **user_input, token_ptr *tokens_head,
 	new = malloc(sizeof(t_token));
 	if (!new)
 		return (false);
-	if (get_token_length(*user_input, type, *tokens_head) == false)
-		return (false);
 	new->token_length = get_token_length(*user_input, type, *tokens_head);
+	if (new->token_length == 0)
+		return (free(new), false);
 	new->token = get_token(*user_input, new->token_length);
 	if (new->token == NULL)
 		return (free(new), false);
@@ -144,4 +145,17 @@ int	get_type(char user_input)
 		return (singlequote_token);
 	else
 		return (word_token);
+}
+
+/**
+ * move_user_input -
+*/
+void	move_user_input(char **user_input)
+{
+	int	len;
+
+	len = 0;
+	while (user_input[0][len])
+		len++;
+	*user_input += len;
 }
