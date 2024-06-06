@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tk_list_opti.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:33:44 by achahid-          #+#    #+#             */
-/*   Updated: 2024/06/06 14:33:45 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:25:56 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	tokens_list_optimizer(token_ptr *tokens_list)
 	previous = NULL;
 	whitespace_remover(tokens_list, free_node, previous);
 	tokens_order(*tokens_list);
-	if (*tokens_list != NULL)
-		check_tokens(*tokens_list);
+	// if (*tokens_list != NULL)
+	// 	check_tokens(*tokens_list);
 }
 
 /**
