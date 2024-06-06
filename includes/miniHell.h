@@ -152,6 +152,8 @@ void		free_tokens(token_ptr tokens_list);
 void		quotes_error(int quotes_type);
 
 void	check_tokens(token_ptr print_tk);
+
+/* tk_list_optimizer */
 void	tokens_list_optimizer(token_ptr *tokens_list);
 
 #endif /* MINIHELL_H */
