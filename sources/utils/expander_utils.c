@@ -45,6 +45,7 @@ void	check_expander_chars(t_expand *d)
 	char	c;
 
 	i = 0;
+	d->dollar_tk_len = 0;
 	while (d->ptr_token[i])
 	{
 		c = d->ptr_token[i + 1];
