@@ -12,14 +12,6 @@
 
 #include "../includes/miniHell.h"
 
-/**
- * $() - Error
- * (pwd) - should be threated. as well as ((((cmd)))). (akajjou's work)
- * 
- * Optimize the token list
- * 	1 - skip all spaces and tokens with length == 0. (DONE)
- * 	2 - reorder the list.
-*/
 void	check_tokens(token_ptr print_tk)
 {
 	while (print_tk != NULL)
@@ -53,9 +45,8 @@ int	main(int ac, char **av, char **envp)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
 		tokens_expander(tokens_list, envp);
-		//check_tokens(tokens_list);
+		check_tokens(tokens_list);
 		parser_tokens(tokens_list);
-		tokens_list_optimizer(&tokens_list);
 		free_tokens(tokens_list);
 		free(user_input);
 	}

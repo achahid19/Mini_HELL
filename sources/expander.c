@@ -34,6 +34,7 @@ void	tokens_expander(token_ptr tokens_list, char **envp)
 	data.new_token = NULL;
 	if (envp != NULL)
 		tokens_expander_helper(tokens_list, envp, data);
+	tokens_list->token_length = ft_strlen(tokens_list->token);
 }
 
 /**

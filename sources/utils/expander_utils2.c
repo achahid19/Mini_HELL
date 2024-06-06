@@ -46,7 +46,7 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 			d.dollar_tk = get_value(d.dollar_tk, &d.dollar_tk_len, envp);
 			tokens_list->token = expanding(d.dollar_tk, tokens_list->token,
 					d.tmp_dollar_len);
-			tokens_list->token_length = ft_strlen(tokens_list->token);
+			d.dollar_tk_len = 0;
 		}
 		tokens_list = tokens_list->next;
 	}
