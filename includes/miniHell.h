@@ -143,14 +143,15 @@ void    build_in(token_ptr tokens_list);
 void		handler(int signum);
 void		signal_handler();
 
-void	check_tokens(token_ptr print_tk);
-
 /*
 	semicolon and backsalsh handler in : sources/parsing/extra_parse.c
 */
 
 /* free_and_errors */
-void	free_tokens(token_ptr tokens_list);
-void	quotes_error(int quotes_type);
+void		free_tokens(token_ptr tokens_list);
+void		quotes_error(int quotes_type);
+
+void	check_tokens(token_ptr print_tk);
+void	tokens_list_optimizer(token_ptr *tokens_list);
 
 #endif /* MINIHELL_H */
