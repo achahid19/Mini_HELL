@@ -150,6 +150,7 @@ void		signal_handler();
 /* free_and_errors */
 void		free_tokens(token_ptr tokens_list);
 void		quotes_error(int quotes_type);
+void		print_error(char *error);
 
 void	check_tokens(token_ptr print_tk);
 
