@@ -12,13 +12,27 @@
 
 #include "../../includes/miniHell.h"
 
+void	print_error(char *error);
+void	quotes_error(int type);
+
+/**
+ * print_error -
+*/
+void	print_error(char *error)
+{
+	ft_putstr_fd("\033[0;35m", STDERR);
+	ft_putstr_fd(error, STDERR);
+	ft_putstr_fd("\n", STDERR);
+	ft_putstr_fd("\033[0m", STDERR);
+}
+
 /**
  * quotes_error -
 */
 void	quotes_error(int type)
 {
 	if (type == doublequote_token)
-		ft_putstr_fd("\033[0;35mkssh: Error double quotes\n\033[0m", STDERR);
+		print_error("kssh: Error double quotes");
 	else if (type == singlequote_token)
-		ft_putstr_fd("\033[0;35mkssh: Error single quotes\n\033[0m", STDERR);
+		print_error("kssh: Error single quotes");
 }
