@@ -43,6 +43,8 @@ int	main(int ac, char **av, char **envp)
 	char		*user_input;
 	token_ptr	tokens_list;
 
+	(void)ac;
+	(void)av;
 	signal_handler();
 	while (true)
 	{
