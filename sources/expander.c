@@ -61,8 +61,6 @@ char	*extract_dollar_token(char *ptr_token, char *dollar_tk,
 char	*get_value(char *dollar_tk, int *dtk_len, char **envp)
 {
 	size_t	i;
-	int		len;
-	char	*new_token;
 	int		cmp_len;
 
 	i = 0;
@@ -119,7 +117,7 @@ void	move_data(t_expand *data, char *dollar_tk, char *token)
 {
 	data->i = 0;
 	data->flag = false;
-	while (data->i < data->new_tk_len)
+	while ((int)data->i < data->new_tk_len)
 	{
 		if (*token != '$')
 			data_move_helper(data, &token);
