@@ -11,17 +11,15 @@ CC = cc
 
 MAKE = make
 
-SRC =   $(addprefix sources/parsing/, pipe_checker.c parser.c redirection.c extra_parse.c heredoc_checker.c) \
+SRC =   $(addprefix sources/parsing/, pipe_checker.c parser.c redirection.c extra_parse.c heredoc_checker.c echo.c) \
     	$(addprefix sources/, hellGate.c expander.c lexer.c extra_cases.c ) \
 		$(addprefix sources/utils/, expander_utils2.c utils1.c lexer_utils.c expander_utils.c \
 					tk_list_opti.c) \
-		$(addprefix sources/free_and_errors/, free.c erros.c)
+		$(addprefix sources/free_and_errors/, free.c erros.c) \
 
-# valgrind --leak-check=full --show-leak-kinds=all --suppressions=.readline.supp ./miniHell
+# valgrind --leak-check=full --show-leak-kinds=all --suppressions=readline.supp ./miniHell
 
-OBJ_DIR = garbage_objs
-
-OBJ = $(addprefix $(OBJ_DIR)/, $(notdir $(SRC:.c=.o)))
+OBJ = $(SRC:.c=.o)
 
 INCLUDES = includes/miniHell.h
 
@@ -36,7 +34,7 @@ LIBFT_AR = ./libft/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT_AR)
-	$(CC) $(CFLAGS) $(OBJ) $(READLINE_LIB) $(LIBFT_AR) -o $(NAME)
+		$(CC) $(CFLAGS)  $(OBJ) $(READLINE_LIB) $(LIBFT_AR) -o $(NAME)
 	@printf "\n"
 	@printf $(RED)
 	@printf "███╗░░░███╗██╗███╗░░██╗██╗██╗░░██╗███████╗██╗░░░░░██╗░░░░░\n"
@@ -51,36 +49,21 @@ $(NAME): $(OBJ) $(LIBFT_AR)
 	@printf "	     　 ▒█░▒█ ▀▀▀ ▀░░▀ ▀▀▀░ ▄▄▄█\n"
 	@printf $(RESET)
 
-$(OBJ_DIR)/%.o: sources/parsing/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-$(OBJ_DIR)/%.o: sources/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-$(OBJ_DIR)/%.o: sources/utils/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-$(OBJ_DIR)/%.o: sources/free_and_errors/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
 $(LIBFT_AR):
-	@$(MAKE) -C ./libft
-	@echo "libft lib made"
+		@$(MAKE) -C ./libft
+		@echo "libft lib made"
 
 clean:
-	@rm -rf $(OBJ_DIR)
-	@$(MAKE) clean -C ./libft
-	@echo "Objs files removed"
+		@rm -rf $(OBJ)
+		@$(MAKE) clean -C ./libft
+		@echo "Objects files removed"
 
 fclean: clean
-	@rm -rf $(NAME)
-	@$(MAKE) fclean -C ./libft
-	@echo "miniHell program destructed"
-	@echo "libft archive cleaned"
+		@rm -rf $(NAME)
+		@$(MAKE) fclean -C ./libft
+		@echo "miniHell program destructed"
+		@echo "libft archive cleaned"
 
 re: fclean all
 
-.PHONY: clean fclean re all
+.phonix: clean fclean re all

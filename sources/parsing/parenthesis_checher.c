@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 18:35:45 by akajjou           #+#    #+#             */
-/*   Updated: 2024/06/06 20:35:38 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/06/06 23:18:11 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,27 @@
 
 int		parentheses_checker(token_ptr tokens_list)
 {
+	int		count;
 	token_ptr	tmp;
-	int			open;
-	int			close;
 
+	count = 0;
 	tmp = tokens_list;
-	open = 0;
-	close = 0;
-	while (tmp)
+	while (tmp != NULL)
 	{
-		if (ft_strchr(tmp->token, '(') != NULL && tmp->token_type != 3)
-			open++;
-		if (ft_strchr(tmp->token, ')') != NULL && tmp->token_type != 3)
-			close++;
+		if (tmp->token_type == lbracket_token)
+			count++;
+		if (tmp->token_type == rbracket_token)
+			count--;
+		if (count < 0)
+		{
+			print_error("kssh: Error parentheses");
+			return 1;
+		}
 		tmp = tmp->next;
 	}
-	if (open != close)
+	if (count != 0)
 	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `('\n", 2);
+		print_error("kssh: Error parentheses");
 		return 1;
 	}
 	return 0;

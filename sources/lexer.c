@@ -69,6 +69,7 @@ t_bool	string_tokens(char **user_input, token_ptr *tokens_head,
 			int type, int *order)
 {
 	t_bool	s;
+	int		len;
 
 	s = true;
 	s = token_create(user_input, tokens_head, type, *order);
