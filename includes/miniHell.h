@@ -129,9 +129,13 @@ t_bool		check_type(int token_type);
 void		tokens_expander_helper(token_ptr tokens_list, char **envp,
 				t_expand d);
 int			dollars_count(char *token);
-t_bool		string_handler(token_ptr *tokens_list);
 int			get_biggest_len(char *envp, char *dollar_tk);
 void		data_move_helper(t_expand *data, char **token);
+
+/* expander utils3 */
+t_bool		string_handler(token_ptr *tokens_list);
+t_bool		doublequote_handler(token_ptr *tokens_list);
+t_bool		singlequote_handler(token_ptr *tokens_list);
 
 /* Parser */
 int			parser_tokens(token_ptr tokens_list);
@@ -160,6 +164,7 @@ void		signal_handler();
 
 /* free_and_errors */
 void		free_tokens(token_ptr tokens_list);
+void		free_all(token_ptr tokens_list, char *user_input);
 void		quotes_error(int quotes_type);
 void		print_error(char *error);
 
