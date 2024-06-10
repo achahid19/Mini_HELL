@@ -108,7 +108,7 @@ t_bool	char_tokens(char **user_input, token_ptr *tokens_head,
 
 	s = true;
 	if (type == whitespace_token)
-		s = token_create(user_input, tokens_head, whitespace_token, order);
+		return (s);
 	else if (type == pipe_token)
 		s = token_create(user_input, tokens_head, pipe_token, order);
 	else if (type == lbracket_token)
