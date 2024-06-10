@@ -30,7 +30,7 @@
  * ls | $CMD ; error or not ?
  * 
  * "" -> bash command not found!
- * so must add "" and '' as commands if their is no command
+ * so must add "" and '' as commands if their is no command (fixed)
 */
 void	check_tokens(token_ptr print_tk)
 {
@@ -63,8 +63,7 @@ int	main(int ac, char **av, char **envp)
 			exit(EXIT_SUCCESS);
 		if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
-		tokens_list = lexer(user_input); // TODO fix order.
-		//tokens_list_optimizer(&tokens_list);
+		tokens_list = lexer(user_input);
 		tokens_expander(tokens_list, envp);
 		if (parser_tokens(tokens_list) == false)
 		{
