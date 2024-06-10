@@ -29,7 +29,7 @@ int    ft_type_check(token_ptr tokens_list)
 	
 	return 0;
 }
-void 		build_in(token_ptr tokens_list)
+void 		built_in(token_ptr tokens_list)
 {
 	if (strcmp(tokens_list->token, "echo") == 0)
 		ft_echo(tokens_list);
@@ -54,7 +54,7 @@ int	parser_tokens(token_ptr tokens_list)
 		return  true;
 	if (ft_type_check(tokens_list) == 1)
 		return false;
-	build_in(tokens_list);
+	built_in(tokens_list);
 	return true;
 }
 // kssh$ <<>>ls
