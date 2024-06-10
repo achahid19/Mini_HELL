@@ -48,7 +48,8 @@ typedef enum e_type
 	leftred_token = 8,
 	rightred_token = 9,
 	heredoc_token = 10,
-	append_token = 11
+	append_token = 11,
+	cmd = 12
 }   t_type;
 
 /**
@@ -165,7 +166,11 @@ void		print_error(char *error);
 void	check_tokens(token_ptr print_tk);
 
 /* tk_list_optimizer */
-void	tokens_list_optimizer(token_ptr *tokens_list);
+void			tokens_list_optimizer(token_ptr *tokens_list);
+t_bool			type_checker(int type);
+
+/* syntax_builder */
+void	syntax_algo(token_ptr tokens_list);
 
 /*
 ls -ls < | < pwd no redirection befor pipes and heredoc

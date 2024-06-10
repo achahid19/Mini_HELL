@@ -51,11 +51,11 @@ int	parser_tokens(token_ptr tokens_list)
 {
 	token_ptr tmp = tokens_list;
 	if (tokens_list == NULL)
-		return  0;
+		return  true;
 	if (ft_type_check(tokens_list) == 1)
-		return 1;
+		return false;
 	build_in(tokens_list);
-	return 0;
+	return true;
 }
 // kssh$ <<>>ls
 // kssh$ <<ls<ls

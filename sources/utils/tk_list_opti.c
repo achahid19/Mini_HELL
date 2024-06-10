@@ -12,10 +12,11 @@
 
 #include "../../includes/miniHell.h"
 
-void		tokens_list_optimizer(token_ptr *tokens_list);
-static void	whitespace_remover(token_ptr *tokens_list,
-				token_ptr free_node, token_ptr previous);
-static void	tokens_order(token_ptr tokens_list);
+void			tokens_list_optimizer(token_ptr *tokens_list);
+static void		whitespace_remover(token_ptr *tokens_list,
+					token_ptr free_node, token_ptr previous);
+static void		tokens_order(token_ptr tokens_list);
+t_bool			type_checker(int type);
 
 /**
  * tokens_list_optimizer -
@@ -82,4 +83,13 @@ static void	tokens_order(token_ptr tokens_list)
 		order++;
 		tokens_list = tokens_list->next;
 	}
+}
+
+/**
+ * type_checker -
+*/
+t_bool	type_checker(int type)
+{
+	return (type == heredoc_token || type == leftred_token ||
+			type == rightred_token || type == append_token);
 }
