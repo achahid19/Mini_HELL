@@ -19,6 +19,14 @@
  * Optimize the token list
  * 	1 - skip all spaces and tokens with length == 0. (DONE)
  * 	2 - reorder the list.
+ * 
+ * TODO -> parenthisis ??
+ * Syntax's Algo.
+ * 
+ * <>ls, problem for parser fail.
+ * >>>ls, add for parse.
+ * >><<ls, also
+ * 
 */
 void	check_tokens(token_ptr print_tk)
 {
@@ -54,9 +62,14 @@ int	main(int ac, char **av, char **envp)
 		tokens_list = lexer(user_input);
 		tokens_expander(tokens_list, envp);
 		tokens_list_optimizer(&tokens_list);
-		// check_tokens(tokens_list);
-		// exit(1);
-		parser_tokens(tokens_list);
+		if (parser_tokens(tokens_list) == false)
+		{
+			free_tokens(tokens_list);
+			free(user_input);
+			continue;
+		}
+		syntax_algo(tokens_list);
+		check_tokens(tokens_list);
 		free_tokens(tokens_list);
 		free(user_input);
 	}
