@@ -51,7 +51,7 @@ token_ptr	lexer(char *user_input)
 	}
 	if (s == false)
 		return (NULL);
-	return (tokens_head);
+	return (tokens_order(tokens_head), tokens_head);
 }
 
 /**
