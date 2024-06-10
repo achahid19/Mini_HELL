@@ -21,6 +21,7 @@ void	quotes_error(int type);
 void	print_error(char *error)
 {
 	ft_putstr_fd("\033[0;35m", STDERR);
+	ft_putstr_fd("kssh: ", STDERR);
 	ft_putstr_fd(error, STDERR);
 	ft_putstr_fd("\n", STDERR);
 	ft_putstr_fd("\033[0m", STDERR);
