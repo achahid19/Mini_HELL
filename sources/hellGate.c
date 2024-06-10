@@ -27,6 +27,7 @@
  * >>>ls, add for parse.
  * >><<ls, also
  * 
+ * ls | $CMD ; error or not ?
 */
 void	check_tokens(token_ptr print_tk)
 {
@@ -64,14 +65,12 @@ int	main(int ac, char **av, char **envp)
 		tokens_list_optimizer(&tokens_list);
 		if (parser_tokens(tokens_list) == false)
 		{
-			free_tokens(tokens_list);
-			free(user_input);
+			free_all(tokens_list, user_input);
 			continue;
 		}
 		syntax_algo(tokens_list);
 		check_tokens(tokens_list);
-		free_tokens(tokens_list);
-		free(user_input);
+		free_all(tokens_list, user_input);
 	}
 	return (EXIT_SUCCESS);
 }
