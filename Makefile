@@ -12,9 +12,9 @@ CC = cc
 MAKE = make
 
 SRC =   $(addprefix sources/parsing/, pipe_checker.c parser.c redirection.c extra_parse.c heredoc_checker.c echo.c) \
-    	$(addprefix sources/, hellGate.c expander.c lexer.c extra_cases.c ) \
+    	$(addprefix sources/, hellGate.c expander.c lexer.c signals.c syntax_builder.c) \
 		$(addprefix sources/utils/, expander_utils2.c utils1.c lexer_utils.c expander_utils.c \
-					tk_list_opti.c syntax_builder.c expander_utils3.c ) \
+					utils2.c expander_utils3.c ) \
 		$(addprefix sources/free_and_errors/, free.c erros.c)
 
 # valgrind --leak-check=full --show-leak-kinds=all --suppressions=.readline.supp ./miniHell
