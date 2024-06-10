@@ -28,6 +28,9 @@
  * >><<ls, also
  * 
  * ls | $CMD ; error or not ?
+ * 
+ * "" -> bash command not found!
+ * so must add "" and '' as commands if their is no command (fixed)
 */
 void	check_tokens(token_ptr print_tk)
 {
@@ -62,7 +65,6 @@ int	main(int ac, char **av, char **envp)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
 		tokens_expander(tokens_list, envp);
-		tokens_list_optimizer(&tokens_list);
 		if (parser_tokens(tokens_list) == false)
 		{
 			free_all(tokens_list, user_input);

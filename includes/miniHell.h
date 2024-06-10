@@ -141,26 +141,20 @@ t_bool		singlequote_handler(token_ptr *tokens_list);
 int			parser_tokens(token_ptr tokens_list);
 int			pipe_checker(token_ptr tokens_list);
 int			redirections_checker(token_ptr tokens_list);
-int     semicolon_checker(token_ptr tokens_list);
-int     backslash_checker(token_ptr tokens_list);
-void    build_in(token_ptr tokens_list);
-int		parentheses_checker(token_ptr tokens_list);
-int	    parser_tokens_2(token_ptr tokens_list);
-int		heredoc_next_checker(token_ptr tokens_list);
-int		heredoc_append_checker(token_ptr tokens_list);
+int			semicolon_checker(token_ptr tokens_list);
+int			backslash_checker(token_ptr tokens_list);
+void		built_in(token_ptr tokens_list);
+int			parentheses_checker(token_ptr tokens_list);
+int			parser_tokens_2(token_ptr tokens_list);
+int			heredoc_next_checker(token_ptr tokens_list);
+int			heredoc_append_checker(token_ptr tokens_list);
 
-/* build_in   	*/
-
+/* built_in   	*/
 void		ft_echo(token_ptr tokens_list);
-
 
 /* signal handler */
 void		handler(int signum);
 void		signal_handler();
-
-/*
-	semicolon and backsalsh handler in : sources/parsing/extra_parse.c
-*/
 
 /* free_and_errors */
 void		free_tokens(token_ptr tokens_list);
@@ -168,21 +162,15 @@ void		free_all(token_ptr tokens_list, char *user_input);
 void		quotes_error(int quotes_type);
 void		print_error(char *error);
 
-void	check_tokens(token_ptr print_tk);
-
-/* tk_list_optimizer */
-void			tokens_list_optimizer(token_ptr *tokens_list);
-t_bool			type_checker(int type);
+/* utils2 */
+t_bool		type_checker(int type);
+void		tokens_order(token_ptr tokens_list);
 
 /* syntax_builder */
-void	syntax_algo(token_ptr tokens_list);
+void		syntax_algo(token_ptr tokens_list);
+token_ptr	get_next_pipe(token_ptr tokens_list);
 
-/*
-ls -ls < | < pwd no redirection befor pipes and heredoc
-
-
-
-
-*/
+/* tokens checker (printed on terminal) */
+void		check_tokens(token_ptr print_tk);
 
 #endif /* MINIHELL_H */

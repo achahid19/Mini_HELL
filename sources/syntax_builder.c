@@ -10,14 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniHell.h"
+#include "../includes/miniHell.h"
 
 void				syntax_algo(token_ptr tokens_list);
 static int			check_pipes_num(token_ptr tokens_list);
 static void			special_chars(token_ptr tokens_list, int type);
 static void			assign_cmd(token_ptr tokens_list);
-static token_ptr	get_next_pipe(token_ptr tokens_list);
-
+static void			check_no_cmd(token_ptr tokens_list);
 
 /**
  * syntax_algo -
@@ -32,6 +31,7 @@ void	syntax_algo(token_ptr tokens_list)
 	{
 		special_chars(tokens_list, type);
 		assign_cmd(tokens_list);
+		check_no_cmd(tokens_list);
 		tokens_list = get_next_pipe(tokens_list);
 		if (tokens_list == NULL)
 			break ;
@@ -93,18 +93,28 @@ static void	assign_cmd(token_ptr tokens_list)
 }
 
 /**
- * get_next_pipe -
+ * check_no_cmd -
 */
-static token_ptr	get_next_pipe(token_ptr tokens_list)
+static void	check_no_cmd(token_ptr tokens_list)
 {
+	token_ptr	tmp;
+
+	tmp = tokens_list;
+	while (tmp)
+	{
+		if (tmp->token_type == cmd)
+			return ;
+		tmp = tmp->next;
+	}
 	while (tokens_list)
 	{
+		if (tokens_list->token_type == doublequote_token ||
+			tokens_list->token_type == singlequote_token)
+		{
+			tokens_list->token_type = cmd;
+			tokens_list->next->token_type = cmd;
+			return ;
+		}
 		tokens_list = tokens_list->next;
-		if (tokens_list == NULL)
-			break ;
-		if (tokens_list->token_type == pipe_token)
-			break ;
 	}
-	return (tokens_list);
 }
-
