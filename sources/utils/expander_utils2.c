@@ -15,7 +15,6 @@
 void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 			t_expand d);
 int		dollars_count(char *token);
-t_bool	string_handler(token_ptr *tokens_list);
 int		get_biggest_len(char *envp, char *dollar_tk);
 void	data_move_helper(t_expand *data, char **token);
 
@@ -28,7 +27,7 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 	while (tokens_list != NULL)
 	{
 		if (string_handler(&tokens_list) == false)
-			return ;
+			continue;
 		d.dollars_count = dollars_count(tokens_list->token);
 		while (d.dollars_count-- > 0)
 		{
@@ -67,32 +66,6 @@ int	dollars_count(char *token)
 		token++;
 	}
 	return (dollars);
-}
-
-/**
- * string_hanlder - handle the execution of the
- * expansion of dollar sign, in double quoted string
-*/
-t_bool	string_handler(token_ptr *tokens_list)
-{
-	if ((*tokens_list)->token_type == doublequote_token)
-	{
-		*tokens_list = (*tokens_list)->next;
-		if ((*tokens_list) == NULL
-			|| (*tokens_list)->token_type == doublequote_token)
-			return (false);
-	}
-	else if ((*tokens_list)->token_type == singlequote_token)
-	{
-		*tokens_list = (*tokens_list)->next;
-		if ((*tokens_list) == NULL
-			|| (*tokens_list)->token_type == singlequote_token)
-			return (false);
-		if ((*tokens_list)->token_type == string_token)
-			*tokens_list = (*tokens_list)->next;
-		return (false);
-	}
-	return (true);
 }
 
 /**

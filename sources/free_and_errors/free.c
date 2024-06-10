@@ -24,3 +24,9 @@ void	free_tokens(token_ptr tokens_list)
 		free(tmp);
 	}
 }
+
+void	free_all(token_ptr tokens_list, char *user_input)
+{
+	free_tokens(tokens_list);
+	free(user_input);
+}
