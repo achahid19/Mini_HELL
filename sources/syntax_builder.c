@@ -12,11 +12,11 @@
 
 #include "../includes/miniHell.h"
 
-void				syntax_algo(token_ptr tokens_list);
-static int			check_pipes_num(token_ptr tokens_list);
-static void			special_chars(token_ptr tokens_list, int type);
-static void			assign_cmd(token_ptr tokens_list);
-static void			check_no_cmd(token_ptr tokens_list);
+void		syntax_algo(token_ptr tokens_list);
+int			check_pipes_num(token_ptr tokens_list);
+static void	special_chars(token_ptr tokens_list, int type);
+static void	assign_cmd(token_ptr tokens_list);
+static void	check_no_cmd(token_ptr tokens_list);
 
 /**
  * syntax_algo -
@@ -41,7 +41,7 @@ void	syntax_algo(token_ptr tokens_list)
 /**
  * check_pipes_num -
 */
-static int	check_pipes_num(token_ptr tokens_list)
+int	check_pipes_num(token_ptr tokens_list)
 {
 	int	pipes;
 
@@ -67,7 +67,14 @@ static void	special_chars(token_ptr tokens_list, int type)
 				type = tokens_list->token_type;
 				tokens_list = tokens_list->next;
 				if (tokens_list != NULL)
-					tokens_list->token_type = type;
+				{
+					if (tokens_list->token_type == whitespace_token)
+						tokens_list = tokens_list->next;
+					if (tokens_list != NULL)
+						tokens_list->token_type = type;
+					else
+						break ;
+				}
 				else
 					break ;
 			}
