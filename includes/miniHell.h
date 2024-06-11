@@ -165,12 +165,19 @@ void		print_error(char *error);
 /* utils2 */
 t_bool		type_checker(int type);
 void		tokens_order(token_ptr tokens_list);
+token_ptr	get_next_pipe(token_ptr tokens_list);
 
 /* syntax_builder */
 void		syntax_algo(token_ptr tokens_list);
-token_ptr	get_next_pipe(token_ptr tokens_list);
+int			check_pipes_num(token_ptr tokens_list);
 
 /* tokens checker (printed on terminal) */
 void		check_tokens(token_ptr print_tk);
+
+/* executor */
+void	executor(token_ptr tokens_list);
+
+/* tk_optimizer */
+void		tokens_list_optimizer(token_ptr *tokens_list);
 
 #endif /* MINIHELL_H */
