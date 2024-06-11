@@ -51,7 +51,7 @@ token_ptr	lexer(char *user_input)
 	}
 	if (s == false)
 		return (NULL);
-	return (tokens_order(tokens_head), tokens_head);
+	return (tokens_head);
 }
 
 /**
@@ -108,7 +108,7 @@ t_bool	char_tokens(char **user_input, token_ptr *tokens_head,
 
 	s = true;
 	if (type == whitespace_token)
-		return (s);
+		s = token_create(user_input, tokens_head, whitespace_token, order);
 	else if (type == pipe_token)
 		s = token_create(user_input, tokens_head, pipe_token, order);
 	else if (type == lbracket_token)
