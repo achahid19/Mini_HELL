@@ -12,23 +12,26 @@
 
 #include "../../includes/miniHell.h"
 
-void		tokens_list_optimizer(token_ptr *tokens_list);
-static void	whitespace_remover(token_ptr *tokens_list,
-				token_ptr free_node, token_ptr previous);
+void tokens_list_optimizer(token_ptr *tokens_list);
+static void whitespace_remover(token_ptr *tokens_list,
+							   token_ptr free_node, token_ptr previous);
+static void special_chars_refactor(token_ptr tokens_list);
+void node_remover(token_ptr *node);
 
 /**
  * tokens_list_optimizer -
-*/
-void	tokens_list_optimizer(token_ptr *tokens_list)
+ */
+void tokens_list_optimizer(token_ptr *tokens_list)
 {
-	token_ptr	tmp;
-	token_ptr	free_node;
-	token_ptr	previous;
+	token_ptr tmp;
+	token_ptr free_node;
+	token_ptr previous;
 
 	tmp = *tokens_list;
 	free_node = NULL;
 	previous = NULL;
 	whitespace_remover(tokens_list, free_node, previous);
+	special_chars_refactor(*tokens_list);
 	tokens_order(*tokens_list);
 	// if (*tokens_list != NULL)
 	// 	check_tokens(*tokens_list);
@@ -36,11 +39,11 @@ void	tokens_list_optimizer(token_ptr *tokens_list)
 
 /**
  * whitespace_remover -
-*/
-static void	whitespace_remover(token_ptr *tokens_list,
-				token_ptr free_node, token_ptr previous)
+ */
+static void whitespace_remover(token_ptr *tokens_list,
+							   token_ptr free_node, token_ptr previous)
 {
-	token_ptr	tmp;
+	token_ptr tmp;
 
 	tmp = *tokens_list;
 	while (tmp)
@@ -61,8 +64,76 @@ static void	whitespace_remover(token_ptr *tokens_list,
 			free(free_node->token);
 			free(free_node);
 			free_node = NULL;
-			continue ;
+			continue;
 		}
 		tmp = tmp->next;
 	}
+}
+
+/**
+ * special_chars_refactor -
+ */
+static void special_chars_refactor(token_ptr tokens_list)
+{
+	int type;
+
+	while (tokens_list)
+	{
+		type = tokens_list->token_type;
+		if (type == append_token || type == heredoc_token
+			|| type == leftred_token || type == rightred_token)
+		{
+			tokens_list = tokens_list->next;
+			while (tokens_list->token_type != type)
+			{
+				tokens_list = tokens_list->next;
+				if (tokens_list == NULL)
+					return ;
+			}
+			tokens_list = tokens_list->next;
+			if (tokens_list != NULL)
+			{
+				if (tokens_list->token_type == whitespace_token)
+					return ;
+				type = tokens_list->token_type;
+				if (type == doublequote_token || type == singlequote_token)
+				{
+					tokens_list->previous->token = ft_strjoin(tokens_list->previous->token,
+															  tokens_list->next->token);
+					tokens_list = tokens_list->next;
+					node_remover(&tokens_list);
+				}
+			}
+			else
+				return ;
+		}
+		tokens_list = tokens_list->next;
+	}
+}
+
+/**
+ * node_remover -
+*/
+void node_remover(token_ptr *node)
+{
+	token_ptr	tmp;
+	token_ptr	free_node;
+	token_ptr	previous;
+
+	tmp = *node;
+	free_node = tmp;
+	previous = tmp->previous;
+	tmp = tmp->next;
+	if (previous != NULL)
+		previous->next = tmp;
+	else
+		*node = tmp;
+	if (tmp != NULL)
+		tmp->previous = previous;
+	if (previous == NULL && tmp == NULL)
+		*node = NULL;
+	*node = (*node)->next;
+	free(free_node->token);
+	free(free_node);
+	free_node = NULL;
 }
