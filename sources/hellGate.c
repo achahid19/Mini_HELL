@@ -77,13 +77,13 @@ int	main(int ac, char **av, char **envp)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
 		tokens_expander(tokens_list, envp);
-		tokens_list_optimizer(&tokens_list);
 		if (parser_tokens(tokens_list) == false)
 		{
 			free_all(tokens_list, user_input);
 			continue;
 		}
 		syntax_algo(tokens_list);
+		tokens_list_optimizer(&tokens_list);
 		executor(tokens_list);
 		//check_tokens(tokens_list);
 		free_all(tokens_list, user_input);
