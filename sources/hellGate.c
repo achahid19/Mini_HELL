@@ -31,6 +31,18 @@
  * 
  * "" -> bash command not found!
  * so must add "" and '' as commands if their is no command (fixed)
+ * 
+ * ""'ls'.
+ * kssh$ echo "hello"no
+ * hello no
+ *
+ * needs spaces for execution.
+ * 
+ * if string == 0 needs to make "" or '' as strings.
+ * 
+ * kssh$ "l""s"<etst     "ls".   hello"$PWDno"  "c""a""t" < filename.
+ * 
+ * "cat"<test"-e", touch '',
 */
 void	check_tokens(token_ptr print_tk)
 {
@@ -65,13 +77,15 @@ int	main(int ac, char **av, char **envp)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
 		tokens_expander(tokens_list, envp);
+		tokens_list_optimizer(&tokens_list);
 		if (parser_tokens(tokens_list) == false)
 		{
 			free_all(tokens_list, user_input);
 			continue;
 		}
 		syntax_algo(tokens_list);
-		check_tokens(tokens_list);
+		executor(tokens_list);
+		//check_tokens(tokens_list);
 		free_all(tokens_list, user_input);
 	}
 	return (EXIT_SUCCESS);
