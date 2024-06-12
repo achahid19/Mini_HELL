@@ -68,8 +68,13 @@ static void	special_chars(token_ptr tokens_list, int type)
 				tokens_list = tokens_list->next;
 				if (tokens_list != NULL)
 				{
-					if (tokens_list->token_type == whitespace_token)
+					while (tokens_list->token_type != word_token
+							&& tokens_list->token_type != string_token)
+					{
 						tokens_list = tokens_list->next;
+						if (tokens_list == NULL)
+							break ;
+					}
 					if (tokens_list != NULL)
 						tokens_list->token_type = type;
 					else
@@ -105,6 +110,7 @@ static void	assign_cmd(token_ptr tokens_list)
 static void	check_no_cmd(token_ptr tokens_list)
 {
 	token_ptr	tmp;
+	int			type;
 
 	tmp = tokens_list;
 	while (tmp)
@@ -118,6 +124,9 @@ static void	check_no_cmd(token_ptr tokens_list)
 		if (tokens_list->token_type == doublequote_token ||
 			tokens_list->token_type == singlequote_token)
 		{
+			type = tokens_list->next->token_type;
+			if (type != doublequote_token || type != singlequote_token)
+				return ;
 			tokens_list->token_type = cmd;
 			tokens_list->next->token_type = cmd;
 			return ;
