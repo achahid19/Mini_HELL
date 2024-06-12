@@ -15,7 +15,7 @@
 void tokens_list_optimizer(token_ptr *tokens_list);
 static void whitespace_remover(token_ptr *tokens_list,
 							   token_ptr free_node, token_ptr previous);
-static void special_chars_refactor(token_ptr tokens_list);
+void special_chars_refactor(token_ptr tokens_list);
 void node_remover(token_ptr *node);
 
 /**
@@ -31,7 +31,8 @@ void tokens_list_optimizer(token_ptr *tokens_list)
 	free_node = NULL;
 	previous = NULL;
 	whitespace_remover(tokens_list, free_node, previous);
-	special_chars_refactor(*tokens_list);
+	//special_chars_refactor(*tokens_list);
+	check_no_cmd(*tokens_list);
 	tokens_order(*tokens_list);
 	// if (*tokens_list != NULL)
 	// 	check_tokens(*tokens_list);
@@ -73,9 +74,10 @@ static void whitespace_remover(token_ptr *tokens_list,
 /**
  * special_chars_refactor -
  */
-static void special_chars_refactor(token_ptr tokens_list)
+void special_chars_refactor(token_ptr tokens_list)
 {
 	int type;
+	token_ptr node_add;
 
 	while (tokens_list)
 	{
@@ -90,24 +92,29 @@ static void special_chars_refactor(token_ptr tokens_list)
 				if (tokens_list == NULL)
 					return ;
 			}
-			tokens_list = tokens_list->next;
-			if (tokens_list != NULL)
+			node_add = tokens_list;
+			while (type != whitespace_token)
 			{
-				if (tokens_list->token_type == whitespace_token)
-					return ;
-				type = tokens_list->token_type;
-				if (type == doublequote_token || type == singlequote_token)
+				if (type == string_token || type == word_token || type == cmd)
 				{
-					tokens_list->previous->token = ft_strjoin(tokens_list->previous->token,
-															  tokens_list->next->token);
-					tokens_list = tokens_list->next;
+					node_add->token = ft_strjoin(node_add->token, tokens_list->token);
 					node_remover(&tokens_list);
 				}
+				if (tokens_list == NULL)
+					return ;
+				if (tokens_list->token_type == whitespace_token)
+					break ;
+				tokens_list = tokens_list->next;
+				if (tokens_list == NULL)
+					return ;
+				type = tokens_list->token_type;
 			}
-			else
-				return ;
 		}
 		tokens_list = tokens_list->next;
+		if (tokens_list == NULL)
+			return ;
+		if (tokens_list->token_type == pipe_token)
+			return ;
 	}
 }
 

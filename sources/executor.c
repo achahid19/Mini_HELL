@@ -24,7 +24,8 @@
 // transform the command needed on each process :) hmmmm so get_next_pipe will
 // do his jooob yeeaaaaah!!!
 
-//
+// special chars without the second one means -> >> '' (since sytax is good).
+// not working for args -> because we could have only cmd without args.
 
 void	exec_command(token_ptr tokens_list);
 char	**extract_command(token_ptr tokens_list);
