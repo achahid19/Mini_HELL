@@ -170,6 +170,7 @@ token_ptr	get_next_pipe(token_ptr tokens_list);
 /* syntax_builder */
 void		syntax_algo(token_ptr tokens_list);
 int			check_pipes_num(token_ptr tokens_list);
+ void	check_no_cmd(token_ptr tokens_list);
 
 /* tokens checker (printed on terminal) */
 void		check_tokens(token_ptr print_tk);
