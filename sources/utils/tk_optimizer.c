@@ -91,37 +91,19 @@ static void special_chars_refactor(token_ptr tokens_list)
 				if (tokens_list == NULL)
 					return ;
 			}
-			if (tokens_list != NULL)
+			node_add = tokens_list;
+			while (type != whitespace_token)
 			{
-				if (tokens_list->token_type == type)
-					node_add = tokens_list;
+				if (type == string_token || type == word_token)
+				{
+					node_add->token = ft_strjoin(node_add->token, tokens_list->token);
+					node_remover(&tokens_list);
+				}
 				tokens_list = tokens_list->next;
 				if (tokens_list == NULL)
 					return ;
-				if (tokens_list->next != NULL)
-				{
-					if (tokens_list->next->token_type == singlequote_token
-							|| tokens_list->next->token_type == doublequote_token)
-							tokens_list = tokens_list->next;
-				}
-				else
-					return ;
-				if (tokens_list->token_type == whitespace_token)
-					return ;
 				type = tokens_list->token_type;
-				while (type == doublequote_token || type == singlequote_token)
-				{
-					node_add->token = ft_strjoin(node_add->token, tokens_list->next->token);
-					tokens_list = tokens_list->next;
-					node_remover(&tokens_list);
-					tokens_list = tokens_list->next;
-					if (tokens_list == NULL)
-						return;
-					type = tokens_list->token_type;
-				}
 			}
-			else
-				return ;
 		}
 		tokens_list = tokens_list->next;
 	}
