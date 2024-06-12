@@ -16,7 +16,7 @@ void		syntax_algo(token_ptr tokens_list);
 int			check_pipes_num(token_ptr tokens_list);
 static void	special_chars(token_ptr tokens_list, int type);
 static void	assign_cmd(token_ptr tokens_list);
-static void	check_no_cmd(token_ptr tokens_list);
+void	check_no_cmd(token_ptr tokens_list);
 
 /**
  * syntax_algo -
@@ -107,7 +107,7 @@ static void	assign_cmd(token_ptr tokens_list)
 /**
  * check_no_cmd -
 */
-static void	check_no_cmd(token_ptr tokens_list)
+ void	check_no_cmd(token_ptr tokens_list)
 {
 	token_ptr	tmp;
 	int			type;
@@ -119,18 +119,22 @@ static void	check_no_cmd(token_ptr tokens_list)
 			return ;
 		tmp = tmp->next;
 	}
-	while (tokens_list)
+	while(tokens_list)
 	{
+		while (tokens_list->token_type == whitespace_token)
+		{
+			tokens_list = tokens_list->next;
+			if (tokens_list == NULL)
+				return ;
+		}
 		if (tokens_list->token_type == doublequote_token ||
 			tokens_list->token_type == singlequote_token)
 		{
-			type = tokens_list->next->token_type;
-			if (type != doublequote_token || type != singlequote_token)
-				return ;
 			tokens_list->token_type = cmd;
 			tokens_list->next->token_type = cmd;
-			return ;
 		}
-		tokens_list = tokens_list->next;
+		tokens_list = get_next_pipe(tokens_list);
+		if (tokens_list != NULL)
+			tokens_list = tokens_list->next;
 	}
 }

@@ -32,6 +32,7 @@ void tokens_list_optimizer(token_ptr *tokens_list)
 	previous = NULL;
 	whitespace_remover(tokens_list, free_node, previous);
 	special_chars_refactor(*tokens_list);
+	check_no_cmd(*tokens_list);
 	tokens_order(*tokens_list);
 	// if (*tokens_list != NULL)
 	// 	check_tokens(*tokens_list);
@@ -94,7 +95,6 @@ static void special_chars_refactor(token_ptr tokens_list)
 			node_add = tokens_list;
 			while (type != whitespace_token)
 			{
-				
 				if (type == string_token || type == word_token || type == cmd)
 				{
 					node_add->token = ft_strjoin(node_add->token, tokens_list->token);
