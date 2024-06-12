@@ -180,5 +180,6 @@ void	executor(token_ptr tokens_list);
 
 /* tk_optimizer */
 void		tokens_list_optimizer(token_ptr *tokens_list);
+void 		special_chars_refactor(token_ptr tokens_list);
 
 #endif /* MINIHELL_H */
