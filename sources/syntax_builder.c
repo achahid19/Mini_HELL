@@ -32,11 +32,12 @@ void	syntax_algo(token_ptr tokens_list)
 	{
 		special_chars(tokens_list, type);
 		assign_cmd(tokens_list);
-		//check_no_cmd(tokens_list);
 		quotes_handler(tokens_list);
+		special_chars_refactor(tokens_list);
 		tokens_list = get_next_pipe(tokens_list);
 		if (tokens_list == NULL)
 			break ;
+		tokens_list = tokens_list->next;
 	}
 }
 
@@ -86,6 +87,10 @@ static void	special_chars(token_ptr tokens_list, int type)
 					break ;
 			}
 			tokens_list = tokens_list->next;
+			if (tokens_list == NULL)
+				return ;
+			if (tokens_list->token_type == pipe_token)
+				return ;
 		}
 }
 
