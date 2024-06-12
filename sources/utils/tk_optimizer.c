@@ -94,11 +94,16 @@ static void special_chars_refactor(token_ptr tokens_list)
 			node_add = tokens_list;
 			while (type != whitespace_token)
 			{
-				if (type == string_token || type == word_token)
+				
+				if (type == string_token || type == word_token || type == cmd)
 				{
 					node_add->token = ft_strjoin(node_add->token, tokens_list->token);
 					node_remover(&tokens_list);
 				}
+				if (tokens_list == NULL)
+					return ;
+				if (tokens_list->token_type == whitespace_token)
+					break ;
 				tokens_list = tokens_list->next;
 				if (tokens_list == NULL)
 					return ;

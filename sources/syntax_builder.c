@@ -31,7 +31,7 @@ void	syntax_algo(token_ptr tokens_list)
 	{
 		special_chars(tokens_list, type);
 		assign_cmd(tokens_list);
-		check_no_cmd(tokens_list);
+		//check_no_cmd(tokens_list);
 		tokens_list = get_next_pipe(tokens_list);
 		if (tokens_list == NULL)
 			break ;
