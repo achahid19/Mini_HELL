@@ -76,6 +76,7 @@ static void whitespace_remover(token_ptr *tokens_list,
 static void special_chars_refactor(token_ptr tokens_list)
 {
 	int type;
+	token_ptr node_add;
 
 	while (tokens_list)
 	{
@@ -90,18 +91,33 @@ static void special_chars_refactor(token_ptr tokens_list)
 				if (tokens_list == NULL)
 					return ;
 			}
-			tokens_list = tokens_list->next;
 			if (tokens_list != NULL)
 			{
+				if (tokens_list->token_type == type)
+					node_add = tokens_list;
+				tokens_list = tokens_list->next;
+				if (tokens_list == NULL)
+					return ;
+				if (tokens_list->next != NULL)
+				{
+					if (tokens_list->next->token_type == singlequote_token
+							|| tokens_list->next->token_type == doublequote_token)
+							tokens_list = tokens_list->next;
+				}
+				else
+					return ;
 				if (tokens_list->token_type == whitespace_token)
 					return ;
 				type = tokens_list->token_type;
-				if (type == doublequote_token || type == singlequote_token)
+				while (type == doublequote_token || type == singlequote_token)
 				{
-					tokens_list->previous->token = ft_strjoin(tokens_list->previous->token,
-															  tokens_list->next->token);
+					node_add->token = ft_strjoin(node_add->token, tokens_list->next->token);
 					tokens_list = tokens_list->next;
 					node_remover(&tokens_list);
+					tokens_list = tokens_list->next;
+					if (tokens_list == NULL)
+						return;
+					type = tokens_list->token_type;
 				}
 			}
 			else
