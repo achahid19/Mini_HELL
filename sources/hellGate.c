@@ -50,13 +50,13 @@ void	check_tokens(token_ptr print_tk)
 	{
 		printf("------------------------------\n");
 		printf("token: %s\n", print_tk->token);
-		printf("order: %d\n", print_tk->order);
+		//printf("order: %d\n", print_tk->order);
 		printf("type: %d\n", print_tk->token_type);
-		printf("lenght: %d\n", print_tk->token_length);
-		if (print_tk->previous != NULL)
+		//printf("lenght: %d\n", print_tk->token_length);
+		/* if (print_tk->previous != NULL)
 			printf("previous: %s\n", print_tk->previous->token);
 		else if (print_tk->previous == NULL)
-			printf("previous: NULL\n");
+			printf("previous: NULL\n"); */
 		printf("------------------------------\n");
 		print_tk = print_tk->next;
 	}

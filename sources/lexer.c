@@ -111,10 +111,10 @@ t_bool	char_tokens(char **user_input, token_ptr *tokens_head,
 		s = token_create(user_input, tokens_head, whitespace_token, order);
 	else if (type == pipe_token)
 		s = token_create(user_input, tokens_head, pipe_token, order);
-	else if (type == lbracket_token)
+	/* else if (type == lbracket_token)
 		s = token_create(user_input, tokens_head, lbracket_token, order);
 	else if (type == rbracket_token)
-		s = token_create(user_input, tokens_head, rbracket_token, order);
+		s = token_create(user_input, tokens_head, rbracket_token, order); */
 	else if (type == leftred_token)
 		s = token_create(user_input, tokens_head, leftred_token, order);
 	else if (type == rightred_token)
