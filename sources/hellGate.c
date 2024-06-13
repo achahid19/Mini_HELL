@@ -43,6 +43,10 @@
  * kssh$ "l""s"<etst     "ls".   hello"$PWDno"  "c""a""t" < filename.
  * 
  * "cat"<test"-e", touch '',
+ * 
+ * >>EOF"" ""ls
+ * 
+ * if an error occurs (syntax errro) re-prompt
 */
 void	check_tokens(token_ptr print_tk)
 {
@@ -85,7 +89,7 @@ int	main(int ac, char **av, char **envp)
 		syntax_algo(tokens_list);
 		tokens_list_optimizer(&tokens_list);
 		executor(tokens_list);
-		//check_tokens(tokens_list);
+		check_tokens(tokens_list);
 		free_all(tokens_list, user_input);
 	}
 	return (EXIT_SUCCESS);

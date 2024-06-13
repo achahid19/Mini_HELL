@@ -127,15 +127,11 @@ static void	assign_cmd(token_ptr tokens_list)
 	}
 	while(tokens_list)
 	{
-		while (tokens_list->token_type == whitespace_token
-		|| tokens_list->token_type == heredoc_token
-		|| tokens_list->token_type == append_token
-		|| tokens_list->token_type == leftred_token
-		|| tokens_list->token_type == rightred_token)
+		while (tokens_list->token_type == whitespace_token)
 		{
 			tokens_list = tokens_list->next;
 			if (tokens_list == NULL)
-				return ;
+					return ;
 		}
 		if (tokens_list->token_type == doublequote_token ||
 			tokens_list->token_type == singlequote_token)
@@ -144,8 +140,8 @@ static void	assign_cmd(token_ptr tokens_list)
 			tokens_list->next->token_type = cmd;
 		}
 		tokens_list = get_next_pipe(tokens_list);
-		if (tokens_list != NULL)
-			tokens_list = tokens_list->next;
+        if (tokens_list != NULL)
+            tokens_list = tokens_list->next;
 	}
 }
 
@@ -183,6 +179,8 @@ static void	quotes_handler(token_ptr tokens_list)
 			if (tmp == NULL)
 			{
 				tokens_list = tokens_list->next;
+				if (tokens_list->token_type == pipe_token)
+					return ;
 				continue;
 			}
 			while (tmp->token_type == whitespace_token)
@@ -197,6 +195,8 @@ static void	quotes_handler(token_ptr tokens_list)
 			if (tmp == NULL)
 			{
 				tokens_list = tokens_list->next;
+				if (tokens_list->token_type == pipe_token)
+					return ;
 				continue;
 			}
 			type_previous = tmp->token_type;
@@ -210,5 +210,9 @@ static void	quotes_handler(token_ptr tokens_list)
 			}
 		}
 		tokens_list = tokens_list->next;
+		if (tokens_list == NULL)
+			return ;
+		if (tokens_list->token_type == pipe_token)
+			return ;
 	}
 }
