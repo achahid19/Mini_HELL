@@ -127,7 +127,11 @@ static void	assign_cmd(token_ptr tokens_list)
 	}
 	while(tokens_list)
 	{
-		while (tokens_list->token_type == whitespace_token)
+		while (tokens_list->token_type == whitespace_token
+		|| tokens_list->token_type == heredoc_token
+		|| tokens_list->token_type == append_token
+		|| tokens_list->token_type == leftred_token
+		|| tokens_list->token_type == rightred_token)
 		{
 			tokens_list = tokens_list->next;
 			if (tokens_list == NULL)
@@ -177,7 +181,10 @@ static void	quotes_handler(token_ptr tokens_list)
 			}
 			token_ptr tmp = tokens_list->previous;
 			if (tmp == NULL)
-				return ;
+			{
+				tokens_list = tokens_list->next;
+				continue;
+			}
 			while (tmp->token_type == whitespace_token)
 			{
 				is_space = true;
@@ -185,13 +192,18 @@ static void	quotes_handler(token_ptr tokens_list)
 				if (tmp != NULL)
 					type_previous = tmp->token_type;
 				else
-					return ;	
+					break ;
+			}
+			if (tmp == NULL)
+			{
+				tokens_list = tokens_list->next;
+				continue;
 			}
 			type_previous = tmp->token_type;
 			if (type_next == type && (type_previous == word_token
 				|| type_previous == cmd || type_previous == doublequote_token
-				|| type_previous == singlequote_token) && type_next_next != word_token
-				&& is_space == true)
+				|| type_previous == singlequote_token) 
+				&& (type_next_next != word_token) && is_space == true)
 			{
 				tokens_list->token_type = word_token;
 				tokens_list->next->token_type = word_token;
