@@ -43,6 +43,10 @@
  * kssh$ "l""s"<etst     "ls".   hello"$PWDno"  "c""a""t" < filename.
  * 
  * "cat"<test"-e", touch '',
+ * 
+ * >>EOF"" ""ls
+ * 
+ * if an error occurs (syntax errro) re-prompt
 */
 void	check_tokens(token_ptr print_tk)
 {
@@ -50,13 +54,13 @@ void	check_tokens(token_ptr print_tk)
 	{
 		printf("------------------------------\n");
 		printf("token: %s\n", print_tk->token);
-		printf("order: %d\n", print_tk->order);
+		//printf("order: %d\n", print_tk->order);
 		printf("type: %d\n", print_tk->token_type);
-		printf("lenght: %d\n", print_tk->token_length);
-		if (print_tk->previous != NULL)
+		//printf("lenght: %d\n", print_tk->token_length);
+		/* if (print_tk->previous != NULL)
 			printf("previous: %s\n", print_tk->previous->token);
 		else if (print_tk->previous == NULL)
-			printf("previous: NULL\n");
+			printf("previous: NULL\n"); */
 		printf("------------------------------\n");
 		print_tk = print_tk->next;
 	}
@@ -76,15 +80,16 @@ int	main(int ac, char **av, char **envp)
 		if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
-		tokens_expander(tokens_list, envp);
+		// add heredoc handler here.
 		if (parser_tokens(tokens_list) == false)
 		{
 			free_all(tokens_list, user_input);
 			continue;
 		}
+		tokens_expander(tokens_list, envp);
 		syntax_algo(tokens_list);
 		tokens_list_optimizer(&tokens_list);
-		executor(tokens_list);
+		executor(tokens_list, envp);
 		//check_tokens(tokens_list);
 		free_all(tokens_list, user_input);
 	}

@@ -131,7 +131,7 @@ static void	assign_cmd(token_ptr tokens_list)
 		{
 			tokens_list = tokens_list->next;
 			if (tokens_list == NULL)
-				return ;
+					return ;
 		}
 		if (tokens_list->token_type == doublequote_token ||
 			tokens_list->token_type == singlequote_token)
@@ -140,8 +140,8 @@ static void	assign_cmd(token_ptr tokens_list)
 			tokens_list->next->token_type = cmd;
 		}
 		tokens_list = get_next_pipe(tokens_list);
-		if (tokens_list != NULL)
-			tokens_list = tokens_list->next;
+        if (tokens_list != NULL)
+            tokens_list = tokens_list->next;
 	}
 }
 
@@ -150,30 +150,69 @@ static void	quotes_handler(token_ptr tokens_list)
 	int	type_next;
 	int	type_previous;
 	int	type;
+	int	type_next_next;
+	t_bool	is_space = false;
 
-	type_next = 12;
-	type_previous = 12;
+	
 	if (tokens_list == NULL)
 		return ;
 	if (tokens_list->token_type == pipe_token)
 		tokens_list = tokens_list->next;
 	while (tokens_list)
 	{
+		type_next = 12;
+		type_next_next = 12;
+		type_previous = 12;
+		is_space = false;
 		if (tokens_list->token_type == pipe_token)
 			return ;
 		type = tokens_list->token_type;
 		if (type == doublequote_token || type == singlequote_token)
 		{	
 			if (tokens_list->next != NULL)
+			{
 				type_next = tokens_list->next->token_type;
-			if (tokens_list->previous != NULL)
-				type_previous = tokens_list->previous->token_type;
-			if (type_next == type && type_previous == whitespace_token)
+				if (tokens_list->next->next != NULL)
+					type_next_next = tokens_list->next->next->token_type;
+			}
+			token_ptr tmp = tokens_list->previous;
+			if (tmp == NULL)
+			{
+				tokens_list = tokens_list->next;
+				if (tokens_list->token_type == pipe_token)
+					return ;
+				continue;
+			}
+			while (tmp->token_type == whitespace_token)
+			{
+				is_space = true;
+				tmp = tmp->previous;
+				if (tmp != NULL)
+					type_previous = tmp->token_type;
+				else
+					break ;
+			}
+			if (tmp == NULL)
+			{
+				tokens_list = tokens_list->next;
+				if (tokens_list->token_type == pipe_token)
+					return ;
+				continue;
+			}
+			type_previous = tmp->token_type;
+			if (type_next == type && (type_previous == word_token
+				|| type_previous == cmd || type_previous == doublequote_token
+				|| type_previous == singlequote_token) 
+				&& (type_next_next != word_token) && is_space == true)
 			{
 				tokens_list->token_type = word_token;
 				tokens_list->next->token_type = word_token;
 			}
 		}
 		tokens_list = tokens_list->next;
+		if (tokens_list == NULL)
+			return ;
+		if (tokens_list->token_type == pipe_token)
+			return ;
 	}
 }

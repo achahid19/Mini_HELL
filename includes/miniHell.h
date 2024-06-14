@@ -22,6 +22,7 @@
 # include <readline/readline.h>
 # include <fcntl.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 
 /* fd */
 # define STDIN 0
@@ -88,6 +89,15 @@ typedef struct s_expand
 	int		dollars_count;
 	t_bool	flag;
 }	t_expand;
+
+typedef struct s_var
+{
+	char	**token;
+	char	**path;
+	char	*path_to_cmd;
+	char	*env;
+	size_t	i;
+}	t_var;
 
 /* Lexical analyzer */
 token_ptr	lexer(char *user_input);
@@ -176,7 +186,7 @@ int			check_pipes_num(token_ptr tokens_list);
 void		check_tokens(token_ptr print_tk);
 
 /* executor */
-void	executor(token_ptr tokens_list);
+void	executor(token_ptr tokens_list, char **env);
 
 /* tk_optimizer */
 void		tokens_list_optimizer(token_ptr *tokens_list);
