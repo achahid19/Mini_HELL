@@ -24,7 +24,6 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 
-/* fd */
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
@@ -97,6 +96,13 @@ typedef struct s_var
 	char	*path_to_cmd;
 	char	*env;
 	size_t	i;
+	/* for quotes_handler */
+	int			type_next;
+	int			type_previous;
+	int			type;
+	int			type_next_next;
+	t_bool		is_space;
+	token_ptr	tmp;
 }	t_var;
 
 /* Lexical analyzer */
@@ -181,6 +187,19 @@ token_ptr	get_next_pipe(token_ptr tokens_list);
 void		syntax_algo(token_ptr tokens_list);
 int			check_pipes_num(token_ptr tokens_list);
  void	check_no_cmd(token_ptr tokens_list);
+
+/* syntax builder utils */
+int		check_pipes_num(token_ptr tokens_list);
+void	same_type_finder(token_ptr *tokens_list);
+t_bool	type_checker(int type);
+t_bool	cmd_checker(token_ptr tokens_list);
+void	quotes_handler_helper(token_ptr tokens_list, t_var d);
+
+/* syntax builder utils 2 */
+t_bool	handle_qt(token_ptr	*tokens_list, t_var d);
+void	get_next_type(token_ptr *tokens_list, t_var d);
+void	words_finder(token_ptr *tokens_list, t_var d);
+t_bool	tmp_checker(token_ptr *tokens_list, token_ptr tmp, t_bool *status);
 
 /* tokens checker (printed on terminal) */
 void		check_tokens(token_ptr print_tk);
