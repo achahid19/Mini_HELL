@@ -179,35 +179,33 @@ void		quotes_error(int quotes_type);
 void		print_error(char *error);
 
 /* utils2 */
-t_bool		type_checker(int type);
 void		tokens_order(token_ptr tokens_list);
 token_ptr	get_next_pipe(token_ptr tokens_list);
+void		get_next_type(token_ptr *tokens_list, t_var d);
 
 /* syntax_builder */
 void		syntax_algo(token_ptr tokens_list);
-int			check_pipes_num(token_ptr tokens_list);
- void	check_no_cmd(token_ptr tokens_list);
+void		check_no_cmd(token_ptr tokens_list);
 
 /* syntax builder utils */
-int		check_pipes_num(token_ptr tokens_list);
-void	same_type_finder(token_ptr *tokens_list);
-t_bool	type_checker(int type);
-t_bool	cmd_checker(token_ptr tokens_list);
-void	quotes_handler_helper(token_ptr tokens_list, t_var d);
+int			check_pipes_num(token_ptr tokens_list);
+void		same_type_finder(token_ptr *tokens_list);
+t_bool		type_checker(int type);
+t_bool		cmd_checker(token_ptr tokens_list);
+void		quotes_handler_helper(token_ptr tokens_list, t_var d);
 
 /* syntax builder utils 2 */
-t_bool	handle_qt(token_ptr	*tokens_list, t_var d);
-void	get_next_type(token_ptr *tokens_list, t_var d);
-void	words_finder(token_ptr *tokens_list, t_var d);
-t_bool	tmp_checker(token_ptr *tokens_list, token_ptr tmp, t_bool *status);
-t_bool	multiple_quotes_check(t_var d, token_ptr tmp);
-t_bool	types_checker(t_var d, int index, token_ptr tmp);
+t_bool		handle_qt(token_ptr	*tokens_list, t_var d);
+void		words_finder(token_ptr *tokens_list, t_var d);
+t_bool		tmp_checker(token_ptr *tokens_list, token_ptr tmp, t_bool *status);
+t_bool		multiple_quotes_check(t_var d, token_ptr tmp);
+t_bool		types_checker(t_var d, int index, token_ptr tmp);
 
 /* tokens checker (printed on terminal) */
 void		check_tokens(token_ptr print_tk);
 
 /* executor */
-void	executor(token_ptr tokens_list, char **env);
+void		executor(token_ptr tokens_list, char **env);
 
 /* tk_optimizer */
 void		tokens_list_optimizer(token_ptr *tokens_list);
