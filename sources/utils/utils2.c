@@ -13,7 +13,6 @@
 #include "../../includes/miniHell.h"
 
 void		tokens_order(token_ptr tokens_list);
-t_bool		type_checker(int type);
 token_ptr	get_next_pipe(token_ptr tokens_list);
 
 /**
@@ -30,15 +29,6 @@ void	tokens_order(token_ptr tokens_list)
 		order++;
 		tokens_list = tokens_list->next;
 	}
-}
-
-/**
- * type_checker -
-*/
-t_bool	type_checker(int type)
-{
-	return (type == heredoc_token || type == leftred_token ||
-			type == rightred_token || type == append_token);
 }
 
 /**

@@ -36,9 +36,9 @@
  * kssh$ echo "hello"no
  * hello no
  *
- * needs spaces for execution.
+ * need spaces for execution.
  * 
- * if string == 0 needs to make "" or '' as strings.
+ * if string == 0 need to make "" or '' as strings.
  * 
  * kssh$ "l""s"<etst     "ls".   hello"$PWDno"  "c""a""t" < filename.
  * 
@@ -87,8 +87,9 @@ int	main(int ac, char **av, char **envp)
 			continue;
 		}
 		tokens_expander(tokens_list, envp);
-		syntax_algo(tokens_list);
 		tokens_list_optimizer(&tokens_list);
+		syntax_algo(tokens_list);
+		
 		executor(tokens_list, envp);
 		//check_tokens(tokens_list);
 		free_all(tokens_list, user_input);

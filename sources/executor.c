@@ -58,8 +58,8 @@ void	exec_command(token_ptr tokens_list, char **envp)
 		// cmd + args (words + strings).
 	/* // extract till Pipe or NULL. and return 2d array */
 	full_cmd = extract_command(tokens_list); // TODO later: check for built_ins
-	/* for (int z = 0; full_cmd[z] != NULL; z++)
-		printf("--->%s\n", full_cmd[z]); */
+	for (int z = 0; full_cmd[z] != NULL; z++)
+		printf("--->%s\n", full_cmd[z]);
 	ft_pipe(full_cmd, envp);
 	// handle red, and appends on linked_list.
 }
