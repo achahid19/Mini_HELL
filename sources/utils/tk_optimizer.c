@@ -12,11 +12,11 @@
 
 #include "../../includes/miniHell.h"
 
-void tokens_list_optimizer(token_ptr *tokens_list);
+void 		tokens_list_optimizer(token_ptr *tokens_list);
 static void whitespace_remover(token_ptr *tokens_list,
-							   token_ptr free_node, token_ptr previous);
-void special_chars_refactor(token_ptr tokens_list);
-void node_remover(token_ptr *node);
+				token_ptr free_node, token_ptr previous);
+void		special_chars_refactor(token_ptr tokens_list);
+void 		node_remover(token_ptr *node);
 
 /**
  * tokens_list_optimizer -
@@ -31,8 +31,6 @@ void tokens_list_optimizer(token_ptr *tokens_list)
 	free_node = NULL;
 	previous = NULL;
 	whitespace_remover(tokens_list, free_node, previous);
-	//special_chars_refactor(*tokens_list);
-	//check_no_cmd(*tokens_list);
 	tokens_order(*tokens_list);
 	// if (*tokens_list != NULL)
 	// 	check_tokens(*tokens_list);
