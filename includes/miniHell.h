@@ -210,5 +210,6 @@ void		executor(token_ptr tokens_list, char **env);
 /* tk_optimizer */
 void		tokens_list_optimizer(token_ptr *tokens_list);
 void 		special_chars_refactor(token_ptr tokens_list);
+void 		node_remover(token_ptr *node);
 
 #endif /* MINIHELL_H */
