@@ -14,6 +14,7 @@
 
 void		tokens_order(token_ptr tokens_list);
 token_ptr	get_next_pipe(token_ptr tokens_list);
+void		get_next_type(token_ptr *tokens_list, t_var d);
 
 /**
  * tokens_order -
@@ -45,4 +46,17 @@ token_ptr	get_next_pipe(token_ptr tokens_list)
 			break ;
 	}
 	return (tokens_list);
+}
+
+/**
+ * get_next_type -
+*/
+void	get_next_type(token_ptr *tokens_list, t_var d)
+{
+	if ((*tokens_list)->next != NULL)
+	{
+		d.type_next = (*tokens_list)->next->token_type;
+		if ((*tokens_list)->next->next != NULL)
+			d.type_next_next = (*tokens_list)->next->next->token_type;
+	}
 }
