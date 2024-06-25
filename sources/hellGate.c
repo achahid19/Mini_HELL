@@ -48,6 +48,18 @@
  * 
  * if an error occurs (syntax errro) re-prompt
 */
+/**
+ * 1st - cmd not found ! fix it. (in progress).
+ * 2d - ls """"arg.
+ * 3th - quotes as commands -> pass a null terminating string (strdup).
+ * 4th - norminette
+ * 5th - leaks.
+ * 
+ * ls"""  """''"la"""""''
+ * --->ls  la
+ * garbage_objs  includes	libft  Makefile  miniHell  sources -> cmd not found.
+ * 
+*/
 void	check_tokens(token_ptr print_tk)
 {
 	while (print_tk != NULL)

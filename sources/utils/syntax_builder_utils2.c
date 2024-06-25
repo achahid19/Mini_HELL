@@ -4,6 +4,8 @@ t_bool	handle_qt(token_ptr	*tokens_list, t_var d);
 void	get_next_type(token_ptr *tokens_list, t_var d);
 void	words_finder(token_ptr *tokens_list, t_var d);
 t_bool	tmp_checker(token_ptr *tokens_list, token_ptr tmp, t_bool *status);
+t_bool	multiple_quotes_check(t_var d, token_ptr tmp);
+t_bool	types_checker(t_var d, int index, token_ptr tmp);
 
 /**
  * handle_qt -
@@ -41,25 +43,72 @@ void	get_next_type(token_ptr *tokens_list, t_var d)
 	{
 		d.type_next = (*tokens_list)->next->token_type;
 		if ((*tokens_list)->next->next != NULL)
-		d.type_next_next = (*tokens_list)->next->next->token_type;
+			d.type_next_next = (*tokens_list)->next->next->token_type;
 	}
 }
 
+/**
+ * multiple_quotes_check -
+*/
+t_bool	multiple_quotes_check(t_var d, token_ptr tmp)
+{
+	if (d.type_next_next == doublequote_token || d.type_next_next == singlequote_token)
+	{
+		while (tmp)
+		{
+			tmp = tmp->next;
+			if (tmp == NULL)
+				return (true);
+			if (tmp->token_type == whitespace_token || tmp->token_type == rightred_token
+				|| tmp->token_type == leftred_token || tmp->token_type == heredoc_token
+				|| tmp->token_type == append_token)
+					return (true);
+			if (tmp->token_type != doublequote_token && tmp->token_type != singlequote_token)
+				return (false);
+		}
+	}
+	return (true);
+}
+
+/**
+ * word_assign_checker -
+*/
+t_bool	types_checker(t_var d, int index, token_ptr tmp)
+{
+	if (index == 1)
+	{
+		return ((d.type_next == doublequote_token
+				|| d.type_next == singlequote_token)
+				&& (d.type_previous == whitespace_token)
+				&& (d.type_next_next == whitespace_token
+				|| d.type_next_next == doublequote_token
+				|| d.type_next_next == singlequote_token
+				|| d.type_next_next == 13
+				|| d.type_next_next == rightred_token));
+	}
+	else if (index == 2)
+	{
+		return (tmp->next->next->token_type == whitespace_token
+				|| tmp->next->next->token_type == doublequote_token
+				|| tmp->next->next->token_type == singlequote_token
+				|| tmp->next->next->token_type == append_token
+				|| tmp->next->next->token_type == heredoc_token
+				|| tmp->next->next->token_type == leftred_token
+				|| tmp->next->next->token_type == rightred_token);
+	}
+	return (1337);
+}
 /**
  * words_finder -
 */
 void	words_finder(token_ptr *tokens_list, t_var d)
 {
-	if ((*tokens_list)->next == NULL)
-		return ;
-	if (cmd_checker(*tokens_list) == true)
+	if ((*tokens_list)->next == NULL || cmd_checker(*tokens_list) == true)
 		return ;
 	d.type_next = (*tokens_list)->next->token_type;
 	if ((*tokens_list)->next->next != NULL)
 	{
-		if ((*tokens_list)->next->next->token_type == whitespace_token
-			|| (*tokens_list)->next->next->token_type == doublequote_token
-			|| (*tokens_list)->next->next->token_type == singlequote_token)
+		if (types_checker(d, 2, (*tokens_list)) == true)
 			d.type_next_next = (*tokens_list)->next->next->token_type;
 	}
 	else if ((*tokens_list)->next->next == NULL)
@@ -69,11 +118,10 @@ void	words_finder(token_ptr *tokens_list, t_var d)
 		if ((*tokens_list)->previous->token_type == whitespace_token)
 			d.type_previous = (*tokens_list)->previous->token_type;
 	}
-	if ((d.type_next == doublequote_token || d.type_next == singlequote_token)
-		&& (d.type_previous == whitespace_token) && (d.type_next_next == whitespace_token
-		|| d.type_next_next == doublequote_token
-		|| d.type_next_next == singlequote_token || d.type_next_next == 13))
+	if (types_checker(d, 1, NULL) == true)
 	{
+		if (multiple_quotes_check(d, (*tokens_list)) == false)
+			return ;
 		(*tokens_list)->token_type = word_token;
 	 	(*tokens_list)->next->token_type = word_token;
 	}

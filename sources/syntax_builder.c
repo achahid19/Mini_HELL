@@ -48,23 +48,23 @@ void	syntax_algo(token_ptr tokens_list)
 static void	special_chars(token_ptr tokens_list, int type)
 {
 	while (tokens_list)
+	{
+		if (type_checker(tokens_list->token_type) == true)
 		{
-			if (type_checker(tokens_list->token_type) == true)
-			{
-				type = tokens_list->token_type;
-				tokens_list = tokens_list->next;
-				same_type_finder(&tokens_list);
-				if (tokens_list != NULL)
-					tokens_list->token_type = type;
-				else
-					break ;
-			}
+			type = tokens_list->token_type;
 			tokens_list = tokens_list->next;
-			if (tokens_list == NULL)
-				return ;
-			if (tokens_list->token_type == pipe_token)
-				return ;
+			same_type_finder(&tokens_list);
+			if (tokens_list != NULL)
+				tokens_list->token_type = type;
+			else
+				break ;
 		}
+		tokens_list = tokens_list->next;
+		if (tokens_list == NULL)
+			return ;
+		else if (tokens_list->token_type == pipe_token)
+			return ;
+	}
 }
 
 /**
@@ -81,6 +81,10 @@ static void	assign_cmd(token_ptr tokens_list)
 			break ;
 		}
 		tokens_list = tokens_list->next;
+		if (tokens_list == NULL)
+			return ;
+		else if (tokens_list->token_type == pipe_token)
+			return ;
 	}
 }
 
