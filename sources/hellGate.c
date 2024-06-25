@@ -59,6 +59,8 @@
  * --->ls  la
  * garbage_objs  includes	libft  Makefile  miniHell  sources -> cmd not found.
  * 
+ * for akkajou -> special char + quotes == error e.g (> "", < ''...) (no such file or dir.).
+ * unless for heredoc << "" must prompt.
 */
 void	check_tokens(token_ptr print_tk)
 {
