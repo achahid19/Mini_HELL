@@ -50,7 +50,8 @@ t_bool	tmp_checker(token_ptr *tokens_list, token_ptr tmp, t_bool *status)
 */
 void	words_finder(token_ptr *tokens_list, t_var d)
 {
-	if ((*tokens_list)->next == NULL || cmd_checker(*tokens_list) == true)
+	if ((*tokens_list)->next == NULL
+		|| cmd_checker(*tokens_list) == true)
 		return ;
 	d.type_next = (*tokens_list)->next->token_type;
 	if ((*tokens_list)->next->next != NULL)
