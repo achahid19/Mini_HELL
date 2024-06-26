@@ -87,8 +87,7 @@ t_bool	types_checker(t_var d, int index, token_ptr tmp)
 				&& (d.type_next_next == whitespace_token
 				|| d.type_next_next == doublequote_token
 				|| d.type_next_next == singlequote_token
-				|| d.type_next_next == 13
-				|| d.type_next_next == rightred_token));
+				|| d.type_next_next == 13));
 	}
 	else if (index == 2)
 	{
@@ -117,10 +116,10 @@ t_bool	multiple_quotes_check(t_var d, token_ptr tmp)
 			if (tmp == NULL)
 				return (true);
 			if (tmp->token_type == whitespace_token 
-				|| tmp->token_type == rightred_token
+				/* || tmp->token_type == rightred_token
 				|| tmp->token_type == leftred_token
 				|| tmp->token_type == heredoc_token
-				|| tmp->token_type == append_token)
+				|| tmp->token_type == append_token */)
 					return (true);
 			if (tmp->token_type != doublequote_token
 				&& tmp->token_type != singlequote_token)
