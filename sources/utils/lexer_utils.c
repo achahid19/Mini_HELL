@@ -131,10 +131,6 @@ int	get_type(char user_input)
 		return (whitespace_token);
 	else if (user_input == '|')
 		return (pipe_token);
-	/* else if (user_input == '(')
-		return (lbracket_token);
-	else if (user_input == ')')
-		return (rbracket_token); */
 	else if (user_input == '<')
 		return (leftred_token);
 	else if (user_input == '>')

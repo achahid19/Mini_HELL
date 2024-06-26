@@ -75,8 +75,8 @@ static void	assign_cmd(token_ptr tokens_list)
 	{
 		if (quotes_cmd(&tokens_list) == true)
 			return ;
-		if (tokens_list->token_type == word_token ||
-			tokens_list->token_type == string_token)
+		if (tokens_list->token_type == word_token
+			|| tokens_list->token_type == string_token)
 		{
 			tokens_list->token_type = cmd;
 			break ;
@@ -94,7 +94,7 @@ static void	assign_cmd(token_ptr tokens_list)
 */
 static t_bool	quotes_cmd(token_ptr *tokens_list)
 {
-	t_var d;
+	t_var	d;
 
 	d.type = (*tokens_list)->token_type;
 	if (d.type != doublequote_token && d.type != singlequote_token)
@@ -124,7 +124,7 @@ static t_bool	quotes_cmd(token_ptr *tokens_list)
 static void	quotes_handler(token_ptr tokens_list)
 {
 	t_var	d;
-	
+
 	if (tokens_list == NULL)
 		return ;
 	if (tokens_list->token_type == pipe_token)

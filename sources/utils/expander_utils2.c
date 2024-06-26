@@ -27,7 +27,7 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 	while (tokens_list != NULL)
 	{
 		if (string_handler(&tokens_list) == false)
-			continue;
+			continue ;
 		d.dollars_count = dollars_count(tokens_list->token);
 		while (d.dollars_count-- > 0)
 		{

@@ -69,17 +69,17 @@ void	get_next_type(token_ptr *tokens_list, t_var d)
 t_bool	special_chars_checker(int type)
 {
 	return (type == append_token || type == heredoc_token
-			|| type == leftred_token || type == rightred_token);
+		|| type == leftred_token || type == rightred_token);
 }
 
 t_bool	quotes_cmd_checker(t_var d)
 {
 	return ((d.type == doublequote_token
 			|| d.type == singlequote_token)
-			&& (d.type_next == doublequote_token
+		&& (d.type_next == doublequote_token
 			|| d.type_next == singlequote_token)
-			&& (d.type_previous == whitespace_token
+		&& (d.type_previous == whitespace_token
 			|| d.type_previous == 13)
-			&& (d.type_next_next == whitespace_token
+		&& (d.type_next_next == whitespace_token
 			|| d.type_next_next == 13));
 }

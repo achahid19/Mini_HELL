@@ -40,7 +40,7 @@ void	executor(token_ptr tokens_list, char **envp)
 	int	pipes;
 
 	pipes = check_pipes_num(tokens_list);
-	while(pipes--)
+	while (pipes--)
 	{
 		exec_command(tokens_list, envp);
 		tokens_list = get_next_pipe(tokens_list);
