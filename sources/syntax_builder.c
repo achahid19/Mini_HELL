@@ -89,6 +89,42 @@ static void	assign_cmd(token_ptr tokens_list)
 }
 
 /**
+ * check_special_chars -
+*/
+t_bool	check_special_chars(token_ptr tokens_list)
+{
+	int	type;
+
+	printf("entred\n");
+	if (tokens_list->next->next != NULL)
+	{
+		type = tokens_list->next->next->token_type;
+		printf("type is: %d\n", type);
+		while (type == doublequote_token || type == singlequote_token)
+		{
+			tokens_list = tokens_list->next;
+			if (tokens_list == NULL)
+				return (false);
+			type = tokens_list->token_type;
+			
+		}
+		if (type == append_token || type == heredoc_token
+			|| type == leftred_token || type == rightred_token)
+			return (false);
+	}
+	return (true);
+}
+
+/**
+ * quotes_finder -
+*/
+t_bool	quotes_finder(int type)
+{
+	return (type == doublequote_token
+			|| type == singlequote_token);
+}
+
+/**
  * check_no_cmd -
 */
  void	check_no_cmd(token_ptr tokens_list)
@@ -103,19 +139,17 @@ static void	assign_cmd(token_ptr tokens_list)
 			if (tokens_list == NULL)
 					return ;
 		}
-		if (tokens_list->token_type == doublequote_token ||
-			tokens_list->token_type == singlequote_token)
+		if (quotes_finder(tokens_list->token_type) == true)
 		{
-			if (tokens_list->next->token_type == doublequote_token
-				|| tokens_list->next->token_type == singlequote_token)
+			if (quotes_finder(tokens_list->next->token_type) == true)
 			{
 				tokens_list->token_type = cmd;
 				tokens_list->next->token_type = cmd;
 			}
 		}
 		tokens_list = get_next_pipe(tokens_list);
-        if (tokens_list != NULL)
-            tokens_list = tokens_list->next;
+		if (tokens_list != NULL)
+			tokens_list = tokens_list->next;
 	}
 }
 
