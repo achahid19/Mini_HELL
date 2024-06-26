@@ -15,6 +15,7 @@
 void		tokens_order(token_ptr tokens_list);
 token_ptr	get_next_pipe(token_ptr tokens_list);
 void		get_next_type(token_ptr *tokens_list, t_var d);
+t_bool		special_chars_checker(int type);
 
 /**
  * tokens_order -
@@ -59,4 +60,13 @@ void	get_next_type(token_ptr *tokens_list, t_var d)
 		if ((*tokens_list)->next->next != NULL)
 			d.type_next_next = (*tokens_list)->next->next->token_type;
 	}
+}
+
+/**
+ * special_chars_checker -
+*/
+t_bool	special_chars_checker(int type)
+{
+	return (type == append_token || type == heredoc_token
+			|| type == leftred_token || type == rightred_token);
 }
