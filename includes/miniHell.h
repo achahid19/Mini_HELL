@@ -182,6 +182,7 @@ void		print_error(char *error);
 void		tokens_order(token_ptr tokens_list);
 token_ptr	get_next_pipe(token_ptr tokens_list);
 void		get_next_type(token_ptr *tokens_list, t_var d);
+t_bool		special_chars_checker(int type);
 
 /* syntax_builder */
 void		syntax_algo(token_ptr tokens_list);
@@ -211,5 +212,7 @@ void		executor(token_ptr tokens_list, char **env);
 void		tokens_list_optimizer(token_ptr *tokens_list);
 void 		special_chars_refactor(token_ptr tokens_list);
 void 		node_remover(token_ptr *node);
+t_bool		special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
+				int type);
 
 #endif /* MINIHELL_H */
