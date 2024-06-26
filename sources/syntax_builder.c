@@ -12,11 +12,11 @@
 
 #include "../includes/miniHell.h"
 
-void		syntax_algo(token_ptr tokens_list);
-static void	special_chars(token_ptr tokens_list, int type);
-static void	assign_cmd(token_ptr tokens_list);
-void		check_no_cmd(token_ptr tokens_list);
-static void	quotes_handler(token_ptr tokens_list);
+void			syntax_algo(token_ptr tokens_list);
+static void		special_chars(token_ptr tokens_list, int type);
+static void		assign_cmd(token_ptr tokens_list);
+static t_bool	quotes_cmd(token_ptr *tokens_list);
+static void		quotes_handler(token_ptr tokens_list);
 
 /**
  * syntax_algo -
@@ -31,7 +31,6 @@ void	syntax_algo(token_ptr tokens_list)
 	{
 		special_chars(tokens_list, type);
 		assign_cmd(tokens_list);
-		check_no_cmd(tokens_list);
 		quotes_handler(tokens_list);
 		special_chars_refactor(tokens_list);
 		tokens_list = get_next_pipe(tokens_list);
@@ -74,6 +73,8 @@ static void	assign_cmd(token_ptr tokens_list)
 {
 	while (tokens_list)
 	{
+		if (quotes_cmd(&tokens_list) == true)
+			return ;
 		if (tokens_list->token_type == word_token ||
 			tokens_list->token_type == string_token)
 		{
@@ -89,68 +90,32 @@ static void	assign_cmd(token_ptr tokens_list)
 }
 
 /**
- * check_special_chars -
+ * quotes_cmd -
 */
-t_bool	check_special_chars(token_ptr tokens_list)
+static t_bool	quotes_cmd(token_ptr *tokens_list)
 {
-	int	type;
+	t_var d;
 
-	printf("entred\n");
-	if (tokens_list->next->next != NULL)
+	d.type = (*tokens_list)->token_type;
+	if (d.type != doublequote_token && d.type != singlequote_token)
+		return (false);
+	if ((*tokens_list)->previous != NULL)
+		d.type_previous = (*tokens_list)->previous->token_type;
+	else if ((*tokens_list)->previous == NULL)
+		d.type_previous = 13;
+	d.type_next = (*tokens_list)->next->token_type;
+	if ((*tokens_list)->next->next != NULL)
+		d.type_next_next = (*tokens_list)->next->next->token_type;
+	else if ((*tokens_list)->next->next == NULL)
+		d.type_next_next = 13;
+	if (quotes_cmd_checker(d) == true)
 	{
-		type = tokens_list->next->next->token_type;
-		printf("type is: %d\n", type);
-		while (type == doublequote_token || type == singlequote_token)
-		{
-			tokens_list = tokens_list->next;
-			if (tokens_list == NULL)
-				return (false);
-			type = tokens_list->token_type;
-			
-		}
-		if (type == append_token || type == heredoc_token
-			|| type == leftred_token || type == rightred_token)
-			return (false);
+		(*tokens_list)->token_type = cmd;
+		(*tokens_list)->next->token_type = cmd;
+		return (true);
 	}
-	return (true);
-}
-
-/**
- * quotes_finder -
-*/
-t_bool	quotes_finder(int type)
-{
-	return (type == doublequote_token
-			|| type == singlequote_token);
-}
-
-/**
- * check_no_cmd -
-*/
- void	check_no_cmd(token_ptr tokens_list)
-{
-	if (cmd_checker(tokens_list) == true)
-		return ;
-	while(tokens_list)
-	{
-		while (tokens_list->token_type == whitespace_token)
-		{
-			tokens_list = tokens_list->next;
-			if (tokens_list == NULL)
-					return ;
-		}
-		if (quotes_finder(tokens_list->token_type) == true)
-		{
-			if (quotes_finder(tokens_list->next->token_type) == true)
-			{
-				tokens_list->token_type = cmd;
-				tokens_list->next->token_type = cmd;
-			}
-		}
-		tokens_list = get_next_pipe(tokens_list);
-		if (tokens_list != NULL)
-			tokens_list = tokens_list->next;
-	}
+	(*tokens_list) = (*tokens_list)->next;
+	return (false);
 }
 
 /**
