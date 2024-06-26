@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax_builder_utils2.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 09:51:45 by achahid-          #+#    #+#             */
+/*   Updated: 2024/06/26 09:51:46 by achahid-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/miniHell.h"
 
 t_bool	handle_qt(token_ptr	*tokens_list, t_var d);
@@ -71,7 +83,7 @@ void	words_finder(token_ptr *tokens_list, t_var d)
 		if (multiple_quotes_check(d, (*tokens_list)) == false)
 			return ;
 		(*tokens_list)->token_type = word_token;
-	 	(*tokens_list)->next->token_type = word_token;
+		(*tokens_list)->next->token_type = word_token;
 	}
 }
 
@@ -84,8 +96,8 @@ t_bool	types_checker(t_var d, int index, token_ptr tmp)
 	{
 		return ((d.type_next == doublequote_token
 				|| d.type_next == singlequote_token)
-				&& (d.type_previous == whitespace_token)
-				&& (d.type_next_next == whitespace_token
+			&& (d.type_previous == whitespace_token)
+			&& (d.type_next_next == whitespace_token
 				|| d.type_next_next == doublequote_token
 				|| d.type_next_next == singlequote_token
 				|| d.type_next_next == 13));
@@ -93,12 +105,12 @@ t_bool	types_checker(t_var d, int index, token_ptr tmp)
 	else if (index == 2)
 	{
 		return (tmp->next->next->token_type == whitespace_token
-				|| tmp->next->next->token_type == doublequote_token
-				|| tmp->next->next->token_type == singlequote_token
-				|| tmp->next->next->token_type == append_token
-				|| tmp->next->next->token_type == heredoc_token
-				|| tmp->next->next->token_type == leftred_token
-				|| tmp->next->next->token_type == rightred_token);
+			|| tmp->next->next->token_type == doublequote_token
+			|| tmp->next->next->token_type == singlequote_token
+			|| tmp->next->next->token_type == append_token
+			|| tmp->next->next->token_type == heredoc_token
+			|| tmp->next->next->token_type == leftred_token
+			|| tmp->next->next->token_type == rightred_token);
 	}
 	return (1337);
 }
@@ -116,12 +128,12 @@ t_bool	multiple_quotes_check(t_var d, token_ptr tmp)
 			tmp = tmp->next;
 			if (tmp == NULL)
 				return (true);
-			if (tmp->token_type == whitespace_token 
+			if (tmp->token_type == whitespace_token
 				/* || tmp->token_type == rightred_token
 				|| tmp->token_type == leftred_token
 				|| tmp->token_type == heredoc_token
 				|| tmp->token_type == append_token */)
-					return (true);
+				return (true);
 			if (tmp->token_type != doublequote_token
 				&& tmp->token_type != singlequote_token)
 				return (false);
