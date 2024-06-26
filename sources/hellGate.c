@@ -50,7 +50,7 @@
 */
 /**
  * 1st - cmd not found ! fix it. (in progress).
- * 2d - ls """"arg.
+ * 2d - ls """"arg. (fixed).
  * 3th - quotes as commands -> pass a null terminating string (strdup).
  * 4th - norminette
  * 5th - leaks.
