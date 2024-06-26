@@ -1,5 +1,16 @@
-#include "../../includes/miniHell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax_builder_utils.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/26 09:49:16 by achahid-          #+#    #+#             */
+/*   Updated: 2024/06/26 09:49:17 by achahid-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../../includes/miniHell.h"
 
 int		check_pipes_num(token_ptr tokens_list);
 void	same_type_finder(token_ptr *tokens_list);
@@ -30,7 +41,7 @@ int	check_pipes_num(token_ptr tokens_list)
 void	same_type_finder(token_ptr *tokens_list)
 {
 	while ((*tokens_list)->token_type != word_token
-			&& (*tokens_list)->token_type != string_token)
+		&& (*tokens_list)->token_type != string_token)
 	{
 		(*tokens_list) = (*tokens_list)->next;
 		if ((*tokens_list) == NULL)
@@ -43,8 +54,8 @@ void	same_type_finder(token_ptr *tokens_list)
 */
 t_bool	type_checker(int type)
 {
-	return (type == heredoc_token || type == leftred_token ||
-			type == rightred_token || type == append_token);
+	return (type == heredoc_token || type == leftred_token
+		|| type == rightred_token || type == append_token);
 }
 
 /**
@@ -78,7 +89,7 @@ void	quotes_handler_helper(token_ptr tokens_list, t_var d)
 			return ;
 		d.type = tokens_list->token_type;
 		if (d.type == doublequote_token || d.type == singlequote_token)
-		{	
+		{
 			status = handle_qt(&tokens_list, d);
 			if (status == false)
 				return ;
