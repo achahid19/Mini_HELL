@@ -183,6 +183,7 @@ void		tokens_order(token_ptr tokens_list);
 token_ptr	get_next_pipe(token_ptr tokens_list);
 void		get_next_type(token_ptr *tokens_list, t_var d);
 t_bool		special_chars_checker(int type);
+t_bool		quotes_cmd_checker(t_var d);
 
 /* syntax_builder */
 void		syntax_algo(token_ptr tokens_list);
