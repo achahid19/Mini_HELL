@@ -33,7 +33,7 @@ void	print_error(char *error)
 void	quotes_error(int type)
 {
 	if (type == doublequote_token)
-		print_error("kssh: Error double quotes");
+		print_error("Error double quotes");
 	else if (type == singlequote_token)
-		print_error("kssh: Error single quotes");
+		print_error("Error single quotes");
 }
