@@ -55,7 +55,7 @@
  * 4th - norminette
  * 5th - leaks.
  * 
- * ls"""  """''"la"""""''
+ * ls"""  """''"la"""""'' (fixed).
  * --->ls  la
  * garbage_objs  includes	libft  Makefile  miniHell  sources -> cmd not found.
  * 
@@ -104,7 +104,7 @@ int	main(int ac, char **av, char **envp)
 		tokens_list_optimizer(&tokens_list);
 		syntax_algo(tokens_list);
 		executor(tokens_list, envp);
-		check_tokens(tokens_list);
+		//check_tokens(tokens_list);
 		free_all(tokens_list, user_input);
 	}
 	return (EXIT_SUCCESS);
