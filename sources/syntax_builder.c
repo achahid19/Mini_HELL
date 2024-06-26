@@ -23,8 +23,8 @@ static void	quotes_handler(token_ptr tokens_list);
 */
 void	syntax_algo(token_ptr tokens_list)
 {
-	int			type;
-	int			pipes;
+	int		type;
+	int		pipes;
 
 	pipes = check_pipes_num(tokens_list);
 	while (pipes--)
