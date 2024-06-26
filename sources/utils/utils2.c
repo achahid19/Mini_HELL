@@ -13,8 +13,10 @@
 #include "../../includes/miniHell.h"
 
 void		tokens_order(token_ptr tokens_list);
-t_bool		type_checker(int type);
 token_ptr	get_next_pipe(token_ptr tokens_list);
+void		get_next_type(token_ptr *tokens_list, t_var d);
+t_bool		special_chars_checker(int type);
+t_bool		quotes_cmd_checker(t_var d);
 
 /**
  * tokens_order -
@@ -33,15 +35,6 @@ void	tokens_order(token_ptr tokens_list)
 }
 
 /**
- * type_checker -
-*/
-t_bool	type_checker(int type)
-{
-	return (type == heredoc_token || type == leftred_token ||
-			type == rightred_token || type == append_token);
-}
-
-/**
  * get_next_pipe -
 */
 token_ptr	get_next_pipe(token_ptr tokens_list)
@@ -55,4 +48,38 @@ token_ptr	get_next_pipe(token_ptr tokens_list)
 			break ;
 	}
 	return (tokens_list);
+}
+
+/**
+ * get_next_type -
+*/
+void	get_next_type(token_ptr *tokens_list, t_var d)
+{
+	if ((*tokens_list)->next != NULL)
+	{
+		d.type_next = (*tokens_list)->next->token_type;
+		if ((*tokens_list)->next->next != NULL)
+			d.type_next_next = (*tokens_list)->next->next->token_type;
+	}
+}
+
+/**
+ * special_chars_checker -
+*/
+t_bool	special_chars_checker(int type)
+{
+	return (type == append_token || type == heredoc_token
+			|| type == leftred_token || type == rightred_token);
+}
+
+t_bool	quotes_cmd_checker(t_var d)
+{
+	return ((d.type == doublequote_token
+			|| d.type == singlequote_token)
+			&& (d.type_next == doublequote_token
+			|| d.type_next == singlequote_token)
+			&& (d.type_previous == whitespace_token
+			|| d.type_previous == 13)
+			&& (d.type_next_next == whitespace_token
+			|| d.type_next_next == 13));
 }

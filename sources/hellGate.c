@@ -36,9 +36,9 @@
  * kssh$ echo "hello"no
  * hello no
  *
- * needs spaces for execution.
+ * need spaces for execution.
  * 
- * if string == 0 needs to make "" or '' as strings.
+ * if string == 0 need to make "" or '' as strings.
  * 
  * kssh$ "l""s"<etst     "ls".   hello"$PWDno"  "c""a""t" < filename.
  * 
@@ -47,6 +47,20 @@
  * >>EOF"" ""ls
  * 
  * if an error occurs (syntax errro) re-prompt
+*/
+/**
+ * 1st - cmd not found ! fix it. (in progress).
+ * 2d - ls """"arg. (fixed).
+ * 3th - quotes as commands -> pass a null terminating string (strdup).
+ * 4th - norminette
+ * 5th - leaks.
+ * 
+ * ls"""  """''"la"""""'' (fixed).
+ * --->ls  la
+ * garbage_objs  includes	libft  Makefile  miniHell  sources -> cmd not found.
+ * 
+ * for akkajou -> special char + quotes == error e.g (> "", < ''...) (no such file or dir.).
+ * unless for heredoc << "" must prompt.
 */
 void	check_tokens(token_ptr print_tk)
 {
@@ -87,8 +101,8 @@ int	main(int ac, char **av, char **envp)
 			continue;
 		}
 		tokens_expander(tokens_list, envp);
-		syntax_algo(tokens_list);
 		tokens_list_optimizer(&tokens_list);
+		syntax_algo(tokens_list);
 		executor(tokens_list, envp);
 		//check_tokens(tokens_list);
 		free_all(tokens_list, user_input);

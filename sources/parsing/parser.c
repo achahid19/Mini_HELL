@@ -31,9 +31,9 @@ int    ft_type_check(token_ptr tokens_list)
 }
 void 		built_in(token_ptr tokens_list)
 {
-	if (strcmp(tokens_list->token, "echo") == 0)
+	if (ft_strncmp(tokens_list->token, "echo", 4) == 0)
 		ft_echo(tokens_list);
-	else if (strcmp(tokens_list->token, "exit") == 0)
+	else if (ft_strncmp(tokens_list->token, "exit", 4) == 0)
 		exit(1);
 	// else if (ft_strcmp(tokens_list->token, "cd") == 0)
 	// 	ft_cd(tokens_list);

@@ -26,7 +26,7 @@ void	ft_echo(token_ptr tokens_list)
 
     n_flag = 0;
     tmp = tokens_list;
-    if (tmp->next && strcmp(tmp->next->token, "-n") == 0)
+    if (tmp->next && ft_strncmp(tmp->next->token, "-n", 2) == 0)
     {
         n_flag = 1;
         tmp = tmp->next;

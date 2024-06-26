@@ -12,27 +12,27 @@
 
 #include "../../includes/miniHell.h"
 
-void tokens_list_optimizer(token_ptr *tokens_list);
-static void whitespace_remover(token_ptr *tokens_list,
-							   token_ptr free_node, token_ptr previous);
-void special_chars_refactor(token_ptr tokens_list);
-void node_remover(token_ptr *node);
+void		tokens_list_optimizer(token_ptr *tokens_list);
+static void	whitespace_remover(token_ptr *tokens_list,
+				token_ptr free_node, token_ptr previous);
+void		node_remover(token_ptr *node);				
+void		special_chars_refactor(token_ptr tokens_list);
+t_bool		special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
+				int type);
 
 /**
  * tokens_list_optimizer -
  */
-void tokens_list_optimizer(token_ptr *tokens_list)
+void	tokens_list_optimizer(token_ptr *tokens_list)
 {
-	token_ptr tmp;
-	token_ptr free_node;
-	token_ptr previous;
+	token_ptr	tmp;
+	token_ptr	free_node;
+	token_ptr	previous;
 
 	tmp = *tokens_list;
 	free_node = NULL;
 	previous = NULL;
 	whitespace_remover(tokens_list, free_node, previous);
-	//special_chars_refactor(*tokens_list);
-	check_no_cmd(*tokens_list);
 	tokens_order(*tokens_list);
 	// if (*tokens_list != NULL)
 	// 	check_tokens(*tokens_list);
@@ -41,10 +41,10 @@ void tokens_list_optimizer(token_ptr *tokens_list)
 /**
  * whitespace_remover -
  */
-static void whitespace_remover(token_ptr *tokens_list,
-							   token_ptr free_node, token_ptr previous)
+static void	whitespace_remover(token_ptr *tokens_list,
+				token_ptr free_node, token_ptr previous)
 {
-	token_ptr tmp;
+	token_ptr	tmp;
 
 	tmp = *tokens_list;
 	while (tmp)
@@ -65,63 +65,16 @@ static void whitespace_remover(token_ptr *tokens_list,
 			free(free_node->token);
 			free(free_node);
 			free_node = NULL;
-			continue;
+			continue ;
 		}
 		tmp = tmp->next;
 	}
 }
 
 /**
- * special_chars_refactor -
- */
-void special_chars_refactor(token_ptr tokens_list)
-{
-	int type;
-	token_ptr node_add;
-
-	while (tokens_list)
-	{
-		type = tokens_list->token_type;
-		if (type == append_token || type == heredoc_token
-			|| type == leftred_token || type == rightred_token)
-		{
-			tokens_list = tokens_list->next;
-			while (tokens_list->token_type != type)
-			{
-				tokens_list = tokens_list->next;
-				if (tokens_list == NULL)
-					return ;
-			}
-			node_add = tokens_list;
-			while (type != whitespace_token)
-			{
-				if (type == string_token || type == word_token || type == cmd)
-				{
-					node_add->token = ft_strjoin(node_add->token, tokens_list->token);
-					node_remover(&tokens_list);
-				}
-				if (tokens_list == NULL)
-					return ;
-				if (tokens_list->token_type == whitespace_token)
-					break ;
-				tokens_list = tokens_list->next;
-				if (tokens_list == NULL)
-					return ;
-				type = tokens_list->token_type;
-			}
-		}
-		tokens_list = tokens_list->next;
-		if (tokens_list == NULL)
-			return ;
-		if (tokens_list->token_type == pipe_token)
-			return ;
-	}
-}
-
-/**
  * node_remover -
 */
-void node_remover(token_ptr *node)
+void	node_remover(token_ptr *node)
 {
 	token_ptr	tmp;
 	token_ptr	free_node;
@@ -143,4 +96,62 @@ void node_remover(token_ptr *node)
 	free(free_node->token);
 	free(free_node);
 	free_node = NULL;
+}
+
+/**
+ * special_chars_refactor -
+ */
+void	special_chars_refactor(token_ptr tokens_list)
+{
+	int			type;
+	token_ptr	node_add;
+
+	while (tokens_list)
+	{
+		type = tokens_list->token_type;
+		if (special_chars_checker(type) == true)
+		{
+			tokens_list = tokens_list->next;
+			while (tokens_list->token_type != type)
+			{
+				tokens_list = tokens_list->next;
+				if (tokens_list == NULL)
+					return ;
+			}
+			node_add = tokens_list;
+			if (special_chars_finder(&tokens_list, node_add, type) == false)
+				return ;
+		}
+		tokens_list = tokens_list->next;
+		if (tokens_list == NULL)
+			return ;
+		if (tokens_list->token_type == pipe_token)
+			return ;
+	}
+}
+
+/**
+ * special_chars_finder -
+*/
+t_bool	special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
+			int type)
+{
+	while (type != whitespace_token)
+	{
+		if (type == string_token || type == word_token || type == cmd)
+		{
+			node_add->token = ft_strjoin(node_add->token,
+					(*tokens_list)->token);
+			node_remover(tokens_list);
+		}
+		if ((*tokens_list) == NULL)
+			return (false);
+		if ((*tokens_list)->token_type == whitespace_token)
+			return (true);
+		(*tokens_list) = (*tokens_list)->next;
+		if ((*tokens_list) == NULL)
+			return (false);
+		type = (*tokens_list)->token_type;
+	}
+	return (true);
 }
