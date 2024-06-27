@@ -63,9 +63,11 @@
  * unless for heredoc << "" must prompt.
  * 
  * TODO LIST:
- * fix leaks (in progress).
- * strdup for quotes ("" or '').
- * fix pipe
+ * fix leaks (fixed).
+ * strdup for quotes ("" or '').(fixed).
+ * fix pipe (progress).
+ * norminette.
+ * handle input-output stream.
 */
 void	check_tokens(token_ptr print_tk)
 {
