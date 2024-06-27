@@ -61,6 +61,11 @@
  * 
  * for akkajou -> special char + quotes == error e.g (> "", < ''...) (no such file or dir.).
  * unless for heredoc << "" must prompt.
+ * 
+ * TODO LIST:
+ * fix leaks (in progress).
+ * strdup for quotes ("" or '').
+ * fix pipe
 */
 void	check_tokens(token_ptr print_tk)
 {
@@ -103,7 +108,7 @@ int	main(int ac, char **av, char **envp)
 		tokens_expander(tokens_list, envp);
 		tokens_list_optimizer(&tokens_list);
 		syntax_algo(tokens_list);
-		executor(tokens_list, envp);
+		executor(tokens_list, envp, user_input);
 		//check_tokens(tokens_list);
 		free_all(tokens_list, user_input);
 	}
