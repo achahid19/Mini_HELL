@@ -30,3 +30,19 @@ void	free_all(token_ptr tokens_list, char *user_input)
 	free_tokens(tokens_list);
 	free(user_input);
 }
+
+/**
+ * free_cmd_table -
+*/
+void	free_cmd_table(char **full_cmd)
+{
+	size_t	i;
+
+	i = 0;
+	while (full_cmd[i] != NULL)
+	{
+		free(full_cmd[i]);
+		i++;
+	}
+	free(full_cmd);
+}
