@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <errno.h>
 
 # define STDIN 0
 # define STDOUT 1
@@ -175,6 +176,7 @@ void		signal_handler();
 /* free_and_errors */
 void		free_tokens(token_ptr tokens_list);
 void		free_all(token_ptr tokens_list, char *user_input);
+void		free_cmd_table(char **full_cmd);
 void		quotes_error(int quotes_type);
 void		print_error(char *error);
 
@@ -207,7 +209,7 @@ t_bool		types_checker(t_var d, int index, token_ptr tmp);
 void		check_tokens(token_ptr print_tk);
 
 /* executor */
-void		executor(token_ptr tokens_list, char **env);
+void		executor(token_ptr tokens_list, char **env, char *user_input);
 
 /* tk_optimizer */
 void		tokens_list_optimizer(token_ptr *tokens_list);
