@@ -55,8 +55,7 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 void	exec_command(token_ptr tokens_list, char **envp, char *user_input)
 {
 	char	**full_cmd;
-	// first thing I need to extract the full command in a 2d array
-		// cmd + args (words + strings).
+
 	/* // extract till Pipe or NULL. and return 2d array */
 	full_cmd = extract_command(tokens_list); // TODO later: check for built_ins
 	for (int z = 0; full_cmd[z] != NULL; z++)
@@ -64,6 +63,64 @@ void	exec_command(token_ptr tokens_list, char **envp, char *user_input)
 	ft_pipe(full_cmd, envp, tokens_list, user_input);
 	free_cmd_table(full_cmd);
 	// handle red, and appends on linked_list.
+}
+
+/**
+ * extract_command -
+*/
+char	**extract_command(token_ptr tokens_list)
+{
+	char	**full_cmd;
+	int		rows;
+	int		i;
+
+	rows = get_infos(tokens_list);
+	full_cmd = (char **)malloc(sizeof(char *) * (rows + 1));
+	i = 0;
+	while (i < rows)
+	{	
+		full_cmd[i] = NULL;
+		if (tokens_list->token_type != string_token
+			&& tokens_list->token_type != cmd
+			&& tokens_list->token_type != word_token)
+		{
+			tokens_list = tokens_list->next;
+			continue;
+		}
+		if (extract_cmd_helper(&tokens_list, &i, full_cmd) == false)
+			return (full_cmd);
+		i++;
+	}
+	full_cmd[i] = NULL;
+	return (full_cmd);
+}
+
+/**
+ * get_infos - will is not space treath all the cmd + words + string as one token 
+ * to be merged later on. [1 token = 1 row].
+*/
+int	get_infos(token_ptr tokens_list)
+{
+	int		rows;
+	t_bool	flag;
+
+	rows = 0;
+	flag = true;
+	while (tokens_list)
+	{
+		if (get_infos_helper(&tokens_list, &flag, &rows) == false)
+			return (rows);
+		while (tokens_list->token_type == whitespace_token)
+		{
+			tokens_list = tokens_list->next;
+			if (tokens_list == NULL)
+				return (rows);
+		}
+		if (tokens_list->token_type == pipe_token)
+			return (rows);
+		flag = true;
+	}
+	return (rows);
 }
 
 char	*ft_get_path(char **envp)
@@ -206,108 +263,4 @@ void	ft_pipe(char **av, char **envp, token_ptr tokens_list,
 			/* ft_error_exit(); */
 	}
 	/* dup_and_close(end, 0); */
-}
-
-/**
- * extract_command -
-*/
-char	**extract_command(token_ptr tokens_list)
-{
-	char	**full_cmd;
-	int		rows;
-	int		i;
-
-	rows = get_infos(tokens_list);
-	//printf("rows: %d\n", rows);
-	full_cmd = (char **)malloc(sizeof(char *) * (rows + 1)); // needs how many rows;
-	// so needs 2 infos, number of cmd_n and rows(cmd + args).
-	i = 0;
-	while (i < rows)
-	{	
-		full_cmd[i] = NULL;
-		if (tokens_list->token_type != string_token && tokens_list->token_type != cmd
-			&& tokens_list->token_type != word_token)
-		{
-			tokens_list = tokens_list->next;
-			continue;
-		}
-		if (tokens_list->token_type == pipe_token)
-		{
-			tokens_list = tokens_list->next;
-			if (tokens_list->token_type == whitespace_token)
-				tokens_list = tokens_list->next;
-		}
-		while (tokens_list->token_type != whitespace_token &&
-				tokens_list->token_type != pipe_token)
-		{
-			if (tokens_list->token_type == cmd ||
-			tokens_list->token_type == string_token ||
-			tokens_list->token_type == word_token)
-				full_cmd[i] = ft_strjoin(full_cmd[i], tokens_list->token);
-			tokens_list = tokens_list->next;
-			if (tokens_list == NULL)
-			{
-				i++;
-				full_cmd[i] = NULL;
-				return (full_cmd) ;
-			}
-		}
-		while (tokens_list->token_type == whitespace_token)
-		{
-			tokens_list = tokens_list->next;
-			if (tokens_list == NULL)
-			{
-				i++;
-				full_cmd[i] = NULL;
-				return (full_cmd) ;
-			}
-		}
-		i++;
-	}
-	full_cmd[i] = NULL;
-	return (full_cmd);
-}
-
-/**
- * get_infos -
-*/
-int	get_infos(token_ptr tokens_list)
-{
-	// for the rows, no whitespace -> join cmd + words + strings.
-	int		rows;
-	t_bool	flag;
-
-	rows = 0;
-	flag = true;
-	while (tokens_list)
-	{
-		// will is not space treath all the cmd + words + string as one token
-		// to be merged later on. [1 token = 1 row].
-		if (tokens_list->token_type == pipe_token)
-			tokens_list = tokens_list->next;
-		while (tokens_list->token_type != whitespace_token &&
-				tokens_list->token_type != pipe_token)
-		{
-			if ((tokens_list->token_type == cmd ||
-			tokens_list->token_type == string_token ||
-			tokens_list->token_type == word_token) && flag == true)
-			{
-				flag = false;
-				rows++;
-			}
-			tokens_list = tokens_list->next;
-			if (tokens_list == NULL)
-				return (rows);
-		}
-		while (tokens_list->token_type == whitespace_token)
-		{
-			tokens_list = tokens_list->next;
-			if (tokens_list == NULL)
-				return (rows);
-		}
-		if (tokens_list->token_type == pipe_token)
-			return (rows);
-		flag = true;
-	}
-	return (rows);
 }

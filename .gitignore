@@ -1,0 +1,6 @@
+.vscode
+*~
+*.o
+miniHell
+garbage_objs
+libft.a

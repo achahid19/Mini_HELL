@@ -218,4 +218,10 @@ void 		node_remover(token_ptr *node);
 t_bool		special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
 				int type);
 
+/* exucutor uitls */
+t_bool		extract_cmd_helper(token_ptr *tokens_list,
+					int *i, char **full_cmd);
+t_bool		get_infos_helper(token_ptr *tokens_list,
+					t_bool *flag, int *rows);
+
 #endif /* MINIHELL_H */
