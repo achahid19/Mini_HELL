@@ -95,7 +95,11 @@ int	main(int ac, char **av, char **envp)
 	signal_handler();
 	while (true)
 	{
-		user_input = readline("kssh$ ");
+		if (isatty(STDIN_FILENO) == 1)
+		{
+			usleep(20000);
+			user_input = readline("kssh$ ");
+		}
 		if (user_input == NULL)
 			exit(EXIT_SUCCESS);
 		if (ft_strncmp(user_input, "\0", 1) != 0)
