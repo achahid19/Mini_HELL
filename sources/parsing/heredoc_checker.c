@@ -23,7 +23,7 @@ int		heredoc_checker_first(token_ptr tokens_list)
 		{
 			if (tmp->next == NULL)
 			{
-				print_error("syntax error near unexpected token `newline'\n");
+				print_error("syntax error near unexpected token `newline'");
 				return (1);
 			}
 		}
@@ -42,7 +42,7 @@ int		append_checker_second(token_ptr tokens_list)
 		{
 			if (tmp->next == NULL)
 			{
-				print_error("syntax error near unexpected token `newline'\n");
+				print_error("syntax error near unexpected token `newline'");
 				return 1;
 			}
 		}
@@ -65,7 +65,7 @@ int		heredoc_max_checker(token_ptr tokens_list)
 	}
 	if (count > 16)
 	{
-		print_error("minishell : maximum here-document count exceeded\n");
+		print_error("minishell : maximum here-document count exceeded");
 		return 1;
 	}
 	return 0;
@@ -79,7 +79,7 @@ int		heredoc_next_checker(token_ptr tokens_list)
 	{
 		if (tmp->token_type == 10 && tmp->next->token_type == 10)
 		{
-			print_error("minishell : syntax error near unexpected token `newline'\n");
+			print_error("minishell : syntax error near unexpected token `newline'");
 			return 1;
 		}
 	tmp = tmp->next;		
