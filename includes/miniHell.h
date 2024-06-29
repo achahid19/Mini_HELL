@@ -104,6 +104,13 @@ typedef struct s_var
 	int			type_next_next;
 	t_bool		is_space;
 	token_ptr	tmp;
+	/* executor's data */
+	token_ptr	head;
+	token_ptr	tokens_list;
+	char		**envp;
+	char		*user_input;
+	int			pipes;
+	int			std_in;
 }	t_var;
 
 /* Lexical analyzer */
