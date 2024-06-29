@@ -31,7 +31,6 @@ void	exec_command(token_ptr tokens_list, t_var data);
 char	**extract_command(token_ptr tokens_list);
 int		get_infos(token_ptr tokens_list);
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher);
-void	ft_pipe_none(char **av, t_var data);
 
 /**
  * executor -
@@ -134,134 +133,18 @@ int	get_infos(token_ptr tokens_list)
 	return (rows);
 }
 
-char	*ft_get_path(char **envp)
-{
-	size_t	count;
-
-	count = 0;
-	while (ft_strncmp(envp[count], "PATH", 4) != 0)
-	{
-		/* if (ft_strncmp(envp[count], "PATH", 4) == -1)
-			return (NULL); */
-		count++;
-	}
-	return (envp[count]);
-}
-
-char	*ft_cmd_path(char *cmd_path)
-{
-	int		count;
-	char	*cmd;
-	int		index;
-
-	count = 0;
-	while (cmd_path[count] != ' ' && cmd_path[count])
-		count++;
-	cmd = (char *)malloc(sizeof(char) * count + 1);
-	if (cmd == NULL)
-		return (NULL);
-	index = 0;
-	while (index < count)
-	{
-		cmd[index] = cmd_path[index];
-		index++;
-	}
-	cmd[index] = '\0';
-	return (cmd);
-}
-
-char	*ft_find_cmd(char *cmd, char **envp)
-{
-	t_var	obj;
-
-	obj.path_to_cmd = NULL;
-	obj.i = 0;
-	obj.env = ft_get_path(envp);
-	if (obj.env == NULL)
-		return (NULL);
-	obj.token = &cmd;
-	obj.path = ft_split(obj.env, ':');
-	while (obj.path[obj.i] != NULL)
-	{
-		obj.path[obj.i] = ft_strjoin(obj.path[obj.i], "/");
-		obj.i++;
-	}
-	obj.i = 0;
-	while (obj.path[obj.i] != NULL)
-	{
-		obj.path[obj.i] = ft_strjoin(obj.path[obj.i], obj.token[0]);
-		if (access(obj.path[obj.i], X_OK) == 0)
-		{
-			obj.path_to_cmd = ft_strdup(obj.path[obj.i]);
-			if (obj.path_to_cmd == NULL)
-			{
-				free_cmd_table(obj.path);
-				return (NULL);
-			}
-			break ;
-		}
-		obj.i++;
-	}
-	free_cmd_table(obj.path);
-	return (obj.path_to_cmd);
-}
-
-void	dup_and_close(int *end, int i)
-{
-	if (i == STDOUT)
-	{
-		dup2(end[i], STDOUT_FILENO);
-		close(end[0]);
-		close(end[1]);
-	}
-	else if (i == STDIN)
-	{
-		dup2(end[i], STDIN_FILENO);
-		close(end[0]);
-		close(end[1]);
-	}
-}
-
+/**
+ * ft_pipe -
+*/
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 {
-	pid_t	child_pid;
-	int		end[2];
-	char	*path_to_cmd;
-
 	if (*av == NULL)
 		return ;
-	if (pipe(end) == -1)
+	if (pipe(data.end) == -1)
 		exit(EXIT_FAILURE);
-	child_pid = fork();
-	if (child_pid == 0)
-	{
-		if (pipe_switcher == true)
-			dup_and_close(end, STDOUT);
-		if (ft_strncmp(av[0], "/", 1) == 0)
-		{
-			path_to_cmd = ft_cmd_path(av[0]);
-			if (access(path_to_cmd, X_OK) == 0)
-				execve(path_to_cmd, av, data.envp);
-			else
-			{
-				free_all(data.tokens_list, data.user_input);
-				free_cmd_table(av);
-				free(path_to_cmd);
-				print_error("kssh: No such file or directory !\n");
-				exit(-1);
-			}
-		}
-		path_to_cmd = ft_find_cmd(av[0], data.envp);
-		if (path_to_cmd == NULL)
-			path_to_cmd = av[0];
-		if (execve(path_to_cmd, av, data.envp) == -1)
-		{
-			print_error("kssh: command not found !\n");
-			free_cmd_table(av);
-			free_all(data.tokens_list, data.user_input);
-			exit(-1);
-		}
-	}
+	data.child_pid = fork();
+	if (data.child_pid == 0)
+		child_exec_cmd(av, data, pipe_switcher);
 	if (pipe_switcher == true)
-		dup_and_close(end, STDIN);
+		dup_and_close(data.end, STDIN);
 }
