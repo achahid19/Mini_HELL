@@ -30,10 +30,8 @@
 void	exec_command(token_ptr tokens_list, t_var data);
 char	**extract_command(token_ptr tokens_list);
 int		get_infos(token_ptr tokens_list);
-void	ft_pipe(char **av, char **envp, token_ptr tokens_list,
-			char *user_input);
-void	ft_pipe_none(char **av, char **envp, token_ptr tokens_list,
-			char *user_input);
+void	ft_pipe(char **av, t_var data);
+void	ft_pipe_none(char **av, t_var data);
 
 /**
  * executor -
@@ -56,7 +54,7 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	dup2(data.std_in, STDIN);
 	close(data.std_in);
 	while (wait(NULL) > 0)
-			;
+		;
 }
 
 
@@ -73,9 +71,9 @@ void	exec_command(token_ptr tokens_list, t_var data)
 	/* for (int z = 0; full_cmd[z] != NULL; z++)
 		printf("--->%s\n", full_cmd[z]); */
 	if (data.pipes > 1)
-		ft_pipe(full_cmd, data.envp, data.tokens_list, data.user_input);
+		ft_pipe(full_cmd, data);
 	else if (data.pipes == 1)
-		ft_pipe_none(full_cmd, data.envp, data.tokens_list, data.user_input);
+		ft_pipe_none(full_cmd, data);
 	free_cmd_table(full_cmd);
 	// handle red, and appends on linked_list.
 }
@@ -226,8 +224,7 @@ void	dup_and_close(int *end, int i)
 	}
 }
 
-void	ft_pipe(char **av, char **envp, token_ptr tokens_list,
-			char *user_input)
+void	ft_pipe(char **av, t_var data)
 {
 	pid_t	child_pid;
 	int		end[2];
@@ -248,23 +245,23 @@ void	ft_pipe(char **av, char **envp, token_ptr tokens_list,
 		{
 			path_to_cmd = ft_cmd_path(av[0]);
 			if (access(path_to_cmd, X_OK) == 0)
-				execve(path_to_cmd, av, envp);
+				execve(path_to_cmd, av, data.envp);
 			else
 			{
-				free_all(tokens_list, user_input);
+				free_all(data.tokens_list, data.user_input);
 				free_cmd_table(av);
 				free(path_to_cmd);
 				print_error("No such file or directory !\n");
-				exit (-1);
+				exit(-1);
 			}
 				/* free_and_exit("\033[1;31mPath Not Found!\033[0m", path_to_cmd); */
 		}
-		path_to_cmd = ft_find_cmd(av[0], envp);
+		path_to_cmd = ft_find_cmd(av[0], data.envp);
 		/* if (path_to_cmd == NULL)
 			ft_error_print("\033[1;33mError: Cmd not found!\033[0m"); */
 		if (path_to_cmd == NULL)
 			path_to_cmd = av[0];
-		if (execve(path_to_cmd, av, envp) == -1)
+		if (execve(path_to_cmd, av, data.envp) == -1)
 		{
 			//perror("execve");
 			 //fprintf(stderr, "%s: %s\n", "/bin/lsdjfk", strerror(errno));
@@ -272,7 +269,7 @@ void	ft_pipe(char **av, char **envp, token_ptr tokens_list,
 			//free(path_to_cmd);
 			free_cmd_table(av);
 			/* printf("exited\n"); */
-			free_all(tokens_list, user_input);
+			free_all(data.tokens_list, data.user_input);
 			exit(-1);
 		}
 			/* ft_error_exit(); */
@@ -280,8 +277,7 @@ void	ft_pipe(char **av, char **envp, token_ptr tokens_list,
 	dup_and_close(end, 0);
 }
 
-void	ft_pipe_none(char **av, char **envp, token_ptr tokens_list,
-			char *user_input)
+void	ft_pipe_none(char **av, t_var data)
 {
 	pid_t	child_pid;
 	int		end[2];
@@ -301,10 +297,10 @@ void	ft_pipe_none(char **av, char **envp, token_ptr tokens_list,
 		{
 			path_to_cmd = ft_cmd_path(av[0]);
 			if (access(path_to_cmd, X_OK) == 0)
-				execve(path_to_cmd, av, envp);
+				execve(path_to_cmd, av, data.envp);
 			else
 			{
-				free_all(tokens_list, user_input);
+				free_all(data.tokens_list, data.user_input);
 				free_cmd_table(av);
 				free(path_to_cmd);
 				print_error("No such file or directory !\n");
@@ -312,12 +308,12 @@ void	ft_pipe_none(char **av, char **envp, token_ptr tokens_list,
 			}
 				/* free_and_exit("\033[1;31mPath Not Found!\033[0m", path_to_cmd); */
 		}
-		path_to_cmd = ft_find_cmd(av[0], envp);
+		path_to_cmd = ft_find_cmd(av[0], data.envp);
 		/* if (path_to_cmd == NULL)
 			ft_error_print("\033[1;33mError: Cmd not found!\033[0m"); */
 		if (path_to_cmd == NULL)
 			path_to_cmd = av[0];
-		if (execve(path_to_cmd, av, envp) == -1)
+		if (execve(path_to_cmd, av, data.envp) == -1)
 		{
 			//perror("execve");
 			 //fprintf(stderr, "%s: %s\n", "/bin/lsdjfk", strerror(errno));
@@ -325,7 +321,7 @@ void	ft_pipe_none(char **av, char **envp, token_ptr tokens_list,
 			//free(path_to_cmd);
 			free_cmd_table(av);
 			/* printf("exited\n"); */
-			free_all(tokens_list, user_input);
+			free_all(data.tokens_list, data.user_input);
 			exit(-1);
 		}
 			/* ft_error_exit(); */
