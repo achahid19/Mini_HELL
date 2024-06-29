@@ -251,7 +251,7 @@ void	ft_pipe(char **av, t_var data)
 				free_all(data.tokens_list, data.user_input);
 				free_cmd_table(av);
 				free(path_to_cmd);
-				print_error("No such file or directory !\n");
+				print_error("kssh: No such file or directory !\n");
 				exit(-1);
 			}
 				/* free_and_exit("\033[1;31mPath Not Found!\033[0m", path_to_cmd); */
@@ -265,7 +265,7 @@ void	ft_pipe(char **av, t_var data)
 		{
 			//perror("execve");
 			 //fprintf(stderr, "%s: %s\n", "/bin/lsdjfk", strerror(errno));
-			print_error("command not found !\n");
+			print_error("kssh: command not found !\n");
 			//free(path_to_cmd);
 			free_cmd_table(av);
 			/* printf("exited\n"); */
@@ -303,7 +303,7 @@ void	ft_pipe_none(char **av, t_var data)
 				free_all(data.tokens_list, data.user_input);
 				free_cmd_table(av);
 				free(path_to_cmd);
-				print_error("No such file or directory !\n");
+				print_error("kssh: No such file or directory !\n");
 				exit (-1);
 			}
 				/* free_and_exit("\033[1;31mPath Not Found!\033[0m", path_to_cmd); */
@@ -317,7 +317,7 @@ void	ft_pipe_none(char **av, t_var data)
 		{
 			//perror("execve");
 			 //fprintf(stderr, "%s: %s\n", "/bin/lsdjfk", strerror(errno));
-			print_error("command not found !\n");
+			print_error("kssh: command not found !\n");
 			//free(path_to_cmd);
 			free_cmd_table(av);
 			/* printf("exited\n"); */
