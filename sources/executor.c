@@ -27,7 +27,7 @@
 // special chars without the second one means -> >> '' (since sytax is good).
 // not working for args -> because we could have only cmd without args.
 
-void	exec_command(token_ptr tokens_list, char **envp, char *user_input, int pipes);
+void	exec_command(token_ptr tokens_list, t_var data);
 char	**extract_command(token_ptr tokens_list);
 int		get_infos(token_ptr tokens_list);
 void	ft_pipe(char **av, char **envp, token_ptr tokens_list,
@@ -40,26 +40,30 @@ void	ft_pipe_none(char **av, char **envp, token_ptr tokens_list,
 */
 void	executor(token_ptr tokens_list, char **envp, char *user_input)
 {
-	int	pipes;
-	int		std_in = dup(STDIN);
+	t_var	data;
 
-	pipes = check_pipes_num(tokens_list);
-	while (pipes)
+	data.tokens_list = tokens_list;
+	data.envp = envp;
+	data.user_input = user_input;
+	data.pipes = check_pipes_num(tokens_list);
+	data.std_in = dup(STDIN);
+	while (data.pipes)
 	{
-		exec_command(tokens_list, envp, user_input, pipes);
+		exec_command(tokens_list, data);
 		tokens_list = get_next_pipe(tokens_list);
-		pipes--;
+		data.pipes--;
 	}
-	dup2(std_in, STDIN_FILENO);
-	close(std_in);
-	wait(NULL);
+	dup2(data.std_in, STDIN);
+	close(data.std_in);
+	while (wait(NULL) > 0)
+			;
 }
 
 
 /**
  * exec_command -
 */
-void	exec_command(token_ptr tokens_list, char **envp, char *user_input, int pipes)
+void	exec_command(token_ptr tokens_list, t_var data)
 {
 	char	**full_cmd;
 	
@@ -68,10 +72,10 @@ void	exec_command(token_ptr tokens_list, char **envp, char *user_input, int pipe
 	full_cmd = extract_command(tokens_list); // TODO later: check for built_ins
 	/* for (int z = 0; full_cmd[z] != NULL; z++)
 		printf("--->%s\n", full_cmd[z]); */
-	if (pipes > 1)
-		ft_pipe(full_cmd, envp, tokens_list, user_input);
-	else if (pipes == 1)
-		ft_pipe_none(full_cmd, envp, tokens_list, user_input);
+	if (data.pipes > 1)
+		ft_pipe(full_cmd, data.envp, data.tokens_list, data.user_input);
+	else if (data.pipes == 1)
+		ft_pipe_none(full_cmd, data.envp, data.tokens_list, data.user_input);
 	free_cmd_table(full_cmd);
 	// handle red, and appends on linked_list.
 }
