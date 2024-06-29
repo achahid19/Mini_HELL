@@ -27,14 +27,14 @@ int		parentheses_checker(token_ptr tokens_list)
 			count--;
 		if (count < 0)
 		{
-			print_error("kssh: Error parentheses\n");
+			print_error("kssh: Error parentheses");
 			return 1;
 		}
 		tmp = tmp->next;
 	}
 	if (count != 0)
 	{
-		print_error("kssh: Error parentheses\n");
+		print_error("kssh: Error parentheses");
 		return 1;
 	}
 	return 0;
