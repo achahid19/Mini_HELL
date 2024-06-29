@@ -69,6 +69,7 @@
  * norminette.
  * handle input-output stream.
  * cat /dev/random | sleep 1
+ * ls|"". TODO fix cmd not found.
 */
 void	check_tokens(token_ptr print_tk)
 {
