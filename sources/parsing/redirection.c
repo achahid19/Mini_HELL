@@ -23,7 +23,7 @@ int	redirections_checker_1(token_ptr tokens_list)
 		{
 			if (tmp->next == NULL)
 			{
-				print_error("syntax error near unexpected token `newline'\n");
+				print_error("syntax error near unexpected token `newline'");
 				return (1);
 			}	
 		}
@@ -41,9 +41,9 @@ int 	redirections_checker_2(token_ptr tokens_list) // > > ls
 			&& (tmp->next->token_type == 8 || tmp->next->token_type == 9))
 	{
 		if (tmp->next->token_type == 8)
-			print_error("syntax error near unexpected token `<'\n");
+			print_error("syntax error near unexpected token `<'");
 		else
-			print_error("syntax error near unexpected token `>'\n");
+			print_error("syntax error near unexpected token `>'");
 	}
 	return 0;
 }
@@ -60,9 +60,9 @@ int	redirections_checker_3(token_ptr tokens_list) // > ls >
 			if (tmp->next->token_type == 10 || tmp->next->token_type == 11)
 			{
 				if (tmp->next->token_type == 10)
-					print_error("syntax error near unexpected token `<<'\n");
+					print_error("syntax error near unexpected token `<<'");
 				else
-					print_error("syntax error near unexpected token `>>'\n");
+					print_error("syntax error near unexpected token `>>'");
 				return (1);
 			}
 		}

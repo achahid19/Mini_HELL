@@ -21,7 +21,6 @@ void	quotes_error(int type);
 void	print_error(char *error)
 {
 	write(STDERR, "\033[0;35m", 7);
-	write(STDERR, "kssh: ", 6);
 	write(STDERR, error, ft_strlen(error));
 	write(STDERR, "\033[0m",4);
 }
@@ -32,7 +31,7 @@ void	print_error(char *error)
 void	quotes_error(int type)
 {
 	if (type == doublequote_token)
-		print_error("Error double quotes\n");
+		print_error("kssh: Error double quotes\n");
 	else if (type == singlequote_token)
-		print_error("Error single quotes\n");
+		print_error("kssh: Error single quotes\n");
 }

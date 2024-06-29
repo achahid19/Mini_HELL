@@ -19,7 +19,7 @@ int	first_pipe_checker(token_ptr tokens_list)
 	tmp = tokens_list;
 	if (tmp->token_type == 1)
 	{
-		print_error("minishell: syntax error near unexpected token `|'\n");
+		print_error("kssh: syntax error near unexpected token `|'");
 		return (1);
 	}
 	while (tmp)
@@ -28,7 +28,7 @@ int	first_pipe_checker(token_ptr tokens_list)
 		{
 			if (tmp->next == NULL || tmp->next->token_type == 1)
 			{
-				print_error("minishell: syntax error near unexpected token `|'\n");
+				print_error("kssh: syntax error near unexpected token `|'");
 				return (1);
 			}
 		}
@@ -45,12 +45,12 @@ int	last_pipe_checker(token_ptr tokens_list)
 		tmp = tmp->next;
 	if (tmp->token_type == 1)
 	{
-		print_error("minishell: syntax error near unexpected token `|'\n");
+		print_error("kssh: syntax error near unexpected token `|'");
 		return (1);
 	}
 	if (tmp->token_type == 1)
 	{
-		print_error("minishell: syntax error near unexpected token `|'\n");
+		print_error("minishell: syntax error near unexpected token `|'");
 		return (1);
 	}
 	return (0);
@@ -66,7 +66,7 @@ int	second_pipe_checker(token_ptr tokens_list)
 			tmp = tmp->next;
 	if (tmp->token_type == 1)
 	{
-		print_error("minishell: syntax error near unexpected token `|'\n");
+		print_error("minishell: syntax error near unexpected token `|'");
 		return (1);
 	}
 	return (0);
@@ -83,7 +83,7 @@ int		latest_pipe_checker(token_ptr tokens_list)
 		tmp->previous->token_type == 9 || tmp->previous->token_type == 10 ||
 		tmp->previous->token_type == 11))
 		{
-			print_error("minishell : syntax error near unexpected token `|'\n");
+			print_error("minishell : syntax error near unexpected token `|'");
 			return (1);
 		}
 		tmp = tmp->next;

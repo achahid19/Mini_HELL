@@ -30,10 +30,7 @@
 void	exec_command(token_ptr tokens_list, t_var data);
 char	**extract_command(token_ptr tokens_list);
 int		get_infos(token_ptr tokens_list);
-void	ft_pipe(char **av, char **envp, token_ptr tokens_list,
-			char *user_input);
-void	ft_pipe_none(char **av, char **envp, token_ptr tokens_list,
-			char *user_input);
+void	ft_pipe(char **av, t_var data, t_bool pipe_switcher);
 
 /**
  * executor -
@@ -56,9 +53,8 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	dup2(data.std_in, STDIN);
 	close(data.std_in);
 	while (wait(NULL) > 0)
-			;
+		;
 }
-
 
 /**
  * exec_command -
@@ -66,18 +62,17 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 void	exec_command(token_ptr tokens_list, t_var data)
 {
 	char	**full_cmd;
-	
 
-	/* // extract till Pipe or NULL. and return 2d array */
+	// handle red, and appends on linked_list.
 	full_cmd = extract_command(tokens_list); // TODO later: check for built_ins
 	/* for (int z = 0; full_cmd[z] != NULL; z++)
 		printf("--->%s\n", full_cmd[z]); */
 	if (data.pipes > 1)
-		ft_pipe(full_cmd, data.envp, data.tokens_list, data.user_input);
+		ft_pipe(full_cmd, data, true);
 	else if (data.pipes == 1)
-		ft_pipe_none(full_cmd, data.envp, data.tokens_list, data.user_input);
+		ft_pipe(full_cmd, data, false);
 	free_cmd_table(full_cmd);
-	// handle red, and appends on linked_list.
+	
 }
 
 /**
@@ -138,196 +133,18 @@ int	get_infos(token_ptr tokens_list)
 	return (rows);
 }
 
-char	*ft_get_path(char **envp)
+/**
+ * ft_pipe -
+*/
+void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 {
-	size_t	count;
-
-	count = 0;
-	while (ft_strncmp(envp[count], "PATH", 4) != 0)
-	{
-		/* if (ft_strncmp(envp[count], "PATH", 4) == -1)
-			return (NULL); */
-		count++;
-	}
-	return (envp[count]);
-}
-
-char	*ft_cmd_path(char *cmd_path)
-{
-	int		count;
-	char	*cmd;
-	int		index;
-
-	count = 0;
-	while (cmd_path[count] != ' ' && cmd_path[count])
-		count++;
-	cmd = (char *)malloc(sizeof(char) * count + 1);
-	if (cmd == NULL)
-		return (NULL);
-	index = 0;
-	while (index < count)
-	{
-		cmd[index] = cmd_path[index];
-		index++;
-	}
-	cmd[index] = '\0';
-	return (cmd);
-}
-
-char	*ft_find_cmd(char *cmd, char **envp)
-{
-	t_var	obj;
-
-	obj.path_to_cmd = NULL;
-	obj.i = 0;
-	obj.env = ft_get_path(envp);
-	if (obj.env == NULL)
-		return (NULL);
-	obj.token = &cmd;
-	obj.path = ft_split(obj.env, ':');
-	while (obj.path[obj.i] != NULL)
-	{
-		obj.path[obj.i] = ft_strjoin(obj.path[obj.i], "/");
-		obj.i++;
-	}
-	obj.i = 0;
-	while (obj.path[obj.i] != NULL)
-	{
-		obj.path[obj.i] = ft_strjoin(obj.path[obj.i], obj.token[0]);
-		if (access(obj.path[obj.i], X_OK) == 0)
-		{
-			obj.path_to_cmd = ft_strdup(obj.path[obj.i]);
-			if (obj.path_to_cmd == NULL)
-			{
-				free_cmd_table(obj.path);
-				return (NULL);
-			}
-			break ;
-		}
-		obj.i++;
-	}
-	free_cmd_table(obj.path);
-	return (obj.path_to_cmd);
-}
-
-void	dup_and_close(int *end, int i)
-{
-	if (i == 1)
-	{
-		dup2(end[i], STDOUT_FILENO);
-		close(end[0]);
-		close(end[1]);
-	}
-	else if (i == 0)
-	{
-		dup2(end[i], STDIN_FILENO);
-		close(end[0]);
-		close(end[1]);
-	}
-}
-
-void	ft_pipe(char **av, char **envp, token_ptr tokens_list,
-			char *user_input)
-{
-	pid_t	child_pid;
-	int		end[2];
-	char	*path_to_cmd;
-
 	if (*av == NULL)
 		return ;
-	/* for (int z = 0; av[z] != NULL; z++)
-		printf("--->%s\n", av[z]); */
-	if (pipe(end) == -1)
-		exit(-1);
-		/* ft_error_exit(); */
-	child_pid = fork();
-	if (child_pid == 0)
-	{
-		dup_and_close(end, 1);
-		if (ft_strncmp(av[0], "/", 1) == 0)
-		{
-			path_to_cmd = ft_cmd_path(av[0]);
-			if (access(path_to_cmd, X_OK) == 0)
-				execve(path_to_cmd, av, envp);
-			else
-			{
-				free_all(tokens_list, user_input);
-				free_cmd_table(av);
-				free(path_to_cmd);
-				print_error("No such file or directory !\n");
-				exit (-1);
-			}
-				/* free_and_exit("\033[1;31mPath Not Found!\033[0m", path_to_cmd); */
-		}
-		path_to_cmd = ft_find_cmd(av[0], envp);
-		/* if (path_to_cmd == NULL)
-			ft_error_print("\033[1;33mError: Cmd not found!\033[0m"); */
-		if (path_to_cmd == NULL)
-			path_to_cmd = av[0];
-		if (execve(path_to_cmd, av, envp) == -1)
-		{
-			//perror("execve");
-			 //fprintf(stderr, "%s: %s\n", "/bin/lsdjfk", strerror(errno));
-			print_error("command not found !\n");
-			//free(path_to_cmd);
-			free_cmd_table(av);
-			/* printf("exited\n"); */
-			free_all(tokens_list, user_input);
-			exit(-1);
-		}
-			/* ft_error_exit(); */
-	}
-	dup_and_close(end, 0);
-}
-
-void	ft_pipe_none(char **av, char **envp, token_ptr tokens_list,
-			char *user_input)
-{
-	pid_t	child_pid;
-	int		end[2];
-	char	*path_to_cmd;
-
-	if (*av == NULL)
-		return ;
-	/* for (int z = 0; av[z] != NULL; z++)
-		printf("--->%s\n", av[z]); */
-	if (pipe(end) == -1)
-		exit(-1);
-		/* ft_error_exit(); */
-	child_pid = fork();
-	if (child_pid == 0)
-	{
-		if (ft_strncmp(av[0], "/", 1) == 0)
-		{
-			path_to_cmd = ft_cmd_path(av[0]);
-			if (access(path_to_cmd, X_OK) == 0)
-				execve(path_to_cmd, av, envp);
-			else
-			{
-				free_all(tokens_list, user_input);
-				free_cmd_table(av);
-				free(path_to_cmd);
-				print_error("No such file or directory !\n");
-				exit (-1);
-			}
-				/* free_and_exit("\033[1;31mPath Not Found!\033[0m", path_to_cmd); */
-		}
-		path_to_cmd = ft_find_cmd(av[0], envp);
-		/* if (path_to_cmd == NULL)
-			ft_error_print("\033[1;33mError: Cmd not found!\033[0m"); */
-		if (path_to_cmd == NULL)
-			path_to_cmd = av[0];
-		if (execve(path_to_cmd, av, envp) == -1)
-		{
-			//perror("execve");
-			 //fprintf(stderr, "%s: %s\n", "/bin/lsdjfk", strerror(errno));
-			print_error("command not found !\n");
-			//free(path_to_cmd);
-			free_cmd_table(av);
-			/* printf("exited\n"); */
-			free_all(tokens_list, user_input);
-			exit(-1);
-		}
-			/* ft_error_exit(); */
-	}
+	if (pipe(data.end) == -1)
+		exit(EXIT_FAILURE);
+	data.child_pid = fork();
+	if (data.child_pid == 0)
+		child_exec_cmd(av, data, pipe_switcher);
+	if (pipe_switcher == true)
+		dup_and_close(data.end, STDIN);
 }
