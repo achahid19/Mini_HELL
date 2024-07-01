@@ -65,8 +65,8 @@ void	exec_command(token_ptr tokens_list, t_var data)
 
 	// handle red, and appends on linked_list.
 	full_cmd = extract_command(tokens_list); // TODO later: check for built_ins
-	for (int z = 0; full_cmd[z] != NULL; z++)
-		printf("--->%s\n", full_cmd[z]);
+	/* for (int z = 0; full_cmd[z] != NULL; z++)
+		printf("--->%s\n", full_cmd[z]); */
 	if (data.pipes > 1)
 		ft_pipe(full_cmd, data, true);
 	else if (data.pipes == 1)
