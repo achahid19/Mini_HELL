@@ -16,7 +16,7 @@ void	child_exec_cmd(char **av, t_var data, t_bool pipe_switcher);
 char	*ft_cmd_path(char *cmd_path);
 char	*ft_get_path(char **envp);
 char	*ft_find_cmd(char *cmd, char **envp);
-void	cmd_check(t_var *obj);
+t_bool	cmd_check(t_var *obj);
 
 /**
  * child_exec_cmd -
@@ -111,7 +111,8 @@ char	*ft_find_cmd(char *cmd, char **envp)
 		obj.i++;
 	}
 	obj.i = 0;
-	cmd_check(&obj);
+	if (cmd_check(&obj) == false)
+		return (NULL);
 	free_cmd_table(obj.path);
 	return (obj.path_to_cmd);
 }
@@ -119,7 +120,7 @@ char	*ft_find_cmd(char *cmd, char **envp)
 /**
  * cmd_finder -
 */
-void	cmd_check(t_var *obj)
+t_bool	cmd_check(t_var *obj)
 {
 	while (obj->path[obj->i] != NULL)
 	{
@@ -130,10 +131,11 @@ void	cmd_check(t_var *obj)
 			if (obj->path_to_cmd == NULL)
 			{
 				free_cmd_table(obj->path);
-				return ;
+				return (false);
 			}
 			break ;
 		}
 		obj->i++;
 	}
+	return (true);
 }
