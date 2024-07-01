@@ -12,9 +12,10 @@
 
 #include "../../includes/miniHell.h"
 
-token_ptr		find_last_node(token_ptr head);
-t_bool			ft_isspace(char c);
-char			*ft_realloc(char *to_free, int new_len);
+token_ptr	find_last_node(token_ptr head);
+t_bool		ft_isspace(char c);
+char		*ft_realloc(char *to_free, int new_len);
+void		dup_and_close(int *end, int i);
 
 /**
  * find_last_node - iterates over a linked list
@@ -56,4 +57,23 @@ char	*ft_realloc(char *to_free, int new_len)
 	free(to_free);
 	new_ptr = (char *)malloc(sizeof(char) * new_len + 1);
 	return (new_ptr);
+}
+
+/**
+ * dup_and_close -
+*/
+void	dup_and_close(int *end, int i)
+{
+	if (i == STDOUT)
+	{
+		dup2(end[i], STDOUT_FILENO);
+		close(end[0]);
+		close(end[1]);
+	}
+	else if (i == STDIN)
+	{
+		dup2(end[i], STDIN_FILENO);
+		close(end[0]);
+		close(end[1]);
+	}
 }
