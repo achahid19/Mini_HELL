@@ -135,6 +135,7 @@ void		move_user_input(char **user_input);
 token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
 char		*ft_realloc(char *to_free, int new_len);
+void		dup_and_close(int *end, int i);
 
 /* expander */
 void		tokens_expander(token_ptr tokens_list, char **envp);
@@ -185,7 +186,7 @@ void		signal_handler();
 
 /* free_and_errors */
 void		free_tokens(token_ptr tokens_list);
-void		free_all(token_ptr tokens_list, char *user_input);
+void		free_all(token_ptr tokens_list, char *user_input, char **av);
 void		free_cmd_table(char **full_cmd);
 void		quotes_error(int quotes_type);
 void		print_error(char *error);
