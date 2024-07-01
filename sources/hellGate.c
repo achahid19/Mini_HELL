@@ -107,7 +107,7 @@ int	main(int ac, char **av, char **envp)
 		// add heredoc handler here.
 		if (parser_tokens(tokens_list) == false)
 		{
-			free_all(tokens_list, user_input);
+			free_all(tokens_list, user_input, NULL);
 			continue;
 		}
 		tokens_expander(tokens_list, envp);
@@ -115,7 +115,7 @@ int	main(int ac, char **av, char **envp)
 		syntax_algo(tokens_list);
 		executor(tokens_list, envp, user_input);
 		//check_tokens(tokens_list);
-		free_all(tokens_list, user_input);
+		free_all(tokens_list, user_input, NULL);
 	}
 	return (EXIT_SUCCESS);
 }
