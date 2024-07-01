@@ -70,7 +70,7 @@
  * handle input-output stream.
  * cat /dev/random | sleep 1
  * ls|"". TODO fix cmd not found. (fixed)
- * weird leak for -> . as input lmao.
+ * weird leak for -> . as input lmao. also for "/"
 */
 void	check_tokens(token_ptr print_tk)
 {
