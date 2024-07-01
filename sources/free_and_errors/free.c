@@ -25,10 +25,15 @@ void	free_tokens(token_ptr tokens_list)
 	}
 }
 
-void	free_all(token_ptr tokens_list, char *user_input)
+void	free_all(token_ptr tokens_list, char *user_input,
+			char **av)
 {
-	free_tokens(tokens_list);
-	free(user_input);
+	if (tokens_list != NULL)
+		free_tokens(tokens_list);
+	if (user_input != NULL)
+		free(user_input);
+	if (av != NULL)
+		free_cmd_table(av);
 }
 
 /**
