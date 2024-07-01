@@ -72,6 +72,9 @@ t_bool	special_chars_checker(int type)
 		|| type == leftred_token || type == rightred_token);
 }
 
+/**
+ * quotes_cmd_checker -
+*/
 t_bool	quotes_cmd_checker(t_var d)
 {
 	return ((d.type == doublequote_token
@@ -79,7 +82,9 @@ t_bool	quotes_cmd_checker(t_var d)
 		&& (d.type_next == doublequote_token
 			|| d.type_next == singlequote_token)
 		&& (d.type_previous == whitespace_token
-			|| d.type_previous == 13)
+			|| d.type_previous == 13
+			|| d.type_previous == pipe_token)
 		&& (d.type_next_next == whitespace_token
-			|| d.type_next_next == 13));
+			|| d.type_next_next == 13)
+			|| d.type_next_next == pipe_token);
 }
