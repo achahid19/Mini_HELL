@@ -72,7 +72,6 @@ void	exec_command(token_ptr tokens_list, t_var data)
 	else if (data.pipes == 1)
 		ft_pipe(full_cmd, data, false);
 	free_cmd_table(full_cmd);
-	
 }
 
 /**
