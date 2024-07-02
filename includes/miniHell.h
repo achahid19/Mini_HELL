@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/06/08 19:26:24 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/02 05:33:49 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,11 @@ int			parentheses_checker(token_ptr tokens_list);
 int			parser_tokens_2(token_ptr tokens_list);
 int			heredoc_next_checker(token_ptr tokens_list);
 int			heredoc_append_checker(token_ptr tokens_list);
+void	space_skip(token_ptr tokens_list);
+void	space_skip_rev(token_ptr tokens_list);
+char	*get_unique_filename(int i);
+void	new_token_lst(token_ptr tokens_list, int order);
+void	filename_write(token_ptr tokens_list, char *filename, int order);
 
 /* built_in   	*/
 void		ft_echo(token_ptr tokens_list);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: achahid- <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/15 11:56:28 by achahid-          #+#    #+#              #
-#    Updated: 2023/11/15 11:56:31 by achahid-         ###   ########.fr        #
+#    Updated: 2024/07/02 04:44:02 by akajjou          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJECTS_B = $(CFILES_B:.c=.o)
 
 CC = cc
 
-FLAGS = -Werror -Wextra -Wall
+FLAGS = -Werror -Wextra -Wall -g
 
 NAME = libft.a
 

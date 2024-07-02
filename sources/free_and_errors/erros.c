@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:09:42 by achahid-          #+#    #+#             */
-/*   Updated: 2024/06/06 20:45:25 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/02 03:39:42 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	print_error(char *error)
 	write(STDERR, "\033[0;35m", 7);
 	write(STDERR, error, ft_strlen(error));
 	write(STDERR, "\033[0m",4);
+	write(STDERR, "\n", 1);
 }
 
 /**
