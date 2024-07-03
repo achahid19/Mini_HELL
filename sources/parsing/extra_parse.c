@@ -127,7 +127,7 @@ void    filename_write(token_ptr tokens_list, char *filename, int order)
                     tmp = tmp->next;
             free(tmp->token);
             tmp->token = ft_strdup(filename);
-            tmp->token_type = 10;
+            tmp->token_type = word_token;
         }
         tmp = tmp->next;
     }
