@@ -136,6 +136,7 @@ token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
 char		*ft_realloc(char *to_free, int new_len);
 void		dup_and_close(int *end, int i);
+void		points_checker(t_var data, char **av);
 
 /* expander */
 void		tokens_expander(token_ptr tokens_list, char **envp);
