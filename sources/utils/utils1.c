@@ -16,6 +16,7 @@ token_ptr	find_last_node(token_ptr head);
 t_bool		ft_isspace(char c);
 char		*ft_realloc(char *to_free, int new_len);
 void		dup_and_close(int *end, int i);
+void		points_checker(t_var data, char **av);
 
 /**
  * find_last_node - iterates over a linked list
@@ -75,5 +76,30 @@ void	dup_and_close(int *end, int i)
 		dup2(end[i], STDIN_FILENO);
 		close(end[0]);
 		close(end[1]);
+	}
+}
+
+/**
+ * points_checker -
+*/
+void	points_checker(t_var data, char **av)
+{
+	char	*path_cmd;
+
+	path_cmd = data.path_to_cmd;
+	while (*path_cmd)
+	{
+		if ((*path_cmd) == '.')
+		{
+			if (*(path_cmd + 1) == '.')
+				path_cmd++;
+			if (*(path_cmd + 1) == '\0' || ft_isspace(*(path_cmd + 1)) == true)
+			{
+				free_all(data.tokens_list, data.user_input, av);
+				print_error("kssh: No such file or directory !\n");
+				exit(EXIT_FAILURE);
+			}
+		}
+		path_cmd++;
 	}
 }
