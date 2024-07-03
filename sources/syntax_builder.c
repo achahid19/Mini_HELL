@@ -103,7 +103,11 @@ static t_bool	quotes_cmd(token_ptr *tokens_list)
 		d.type_previous = (*tokens_list)->previous->token_type;
 	else if ((*tokens_list)->previous == NULL)
 		d.type_previous = 13;
+	if ((*tokens_list)->next == NULL)
+		return (false);
 	d.type_next = (*tokens_list)->next->token_type;
+	if (d.type_next != doublequote_token && d.type_next != singlequote_token)
+		return (false);
 	if ((*tokens_list)->next->next != NULL)
 		d.type_next_next = (*tokens_list)->next->next->token_type;
 	else if ((*tokens_list)->next->next == NULL)
