@@ -117,7 +117,7 @@ int	parser_tokens(token_ptr tokens_list)
 	if (ft_type_check(tmp) == 1)
 		return false;
 	heredoc(tmp,tokens_list);
-	// check_tokens(tokens_list);
+	//check_tokens(tokens_list);
 	// exit(0);
 	return true;
 }
