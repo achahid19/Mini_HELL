@@ -70,6 +70,14 @@
  * handle input-output stream.
  * cat /dev/random | sleep 1
  * ls|"". TODO fix cmd not found.
+ * 
+ * Todo meanwhile:
+ * - fix I/O stream. (in progress).
+ * - teat leaks.
+*/
+/**
+ * to fix on the new version!
+ * quotes_cmd.
 */
 void	check_tokens(token_ptr print_tk)
 {
@@ -104,17 +112,17 @@ int	main(int ac, char **av, char **envp)
 		if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
-		// add heredoc handler here.
 		if (parser_tokens(tokens_list) == false)
 		{
 			free_all(tokens_list, user_input, NULL);
 			continue;
 		}
+		//check_tokens(tokens_list);
 		tokens_expander(tokens_list, envp);
 		tokens_list_optimizer(&tokens_list);
 		syntax_algo(tokens_list);
+		check_tokens(tokens_list);
 		executor(tokens_list, envp, user_input);
-		//check_tokens(tokens_list);
 		free_all(tokens_list, user_input, NULL);
 	}
 	return (EXIT_SUCCESS);
