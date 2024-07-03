@@ -24,16 +24,16 @@ t_bool	cmd_check(t_var *obj);
 void	child_exec_cmd(char **av, t_var data, t_bool pipe_switcher)
 {
 	if (pipe_switcher == true)
-			dup_and_close(data.end, STDOUT);
+		dup_and_close(data.end, STDOUT);
 	if (ft_strncmp(av[0], "/", 1) == 0)
 	{
-		data.path_to_cmd = ft_cmd_path(av[0]);
+		data.path_to_cmd = av[0];
+		points_checker(data, av);
 		if (access(data.path_to_cmd, X_OK) == 0)
 			execve(data.path_to_cmd, av, data.envp);
 		else
 		{
 			free_all(data.tokens_list, data.user_input, av);
-			free(data.path_to_cmd);
 			print_error("kssh: No such file or directory !\n");
 			exit(EXIT_FAILURE);
 		}
@@ -104,6 +104,8 @@ char	*ft_find_cmd(char *cmd, char **envp)
 	if (obj.env == NULL)
 		return (NULL);
 	obj.token = &cmd;
+	if (cmd[0] == '.')
+		return (NULL);
 	obj.path = ft_split(obj.env, ':');
 	while (obj.path[obj.i] != NULL)
 	{
