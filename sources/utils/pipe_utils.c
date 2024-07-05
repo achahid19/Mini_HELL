@@ -12,7 +12,7 @@
 
 #include "../../includes/miniHell.h"
 
-void	child_exec_cmd(char **av, t_var data, t_bool pipe_switcher);
+void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher);
 char	*ft_cmd_path(char *cmd_path);
 char	*ft_get_path(char **envp);
 char	*ft_find_cmd(char *cmd, char **envp);
@@ -21,31 +21,31 @@ t_bool	cmd_check(t_var *obj);
 /**
  * child_exec_cmd -
 */
-void	child_exec_cmd(char **av, t_var data, t_bool pipe_switcher)
+void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 {
 	if (pipe_switcher == true)
-		dup_and_close(data.end, STDOUT);
-	//output_red_stream(data);
+		dup_and_close(data->end, STDOUT);
+	output_red_stream(data);
 	if (ft_strncmp(av[0], "/", 1) == 0)
 	{
-		data.path_to_cmd = av[0];
-		points_checker(data, av);
-		if (access(data.path_to_cmd, X_OK) == 0)
-			execve(data.path_to_cmd, av, data.envp);
+		data->path_to_cmd = av[0];
+		points_checker(*data, av);
+		if (access(data->path_to_cmd, X_OK) == 0)
+			execve(data->path_to_cmd, av, data->envp);
 		else
 		{
-			free_all(data.tokens_list, data.user_input, av);
+			free_all(data->tokens_list, data->user_input, av);
 			print_error("kssh: No such file or directory !\n");
 			exit(EXIT_FAILURE);
 		}
 	}
-	data.path_to_cmd = ft_find_cmd(av[0], data.envp);
-	if (data.path_to_cmd == NULL)
-		data.path_to_cmd = av[0];
-	if (execve(data.path_to_cmd, av, data.envp) == -1)
+	data->path_to_cmd = ft_find_cmd(av[0], data->envp);
+	if (data->path_to_cmd == NULL)
+		data->path_to_cmd = av[0];
+	if (execve(data->path_to_cmd, av, data->envp) == -1)
 	{
 		print_error("kssh: command not found !\n");
-		free_all(data.tokens_list, data.user_input, av);
+		free_all(data->tokens_list, data->user_input, av);
 		exit(EXIT_FAILURE);
 	}
 }
