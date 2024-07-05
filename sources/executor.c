@@ -27,6 +27,7 @@
 // special chars without the second one means -> >> '' (since sytax is good).
 // not working for args -> because we could have only cmd without args.
 
+void	executor(token_ptr tokens_list, char **envp, char *user_input);
 void	exec_command(token_ptr tokens_list, t_var data);
 char	**extract_command(token_ptr tokens_list);
 int		get_infos(token_ptr tokens_list);
@@ -44,6 +45,8 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	data.user_input = user_input;
 	data.pipes = check_pipes_num(tokens_list);
 	data.std_in = dup(STDIN);
+	data.fd[0] = 0;
+	data.fd[1] = 0;
 	while (data.pipes)
 	{
 		exec_command(tokens_list, data);
@@ -138,7 +141,7 @@ int	get_infos(token_ptr tokens_list)
 */
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 {
-	if (input_red_stream(data) == false)
+	if (input_red_stream(&data) == false)
 		return ;
 	if (*av == NULL)
 		return ;
@@ -146,7 +149,11 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 		exit(EXIT_FAILURE);
 	data.child_pid = fork();
 	if (data.child_pid == 0)
-		child_exec_cmd(av, data, pipe_switcher);
+		child_exec_cmd(av, &data, pipe_switcher);
 	if (pipe_switcher == true)
 		dup_and_close(data.end, STDIN);
+	if (data.fd[0] != false)
+		close(data.fd[0]);
+	if (data.fd[1] != false)
+		close(data.fd[1]);
 }
