@@ -48,6 +48,7 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	{
 		exec_command(tokens_list, data);
 		tokens_list = get_next_pipe(tokens_list);
+		data.tokens_list = tokens_list;
 		data.pipes--;
 	}
 	dup2(data.std_in, STDIN);
@@ -137,6 +138,8 @@ int	get_infos(token_ptr tokens_list)
 */
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 {
+	if (input_red_stream(data) == false)
+		return ;
 	if (*av == NULL)
 		return ;
 	if (pipe(data.end) == -1)
