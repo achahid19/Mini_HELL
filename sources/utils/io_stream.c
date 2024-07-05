@@ -63,6 +63,7 @@ t_bool	input_red_fd(token_ptr *temp, t_var *data)
 				return (false);
 			}
 			dup2(data->fd[0], STDIN_FILENO);
+			close(data->fd[0]);
 			break;
 		}
 		(*temp) = (*temp)->next;
@@ -125,6 +126,7 @@ void	output_red_fd(token_ptr *temp, t_var *data)
 				exit(EXIT_FAILURE);
 			}
 			dup2(data->fd[1], STDOUT);
+			close(data->fd[1]);
 			break;
 		}
 		(*temp) = (*temp)->next;
