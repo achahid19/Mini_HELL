@@ -124,7 +124,6 @@ here:	if (ft_strncmp(user_input, "\0", 1) != 0)
 		//check_tokens(tokens_list);
 		executor(tokens_list, envp, user_input);
 		free_all(tokens_list, user_input, NULL);
-		printf("status is: %d\n", status);
 	}
 	return (EXIT_SUCCESS);
 }
