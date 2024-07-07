@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/miniHell.h"
+#include "../includes/global.h"
 
 // cmd (could be seperated [needs to be joined] "" && '')+ args (words + strings)
 // + heredoc (2 tokens) + appends (2 tokens) + redirections (2 tokens)
@@ -34,6 +35,32 @@ int		get_infos(token_ptr tokens_list);
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher);
 
 /**
+ * dolar_status_check -
+*/
+void	dollar_status_check(token_ptr tokens_list)
+{
+	int		i;
+	char	*tk;
+	t_bool	flag;
+
+	while (tokens_list)
+	{
+		i = 0;
+		tk = tokens_list->token;
+		while (tk[i] != '\0')
+		{
+			if (tk[i] == '$' && tk[i + 1] == '?')
+			{
+				// run the expander status.
+				printf("will be expanded\n");
+			}
+			i++;
+		}
+		tokens_list = tokens_list->next;
+	}
+}
+
+/**
  * executor -
 */
 void	executor(token_ptr tokens_list, char **envp, char *user_input)
@@ -50,13 +77,14 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	while (data.pipes)
 	{
 		exec_command(tokens_list, data);
+		dollar_status_check(tokens_list);
 		tokens_list = get_next_pipe(tokens_list);
 		data.tokens_list = tokens_list;
 		data.pipes--;
 	}
 	dup2(data.std_in, STDIN);
 	close(data.std_in);
-	while (wait(NULL) > 0)
+	while (wait(&status) > 0)
 		;
 }
 
