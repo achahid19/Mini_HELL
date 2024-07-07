@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/miniHell.h"
+#include "../includes/global.h"
 
 // cmd (could be seperated [needs to be joined] "" && '')+ args (words + strings)
 // + heredoc (2 tokens) + appends (2 tokens) + redirections (2 tokens)
@@ -27,10 +28,37 @@
 // special chars without the second one means -> >> '' (since sytax is good).
 // not working for args -> because we could have only cmd without args.
 
+void	executor(token_ptr tokens_list, char **envp, char *user_input);
 void	exec_command(token_ptr tokens_list, t_var data);
 char	**extract_command(token_ptr tokens_list);
 int		get_infos(token_ptr tokens_list);
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher);
+
+/**
+ * dolar_status_check -
+*/
+void	dollar_status_check(token_ptr tokens_list)
+{
+	int		i;
+	char	*tk;
+	t_bool	flag;
+
+	while (tokens_list)
+	{
+		i = 0;
+		tk = tokens_list->token;
+		while (tk[i] != '\0')
+		{
+			if (tk[i] == '$' && tk[i + 1] == '?')
+			{
+				// run the expander status.
+				printf("will be expanded\n");
+			}
+			i++;
+		}
+		tokens_list = tokens_list->next;
+	}
+}
 
 /**
  * executor -
@@ -44,15 +72,19 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	data.user_input = user_input;
 	data.pipes = check_pipes_num(tokens_list);
 	data.std_in = dup(STDIN);
+	data.fd[0] = 0;
+	data.fd[1] = 0;
 	while (data.pipes)
 	{
 		exec_command(tokens_list, data);
+		dollar_status_check(tokens_list);
 		tokens_list = get_next_pipe(tokens_list);
+		data.tokens_list = tokens_list;
 		data.pipes--;
 	}
 	dup2(data.std_in, STDIN);
 	close(data.std_in);
-	while (wait(NULL) > 0)
+	while (wait(&status) > 0)
 		;
 }
 
@@ -137,13 +169,19 @@ int	get_infos(token_ptr tokens_list)
 */
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 {
+	if (input_red_stream(&data) == false)
+		return ;
 	if (*av == NULL)
 		return ;
 	if (pipe(data.end) == -1)
 		exit(EXIT_FAILURE);
 	data.child_pid = fork();
 	if (data.child_pid == 0)
-		child_exec_cmd(av, data, pipe_switcher);
+		child_exec_cmd(av, &data, pipe_switcher);
 	if (pipe_switcher == true)
 		dup_and_close(data.end, STDIN);
+	if (data.fd[0] != false)
+		close(data.fd[0]);
+	if (data.fd[1] != false)
+		close(data.fd[1]);
 }

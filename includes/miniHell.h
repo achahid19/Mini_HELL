@@ -111,6 +111,7 @@ typedef struct s_var
 	char		*user_input;
 	int			pipes;
 	int			std_in;
+	int			fd[2];
 	/* pipe data */
 	pid_t	child_pid;
 	int		end[2];
@@ -242,10 +243,16 @@ t_bool		get_infos_helper(token_ptr *tokens_list,
 					t_bool *flag, int *rows);
 
 /* pipes uitls */
-void	child_exec_cmd(char **av, t_var data, t_bool pipe_switcher);
-void	dup_and_close(int *end, int i);
-char	*ft_cmd_path(char *cmd_path);
-char	*ft_get_path(char **envp);
-char	*ft_find_cmd(char *cmd, char **envp);
+void		child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher);
+void		dup_and_close(int *end, int i);
+char		*ft_cmd_path(char *cmd_path);
+char		*ft_get_path(char **envp);
+char		*ft_find_cmd(char *cmd, char **envp);
+
+/* IO_stream */
+t_bool		input_red_stream(t_var *data);
+t_bool		input_red_fd(token_ptr *temp, t_var *data);
+void		output_red_stream(t_var *data);
+void		output_red_fd(token_ptr *temp, t_var *data);
 
 #endif /* MINIHELL_H */
