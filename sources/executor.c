@@ -42,7 +42,7 @@ void	dollar_status_check(token_ptr tokens_list)
 	int		i;
 	char	*tk;
 	t_bool	flag;
-	char	new_token;
+	char	*new_token;
 
 	while (tokens_list)
 	{
@@ -58,9 +58,10 @@ void	dollar_status_check(token_ptr tokens_list)
 					// join expanded "$?" to token_before
 					// now join token_next to token_before.
 					// make tokens_list->token points to this new one.
-				new_token = expand_status(tk, i);
+				/* new_token = expand_status(tk, i);
 				free(tokens_list->token);
-				tokens_list->token = new_token;
+				tokens_list->token = new_token; */
+				printf("will be expanded\n");
 			}
 			i++;
 		}
