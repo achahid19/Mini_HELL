@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/miniHell.h"
+#include "../includes/global.h"
 
 /**
  * $() - Error
@@ -98,11 +99,17 @@ int	main(int ac, char **av, char **envp)
 	signal_handler();
 	while (true)
 	{
+		if (ac == 3)
+		{
+			user_input = av[2];
+			ac--;
+			goto here;
+		}
 		if (isatty(STDIN_FILENO) == true)
 			user_input = readline("kssh$ ");
 		if (user_input == NULL)
 			exit(EXIT_SUCCESS);
-		if (ft_strncmp(user_input, "\0", 1) != 0)
+here:	if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
 		// add heredoc handler here.
@@ -116,8 +123,8 @@ int	main(int ac, char **av, char **envp)
 		syntax_algo(tokens_list);
 		//check_tokens(tokens_list);
 		executor(tokens_list, envp, user_input);
-	
 		free_all(tokens_list, user_input, NULL);
+		printf("status is: %d\n", status);
 	}
 	return (EXIT_SUCCESS);
 }
