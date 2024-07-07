@@ -12,10 +12,10 @@ CC = cc
 MAKE = make
 
 SRC =   $(addprefix sources/parsing/, pipe_checker.c parser.c redirection.c extra_parse.c heredoc_checker.c echo.c) \
-    	$(addprefix sources/, hellGate.c expander.c lexer.c signals.c syntax_builder.c executor.c ) \
+    	$(addprefix sources/, hellGate.c expander.c lexer.c signals.c syntax_builder.c executor.c) \
 		$(addprefix sources/utils/, expander_utils2.c utils1.c lexer_utils.c expander_utils.c \
 					utils2.c expander_utils3.c tk_optimizer.c syntax_builder_utils.c \
-					syntax_builder_utils2.c executor_utils.c pipe_utils.c io_stream.c) \
+					syntax_builder_utils2.c executor_utils.c pipe_utils.c io_stream.c global.c) \
 		$(addprefix sources/free_and_errors/, free.c erros.c)
 
 # valgrind --leak-check=full --show-leak-kinds=all --suppressions=.readline.supp ./miniHell
@@ -28,7 +28,7 @@ INCLUDES = includes/miniHell.h
 
 READLINE_LIB = -lreadline
 
-NAME = miniHell
+NAME = minishell
 
 LIBFT_AR = ./libft/libft.a
 
