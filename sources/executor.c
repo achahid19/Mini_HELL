@@ -42,6 +42,7 @@ void	dollar_status_check(token_ptr tokens_list)
 	int		i;
 	char	*tk;
 	t_bool	flag;
+	char	new_token;
 
 	while (tokens_list)
 	{
@@ -52,7 +53,14 @@ void	dollar_status_check(token_ptr tokens_list)
 			if (tk[i] == '$' && tk[i + 1] == '?')
 			{
 				// run the expander status.
-				printf("will be expanded\n");
+				// how to expand ??
+					// capture token before '$' and token next '?'
+					// join expanded "$?" to token_before
+					// now join token_next to token_before.
+					// make tokens_list->token points to this new one.
+				new_token = expand_status(tk, i);
+				free(tokens_list->token);
+				tokens_list->token = new_token;
 			}
 			i++;
 		}
