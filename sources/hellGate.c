@@ -72,6 +72,9 @@
  * cat /dev/random | sleep 1
  * ls|"". TODO fix cmd not found. (fixed)
  * weird leak for -> . as input lmao. also for "/"
+ * 
+ * // handle this case '"$?"' // do not expand for single quotes. (fixed).
+ * change status to 130 after ctrl + c.
 */
 void	check_tokens(token_ptr print_tk)
 {
