@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:47 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/02 07:03:26 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/08 18:13:23 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,60 +65,18 @@ token_ptr 	copy_tokens(token_ptr tokens_list)
 	}
 	return new_list;
 }
-char	*heredoc_storer(char *delimiter, int i)
-{
-	char *filename;
-	int fd;
-	char *line;
 
-	filename = get_unique_filename(i);
-	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	while (1)
-	{
-		line = readline(">");
-		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0)
-		{
-			free(line);
-			break;
-		}
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-		free(line);
-	}
-	close(fd);
-	return filename;
-}
-void	heredoc(token_ptr tmp, token_ptr tokens_list)
-{
-	token_ptr tmp2 = tokens_list;
-	int i = 0;
-	char *filename;
-	while (tmp)
-	{
-		if (tmp->token_type == 10)
-		{
-			i++;
-			filename = heredoc_storer(tmp->next->token, i);
-			new_token_lst(tokens_list,tmp->order);
-			filename_write(tokens_list, filename, tmp->order);
-		}
-		tmp = tmp->next;
-	}
-}
-
-
-int	parser_tokens(token_ptr tokens_list)
+int	parser_tokens(token_ptr tokens_list, char **envp)
 {
 	token_ptr tmp;
 	
 	tmp = copy_tokens(tokens_list);
-	if (tokens_list == NULL)
+	if (tmp == NULL)
 		return  true;
 	if (ft_type_check(tmp) == 1)
 		return false;
-	heredoc(tmp,tokens_list);
-	//check_tokens(tokens_list);
 	// exit(0);
+	heredoc(tmp,tokens_list,envp);
 	return true;
 }
 // kssh$ <<>>ls

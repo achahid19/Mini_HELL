@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/02 05:33:49 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/08 18:26:39 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef enum e_type
 	rightred_token = 9,
 	heredoc_token = 10,
 	append_token = 11,
+	filename_token = 20,
 	cmd = 12
 }   t_type;
 
@@ -168,7 +169,7 @@ t_bool		doublequote_handler(token_ptr *tokens_list);
 t_bool		singlequote_handler(token_ptr *tokens_list);
 
 /* Parser */
-int			parser_tokens(token_ptr tokens_list);
+int			parser_tokens(token_ptr tokens_list, char **envp);
 int			pipe_checker(token_ptr tokens_list);
 int			redirections_checker(token_ptr tokens_list);
 int			semicolon_checker(token_ptr tokens_list);
@@ -183,6 +184,9 @@ void	space_skip_rev(token_ptr tokens_list);
 char	*get_unique_filename(int i);
 void	new_token_lst(token_ptr tokens_list, int order);
 void	filename_write(token_ptr tokens_list, char *filename, int order);
+void	heredoc(token_ptr tmp, token_ptr tokens_list,char **envp);
+char    *ft_expand_heredoc(char *line, char **envp);
+char    *ft_delimiter(token_ptr tokens_list, int order);
 
 /* built_in   	*/
 void		ft_echo(token_ptr tokens_list);

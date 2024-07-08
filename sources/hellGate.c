@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/06/08 21:13:06 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/08 18:27:31 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ here:	if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
 		// add heredoc handler here.
-		if (parser_tokens(tokens_list) == false)
+		if (parser_tokens(tokens_list,envp) == false)
 		{
 			free_all(tokens_list, user_input, NULL);
 			continue;
@@ -124,7 +124,7 @@ here:	if (ft_strncmp(user_input, "\0", 1) != 0)
 		tokens_expander(tokens_list, envp);
 		tokens_list_optimizer(&tokens_list);
 		syntax_algo(tokens_list);
-		//check_tokens(tokens_list);
+		// check_tokens(tokens_list);
 		executor(tokens_list, envp, user_input);
 		free_all(tokens_list, user_input, NULL);
 	}

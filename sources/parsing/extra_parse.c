@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 06:55:10 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/02 05:59:54 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/03 05:47:43 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,48 +87,50 @@ int		parentheses_checker(token_ptr tokens_list)
 	}
 	return 0;
 }
-char    *get_unique_filename(int i)
+int     ft_env_search(char *tmp, char **envp)
 {
-    char    *filename;
+    int i;
+    int j;
 
-    filename = ft_strdup("/tmp/heredoc_");
-    filename = ft_strjoin(filename, ft_itoa(i));
-    return (filename);
+    i = 0;
+    while (envp[i])
+    {
+        j = 1;
+        while (envp[i][j] == tmp[j])
+        {
+            if (envp[i][j] == '=')
+                return 1;
+            j++;
+        }
+        i++;
+    }
+    return 1;
 }
 
-void    new_token_lst(token_ptr tokens_list, int order)
+char    *ft_expand_heredoc(char *line, char **envp)
 {
-    token_ptr   tmp;
-    tmp = tokens_list;
-    while (tmp)
+    int i;
+    int d;
+    char **line_split;
+    
+    line_split = ft_split(line, ' ');
+    i = 0;
+    while (line_split[i])
     {
-        if (tmp->order == order)
+        d = 0;
+        while (line_split[i][d])
         {
-            free(tmp->token);
-            tmp->token = ft_strdup("<");
-            tmp->token_type = 8;
-            return ;
+            if (line_split[i][d] == '$')
+            {
+                if (ft_env_search(line, envp) == 1)
+                {
+                    printf("kayn kayn\n");
+                    
+                }
+            }
+            d++;
         }
-        tmp = tmp->next;
+        i++;
     }
-}
-
-void    filename_write(token_ptr tokens_list, char *filename, int order)
-{
-    token_ptr   tmp;
-    tmp = tokens_list;
-    while (tmp)
-    {
-        if (tmp->order == order)
-        {
-            tmp = tmp->next;
-            if (tmp->token_type == 0)
-                while (tmp && tmp->token_type == 0)
-                    tmp = tmp->next;
-            free(tmp->token);
-            tmp->token = ft_strdup(filename);
-            tmp->token_type = word_token;
-        }
-        tmp = tmp->next;
-    }
+    return line;
 }
