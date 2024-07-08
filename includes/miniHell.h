@@ -255,4 +255,14 @@ t_bool		input_red_fd(token_ptr *temp, t_var *data);
 void		output_red_stream(t_var *data);
 void		output_red_fd(token_ptr *temp, t_var *data);
 
+/* status_utils */
+void		dollar_status_check(token_ptr tokens_list);
+char		*expand_status(char *tk, int *i);
+int			get_length(char *tk);
+void		before_tk_status(char *before, char *tk);
+void		after_tk_status(char *after, char *tk);
+
+/* utils 3*/
+t_bool		check_single_quotes(token_ptr node);
+
 #endif /* MINIHELL_H */
