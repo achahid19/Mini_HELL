@@ -34,40 +34,6 @@ char	**extract_command(token_ptr tokens_list);
 int		get_infos(token_ptr tokens_list);
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher);
 
-/**
- * dolar_status_check -
-*/
-void	dollar_status_check(token_ptr tokens_list)
-{
-	int		i;
-	char	*tk;
-	t_bool	flag;
-	char	*new_token;
-
-	while (tokens_list)
-	{
-		i = 0;
-		tk = tokens_list->token;
-		while (tk[i] != '\0')
-		{
-			if (tk[i] == '$' && tk[i + 1] == '?')
-			{
-				// run the expander status.
-				// how to expand ??
-					// capture token before '$' and token next '?'
-					// join expanded "$?" to token_before
-					// now join token_next to token_before.
-					// make tokens_list->token points to this new one.
-				/* new_token = expand_status(tk, i);
-				free(tokens_list->token);
-				tokens_list->token = new_token; */
-				printf("will be expanded\n");
-			}
-			i++;
-		}
-		tokens_list = tokens_list->next;
-	}
-}
 
 /**
  * executor -
@@ -85,8 +51,8 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	data.fd[1] = 0;
 	while (data.pipes)
 	{
-		exec_command(tokens_list, data);
 		dollar_status_check(tokens_list);
+		exec_command(tokens_list, data);
 		tokens_list = get_next_pipe(tokens_list);
 		data.tokens_list = tokens_list;
 		data.pipes--;
