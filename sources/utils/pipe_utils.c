@@ -27,10 +27,10 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 	if (pipe_switcher == true)
 		dup_and_close(data->end, STDOUT);
 	output_red_stream(data);
-	if (builtin_checker(av[0]) == true)
+	/* if (builtin_checker(av[0]) == true)
 	{
 		exit(EXIT_SUCCESS);
-	}
+	} */
 	if (ft_strncmp(av[0], "/", 1) == 0)
 	{
 		data->path_to_cmd = av[0];
