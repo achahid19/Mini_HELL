@@ -75,6 +75,20 @@
  * 
  * // handle this case '"$?"' // do not expand for single quotes. (fixed).
  * change status to 130 after ctrl + c.
+ * 
+ * heredoc :
+ * - segfault for enter key. e.g: << "" + Ctrl-d also SEGF.
+ * - bug when exiting heredoc with Ctrl-c.
+ * - for Ctrl-c fix re-prompting issue (like in interrupting a runnig command). (2 prompt displayed).
+ * - expander for heredoc... not working yet.
+ * - problem in -> e.g: cat <<test<<test1 -> SEGF
+ * - SEGF in -> <<>>ls or <<>ls or <<<ls. (does not matter ls with space or not).
+ * - leaks to be FIXED.
+ * 
+ * SOME BUGS:
+ * - "" -> command not found, but """" must do same thing.
+ * - fix exit code for redirictions failing.
+ * - add new line for syntax errors.
 */
 void	check_tokens(token_ptr print_tk)
 {

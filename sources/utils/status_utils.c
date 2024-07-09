@@ -60,6 +60,10 @@ char	*expand_status(char *tk, int *i)
 	char	*before;
 	char	*after;
 	
+	if (status == 256)
+		status = 127;
+	else if (status == 768)
+		status = 1;
 	st = ft_itoa(status);
 	before = (char *)malloc(sizeof(char) * (*i) + 1);
 	after = (char *)malloc(sizeof(char) * get_length(tk) + 1);
