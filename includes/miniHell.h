@@ -93,6 +93,12 @@ typedef struct s_expand
 
 typedef struct s_var
 {
+	/* lexer data */
+	token_ptr	tokens_head;
+	int			order;
+	int			type;
+	t_bool		s;
+	/* */
 	char	**token;
 	char	**path;
 	char	*path_to_cmd;
@@ -101,7 +107,6 @@ typedef struct s_var
 	/* for quotes_handler */
 	int			type_next;
 	int			type_previous;
-	int			type;
 	int			type_next_next;
 	t_bool		is_space;
 	token_ptr	tmp;
@@ -268,6 +273,7 @@ void		before_tk_status(char *before, char *tk);
 void		after_tk_status(char *after, char *tk);
 
 /* utils 3*/
+void		dup_skipper(char **user_input);
 t_bool		check_single_quotes(token_ptr node);
 t_bool		builtin_checker(char *built_in);
 void		open_output_fd(token_ptr *temp, t_var *data);
