@@ -59,19 +59,16 @@ char	*expand_status(char *tk, int *i)
 	char	*new_token;
 	char	*before;
 	char	*after;
-	
-	if (status == 256)
-		status = 127;
-	else if (status == 768)
-		status = 1;
-	st = ft_itoa(status);
+
+	if (g_status == 256)
+		g_status = 127;
+	else if (g_status == 768)
+		g_status = 1;
+	st = ft_itoa(g_status);
 	before = (char *)malloc(sizeof(char) * (*i) + 1);
 	after = (char *)malloc(sizeof(char) * get_length(tk) + 1);
-	// retrieve before buffer data.
 	before_tk_status(before, tk);
-	// retrieve after buffer data.
 	after_tk_status(after, tk);
-	// join all
 	before = ft_strjoin(before, st);
 	before = ft_strjoin(before, after);
 	new_token = before;
@@ -146,5 +143,3 @@ void	after_tk_status(char *after, char *tk)
 	}
 	after[i] = '\0';
 }
-
-
