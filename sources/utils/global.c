@@ -12,4 +12,4 @@
 
 #include "../../includes/global.h"
 
-int status = 0;
+int	g_status = 0;

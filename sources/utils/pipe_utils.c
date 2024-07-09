@@ -29,7 +29,6 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 	output_red_stream(data);
 	if (builtin_checker(av[0]) == true)
 	{
-		// call built-in function
 		exit(EXIT_SUCCESS);
 	}
 	if (ft_strncmp(av[0], "/", 1) == 0)

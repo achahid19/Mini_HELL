@@ -86,5 +86,5 @@ t_bool	quotes_cmd_checker(t_var d)
 			|| d.type_previous == pipe_token)
 		&& (d.type_next_next == whitespace_token
 			|| d.type_next_next == 13)
-			|| d.type_next_next == pipe_token);
+		|| d.type_next_next == pipe_token);
 }

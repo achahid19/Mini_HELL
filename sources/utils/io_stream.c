@@ -42,7 +42,7 @@ t_bool	input_red_stream(t_var *data)
 		if (temp != NULL)
 		{
 			if (temp->token_type == pipe_token)
-				break;
+				break ;
 		}
 	}
 	return (true);
@@ -61,12 +61,12 @@ t_bool	input_red_fd(token_ptr *temp, t_var *data)
 			if (data->fd[0] == -1)
 			{
 				print_error("kssh: No such file or directory\n");
-				status = 1;
+				g_status = 1;
 				return (false);
 			}
 			dup2(data->fd[0], STDIN_FILENO);
 			close(data->fd[0]);
-			break;
+			break ;
 		}
 		(*temp) = (*temp)->next;
 		if ((*temp) != NULL)
@@ -91,7 +91,6 @@ void	output_red_stream(t_var *data)
 		if (temp->token_type == rightred_token
 			|| temp->token_type == append_token)
 		{
-			int fd;
 			temp = temp->next;
 			output_red_fd(&temp, data);
 			if (temp == NULL)
@@ -103,7 +102,7 @@ void	output_red_stream(t_var *data)
 		if (temp != NULL)
 		{
 			if (temp->token_type == pipe_token)
-				break;
+				break ;
 		}
 	}
 }
@@ -121,7 +120,7 @@ void	output_red_fd(token_ptr *temp, t_var *data)
 			open_output_fd(temp, data);
 			dup2(data->fd[1], STDOUT);
 			close(data->fd[1]);
-			break;
+			break ;
 		}
 		(*temp) = (*temp)->next;
 		if ((*temp) != NULL)

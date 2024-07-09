@@ -59,7 +59,7 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	}
 	dup2(data.std_in, STDIN);
 	close(data.std_in);
-	while (wait(&status) > 0)
+	while (wait(&g_status) > 0)
 		;
 }
 
