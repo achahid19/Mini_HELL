@@ -40,7 +40,7 @@ void	quotes_error(int type)
 /**
  * exit_error -
 */
-void	exit_error(char *error, t_var *data, char **av)
+void	exit_error(char *error, t_var *data, char **av, int ex_code)
 {
 	print_error("kssh: ");
 	print_error("'");
@@ -48,5 +48,5 @@ void	exit_error(char *error, t_var *data, char **av)
 	print_error("'");
 	print_error(error);
 	free_all(data->tokens_list, data->user_input, av);
-	exit(EXIT_FAILURE);
+	exit(ex_code);
 }
