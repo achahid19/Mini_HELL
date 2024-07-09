@@ -29,27 +29,28 @@ token_ptr	lexer(char *user_input)
 {
 	t_var	d;
 
-	d.tokens_head = NULL;
-	d.order = 1;
+	d.tk_head = NULL;
+	d.o = 1;
 	d.s = true;
 	while (*user_input)
 	{
 		d.type = get_type(*user_input);
 		dup_skipper(&user_input);
 		if (d.type == leftred_token && d.type == get_type(*(user_input + 1)))
-			d.s = token_create(&user_input, &d.tokens_head, heredoc_token, d.order++);
-		else if (d.type == rightred_token && d.type == get_type(*(user_input + 1)))
-			d.s = token_create(&user_input, &d.tokens_head, append_token, d.order++);
+			d.s = token_create(&user_input, &d.tk_head, heredoc_token, d.o++);
+		else if (d.type == rightred_token
+			&& d.type == get_type(*(user_input + 1)))
+			d.s = token_create(&user_input, &d.tk_head, append_token, d.o++);
 		else if (d.type == singlequote_token || d.type == doublequote_token)
-			d.s = string_tokens(&user_input, &d.tokens_head, d.type, &d.order);
+			d.s = string_tokens(&user_input, &d.tk_head, d.type, &d.o);
 		else
-			d.s = char_tokens(&user_input, &d.tokens_head, d.type, d.order++);
+			d.s = char_tokens(&user_input, &d.tk_head, d.type, d.o++);
 		if (*user_input)
 			user_input++;
 	}
 	if (d.s == false)
 		return (NULL);
-	return (d.tokens_head);
+	return (d.tk_head);
 }
 
 /**
