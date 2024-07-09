@@ -13,6 +13,6 @@
 #ifndef GLOBAL_H
 # define GLOBAL_H
 
-extern int g_status;
+extern int	g_status;
 
-# endif /* GLOBAL_H */
+#endif /* GLOBAL_H */
