@@ -16,6 +16,7 @@ void	dup_skipper(char **user_input);
 t_bool	check_single_quotes(token_ptr node);
 t_bool	builtin_checker(char *built_in);
 void	open_output_fd(token_ptr *temp, t_var *data);
+t_bool	check_quotes(t_var *d, token_ptr *tokens_list);
 
 /**
  * dup_skipper -
@@ -89,4 +90,15 @@ void	open_output_fd(token_ptr *temp, t_var *data)
 		write(STDERR, "\033[0m", 4);
 		exit(3);
 	}
+}
+
+/**
+ * check_quotes -
+*/
+t_bool	check_quotes(t_var *d, token_ptr *tokens_list)
+{
+	d->type = (*tokens_list)->token_type;
+	if (d->type != doublequote_token && d->type != singlequote_token)
+		return (false);
+	return (true);
 }
