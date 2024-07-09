@@ -12,9 +12,33 @@
 
 #include "../../includes/miniHell.h"
 
+void	dup_skipper(char **user_input);
 t_bool	check_single_quotes(token_ptr node);
 t_bool	builtin_checker(char *built_in);
 void	open_output_fd(token_ptr *temp, t_var *data);
+
+/**
+ * dup_skipper -
+*/
+void	dup_skipper(char **user_input)
+{
+	char	*tmp;
+	int		type_count;
+	int		type;
+
+	tmp = *user_input;
+	if (*tmp != '<')
+		return ;
+	type_count = 0;
+	type = get_type(*tmp);
+	while (get_type(*tmp) == type)
+	{
+		type_count++;
+		tmp++;
+	}
+	if (type_count > 2)
+		*user_input += type_count - 1;
+}
 
 /**
  * check_single_quotes -
