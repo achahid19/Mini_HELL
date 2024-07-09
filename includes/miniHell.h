@@ -201,7 +201,7 @@ void		free_all(token_ptr tokens_list, char *user_input, char **av);
 void		free_cmd_table(char **full_cmd);
 void		quotes_error(int quotes_type);
 void		print_error(char *error);
-void		exit_error(char *error, t_var *data, char **av);
+void		exit_error(char *error, t_var *data, char **av, int exit_code);
 
 /* utils2 */
 void		tokens_order(token_ptr tokens_list);
@@ -269,5 +269,7 @@ void		after_tk_status(char *after, char *tk);
 
 /* utils 3*/
 t_bool		check_single_quotes(token_ptr node);
+t_bool		builtin_checker(char *built_in);
+void		open_output_fd(token_ptr *temp, t_var *data);
 
 #endif /* MINIHELL_H */
