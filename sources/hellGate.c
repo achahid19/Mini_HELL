@@ -82,7 +82,7 @@
  * - for Ctrl-c fix re-prompting issue (like in interrupting a runnig command). (2 prompt displayed).
  * - expander for heredoc... not working yet.
  * - problem in -> e.g: cat <<test<<test1 -> SEGF
- * - SEGF in -> <<>>ls or <<>ls or <<<ls. (does not matter ls with space or not).
+ * - SEGF in -> <<>>ls or <<>ls or >>>ls. (does not matter ls with space or not). Syntax error
  * - leaks to be FIXED.
  * 
  * SOME BUGS:

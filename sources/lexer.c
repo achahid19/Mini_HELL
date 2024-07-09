@@ -27,31 +27,29 @@ t_bool		char_tokens(char **user_input, token_ptr *tokens_head,
 */
 token_ptr	lexer(char *user_input)
 {
-	token_ptr	tokens_head;
-	int			order;
-	int			type;
-	t_bool		s;
+	t_var	d;
 
-	tokens_head = NULL;
-	order = 1;
-	s = true;
+	d.tokens_head = NULL;
+	d.order = 1;
+	d.s = true;
 	while (*user_input)
 	{
-		type = get_type(*user_input);
-		if (type == leftred_token && type == get_type(*(user_input + 1)))
-			s = token_create(&user_input, &tokens_head, heredoc_token, order++);
-		else if (type == rightred_token && type == get_type(*(user_input + 1)))
-			s = token_create(&user_input, &tokens_head, append_token, order++);
-		else if (type == singlequote_token || type == doublequote_token)
-			s = string_tokens(&user_input, &tokens_head, type, &order);
+		d.type = get_type(*user_input);
+		dup_skipper(&user_input);
+		if (d.type == leftred_token && d.type == get_type(*(user_input + 1)))
+			d.s = token_create(&user_input, &d.tokens_head, heredoc_token, d.order++);
+		else if (d.type == rightred_token && d.type == get_type(*(user_input + 1)))
+			d.s = token_create(&user_input, &d.tokens_head, append_token, d.order++);
+		else if (d.type == singlequote_token || d.type == doublequote_token)
+			d.s = string_tokens(&user_input, &d.tokens_head, d.type, &d.order);
 		else
-			s = char_tokens(&user_input, &tokens_head, type, order++);
+			d.s = char_tokens(&user_input, &d.tokens_head, d.type, d.order++);
 		if (*user_input)
 			user_input++;
 	}
-	if (s == false)
+	if (d.s == false)
 		return (NULL);
-	return (tokens_head);
+	return (d.tokens_head);
 }
 
 /**
