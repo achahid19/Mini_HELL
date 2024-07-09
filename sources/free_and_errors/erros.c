@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
+#include "../../includes/global.h"
 
 void	print_error(char *error);
 void	quotes_error(int type);
@@ -34,4 +35,18 @@ void	quotes_error(int type)
 		print_error("kssh: Error double quotes\n");
 	else if (type == singlequote_token)
 		print_error("kssh: Error single quotes\n");
+}
+
+/**
+ * exit_error -
+*/
+void	exit_error(char *error, t_var *data, char **av)
+{
+	print_error("kssh: ");
+	print_error("'");
+	print_error(data->path_to_cmd);
+	print_error("'");
+	print_error(error);
+	free_all(data->tokens_list, data->user_input, av);
+	exit(EXIT_FAILURE);
 }
