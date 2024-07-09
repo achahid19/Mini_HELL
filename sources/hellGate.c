@@ -88,7 +88,7 @@
  * SOME BUGS:
  * - "" -> command not found, but """" must do same thing.
  * - fix exit code for redirictions failing.
- * - 
+ * - add new line for syntax errors.
 */
 void	check_tokens(token_ptr print_tk)
 {
