@@ -96,8 +96,7 @@ static t_bool	quotes_cmd(token_ptr *tokens_list)
 {
 	t_var	d;
 
-	d.type = (*tokens_list)->token_type;
-	if (d.type != doublequote_token && d.type != singlequote_token)
+	if (check_quotes(&d, tokens_list) == false)
 		return (false);
 	if ((*tokens_list)->previous != NULL)
 		d.type_previous = (*tokens_list)->previous->token_type;
