@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
+#include "../../includes/global.h"
 
 t_bool	input_red_stream(t_var *data);
 t_bool	input_red_fd(token_ptr *temp, t_var *data);
@@ -60,6 +61,7 @@ t_bool	input_red_fd(token_ptr *temp, t_var *data)
 			if (data->fd[0] == -1)
 			{
 				print_error("kssh: No such file or directory\n");
+				status = 1;
 				return (false);
 			}
 			dup2(data->fd[0], STDIN_FILENO);
@@ -116,15 +118,7 @@ void	output_red_fd(token_ptr *temp, t_var *data)
 		if ((*temp)->token_type == rightred_token
 			|| (*temp)->token_type == append_token)
 		{
-			if ((*temp)->token_type == rightred_token)
-				data->fd[1] = open((*temp)->token, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			else
-				data->fd[1] = open((*temp)->token, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (data->fd[1] == -1)
-			{
-				print_error("kssh: No such file or directory\n");
-				exit(EXIT_FAILURE);
-			}
+			open_output_fd(temp, data);
 			dup2(data->fd[1], STDOUT);
 			close(data->fd[1]);
 			break;
