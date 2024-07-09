@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
+#include "../../includes/global.h"
 
 void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher);
 char	*ft_cmd_path(char *cmd_path);
@@ -33,21 +34,13 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 		if (access(data->path_to_cmd, X_OK) == 0)
 			execve(data->path_to_cmd, av, data->envp);
 		else
-		{
-			free_all(data->tokens_list, data->user_input, av);
-			print_error("kssh: No such file or directory !\n");
-			exit(EXIT_FAILURE);
-		}
+			exit_error(" No such file or directory !\n", data, av);
 	}
 	data->path_to_cmd = ft_find_cmd(av[0], data->envp);
 	if (data->path_to_cmd == NULL)
 		data->path_to_cmd = av[0];
 	if (execve(data->path_to_cmd, av, data->envp) == -1)
-	{
-		print_error("kssh: command not found !\n");
-		free_all(data->tokens_list, data->user_input, av);
-		exit(EXIT_FAILURE);
-	}
+		exit_error(" command not found !\n", data, av);
 }
 
 /**
