@@ -34,14 +34,14 @@ typedef enum e_bool
 {
 	false = 0,
 	true = 1
-}   t_bool;
+}	t_bool;
 
 typedef enum e_type
 {
 	whitespace_token = 0,
 	pipe_token = 1,
 	word_token = 2,
-	string_token = 3, 
+	string_token = 3,
 	singlequote_token = 4,
 	doublequote_token = 5,
 	rbracket_token = 6,
@@ -52,13 +52,13 @@ typedef enum e_type
 	append_token = 11,
 	filename_token = 20,
 	cmd = 12
-}   t_type;
+}	t_type;
 
 /**
  * I know u for compiler
 */
-typedef struct  s_token t_token;
-typedef t_token *token_ptr;
+typedef struct s_token	t_token;
+typedef t_token			*token_ptr;
 
 // lexer: token's data
 typedef struct s_token
@@ -70,8 +70,6 @@ typedef struct s_token
 	token_ptr	next;
 	token_ptr	previous;
 }   t_token;
-
-typedef t_token *token_ptr;
 
 /**
  * struct for data expander
