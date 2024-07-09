@@ -27,6 +27,11 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 	if (pipe_switcher == true)
 		dup_and_close(data->end, STDOUT);
 	output_red_stream(data);
+	if (builtin_checker(av[0]) == true)
+	{
+		// call built-in function
+		exit(EXIT_SUCCESS);
+	}
 	if (ft_strncmp(av[0], "/", 1) == 0)
 	{
 		data->path_to_cmd = av[0];
@@ -34,13 +39,14 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 		if (access(data->path_to_cmd, X_OK) == 0)
 			execve(data->path_to_cmd, av, data->envp);
 		else
-			exit_error(" No such file or directory !\n", data, av);
+			exit_error(" No such file or directory !\n", data, av,
+				EXIT_FAILURE);
 	}
 	data->path_to_cmd = ft_find_cmd(av[0], data->envp);
 	if (data->path_to_cmd == NULL)
 		data->path_to_cmd = av[0];
 	if (execve(data->path_to_cmd, av, data->envp) == -1)
-		exit_error(" command not found !\n", data, av);
+		exit_error(" command not found !\n", data, av, EXIT_FAILURE);
 }
 
 /**
