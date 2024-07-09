@@ -179,14 +179,14 @@ int			parentheses_checker(token_ptr tokens_list);
 int			parser_tokens_2(token_ptr tokens_list);
 int			heredoc_next_checker(token_ptr tokens_list);
 int			heredoc_append_checker(token_ptr tokens_list);
-void	space_skip(token_ptr tokens_list);
-void	space_skip_rev(token_ptr tokens_list);
-char	*get_unique_filename(int i);
-void	new_token_lst(token_ptr tokens_list, int order);
-void	filename_write(token_ptr tokens_list, char *filename, int order);
-void	heredoc(token_ptr tmp, token_ptr tokens_list,char **envp);
-char    *ft_expand_heredoc(char *line, char **envp);
-char    *ft_delimiter(token_ptr tokens_list, int order);
+void		space_skip(token_ptr tokens_list);
+void		space_skip_rev(token_ptr tokens_list);
+char		*get_unique_filename(int i);
+void		new_token_lst(token_ptr tokens_list, int order);
+void		filename_write(token_ptr tokens_list, char *filename, int order);
+void		heredoc(token_ptr tmp, token_ptr tokens_list,char **envp);
+char		*ft_expand_heredoc(char *line, char **envp);
+char		*ft_delimiter(token_ptr tokens_list, int order);
 
 /* built_in   	*/
 void		ft_echo(token_ptr tokens_list);
@@ -201,6 +201,7 @@ void		free_all(token_ptr tokens_list, char *user_input, char **av);
 void		free_cmd_table(char **full_cmd);
 void		quotes_error(int quotes_type);
 void		print_error(char *error);
+void		exit_error(char *error, t_var *data, char **av);
 
 /* utils2 */
 void		tokens_order(token_ptr tokens_list);
