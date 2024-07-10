@@ -271,7 +271,6 @@ void		before_tk_status(char *before, char *tk);
 void		after_tk_status(char *after, char *tk);
 
 /* utils 3*/
-void		dup_skipper(char **user_input);
 t_bool		check_single_quotes(token_ptr node);
 t_bool		builtin_checker(char *built_in);
 void		open_output_fd(token_ptr *temp, t_var *data);
