@@ -35,7 +35,6 @@ token_ptr	lexer(char *user_input)
 	while (*user_input)
 	{
 		d.type = get_type(*user_input);
-		dup_skipper(&user_input);
 		if (d.type == leftred_token && d.type == get_type(*(user_input + 1)))
 			d.s = token_create(&user_input, &d.tk_head, heredoc_token, d.o++);
 		else if (d.type == rightred_token
