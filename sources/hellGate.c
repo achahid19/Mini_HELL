@@ -86,9 +86,9 @@
  * - leaks to be FIXED.
  * 
  * SOME BUGS:
- * - "" -> command not found, but """" must do same thing.
- * - fix exit code for redirictions failing.
- * - add new line for syntax errors.
+ * - "" -> command not found, but """" must do same thing. (fixed).
+ * - fix exit code for redirictions failing. (in progress).
+ * - add new line for syntax errors. (in progress).
 */
 void	check_tokens(token_ptr print_tk)
 {
