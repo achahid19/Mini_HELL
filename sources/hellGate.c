@@ -132,7 +132,7 @@ int	main(int ac, char **av, char **envp)
 		tokens_expander(tokens_list, envp);
 		tokens_list_optimizer(&tokens_list);
 		syntax_algo(tokens_list);
-		// check_tokens(tokens_list);
+		//check_tokens(tokens_list);
 		executor(tokens_list, envp, user_input);
 		free_all(tokens_list, user_input, NULL);
 	}

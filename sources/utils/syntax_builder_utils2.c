@@ -60,30 +60,32 @@ t_bool	tmp_checker(token_ptr *tokens_list, token_ptr tmp, t_bool *status)
 /**
  * words_finder -
 */
-void	words_finder(token_ptr *tokens_list, t_var d)
+void	words_finder(token_ptr *tk_list, t_var d)
 {
-	if ((*tokens_list)->next == NULL
-		|| cmd_checker(*tokens_list) == true)
+	if ((*tk_list)->next == NULL || cmd_checker(*tk_list) == true)
 		return ;
-	d.type_next = (*tokens_list)->next->token_type;
-	if ((*tokens_list)->next->next != NULL)
+	d.type_next = (*tk_list)->next->token_type;
+	if ((*tk_list)->next->next != NULL)
 	{
-		if (types_checker(d, 2, (*tokens_list)) == true)
-			d.type_next_next = (*tokens_list)->next->next->token_type;
+		if (types_checker(d, 2, (*tk_list)) == true)
+			d.type_next_next = (*tk_list)->next->next->token_type;
 	}
-	else if ((*tokens_list)->next->next == NULL)
+	else if ((*tk_list)->next->next == NULL)
 		d.type_next_next = 13;
-	if ((*tokens_list)->previous != NULL)
+	if ((*tk_list)->previous != NULL)
 	{
-		if ((*tokens_list)->previous->token_type == whitespace_token)
-			d.type_previous = (*tokens_list)->previous->token_type;
+		if ((*tk_list)->previous->token_type == whitespace_token
+			|| (*tk_list)->previous->token_type == pipe_token)
+			d.type_previous = (*tk_list)->previous->token_type;
 	}
+	if ((*tk_list)->previous->previous == NULL)
+		d.type_previous = 13;
 	if (types_checker(d, 1, NULL) == true)
 	{
-		if (multiple_quotes_check(d, (*tokens_list)) == false)
+		if (multiple_quotes_check(d, (*tk_list)) == false)
 			return ;
-		(*tokens_list)->token_type = word_token;
-		(*tokens_list)->next->token_type = word_token;
+		(*tk_list)->token_type = word_token;
+		(*tk_list)->next->token_type = word_token;
 	}
 }
 
@@ -96,7 +98,9 @@ t_bool	types_checker(t_var d, int index, token_ptr tmp)
 	{
 		return ((d.type_next == doublequote_token
 				|| d.type_next == singlequote_token)
-			&& (d.type_previous == whitespace_token)
+			&& (d.type_previous == whitespace_token
+				|| d.type_previous == 13
+				|| d.type_previous == pipe_token)
 			&& (d.type_next_next == whitespace_token
 				|| d.type_next_next == doublequote_token
 				|| d.type_next_next == singlequote_token
