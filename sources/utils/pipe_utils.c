@@ -36,7 +36,11 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 		data->path_to_cmd = av[0];
 		points_checker(*data, av);
 		if (access(data->path_to_cmd, X_OK) == 0)
-			execve(data->path_to_cmd, av, data->envp);
+		{
+			if (execve(data->path_to_cmd, av, data->envp) == -1)
+				exit_error(" No such file or directory !\n", data, av,
+					EXIT_FAILURE);
+		}
 		else
 			exit_error(" No such file or directory !\n", data, av,
 				EXIT_FAILURE);
