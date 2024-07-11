@@ -279,6 +279,5 @@ t_bool		check_single_quotes(token_ptr node);
 t_bool		builtin_checker(char *built_in);
 void		open_output_fd(token_ptr *temp, t_var *data);
 t_bool		check_quotes(t_var *d, token_ptr *tokens_list);
-void		dup_skipper(char **user_input);
 
 #endif /* MINIHELL_H */

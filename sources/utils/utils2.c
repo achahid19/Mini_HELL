@@ -77,14 +77,18 @@ t_bool	special_chars_checker(int type)
 */
 t_bool	quotes_cmd_checker(t_var d)
 {
-	return ((d.type == doublequote_token
-			|| d.type == singlequote_token)
-		&& (d.type_next == doublequote_token
-			|| d.type_next == singlequote_token)
-		&& (d.type_previous == whitespace_token
-			|| d.type_previous == 13
-			|| d.type_previous == pipe_token)
-		&& (d.type_next_next == whitespace_token
-			|| d.type_next_next == 13)
-		|| d.type_next_next == pipe_token);
+	int	type;
+
+	while (d.tokens_list->token_type == doublequote_token
+			|| d.tokens_list->token_type == singlequote_token)
+	{
+		d.tokens_list = d.tokens_list->next;
+		if (d.tokens_list == NULL)
+			return (true);
+		type = d.tokens_list->token_type;
+	}
+	if (type == whitespace_token)
+		return (true);
+	else
+		return (false);
 }
