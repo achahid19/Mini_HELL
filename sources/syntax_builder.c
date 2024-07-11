@@ -96,21 +96,14 @@ static t_bool	quotes_cmd(token_ptr *tokens_list)
 {
 	t_var	d;
 
+	if ((*tokens_list)->next != NULL)
+	{
+		if ((*tokens_list)->next->token_type != doublequote_token
+			&& (*tokens_list)->next->token_type != singlequote_token)
+			return (true);
+	}
 	if (check_quotes(&d, tokens_list) == false)
 		return (false);
-	if ((*tokens_list)->previous != NULL)
-		d.type_previous = (*tokens_list)->previous->token_type;
-	else if ((*tokens_list)->previous == NULL)
-		d.type_previous = 13;
-	if ((*tokens_list)->next == NULL)
-		return (false);
-	d.type_next = (*tokens_list)->next->token_type;
-	if (d.type_next != doublequote_token && d.type_next != singlequote_token)
-		return (false);
-	if ((*tokens_list)->next->next != NULL)
-		d.type_next_next = (*tokens_list)->next->next->token_type;
-	else if ((*tokens_list)->next->next == NULL)
-		d.type_next_next = 13;
 	if (quotes_cmd_checker(d) == true)
 	{
 		(*tokens_list)->token_type = cmd;
