@@ -12,43 +12,10 @@
 
 #include "../../includes/miniHell.h"
 
-void	dup_skipper(char **user_input);
 t_bool	check_single_quotes(token_ptr node);
 t_bool	builtin_checker(char *built_in);
 void	open_output_fd(token_ptr *temp, t_var *data);
 t_bool	check_quotes(t_var *d, token_ptr *tokens_list);
-
-
-/**
- * dup_skipper -
-*/
-void	dup_skipper(char **user_input)
-{
-	t_var	d;
-
-	d.temp = *user_input;
-	d.space = false;
-	if (*d.temp != '"' && *d.temp != '\'')
-		return ;
-	d.type_count = 0;
-	d.type = get_type(*d.temp);
-	if (d.type == singlequote_token)
-		d.o_type = doublequote_token;
-	else if (d.type == doublequote_token)
-		d.o_type = singlequote_token;
-	while (get_type(*d.temp) == d.type
-			|| get_type(*d.temp) == d.o_type)
-	{
-		d.type_count++;
-		d.temp++;
-		if (get_type(*d.temp) == whitespace_token)
-			d.space = true;
-	}
-	if (d.space == false)
-		return ;
-	if (d.type_count > 3)
-		*user_input += d.type_count - 2;
-}
 
 /**
  * check_single_quotes -
@@ -106,6 +73,7 @@ void	open_output_fd(token_ptr *temp, t_var *data)
 */
 t_bool	check_quotes(t_var *d, token_ptr *tokens_list)
 {
+	d->tokens_list = *tokens_list;
 	d->type = (*tokens_list)->token_type;
 	if (d->type != doublequote_token && d->type != singlequote_token)
 		return (false);
