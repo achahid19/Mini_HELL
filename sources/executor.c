@@ -130,8 +130,6 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 {
 	if (input_red_stream(&data) == false)
 		return ;
-	if (*av == NULL)
-		return ;
 	if (pipe(data.end) == -1)
 		exit(EXIT_FAILURE);
 	data.child_pid = fork();
