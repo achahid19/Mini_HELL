@@ -131,8 +131,7 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		}
 		tokens_expander(tokens_list, envp);
-		if (envp[0] != NULL)
-			tokens_list_optimizer(&tokens_list);
+		tokens_list_optimizer(&tokens_list);
 		if (tokens_list == NULL)
 			continue ;
 		syntax_algo(tokens_list);

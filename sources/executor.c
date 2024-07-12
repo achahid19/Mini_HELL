@@ -54,9 +54,9 @@ void	exec_command(token_ptr tokens_list, t_var data)
 {
 	char	**full_cmd;
 
+	if (space_trim(tokens_list) == true)
+		return ;
 	full_cmd = extract_command(tokens_list);
-	/* for (int i = 0; full_cmd[i] != NULL; i++)
-		printf("full_cmd[%d] ---> %s\n", i, full_cmd[i]); */
 	if (data.pipes > 1)
 		ft_pipe(full_cmd, data, true);
 	else if (data.pipes == 1)
