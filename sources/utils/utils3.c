@@ -16,6 +16,7 @@ t_bool	check_single_quotes(token_ptr node);
 t_bool	builtin_checker(char *built_in);
 void	open_output_fd(token_ptr *temp, t_var *data);
 t_bool	check_quotes(t_var *d, token_ptr *tokens_list);
+t_bool	space_trim(token_ptr tokens_list);
 
 /**
  * check_single_quotes -
@@ -78,4 +79,20 @@ t_bool	check_quotes(t_var *d, token_ptr *tokens_list)
 	if (d->type != doublequote_token && d->type != singlequote_token)
 		return (false);
 	return (true);
+}
+
+/**
+ * space_trim -
+ */
+t_bool	space_trim(token_ptr tokens_list)
+{
+	while (tokens_list)
+	{
+		if (tokens_list->token_type != whitespace_token)
+			break ;
+		tokens_list = tokens_list->next;
+	}
+	if (tokens_list == NULL)
+		return (true);
+	return (false);
 }
