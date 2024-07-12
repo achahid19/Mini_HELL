@@ -13,7 +13,7 @@
 #include "../../includes/miniHell.h"
 
 void		tokens_list_optimizer(token_ptr *tokens_list);
-static void	whitespace_remover(token_ptr *tokens_list,
+static void	blank_nodes_remover(token_ptr *tokens_list,
 				token_ptr free_node, token_ptr previous);
 void		node_remover(token_ptr *node);				
 void		special_chars_refactor(token_ptr tokens_list);
@@ -32,14 +32,14 @@ void	tokens_list_optimizer(token_ptr *tokens_list)
 	tmp = *tokens_list;
 	free_node = NULL;
 	previous = NULL;
-	whitespace_remover(tokens_list, free_node, previous);
+	blank_nodes_remover(tokens_list, free_node, previous);
 	tokens_order(*tokens_list);
 }
 
 /**
- * whitespace_remover -
+ * blank_nodes_remover -
  */
-static void	whitespace_remover(token_ptr *tokens_list,
+static void	blank_nodes_remover(token_ptr *tokens_list,
 				token_ptr free_node, token_ptr previous)
 {
 	token_ptr	tmp;

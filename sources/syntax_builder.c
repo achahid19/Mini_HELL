@@ -26,7 +26,6 @@ void	syntax_algo(token_ptr tokens_list)
 	int		type;
 	int		pipes;
 
-	tokens_list_optimizer(&tokens_list);
 	pipes = check_pipes_num(tokens_list);
 	while (pipes--)
 	{
