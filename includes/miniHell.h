@@ -281,4 +281,7 @@ void		open_output_fd(token_ptr *temp, t_var *data);
 t_bool		check_quotes(t_var *d, token_ptr *tokens_list);
 t_bool		space_trim(token_ptr tokens_list);
 
+/* utils 4 */
+void		quotes_substitut(char **cmd_table);
+
 #endif /* MINIHELL_H */
