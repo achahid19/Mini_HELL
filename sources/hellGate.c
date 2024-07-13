@@ -135,6 +135,7 @@ int	main(int ac, char **av, char **envp)
 		if (tokens_list == NULL)
 			continue ;
 		syntax_algo(tokens_list);
+		//check_tokens(tokens_list);
 		executor(tokens_list, envp, user_input);
 		free_all(tokens_list, user_input, NULL);
 	}
