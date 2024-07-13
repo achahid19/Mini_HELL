@@ -87,7 +87,9 @@ t_bool	quotes_cmd_checker(t_var d)
 			return (true);
 		type = d.tokens_list->token_type;
 	}
-	if (type == whitespace_token)
+	if (type == whitespace_token || type == leftred_token
+		|| type == rightred_token || type == append_token
+		|| type == heredoc_token)
 		return (true);
 	else
 		return (false);
