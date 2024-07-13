@@ -73,6 +73,11 @@ static void	assign_cmd(token_ptr tokens_list)
 {
 	while (tokens_list)
 	{
+		if (tokens_list->token_type == whitespace_token)
+		{
+			tokens_list = tokens_list->next;
+			continue ;
+		}
 		if (quotes_cmd(&tokens_list) == true)
 			return ;
 		if (tokens_list->token_type == word_token
