@@ -80,7 +80,7 @@ t_bool	quotes_cmd_checker(t_var d)
 	int	type;
 
 	while (d.tokens_list->token_type == doublequote_token
-			|| d.tokens_list->token_type == singlequote_token)
+		|| d.tokens_list->token_type == singlequote_token)
 	{
 		d.tokens_list = d.tokens_list->next;
 		if (d.tokens_list == NULL)

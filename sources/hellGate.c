@@ -90,7 +90,12 @@
  * - fix exit code for redirictions failing. (in progress).
  * - add new line for syntax errors. (in progress).
  * - fix exit codes for syntax errors...
+ * 
+ * TO fix:
+ * -
 */
+static t_bool	ft_readline(char **user_input);
+
 void	check_tokens(token_ptr print_tk)
 {
 	while (print_tk != NULL)
@@ -109,6 +114,9 @@ void	check_tokens(token_ptr print_tk)
 	}
 }
 
+/**
+ * main - Entry point
+*/
 int	main(int ac, char **av, char **envp)
 {
 	char		*user_input;
@@ -116,16 +124,12 @@ int	main(int ac, char **av, char **envp)
 
 	signal_handler();
 	user_input = NULL;
-	while (true)
+	while (ft_readline(&user_input) == true)
 	{
-		if (isatty(STDIN_FILENO) == true)
-			user_input = readline("kssh$ ");
-		if (user_input == NULL)
-			exit(EXIT_SUCCESS);
 		if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
-		if (parser_tokens(tokens_list,envp) == false)
+		if (parser_tokens(tokens_list, envp) == false)
 		{
 			free_all(tokens_list, user_input, NULL);
 			continue ;
@@ -135,9 +139,23 @@ int	main(int ac, char **av, char **envp)
 		if (tokens_list == NULL)
 			continue ;
 		syntax_algo(tokens_list);
-		//check_tokens(tokens_list);
 		executor(tokens_list, envp, user_input);
 		free_all(tokens_list, user_input, NULL);
 	}
 	return (EXIT_SUCCESS);
+}
+
+/**
+ * ft_readline -
+*/
+t_bool	ft_readline(char **user_input)
+{
+	*user_input = readline("kssh$ ");
+	if (*user_input == NULL)
+	{
+		if (isatty(STDIN) == true)
+			printf("exit\n");
+		exit(EXIT_SUCCESS);
+	}
+	return (true);
 }

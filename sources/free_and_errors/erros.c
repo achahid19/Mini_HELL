@@ -23,7 +23,7 @@ void	print_error(char *error)
 {
 	write(STDERR, "\033[0;35m", 7);
 	write(STDERR, error, ft_strlen(error));
-	write(STDERR, "\033[0m",4);
+	write(STDERR, "\033[0m", 4);
 }
 
 /**

@@ -28,7 +28,7 @@ char	*ft_strrchr(const char *s, int c)
 	if (*(s + len + 1) == '\0' && w == '\0')
 		return ((char *)s + len + 1);
 	while (len >= 0)
-	{	
+	{
 		if (s[len] == w)
 			return ((char *)s + len);
 		len--;
