@@ -92,8 +92,7 @@
  * - fix exit codes for syntax errors...
  * 
  * TO fix:
- * - leaks for ls|"".
- * - 
+ * -
 */
 static t_bool	ft_readline(char **user_input);
 
@@ -130,7 +129,7 @@ int	main(int ac, char **av, char **envp)
 		if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
-		if (parser_tokens(tokens_list,envp) == false)
+		if (parser_tokens(tokens_list, envp) == false)
 		{
 			free_all(tokens_list, user_input, NULL);
 			continue ;
@@ -140,7 +139,6 @@ int	main(int ac, char **av, char **envp)
 		if (tokens_list == NULL)
 			continue ;
 		syntax_algo(tokens_list);
-		//check_tokens(tokens_list);
 		executor(tokens_list, envp, user_input);
 		free_all(tokens_list, user_input, NULL);
 	}
