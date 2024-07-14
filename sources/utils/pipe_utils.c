@@ -31,6 +31,8 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 	{
 		exit(EXIT_SUCCESS);
 	} */
+	if (*av == NULL)
+		return ;
 	if (ft_strncmp(av[0], "/", 1) == 0)
 	{
 		data->path_to_cmd = av[0];
