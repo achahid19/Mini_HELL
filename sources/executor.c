@@ -58,9 +58,9 @@ void	exec_command(token_ptr tokens_list, t_var data)
 		return ;
 	full_cmd = extract_command(tokens_list);
 	quotes_substitut(full_cmd);
-	if (data.pipes > 1 && full_cmd)
+	if (data.pipes > 1)
 		ft_pipe(full_cmd, data, true);
-	else if (data.pipes == 1 && full_cmd)
+	else if (data.pipes == 1)
 		ft_pipe(full_cmd, data, false);
 	if (full_cmd)
 		free_cmd_table(full_cmd);
