@@ -58,11 +58,12 @@ void	exec_command(token_ptr tokens_list, t_var data)
 		return ;
 	full_cmd = extract_command(tokens_list);
 	quotes_substitut(full_cmd);
-	if (data.pipes > 1)
+	if (data.pipes > 1 && full_cmd)
 		ft_pipe(full_cmd, data, true);
-	else if (data.pipes == 1)
+	else if (data.pipes == 1 && full_cmd)
 		ft_pipe(full_cmd, data, false);
-	free_cmd_table(full_cmd);
+	if (full_cmd)
+		free_cmd_table(full_cmd);
 }
 
 /**
@@ -75,6 +76,8 @@ char	**extract_command(token_ptr tokens_list)
 	int		i;
 
 	rows = get_infos(tokens_list);
+	if (rows == 0)
+		return (NULL);
 	full_cmd = (char **)malloc(sizeof(char *) * (rows + 1));
 	i = 0;
 	while (i < rows)
