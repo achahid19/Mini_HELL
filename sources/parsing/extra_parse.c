@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 06:55:10 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/03 05:47:43 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:05:20 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,33 +87,64 @@ int		parentheses_checker(token_ptr tokens_list)
 	}
 	return 0;
 }
-int     ft_env_search(char *tmp, char **envp)
+int     ft_env_search(char *tmp, t_env *envp)
 {
     int i;
-    int j;
 
     i = 0;
-    while (envp[i])
-    {
-        j = 1;
-        while (envp[i][j] == tmp[j])
-        {
-            if (envp[i][j] == '=')
-                return 1;
-            j++;
-        }
+    while (tmp[i] && tmp[i] == '$')
         i++;
+    if (tmp[i] == '\0')
+        return 1;
+    while (envp)
+    {
+        if (ft_strncmp(tmp + i, envp->key, ft_strlen(tmp) - i) == 0)
+            return 0;
+        envp = envp->next;
     }
     return 1;
 }
 
-char    *ft_expand_heredoc(char *line, char **envp)
+void    ft_expand_know(char *line, t_env *envp)
+{
+    int i;
+
+    i = 0;
+    while (line[i] && line[i] == '$')
+        i++;
+    while (envp)
+    {
+        if (ft_strncmp(line + i, envp->key, ft_strlen(line) - i) == 0)            
+            break;
+        envp = envp->next;
+    }
+    free(line);
+    line = ft_strdup(envp->value);   
+}
+
+char    *ft_last_line(char **line_split)
+{
+    int i;
+    char *new_line;
+
+    i = 0;
+    new_line = NULL;
+    while (line_split[i])
+    {
+        new_line = ft_strjoin(new_line, line_split[i]);   
+        i++;
+    }
+    return (new_line);
+}
+
+char    *ft_expand_heredoc(char *line, t_env *envp)
 {
     int i;
     int d;
     char **line_split;
+    char *new_line;
     
-    line_split = ft_split(line, ' ');
+    line_split = ft_advanced_split(line);
     i = 0;
     while (line_split[i])
     {
@@ -122,15 +153,17 @@ char    *ft_expand_heredoc(char *line, char **envp)
         {
             if (line_split[i][d] == '$')
             {
-                if (ft_env_search(line, envp) == 1)
-                {
-                    printf("kayn kayn\n");
-                    
-                }
+                if (ft_env_search(line_split[i], envp) == 0)
+                    ft_expand_know(line_split[i], envp);
+                else
+                    line_split[i] = ft_strdup("");
             }
             d++;
         }
         i++;
     }
-    return line;
+    new_line = ft_last_line(line_split);
+    return new_line;
 }
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:47 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/08 18:13:23 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/13 18:49:40 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ token_ptr 	copy_tokens(token_ptr tokens_list)
 	return new_list;
 }
 
-int	parser_tokens(token_ptr tokens_list, char **envp)
+int	parser_tokens(token_ptr tokens_list, t_env *env)
 {
 	token_ptr tmp;
 	
@@ -76,7 +76,7 @@ int	parser_tokens(token_ptr tokens_list, char **envp)
 	if (ft_type_check(tmp) == 1)
 		return false;
 	// exit(0);
-	heredoc(tmp,tokens_list,envp);
+	heredoc(tmp,tokens_list,env);
 	return true;
 }
 // kssh$ <<>>ls

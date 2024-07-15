@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hellGate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/08 18:27:31 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/15 18:15:34 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,9 @@ int	main(int ac, char **av, char **envp)
 {
 	char		*user_input;
 	token_ptr	tokens_list;
+	t_env		*env;
 
+	env = init_env(envp);
 	signal_handler();
 	user_input = NULL;
 	while (ft_readline(&user_input) == true)
@@ -129,7 +131,7 @@ int	main(int ac, char **av, char **envp)
 		if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
-		if (parser_tokens(tokens_list, envp) == false)
+		if (parser_tokens(tokens_list, env) == false)
 		{
 			free_all(tokens_list, user_input, NULL);
 			continue ;

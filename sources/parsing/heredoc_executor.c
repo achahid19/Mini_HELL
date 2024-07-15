@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_executor.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/08 18:23:57 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/13 18:50:14 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char    *get_unique_filename(int i)
     return (filename);
 }
 
-char	*heredoc_storer(char *delimiter, int i, char **envp)
+char	*heredoc_storer(char *delimiter, int i, t_env *envp)
 {
 	char *filename;
 	int fd;
@@ -104,7 +104,7 @@ char	*heredoc_storer(char *delimiter, int i, char **envp)
 	close(fd);
 	return filename;
 }
-void	heredoc(token_ptr tmp, token_ptr tokens_list, char **envp)
+void	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
 {
 	int i;
 	char *filename;

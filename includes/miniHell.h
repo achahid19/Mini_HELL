@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniHell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/08 18:26:39 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/15 18:17:59 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ typedef enum e_bool
 	false = 0,
 	true = 1
 }	t_bool;
+
+typedef struct s_env
+{
+	char		*key;
+	char		*value;
+	struct s_env	*next;
+}	t_env;
 
 typedef enum e_type
 {
@@ -176,7 +183,7 @@ t_bool		doublequote_handler(token_ptr *tokens_list);
 t_bool		singlequote_handler(token_ptr *tokens_list);
 
 /* Parser */
-int			parser_tokens(token_ptr tokens_list, char **envp);
+int			parser_tokens(token_ptr tokens_list, t_env *env);
 int			pipe_checker(token_ptr tokens_list);
 int			redirections_checker(token_ptr tokens_list);
 int			semicolon_checker(token_ptr tokens_list);
@@ -191,9 +198,11 @@ void		space_skip_rev(token_ptr tokens_list);
 char		*get_unique_filename(int i);
 void		new_token_lst(token_ptr tokens_list, int order);
 void		filename_write(token_ptr tokens_list, char *filename, int order);
-void		heredoc(token_ptr tmp, token_ptr tokens_list,char **envp);
-char		*ft_expand_heredoc(char *line, char **envp);
+void		heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp);
+char		*ft_expand_heredoc(char *line, t_env *envp);
 char		*ft_delimiter(token_ptr tokens_list, int order);
+char		**ft_advanced_split(const char *str);
+t_env		*init_env(char** env);
 
 /* built_in   	*/
 void		ft_echo(token_ptr tokens_list);
