@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 13:18:28 by achahid-          #+#    #+#             */
-/*   Updated: 2024/06/29 13:18:29 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/07/15 21:37:33 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 	if (pipe_switcher == true)
 		dup_and_close(data->end, STDOUT);
 	output_red_stream(data);
-	/* if (builtin_checker(av[0]) == true)
-	{
-		exit(EXIT_SUCCESS);
-	} */
+	// if (builtin_checker(av[0]) == true)
+	// {
+	// 	exit(EXIT_SUCCESS);
+	// }
 	if (*av == NULL)
 		return ;
 	if (ft_strncmp(av[0], "/", 1) == 0)

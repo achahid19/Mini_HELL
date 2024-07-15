@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extra_cases.c                                      :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:29:00 by akajjou           #+#    #+#             */
-/*   Updated: 2024/05/29 07:27:23 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/15 20:39:05 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,42 @@ void  ft_handler(int signum)
     }
 }
 
-void   signal_handler()
+void   handler_heredoc(int signum)
 {
-    signal(SIGINT, handler);
-    signal(SIGQUIT, ft_handler);
+    write(STDOUT, "\n", 1);
+    // write(STDOUT, ">", 1);
+    close(0);
+}
+void  ft_handler_heredoc(int signum)
+{
+    struct termios term;
+
+    // Get the current terminal attributes
+    if (tcgetattr(STDIN_FILENO, &term) < 0) 
+    {
+        perror("tcgetattr");
+        exit(EXIT_FAILURE);
+    }
+    // Disable the quit character (Ctrl+\)
+    term.c_cc[VQUIT] = _POSIX_VDISABLE;
+    // Set the modified terminal attributes
+    if (tcsetattr(STDIN_FILENO, TCSANOW, &term) < 0) 
+    {
+        perror("tcsetattr");
+        exit(EXIT_FAILURE);
+    }
+}
+
+void   signal_handler(int   i)
+{
+    if (i == 0)
+    {
+        signal(SIGINT, handler);
+        signal(SIGQUIT, ft_handler);
+    }
+    else 
+    {
+        signal(SIGINT, handler_heredoc);
+        signal(SIGQUIT, ft_handler_heredoc);
+    }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hellGate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/15 18:15:34 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/15 21:09:11 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ int	main(int ac, char **av, char **envp)
 	token_ptr	tokens_list;
 	t_env		*env;
 
+	signal_handler(0);
 	env = init_env(envp);
-	signal_handler();
 	user_input = NULL;
 	while (ft_readline(&user_input) == true)
 	{
@@ -141,7 +141,7 @@ int	main(int ac, char **av, char **envp)
 		if (tokens_list == NULL)
 			continue ;
 		syntax_algo(tokens_list);
-		executor(tokens_list, envp, user_input);
+		executor(tokens_list, envp, user_input, env);
 		free_all(tokens_list, user_input, NULL);
 	}
 	return (EXIT_SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniHell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/15 18:17:59 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/15 21:20:13 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ typedef struct s_var
 	/* pipe data */
 	pid_t	child_pid;
 	int		end[2];
+	/* env linked list */
+	t_env 		*e;
 }	t_var;
 
 /* Lexical analyzer */
@@ -209,7 +211,7 @@ void		ft_echo(token_ptr tokens_list);
 
 /* signal handler */
 void		handler(int signum);
-void		signal_handler();
+void		signal_handler(int i);
 
 /* free_and_errors */
 void		free_tokens(token_ptr tokens_list);
@@ -248,7 +250,7 @@ t_bool		types_checker(t_var d, int index, token_ptr tmp);
 void		check_tokens(token_ptr print_tk);
 
 /* executor */
-void		executor(token_ptr tokens_list, char **env, char *user_input);
+void		executor(token_ptr tokens_list, char **env, char *user_input, t_env *en);
 
 /* tk_optimizer */
 void		tokens_list_optimizer(token_ptr *tokens_list);

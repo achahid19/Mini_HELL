@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_executor.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/13 18:50:14 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/15 21:32:01 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../includes/miniHell.h"
 
+// no expand in ""''
+// "" del = enter
+// < "". same msj
 
 void   ft_eraser(token_ptr tmp, char *filename)
 {
@@ -84,12 +87,20 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp)
 	char *filename;
 	int fd;
 	char *line;
-
+    int fd0 = dup(0);
 	filename = get_unique_filename(i);
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
+    signal_handler(1);
 	while (1)
 	{
 		line = readline(">");
+        if (line == NULL)
+            break;
+        if (line[0] == '\0')
+        {
+            write(fd, "\n", 1);
+            continue;
+        }
 		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0 &&
                     ft_strlen(line) == ft_strlen(delimiter))
 		{
@@ -102,6 +113,7 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp)
 		free(line);
 	}
 	close(fd);
+    dup2(fd0 , 0);
 	return filename;
 }
 void	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)

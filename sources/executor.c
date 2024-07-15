@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:57 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:30:58 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/07/15 21:24:16 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniHell.h"
 #include "../includes/global.h"
 
-void	executor(token_ptr tokens_list, char **envp, char *user_input);
+void	executor(token_ptr tokens_list, char **envp, char *user_input,
+			t_env *env);
 void	exec_command(token_ptr tokens_list, t_var data);
 char	**extract_command(token_ptr tokens_list);
 int		get_infos(token_ptr tokens_list);
@@ -22,7 +23,8 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher);
 /**
  * executor -
 */
-void	executor(token_ptr tokens_list, char **envp, char *user_input)
+void	executor(token_ptr tokens_list, char **envp, char *user_input,
+			t_env *env)
 {
 	t_var	data;
 
@@ -33,6 +35,7 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	data.std_in = dup(STDIN);
 	data.fd[0] = 0;
 	data.fd[1] = 0;
+	data.e = env;
 	while (data.pipes)
 	{
 		dollar_status_check(tokens_list);
