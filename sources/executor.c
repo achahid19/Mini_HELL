@@ -148,4 +148,8 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 		close(data.fd[0]);
 	if (data.fd[1] != false)
 		close(data.fd[1]);
+	if (data.end[0] != false)
+		close(data.end[0]);
+	if (data.end[1] != false)
+		close(data.end[1]);
 }
