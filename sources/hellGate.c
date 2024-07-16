@@ -101,6 +101,9 @@
  * 	5. after heredoc, ctrl+c has a changed behavior... (urgent).
  * 	6. << "". enter as delimeter. (urgent).
  *  7. expand $?. for heredoc (urgent).
+ *  8. close heredoc fds after execution is done.
+ * 	   store all of them in an int array so we can freed them
+ * 	   after execution is done.
 */
 static t_bool	ft_readline(char **user_input);
 
