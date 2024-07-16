@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/16 19:26:39 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/16 19:43:28 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void   ft_eraser(token_ptr tmp, char *filename)
         node_remover(&tmp2);
     tmp2->token = ft_strdup(filename);
     tmp2 = tmp2->next;
-    while (tmp2 && tmp2->token_type != 0)
+    while (tmp2 && tmp2->token_type != 0 && tmp2->token_type != 1 && tmp2->token_type != 8
+    && tmp2->token_type != 9 && tmp2->token_type != 10 && tmp2->token_type != 11)
         node_remover(&tmp2);
     tmp2 = tmp;
     while (tmp2)

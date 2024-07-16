@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 03:56:29 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/16 18:19:36 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/16 19:44:31 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ char    *ft_first_del(token_ptr tokens_list)
     delimiter = NULL;
     tmp = tokens_list;
     while (tmp && (tmp->token_type == 4 || tmp->token_type == 5 || tmp->token_type == 2 
-    || tmp->token_type == 3 || tmp->token_type == 1))
+    || tmp->token_type == 3))
     {
-        if (flag == 0 && (tmp->token_type != 4 && tmp->token_type != 5))
+        if (flag == 0 && (tmp->token_type != 4 && tmp->token_type != 5 ))
         {
             tmp->token_type = 20;
             flag = 1;
