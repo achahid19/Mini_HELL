@@ -41,14 +41,19 @@ int	parentheses_checker(token_ptr tokens_list)
 int	ft_env_search(char *tmp, t_env *envp)
 {
 	int	i;
+	int len;
 
 	i = 1;
 	if (tmp[i] == '\0')
 		return (1);
 	while (envp)
 	{
+		if (ft_strlen(tmp) - 1 > ft_strlen(envp->key))
+			len = ft_strlen(tmp) - 1;
+		else
+			len = ft_strlen(envp->key);
 		// printf("{%s %s}\n",envp->key,envp->value);
-		if (ft_strncmp(tmp + i, envp->key, ft_strlen(tmp) - 1) == 0)
+		if (ft_strncmp(tmp + i, envp->key, len) == 0)
 			return (0);
 		envp = envp->next;
 	}
@@ -58,13 +63,16 @@ int	ft_env_search(char *tmp, t_env *envp)
 void	ft_expand_know(char **line, t_env *envp)
 {
 	int flag = 0;
+	int	len;
 
 	// printf("line = %s\n",line);
-	
 	while (envp)
 	{
-		// printf("key = %s\nline = %s\n",envp->key,line + 1);
-		if (ft_strncmp(*(line) + 1, envp->key, ft_strlen(envp->key) ) == 0)
+		if (ft_strlen((*line)) - 1 > ft_strlen(envp->key))
+			len = ft_strlen((*line) - 1);
+		else
+			len = ft_strlen(envp->key);
+		if (ft_strncmp(*(line) + 1, envp->key, len) == 0)
 		{
 			flag = 1;
 			break ;
