@@ -134,7 +134,7 @@ void	special_chars_refactor(token_ptr tokens_list)
 t_bool	special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
 			int type)
 {
-	while (type != whitespace_token)
+	while (type != whitespace_token && type != pipe_token)
 	{
 		if (type == string_token || type == word_token || type == cmd)
 		{
