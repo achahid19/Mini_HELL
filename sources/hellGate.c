@@ -92,7 +92,15 @@
  * - fix exit codes for syntax errors...
  * 
  * TO fix:
- * -
+ * - bugs: 
+ * 	1. cat <<aa>test, cat <<aa|ls, <<a<<b<<c...
+ * 		in case of space before special chars (<, |, <<...) its working normal. (urgent).
+ * 	2. expand in heredoc... $PW, $USE... (poss fixed). (urgent).
+ * 	3. syntax errors: SEGF: cat <<<a, cat <<>a, cat >>>>a.
+ * 	4. error for < "". no such file...
+ * 	5. after heredoc, ctrl+c has a changed behavior... (urgent).
+ * 	6. << "". enter as delimeter. (urgent).
+ *  7. expand $?. for heredoc (urgent).
 */
 static t_bool	ft_readline(char **user_input);
 
