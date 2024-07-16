@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/15 21:09:11 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/16 15:47:56 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,18 @@
  * - fix exit codes for syntax errors...
  * 
  * TO fix:
- * -
+ * - bugs: 
+ * 	1. cat <<aa>test, cat <<aa|ls, <<a<<b<<c...
+ * 		in case of space before special chars (<, |, <<...) its working normal. (urgent).
+ * 	2. expand in heredoc... $PW, $USE... (poss fixed). (urgent).
+ * 	3. syntax errors: SEGF: cat <<<a, cat <<>a, cat >>>>a.
+ * 	4. error for < "". no such file...
+ * 	5. after heredoc, ctrl+c has a changed behavior... (urgent).
+ * 	6. << "". enter as delimeter. (urgent).
+ *  7. expand $?. for heredoc (urgent).
+ *  8. close heredoc fds after execution is done.
+ * 	   store all of them in an int array so we can freed them
+ * 	   after execution is done.
 */
 static t_bool	ft_readline(char **user_input);
 
