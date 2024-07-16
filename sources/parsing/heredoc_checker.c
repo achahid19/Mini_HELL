@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:13:04 by akajjou           #+#    #+#             */
-/*   Updated: 2024/06/08 21:16:47 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/16 22:32:39 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int		heredoc_max_checker(token_ptr tokens_list)
 	}
 	if (count > 16)
 	{
-		print_error("minishell : maximum here-document count exceeded");
+		print_error("minishell : maximum here-document count exceeded\n");
 		return 1;
 	}
 	return 0;
@@ -77,9 +77,10 @@ int		heredoc_next_checker(token_ptr tokens_list)
 	tmp = tokens_list;
 	while (tmp && tmp->next)
 	{
-		if (tmp->token_type == 10 && tmp->next->token_type == 10)
+		if (tmp->token_type == 10 && (tmp->next->token_type == 10 || tmp->next->token_type == 8
+			|| tmp->next->token_type == 9))
 		{
-			print_error("minishell : syntax error near unexpected token `newline'");
+			print_error("minishell : syntax error near unexpected token `newline'\n");
 			return 1;
 		}
 	tmp = tmp->next;		
