@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/15 21:20:13 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/16 18:02:55 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include "global.h"
 
 # define STDIN 0
 # define STDOUT 1
@@ -207,7 +208,10 @@ char		**ft_advanced_split(const char *str);
 t_env		*init_env(char** env);
 
 /* built_in   	*/
-void		ft_echo(token_ptr tokens_list);
+t_bool		exec_builtin(char **av, t_var *data);
+t_bool		ft_cd(char **av);
+int		nb_args(char **args);
+
 
 /* signal handler */
 void		handler(int signum);

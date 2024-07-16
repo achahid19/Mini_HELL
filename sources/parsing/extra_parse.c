@@ -6,12 +6,11 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 06:55:10 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/15 22:13:05 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/16 19:07:40 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
-
 
 
 int	parentheses_checker(token_ptr tokens_list)
@@ -41,14 +40,18 @@ int	parentheses_checker(token_ptr tokens_list)
 int	ft_env_search(char *tmp, t_env *envp)
 {
 	int	i;
+	int len;
 
 	i = 1;
 	if (tmp[i] == '\0')
 		return (1);
 	while (envp)
 	{
-		// printf("{%s %s}\n",envp->key,envp->value);
-		if (ft_strncmp(tmp + i, envp->key, ft_strlen(tmp) - 1) == 0)
+		if (ft_strlen(tmp) - 1 > ft_strlen(envp->key))
+			len = ft_strlen(tmp) - 1;
+		else
+			len = ft_strlen(envp->key);
+		if (ft_strncmp(tmp + i, envp->key, len) == 0)
 			return (0);
 		envp = envp->next;
 	}
@@ -59,11 +62,8 @@ void	ft_expand_know(char **line, t_env *envp)
 {
 	int flag = 0;
 
-	// printf("line = %s\n",line);
-	
 	while (envp)
 	{
-		// printf("key = %s\nline = %s\n",envp->key,line + 1);
 		if (ft_strncmp(*(line) + 1, envp->key, ft_strlen(envp->key) ) == 0)
 		{
 			flag = 1;
@@ -74,8 +74,6 @@ void	ft_expand_know(char **line, t_env *envp)
 	free(*line);
 	if (flag == 1)
 	*line = ft_strdup(envp->value);
-	// printf("line final  = %s\n",line);
-	// printf("%shadda\n",line);
 }
 
 char	*ft_last_line(char **line_split)
@@ -94,6 +92,18 @@ char	*ft_last_line(char **line_split)
 	}
 	return (new_line);
 }
+void 		ft_free_array(char **array)
+{
+	int i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
 
 char	*ft_expand_heredoc(char *line, t_env *envp)
 {
@@ -109,9 +119,23 @@ char	*ft_expand_heredoc(char *line, t_env *envp)
 		d = 0;
 		while (line_split[i][d])
 		{
+	
 			if (line_split[i][d] == '$' && line_split[i][d + 1] != '\0')
 			{
-				if (ft_env_search(line_split[i], envp) == 0) 
+				if (line_split[i][d + 1] == '?')
+				{
+					free(line_split[i]);
+					if (g_status == 256)
+						g_status = 127;
+					else if (g_status == 768)
+						g_status = 1;
+					else if (g_status == 32256)
+						g_status = 126;
+					else if (g_status == 512)
+						g_status = 2;
+					line_split[i] = ft_itoa(g_status);
+				}
+				else if (ft_env_search(line_split[i], envp) == 0) 
 					ft_expand_know(&line_split[i], envp);
 				else
 					line_split[i] = ft_strdup("");
@@ -121,6 +145,7 @@ char	*ft_expand_heredoc(char *line, t_env *envp)
 		i++;
 	}
 	new_line = ft_last_line(line_split);
+	// ft_free_array(line_split);
 	return (new_line);
 }
 

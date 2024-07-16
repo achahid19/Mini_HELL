@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_advanced_split.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:36:23 by aymane            #+#    #+#             */
-/*   Updated: 2024/07/15 15:55:23 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/16 19:12:05 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	is_valid_char(char c)
 {
 	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') 
-            || (c >= '0' && c <= '9') || c == '_');
+             || c == '_' || c == '?');
 }
 
 int	count_segments(const char *str)

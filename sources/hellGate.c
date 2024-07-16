@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/16 15:47:56 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/16 19:26:10 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,21 @@ void	check_tokens(token_ptr print_tk)
 	}
 }
 
+
 /**
  * main - Entry point
 */
+void 	ft_unlink(token_ptr tokens_list)
+{
+	while (tokens_list)
+	{
+		if (tokens_list->token_type == 8 )
+			if (ft_strncmp(tokens_list->token, "/tmp/heredoc_", 13) == 0)
+				unlink(tokens_list->token);
+		tokens_list = tokens_list->next;
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char		*user_input;
@@ -153,7 +165,10 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		syntax_algo(tokens_list);
 		executor(tokens_list, envp, user_input, env);
+		// check_tokens(tokens_list);
+		ft_unlink(tokens_list);
 		free_all(tokens_list, user_input, NULL);
+		
 	}
 	return (EXIT_SUCCESS);
 }

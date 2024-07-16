@@ -17,6 +17,7 @@ SRC =   $(addprefix sources/parsing/, pipe_checker.c parser.c redirection.c extr
 					utils2.c expander_utils3.c tk_optimizer.c syntax_builder_utils.c \
 					syntax_builder_utils2.c executor_utils.c pipe_utils.c io_stream.c global.c \
 					status_utils.c utils3.c utils4.c) \
+		$(addprefix sources/builtins/, ft_builtin.c) \
 		$(addprefix sources/free_and_errors/, free.c erros.c)
 
 # valgrind --leak-check=full --show-leak-kinds=all --suppressions=.readline.supp ./miniHell
@@ -63,6 +64,9 @@ $(OBJ_DIR)/%.o: sources/utils/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(OBJ_DIR)/%.o: sources/free_and_errors/%.c | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+$(OBJ_DIR)/%.o: sources/builtins/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(OBJ_DIR):

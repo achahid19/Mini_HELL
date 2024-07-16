@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/07 22:18:40 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/15 18:57:08 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/16 17:10:05 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,3 +47,4 @@ int	backslash_checker(token_ptr tokens_list)
 	}
 	return (0);
 }
+

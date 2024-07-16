@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/15 21:32:01 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/16 19:26:39 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void   ft_eraser(token_ptr tmp, char *filename)
 {
     token_ptr tmp2;
-
+    
     tmp2 = tmp->next;
     if (tmp2->token_type == 0)
         while (tmp2 && tmp2->token_type == 0)
@@ -88,6 +88,7 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp)
 	int fd;
 	char *line;
     int fd0 = dup(0);
+    
 	filename = get_unique_filename(i);
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
     signal_handler(1);
@@ -98,6 +99,8 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp)
             break;
         if (line[0] == '\0')
         {
+            if (ft_strlen(delimiter) == 0)
+                return NULL;
             write(fd, "\n", 1);
             continue;
         }
@@ -114,7 +117,27 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp)
 	}
 	close(fd);
     dup2(fd0 , 0);
+    close(fd0);
+    // free(line);
 	return filename;
+}
+void    ft_enter(token_ptr tokens_list, int i)
+{
+    token_ptr tmp;
+    char *filename;
+
+    filename = get_unique_filename(i);
+    tmp = tokens_list;
+    while (tmp)
+    {
+        if (tmp->token_type == 4 || tmp->token_type == 5)
+        {
+            tmp->token = ft_strdup(filename);
+            tmp->token_type = 2;
+            break;
+        }
+        tmp = tmp->next;
+    }
 }
 void	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
 {
@@ -133,9 +156,14 @@ void	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
             test = ft_delimiter(tokens_list ,tmp->order);
 			filename = heredoc_storer(test, i,envp);
 			new_token_lst(tokens_list,tmp->order);
-			filename_write(tokens_list, filename, tmp->order);
+            if (filename == NULL)
+                ft_enter(tokens_list,i);
+            else
+			    filename_write(tokens_list, filename, tmp->order);
 		}
 		tmp = tmp->next;
         
 	}
+    // free(test);
+    // free(filename);
 }
