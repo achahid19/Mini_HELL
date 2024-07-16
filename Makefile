@@ -20,6 +20,7 @@ SRC =   $(addprefix sources/parsing/, pipe_checker.c parser.c redirection.c extr
 		$(addprefix sources/free_and_errors/, free.c erros.c)
 
 # valgrind --leak-check=full --show-leak-kinds=all --suppressions=.readline.supp ./miniHell
+# valgrind --track-fds=yes ./minishell
 
 OBJ_DIR = garbage_objs
 
