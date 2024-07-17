@@ -93,17 +93,19 @@
  * 
  * TO fix:
  * - bugs: 
- * 	1. cat <<aa>test, cat <<aa|ls, <<a<<b<<c...
+ * 	1. cat <<aa>test, cat <<aa|ls, <<a<<b<<c... (DONE).
  * 		in case of space before special chars (<, |, <<...) its working normal. (urgent).
- * 	2. expand in heredoc... $PW, $USE... (poss fixed). (urgent).
- * 	3. syntax errors: SEGF: cat <<<a, cat <<>a, cat >>>>a.
- * 	4. error for < "". no such file...
- * 	5. after heredoc, ctrl+c has a changed behavior... (urgent).
- * 	6. << "". enter as delimeter. (urgent).
- *  7. expand $?. for heredoc (urgent).
+ * 	2. expand in heredoc... $PW, $USE... (poss fixed). (urgent). (DONE)
+ * 	3. syntax errors: SEGF: cat <<<a, cat <<>a, cat >>>>a. (PROGRESS)
+ * 	4. error for < "". no such file... (PROGRESS)
+ * 	5. after heredoc, ctrl+c has a changed behavior... (urgent). (PROGRESS)
+ * 	6. << "". enter as delimeter. (urgent). (DONE)
+ *  7. expand $?. for heredoc (urgent). (DONE) (STILL BUGS TO FIX)
  *  8. close heredoc fds after execution is done.
  * 	   store all of them in an int array so we can freed them
- * 	   after execution is done.
+ * 	   after execution is done. (DONE)
+ *  9. dont expand in quotes. (PROGRESS)
+ *  10. a lot of leaks. (urgent) (PROGRESS).
 */
 static t_bool	ft_readline(char **user_input);
 
