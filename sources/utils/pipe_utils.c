@@ -27,14 +27,21 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 	if (pipe_switcher == true)
 		dup_and_close(data->end, STDOUT);
 	output_red_stream(data);
+	if (av == NULL)
+	{
+		close_fds(data);
+		exit(EXIT_SUCCESS);
+	}
 	if (builtin_checker(av[0]) == true)
 	{
 		if (exec_builtin(av, data) == false)
+		{
+			close_fds(data);
 			exit(EXIT_FAILURE);
+		}
+		close_fds(data);
 		exit(EXIT_SUCCESS);
 	}
-	if (*av == NULL)
-		return ;
 	if (ft_strncmp(av[0], "/", 1) == 0)
 	{
 		data->path_to_cmd = av[0];
