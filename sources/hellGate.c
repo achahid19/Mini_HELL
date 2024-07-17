@@ -106,6 +106,11 @@
  * 	   after execution is done. (DONE)
  *  9. dont expand in quotes. (PROGRESS)
  *  10. a lot of leaks. (urgent) (PROGRESS).
+ * 
+ * Bult-ins bugs:
+ * 	1. echo: e.g: echo -nl -> should be outputed. (PROGRESS)
+ *  2. echo: e.g: echo -n-n-n -> should be outputed. (PROGRESS)
+ *   
 */
 static t_bool	ft_readline(char **user_input);
 
@@ -127,10 +132,6 @@ void	check_tokens(token_ptr print_tk)
 	}
 }
 
-
-/**
- * main - Entry point
-*/
 void 	ft_unlink(token_ptr tokens_list)
 {
 	while (tokens_list)
@@ -142,6 +143,9 @@ void 	ft_unlink(token_ptr tokens_list)
 	}
 }
 
+/**
+ * main - Entry point
+*/
 int	main(int ac, char **av, char **envp)
 {
 	char		*user_input;
