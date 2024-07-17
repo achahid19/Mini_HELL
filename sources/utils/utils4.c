@@ -13,6 +13,7 @@
 #include "../../includes/miniHell.h"
 
 void	quotes_substitut(char **cmd_table);
+void	close_fds(t_var *data);
 
 /**
  * quotes_substitut -
@@ -35,4 +36,19 @@ void	quotes_substitut(char **cmd_table)
 		}
 		i++;
 	}
+}
+
+/**
+ * close_fds -
+*/
+void	close_fds(t_var *data)
+{
+	if (data->fd[0] != false)
+		close(data->fd[0]);
+	if (data->fd[1] != false)
+		close(data->fd[1]);
+	if (data->end[0] != false)
+		close(data->end[0]);
+	if (data->end[1] != false)
+		close(data->end[1]);
 }
