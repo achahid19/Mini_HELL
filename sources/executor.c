@@ -144,12 +144,5 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 		child_exec_cmd(av, &data, pipe_switcher);
 	if (pipe_switcher == true)
 		dup_and_close(data.end, STDIN);
-	if (data.fd[0] != false)
-		close(data.fd[0]);
-	if (data.fd[1] != false)
-		close(data.fd[1]);
-	if (data.end[0] != false)
-		close(data.end[0]);
-	if (data.end[1] != false)
-		close(data.end[1]);
+	close_fds(&data);
 }
