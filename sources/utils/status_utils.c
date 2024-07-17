@@ -68,6 +68,8 @@ char	*expand_status(char *tk, int *i)
 		g_status = 126;
 	else if (g_status == 512)
 		g_status = 2;
+	else if (g_status == 13)
+		g_status = 0;
 	st = ft_itoa(g_status);
 	before = (char *)malloc(sizeof(char) * (*i) + 1);
 	after = (char *)malloc(sizeof(char) * get_length(tk) + 1);
