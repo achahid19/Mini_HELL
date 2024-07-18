@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/18 17:23:46 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/18 19:17:19 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp, int flag)
 		write(fd, "\n", 1);
 		free(line);
 	}
+    signal_handler();
 	close(fd);
     dup2(fd0 , 0);
     close(fd0);

@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/18 16:12:03 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/18 19:18:45 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@
  * 	2. expand in heredoc... $PW, $USE... (poss fixed). (urgent). (DONE)
  * 	3. syntax errors: SEGF: cat <<<a, cat <<>a, cat >>>>a. (DONE)
  * 	4. error for < "". no such file... (PROGRESS) (need explanation) (DONE)
- * 	5. after heredoc, ctrl+c has a changed behavior... (urgent). (PROGRESS)
+ * 	5. after heredoc, ctrl+c has a changed behavior... (urgent). (PROGRESS) (DONE BUT STILL A VERY LIIITLE BUG \n).
  * 	6. << "". enter as delimeter. (urgent). (DONE)
  *  7. expand $?. for heredoc (urgent). (DONE) (STILL BUGS TO FIX)
  *  8. close heredoc fds after execution is done.

@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:10:38 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/18 16:32:36 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/18 19:19:00 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ t_bool		exec_builtin(char **av, t_var *data)
         return (ft_pwd(av));
     else if (ft_strncmp(av[0], "env", 3) == 0)
         return (ft_env(data,av));
-    else if (ft_strncmp(av[0], "export", 6) == 0)
-        return (ft_export(av, data));
+    // else if (ft_strncmp(av[0], "export", 6) == 0)
+    //     return (ft_export(av, data));
     // else if (ft_strncmp(av[0], "cd", 2) == 0)
     //     return (ft_cd(av));
     // else if (ft_strcmp(av[0], "unset") == 0)
