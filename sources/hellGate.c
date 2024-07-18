@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/16 19:26:10 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/18 16:12:03 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@
  * 	1. cat <<aa>test, cat <<aa|ls, <<a<<b<<c... (DONE).
  * 		in case of space before special chars (<, |, <<...) its working normal. (urgent).
  * 	2. expand in heredoc... $PW, $USE... (poss fixed). (urgent). (DONE)
- * 	3. syntax errors: SEGF: cat <<<a, cat <<>a, cat >>>>a. (PROGRESS)
- * 	4. error for < "". no such file... (PROGRESS)
+ * 	3. syntax errors: SEGF: cat <<<a, cat <<>a, cat >>>>a. (DONE)
+ * 	4. error for < "". no such file... (PROGRESS) (need explanation) (DONE)
  * 	5. after heredoc, ctrl+c has a changed behavior... (urgent). (PROGRESS)
  * 	6. << "". enter as delimeter. (urgent). (DONE)
  *  7. expand $?. for heredoc (urgent). (DONE) (STILL BUGS TO FIX)
@@ -108,8 +108,8 @@
  *  10. a lot of leaks. (urgent) (PROGRESS).
  * 
  * Bult-ins bugs:
- * 	1. echo: e.g: echo -nl -> should be outputed. (PROGRESS)
- *  2. echo: e.g: echo -n-n-n -> should be outputed. (PROGRESS)
+ * 	1. echo: e.g: echo -nl -> should be outputed. (PROGRESS) (fix)
+ *  2. echo: e.g: echo -n-n-n -> should be outputed. (PROGRESS) (fix)
  *   
 */
 static t_bool	ft_readline(char **user_input);
@@ -152,7 +152,7 @@ int	main(int ac, char **av, char **envp)
 	token_ptr	tokens_list;
 	t_env		*env;
 
-	signal_handler(0);
+	signal_handler();
 	env = init_env(envp);
 	user_input = NULL;
 	while (ft_readline(&user_input) == true)

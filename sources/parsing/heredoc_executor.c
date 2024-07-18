@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/16 19:43:28 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/18 15:58:54 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp)
     
 	filename = get_unique_filename(i);
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
-    signal_handler(1);
+    signal_handler_heredoc();
 	while (1)
 	{
 		line = readline(">");

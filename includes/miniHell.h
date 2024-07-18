@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/16 18:02:55 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/18 15:58:28 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,8 @@ int		nb_args(char **args);
 
 /* signal handler */
 void		handler(int signum);
-void		signal_handler(int i);
+void		signal_handler();
+void		signal_handler_heredoc();
 
 /* free_and_errors */
 void		free_tokens(token_ptr tokens_list);
