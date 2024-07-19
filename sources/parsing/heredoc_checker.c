@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_checker.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:13:04 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/18 15:19:45 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/19 17:23:50 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int		heredoc_checker_first(token_ptr tokens_list)
 	tmp = tokens_list;
 	while (tmp)
 	{
-		if (tmp->token_type == 10)
+		if (tmp->token_type == 10 )
 		{
-			if (tmp->next == NULL )
+			if (tmp->next == NULL || tmp->next->token_type == 10|| tmp->next->token_type == 8 
+			|| tmp->next->token_type == 9 || tmp->next->token_type == 11)
 			{
 				print_error("syntax error near unexpected token `newline'\n");
 				return (1);
@@ -40,7 +41,8 @@ int		append_checker_second(token_ptr tokens_list)
 	{
 		if (tmp->token_type == 11)
 		{
-			if (tmp->next == NULL || tmp->next->token_type == 11)
+			if (tmp->next == NULL || tmp->next->token_type == 10|| tmp->next->token_type == 8 
+			|| tmp->next->token_type == 9 || tmp->next->token_type == 11)
 			{
 				print_error("syntax error near unexpected token `newline'\n");
 				return 1;

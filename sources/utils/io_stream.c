@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io_stream.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 06:27:46 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/05 06:27:49 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:10:40 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_bool	input_red_fd(token_ptr *temp, t_var *data)
 			if (data->fd[0] == -1)
 			{
 				print_error("kssh: No such file or directory\n");
-				g_status = 1;
+				g_global.status = 1;
 				return (false);
 			}
 			dup2(data->fd[0], STDIN_FILENO);

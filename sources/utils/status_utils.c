@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   status_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:11:56 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/08 10:11:58 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:11:06 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ char	*expand_status(char *tk, int *i)
 	char	*before;
 	char	*after;
 
-	if (g_status == 256)
-		g_status = 127;
-	else if (g_status == 768)
-		g_status = 1;
-	else if (g_status == 32256)
-		g_status = 126;
-	else if (g_status == 512)
-		g_status = 2;
-	else if (g_status == 13)
-		g_status = 0;
-	st = ft_itoa(g_status);
+	if (g_global.status == 256)
+		g_global.status = 127;
+	else if (g_global.status == 768)
+		g_global.status = 1;
+	else if (g_global.status == 32256)
+		g_global.status = 126;
+	else if (g_global.status == 512)
+		g_global.status = 2;
+	else if (g_global.status == 13)
+		g_global.status = 0;
+	st = ft_itoa(g_global.status);
 	before = (char *)malloc(sizeof(char) * (*i) + 1);
 	after = (char *)malloc(sizeof(char) * get_length(tk) + 1);
 	before_tk_status(before, tk);

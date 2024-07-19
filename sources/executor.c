@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:57 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/15 21:24:16 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/19 18:09:36 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input,
 	}
 	dup2(data.std_in, STDIN);
 	close(data.std_in);
-	while (wait(&g_status) > 0)
+	while (wait(&g_global.status) > 0)
 		;
 }
 

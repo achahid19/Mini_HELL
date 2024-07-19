@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extra_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 06:55:10 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/16 19:07:40 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/19 18:10:19 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,15 +125,15 @@ char	*ft_expand_heredoc(char *line, t_env *envp)
 				if (line_split[i][d + 1] == '?')
 				{
 					free(line_split[i]);
-					if (g_status == 256)
-						g_status = 127;
-					else if (g_status == 768)
-						g_status = 1;
-					else if (g_status == 32256)
-						g_status = 126;
-					else if (g_status == 512)
-						g_status = 2;
-					line_split[i] = ft_itoa(g_status);
+					if (g_global.status == 256)
+						g_global.status = 127;
+					else if (g_global.status == 768)
+						g_global.status = 1;
+					else if (g_global.status == 32256)
+						g_global.status = 126;
+					else if (g_global.status == 512)
+						g_global.status = 2;
+					line_split[i] = ft_itoa(g_global.status);
 				}
 				else if (ft_env_search(line_split[i], envp) == 0) 
 					ft_expand_know(&line_split[i], envp);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hellGate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/18 19:18:45 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/19 18:12:51 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,16 @@
  * 	2. expand in heredoc... $PW, $USE... (poss fixed). (urgent). (DONE)
  * 	3. syntax errors: SEGF: cat <<<a, cat <<>a, cat >>>>a. (NOT DONE) -> e.g: cat <<>>a SEFG,
  *     >><<a must return syntax error, >>>a... (A LOT OF SYNTAX ERRORS ARE NOT HANDLED).
- * 	4. error for < "". no such file... (PROGRESS) (need explanation) (DONE)
+ * 	4. error for < "". no such file... (PROGRESS) (need explanation) (Multiple quotes)
  * 	5. after heredoc, ctrl+c has a changed behavior... (urgent). (PROGRESS) (DONE BUT STILL A VERY LIIITLE BUG \n).
- * 	6. << "". enter as delimeter. (urgent). (DONE)
+ * 	6. << "". enter as delimeter. (urgent). (segf ctrl + c)
  *  7. expand $?. for heredoc (urgent). (DONE) (STILL BUGS TO FIX)
  *  8. close heredoc fds after execution is done.
  * 	   store all of them in an int array so we can freed them
  * 	   after execution is done. (DONE)
  *  9. dont expand in quotes. (PROGRESS)
  *  10. a lot of leaks. (urgent) (PROGRESS).
+ * 	
  * 
  * Bult-ins bugs:
  * 	1. echo: e.g: echo -nl -> should be outputed. (PROGRESS) (fix)
@@ -151,17 +152,17 @@ int	main(int ac, char **av, char **envp)
 {
 	char		*user_input;
 	token_ptr	tokens_list;
-	t_env		*env;
 
 	signal_handler();
-	env = init_env(envp);
+	init_global();
+	g_global.e = init_env(envp);
 	user_input = NULL;
 	while (ft_readline(&user_input) == true)
 	{
 		if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
-		if (parser_tokens(tokens_list, env) == false)
+		if (parser_tokens(tokens_list, g_global.e) == false)
 		{
 			free_all(tokens_list, user_input, NULL);
 			continue ;
@@ -172,7 +173,7 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		syntax_algo(tokens_list);
 		//check_tokens(tokens_list);
-		executor(tokens_list, envp, user_input, env);
+		executor(tokens_list, envp, user_input, g_global.e);
 		ft_unlink(tokens_list);
 		free_all(tokens_list, user_input, NULL);
 	}

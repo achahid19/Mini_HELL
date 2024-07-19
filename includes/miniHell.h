@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniHell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/18 15:58:28 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/19 18:08:54 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,7 @@ typedef enum e_bool
 	true = 1
 }	t_bool;
 
-typedef struct s_env
-{
-	char		*key;
-	char		*value;
-	struct s_env	*next;
-}	t_env;
+
 
 typedef enum e_type
 {
@@ -134,6 +129,8 @@ typedef struct s_var
 	/* env linked list */
 	t_env 		*e;
 }	t_var;
+
+void init_global(void);
 
 /* Lexical analyzer */
 token_ptr	lexer(char *user_input);

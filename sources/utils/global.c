@@ -3,13 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   global.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:33:03 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/07 11:33:05 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:08:40 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/global.h"
 
-int	g_status = 0;
+//t_global g_global;
+
+t_global g_global;
+
+void init_global(void)
+{
+    g_global.status = 0;
+}
