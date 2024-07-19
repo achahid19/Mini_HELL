@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:29:00 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/15 20:39:05 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/18 15:59:31 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,14 @@ void  ft_handler_heredoc(int signum)
     }
 }
 
-void   signal_handler(int   i)
+void   signal_handler()
 {
-    if (i == 0)
-    {
         signal(SIGINT, handler);
         signal(SIGQUIT, ft_handler);
-    }
-    else 
-    {
+}
+
+void    signal_handler_heredoc()
+{
         signal(SIGINT, handler_heredoc);
         signal(SIGQUIT, ft_handler_heredoc);
-    }
 }

@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:10:38 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/16 18:44:02 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/19 01:45:40 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_bool		ft_echo(char **av)
 	option = 0;
 	if (nb_args(av) > 1)
 	{
-		while (av[i] && ft_strncmp(av[i], "-n", 2) == 0)
+		while (av[i] && ft_strncmp(av[i], "-n", ft_strlen(av[i])) == 0)
 		{
 			option = 1;
 			i++;
@@ -90,14 +90,18 @@ t_bool		exec_builtin(char **av, t_var *data)
 {
     if (ft_strncmp(av[0], "echo",4) == 0)
         return (ft_echo(av));
-    else if (ft_strncmp(av[0], "pwd",3) == 0)
+    else if (ft_strncmp(av[0], "pwd", 3) == 0)
         return (ft_pwd(av));
-    else if (ft_strncmp(av[0], "env",3) == 0)
+    else if (ft_strncmp(av[0], "env", 3) == 0)
         return (ft_env(data,av));
+    else if (ft_strncmp(av[0], "export", 6) == 0)
+        {
+		ft_export(av, data);
+	// print_env(data->e);
+		return true ;	
+		}
     // else if (ft_strncmp(av[0], "cd", 2) == 0)
     //     return (ft_cd(av));
-    // else if (ft_strcmp(av[0], "export") == 0)
-    //     return (ft_export(av, data));
     // else if (ft_strcmp(av[0], "unset") == 0)
     //     return (ft_unset(av, data));
     // else if (ft_strcmp(av[0], "exit") == 0)

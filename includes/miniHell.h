@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/16 18:02:55 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/19 01:43:39 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,11 +211,12 @@ t_env		*init_env(char** env);
 t_bool		exec_builtin(char **av, t_var *data);
 t_bool		ft_cd(char **av);
 int		nb_args(char **args);
-
-
+t_bool		ft_export(char **av, t_var *data);
+void    print_env(t_env *env);
 /* signal handler */
 void		handler(int signum);
-void		signal_handler(int i);
+void		signal_handler();
+void		signal_handler_heredoc();
 
 /* free_and_errors */
 void		free_tokens(token_ptr tokens_list);
@@ -298,5 +299,6 @@ t_bool		space_trim(token_ptr tokens_list);
 
 /* utils 4 */
 void		quotes_substitut(char **cmd_table);
+void		close_fds(t_var *data);
 
 #endif /* MINIHELL_H */

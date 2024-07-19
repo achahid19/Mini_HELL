@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/16 19:43:28 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/18 19:17:19 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char    *get_unique_filename(int i)
     return (filename);
 }
 
-char	*heredoc_storer(char *delimiter, int i, t_env *envp)
+char	*heredoc_storer(char *delimiter, int i, t_env *envp, int flag)
 {
 	char *filename;
 	int fd;
@@ -92,7 +92,7 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp)
     
 	filename = get_unique_filename(i);
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
-    signal_handler(1);
+    signal_handler_heredoc();
 	while (1)
 	{
 		line = readline(">");
@@ -111,11 +111,13 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp)
 			free(line);
 			break;
 		}
-        line = ft_expand_heredoc(line, envp);
+        if (flag == 0)
+            line = ft_expand_heredoc(line, envp);
 		write(fd, line, ft_strlen(line));
 		write(fd, "\n", 1);
 		free(line);
 	}
+    signal_handler();
 	close(fd);
     dup2(fd0 , 0);
     close(fd0);
@@ -140,9 +142,27 @@ void    ft_enter(token_ptr tokens_list, int i)
         tmp = tmp->next;
     }
 }
+
+int     ft_no_expand(token_ptr tmp)
+{
+    token_ptr tmp2;
+
+    tmp2 = tmp->next;
+    while (tmp2)
+    {
+        if (tmp2->token_type == 8 || tmp2->token_type == 9 
+        || tmp2->token_type == 10 || tmp2->token_type == 11)
+            break ;
+        if (tmp2->token_type == 4 || tmp2->token_type == 5)
+            return 1;
+        tmp2 = tmp2->next;
+    }
+    return 0;
+}
 void	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
 {
 	int i;
+    int flag;
 	char *filename;
     char *test;
 	token_ptr tmp2;
@@ -153,9 +173,10 @@ void	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
 	{
 		if (tmp->token_type == 10)
 		{
+            flag = ft_no_expand(tmp);
 			i++;
             test = ft_delimiter(tokens_list ,tmp->order);
-			filename = heredoc_storer(test, i,envp);
+			filename = heredoc_storer(test, i,envp,flag);
 			new_token_lst(tokens_list,tmp->order);
             if (filename == NULL)
                 ft_enter(tokens_list,i);

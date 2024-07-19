@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 05:59:00 by akajjou           #+#    #+#             */
-/*   Updated: 2024/06/08 22:38:11 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/18 15:55:10 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,15 @@ int	redirections_checker_1(token_ptr tokens_list)
 			{
 				print_error("syntax error near unexpected token `newline'");
 				return (1);
-			}	
+			}
+			else if (tmp->next->token_type == 5 || tmp->next->token_type == 4)
+			{
+				if (tmp->next->next->next == NULL)
+				{
+					print_error(": : No such file or directory\n");
+					return (1);
+				}
+			}
 		}
 		tmp = tmp->next;
 	}

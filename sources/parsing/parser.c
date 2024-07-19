@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:47 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/16 18:05:53 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/16 22:23:04 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,24 @@ int    ft_type_check(token_ptr tokens_list)
 	return 0;
 }
 
-token_ptr 	copy_tokens(token_ptr tokens_list)
+token_ptr	find_last_node2(token_ptr list)
 {
-	token_ptr tmp = tokens_list;
-	token_ptr new_list = NULL;
-	token_ptr new_node = NULL;
+	if (!list)
+		return (NULL);
+	while (list->next)
+		list = list->next;
+	return (list);
+}
+
+token_ptr	copy_tokens(token_ptr tokens_list)
+{
+	token_ptr	tmp;
+	token_ptr	new_list;
+	token_ptr	new_node;
+	token_ptr	last_node;
+
+	tmp = tokens_list;
+	new_list = NULL;
 	while (tmp)
 	{
 		if (tmp->token_type == 0)
@@ -44,26 +57,24 @@ token_ptr 	copy_tokens(token_ptr tokens_list)
 			tmp = tmp->next;
 			continue;
 		}
-		new_node = (token_ptr)malloc(sizeof(struct s_token));
+		new_node = (token_ptr)malloc(sizeof(t_token));
 		new_node->token = ft_strdup(tmp->token);
 		new_node->token_type = tmp->token_type;
 		new_node->order = tmp->order;
+		new_node->token_length = tmp->token_length;
 		new_node->next = NULL;
 		new_node->previous = NULL;
-		if (new_list == NULL)
-		{
+		if (!new_list)
 			new_list = new_node;
-			new_list->next = NULL;
-			new_list->previous = NULL;
-		}
 		else
 		{
-			new_node->previous = find_last_node(new_list);
-			new_node->previous->next = new_node;
+			last_node = find_last_node2(new_list);
+			last_node->next = new_node;
+			new_node->previous = last_node;
 		}
-		tmp = tmp->next;		
+		tmp = tmp->next;
 	}
-	return new_list;
+	return (new_list);
 }
 
 int	parser_tokens(token_ptr tokens_list, t_env *env)
