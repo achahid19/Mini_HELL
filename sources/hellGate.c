@@ -96,7 +96,8 @@
  * 	1. cat <<aa>test, cat <<aa|ls, <<a<<b<<c... (DONE).
  * 		in case of space before special chars (<, |, <<...) its working normal. (urgent).
  * 	2. expand in heredoc... $PW, $USE... (poss fixed). (urgent). (DONE)
- * 	3. syntax errors: SEGF: cat <<<a, cat <<>a, cat >>>>a. (DONE)
+ * 	3. syntax errors: SEGF: cat <<<a, cat <<>a, cat >>>>a. (NOT DONE) -> e.g: cat <<>>a SEFG,
+ *     >><<a must return syntax error, >>>a... (A LOT OF SYNTAX ERRORS ARE NOT HANDLED).
  * 	4. error for < "". no such file... (PROGRESS) (need explanation) (DONE)
  * 	5. after heredoc, ctrl+c has a changed behavior... (urgent). (PROGRESS) (DONE BUT STILL A VERY LIIITLE BUG \n).
  * 	6. << "". enter as delimeter. (urgent). (DONE)
