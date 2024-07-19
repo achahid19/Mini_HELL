@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniHell.h"
+/* #include "../../includes/miniHell.h"
 
 void    print_env(t_env *env)
 {
@@ -201,4 +201,4 @@ t_bool		ft_export(char **av, t_var *data)
     }
     return (true);
    
-}
+} */
