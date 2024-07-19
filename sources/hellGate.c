@@ -6,7 +6,7 @@
 /*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/19 18:12:51 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/19 19:55:57 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,38 @@ void 	ft_unlink(token_ptr tokens_list)
 	}
 }
 
+char **transform_env()
+{
+	t_env	*tmp;
+	char	**envp = NULL;
+	int		i;
+	char *str;
+
+	i = 0;
+	tmp = g_global.e;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	envp = (char **)malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	tmp = g_global.e;
+	while (tmp)
+	{
+		str = tmp->key;
+		envp[i] = ft_strjoin(str, "=");
+		// free(str);
+		envp[i] = ft_strjoin(envp[i], tmp->value);
+		printf("%s\n", envp[i]);
+		i++;
+		tmp = tmp->next;
+	}
+	envp[i] = NULL;
+	return (envp);
+	
+}
+
 /**
  * main - Entry point
 */
@@ -152,13 +184,18 @@ int	main(int ac, char **av, char **envp)
 {
 	char		*user_input;
 	token_ptr	tokens_list;
+	char		**e;
 
 	signal_handler();
 	init_global();
 	g_global.e = init_env(envp);
 	user_input = NULL;
+	e = NULL;
 	while (ft_readline(&user_input) == true)
 	{
+		// if (e != NULL)
+		// // 	free_cmd_table(e);
+		// e = transform_env();
 		if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
@@ -167,13 +204,19 @@ int	main(int ac, char **av, char **envp)
 			free_all(tokens_list, user_input, NULL);
 			continue ;
 		}
-		tokens_expander(tokens_list, envp);
+		tokens_expander(tokens_list, e);
 		tokens_list_optimizer(&tokens_list);
 		if (tokens_list == NULL)
 			continue ;
 		syntax_algo(tokens_list);
 		//check_tokens(tokens_list);
-		executor(tokens_list, envp, user_input, g_global.e);
+		executor(tokens_list, envp, user_input);
+		// int i = 0;
+		// while (g_global.e)
+		// {
+		// 	printf("%s = %s\n", g_global.e->key, g_global.e->value);
+		// 	g_global.e = g_global.e->next;
+		// }
 		ft_unlink(tokens_list);
 		free_all(tokens_list, user_input, NULL);
 	}

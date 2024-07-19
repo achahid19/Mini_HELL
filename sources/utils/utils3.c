@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 10:26:25 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/15 21:20:00 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/19 19:21:46 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_bool	check_single_quotes(token_ptr node)
 */
 t_bool	builtin_checker(char *built_in)
 {
-	if (strncmp(built_in, "echo", ft_strlen(built_in)) == 0)
-		return (true);
+	// if (strncmp(built_in, "echo", ft_strlen(built_in)) == 0)
+	// 	return (true);
 	if (strncmp(built_in, "cd", ft_strlen(built_in)) == 0)
 		return (true);
 	if (strncmp(built_in, "pwd", ft_strlen(built_in)) == 0)

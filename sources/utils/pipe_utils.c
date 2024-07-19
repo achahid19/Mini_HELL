@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 13:18:28 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/16 16:49:11 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/19 19:10:19 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 	}
 	if (builtin_checker(av[0]) == true)
 	{
-		if (exec_builtin(av, data) == false)
+		if (exec_builtin(av) == false)
 		{
 			close_fds(data);
 			exit(EXIT_FAILURE);

@@ -6,11 +6,11 @@
 /*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:32:51 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/19 18:14:44 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/19 19:15:51 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* #include "../../includes/miniHell.h"
+#include "../../includes/miniHell.h"
 
 void    print_env(t_env *env)
 {
@@ -122,63 +122,73 @@ t_bool ft_export_check(char **av)
     }
     return true;
 }
-
-t_bool is_exported(char *variable, t_env *env)
+char        *ft_key(char *variable)
 {
-    t_env *tmp;
+    char *key;
+    int i;
 
-    tmp = env;
-    while (tmp)
+    i = 0;
+    while (variable[i] && variable[i] != '=')
+        i++;
+    key = (char *)malloc(sizeof(char) * (i + 1));
+    i = 0;
+    while (variable[i] && variable[i] != '=')
     {
-        if (strcmp(variable, tmp->key) == 0)
-            return true;
-        tmp = tmp->next;
+        key[i] = variable[i];
+        i++;
     }
-    return false;
+    key[i] = '\0';
+    return key;
 }
 
-void update_exported_variable(char *variable, t_env *env)
+t_bool is_exported(char *variable)
 {
     t_env *tmp;
+    char *key;
 
-    tmp = env;
+    key = ft_key(variable);
+    tmp = g_global.e;
     while (tmp)
     {
-        if (strcmp(variable, tmp->key) == 0)
+        if (strcmp(key, tmp->key) == 0)
+            return (free(key),true);
+        tmp = tmp->next;
+    }
+    return (free(key),false);
+}
+
+
+void        update_exported_variable(char *variable)
+{
+    t_env *tmp;
+    char *key;
+    
+    key = ft_key(variable);
+    tmp = g_global.e;
+    while (tmp)
+    {
+        if (strcmp(key, tmp->key) == 0)
         {
             tmp->value = ft_strdup(ft_strchr(variable, '=') + 1);
+
             break;
         }
         tmp = tmp->next;
     }
+    free(key);
 }
 
-void add_exported_variable(char *variable, t_var *data)
-{
-    t_env *new;
-    t_env *tmp;
-
-    new = (t_env *)malloc(sizeof(t_env));
-    new->key = ft_strdup(ft_strchr(variable, '=') + 1);
-    new->value = ft_strdup(ft_strchr(variable, '=') + 1);
-    new->next = NULL;
-    tmp = data->env;
-    while (tmp->next)
-        tmp = tmp->next;
-    tmp->next = new;
-}
-
-t_bool		ft_export(char **av, t_var *data)
+t_bool		ft_export(char **av)
 {
     t_env *tmp;
     int i;
     
-    tmp = ft_copy_env(data->e);
+    tmp = ft_copy_env(g_global.e);
     ft_sort_env(tmp);
     i = 1;
     if (!av[1])
         print_env(tmp);
-    
+
     else
     {
         if (ft_export_check(av) == false)
@@ -186,19 +196,18 @@ t_bool		ft_export(char **av, t_var *data)
         while (av[i])
         {
             // Check if the variable is already exported
-            if (is_exported(av[i], data->e))
+            if (is_exported(av[i]))
             {
-                // Update the value of the existing variable
-                update_exported_variable(av[i], data->e);
+                update_exported_variable(av[i]);
             }
-            else
-            {
-                // Add the new variable to the exported variables
-                add_exported_variable(av[i], data);
-            }
+            // else
+            // {
+            //     // Add the new variable to the exported variables
+            //     add_exported_variable(av[i], data);
+            // }
             i++;
         }
     }
     return (true);
    
-} */
+}

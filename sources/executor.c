@@ -6,15 +6,14 @@
 /*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:57 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/19 18:09:36 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/19 19:57:20 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniHell.h"
 #include "../includes/global.h"
 
-void	executor(token_ptr tokens_list, char **envp, char *user_input,
-			t_env *env);
+void	executor(token_ptr tokens_list, char **envp, char *user_input);
 void	exec_command(token_ptr tokens_list, t_var data);
 char	**extract_command(token_ptr tokens_list);
 int		get_infos(token_ptr tokens_list);
@@ -23,8 +22,7 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher);
 /**
  * executor -
 */
-void	executor(token_ptr tokens_list, char **envp, char *user_input,
-			t_env *env)
+void	executor(token_ptr tokens_list, char **envp, char *user_input)
 {
 	t_var	data;
 
@@ -35,7 +33,6 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input,
 	data.std_in = dup(STDIN);
 	data.fd[0] = 0;
 	data.fd[1] = 0;
-	data.e = env;
 	while (data.pipes)
 	{
 		dollar_status_check(tokens_list);
@@ -139,8 +136,11 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 		return ;
 	if (pipe(data.end) == -1)
 		exit(EXIT_FAILURE);
-	data.child_pid = fork();
-	if (data.child_pid == 0)
+	if (strcmp(av[0], "export") == 0)
+		ft_export(av);
+	if (strcmp(av[0], "export"))
+		data.child_pid = fork();
+	if (data.child_pid == 0 && strcmp(av[0], "export"))
 		child_exec_cmd(av, &data, pipe_switcher);
 	if (pipe_switcher == true)
 		dup_and_close(data.end, STDIN);

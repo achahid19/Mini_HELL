@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:10:38 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/18 19:19:00 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/19 19:20:36 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ t_bool 		ft_pwd(char **av)
 	return (true);
 }
 
-t_bool		ft_env(t_var *data ,char **av)
+t_bool		ft_env(char **av)
 {
 	t_env	*tmp;
 
-	tmp = data->e;
+	tmp = g_global.e;
 	if (nb_args(av) > 1)
 	{
 		ft_putstr_fd("env: too many arguments\n", 2);
@@ -86,16 +86,16 @@ t_bool		ft_env(t_var *data ,char **av)
 	return (true);
 }
 
-t_bool		exec_builtin(char **av, t_var *data)
+t_bool		exec_builtin(char **av)
 {
-    if (ft_strncmp(av[0], "echo",4) == 0)
-        return (ft_echo(av));
-    else if (ft_strncmp(av[0], "pwd", 3) == 0)
+    // if (ft_strncmp(av[0], "echo",4) == 0)
+    //     return (ft_echo(av));
+    if (ft_strncmp(av[0], "pwd", 3) == 0)
         return (ft_pwd(av));
     else if (ft_strncmp(av[0], "env", 3) == 0)
-        return (ft_env(data,av));
-    // else if (ft_strncmp(av[0], "export", 6) == 0)
-    //     return (ft_export(av, data));
+        return (ft_env(av));
+    else if (ft_strncmp(av[0], "export", 6) == 0)
+        return (ft_export(av));
     // else if (ft_strncmp(av[0], "cd", 2) == 0)
     //     return (ft_cd(av));
     // else if (ft_strcmp(av[0], "unset") == 0)

@@ -6,7 +6,7 @@
 /*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/19 18:08:54 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/19 19:01:52 by aymane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,6 @@ typedef struct s_var
 	/* pipe data */
 	pid_t	child_pid;
 	int		end[2];
-	/* env linked list */
-	t_env 		*e;
 }	t_var;
 
 void init_global(void);
@@ -205,10 +203,10 @@ char		**ft_advanced_split(const char *str);
 t_env		*init_env(char** env);
 
 /* built_in   	*/
-t_bool		exec_builtin(char **av, t_var *data);
+t_bool		exec_builtin(char **av);
 t_bool		ft_cd(char **av);
 int		nb_args(char **args);
-
+t_bool		ft_export(char **av);
 
 /* signal handler */
 void		handler(int signum);
@@ -252,7 +250,7 @@ t_bool		types_checker(t_var d, int index, token_ptr tmp);
 void		check_tokens(token_ptr print_tk);
 
 /* executor */
-void		executor(token_ptr tokens_list, char **env, char *user_input, t_env *en);
+void		executor(token_ptr tokens_list, char **env, char *user_input);
 
 /* tk_optimizer */
 void		tokens_list_optimizer(token_ptr *tokens_list);
