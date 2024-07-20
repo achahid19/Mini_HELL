@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniHell.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/19 19:01:52 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/20 20:12:58 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,8 @@ t_bool		exec_builtin(char **av);
 t_bool		ft_cd(char **av);
 int		nb_args(char **args);
 t_bool		ft_export(char **av);
+t_bool is_exported(char *variable);
+t_bool		ft_unset(char **av);
 
 /* signal handler */
 void		handler(int signum);

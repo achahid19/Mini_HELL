@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 13:18:28 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/19 19:10:19 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/20 20:23:19 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 		close_fds(data);
 		exit(EXIT_SUCCESS);
 	}
+	printf("here\n");
 	if (ft_strncmp(av[0], "/", 1) == 0)
 	{
 		data->path_to_cmd = av[0];
@@ -56,6 +57,7 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 			exit_error(" No such file or directory !\n", data, av,
 				EXIT_FAILURE);
 	}
+	
 	data->path_to_cmd = ft_find_cmd(av[0], data->envp);
 	if (data->path_to_cmd == NULL)
 		data->path_to_cmd = av[0];

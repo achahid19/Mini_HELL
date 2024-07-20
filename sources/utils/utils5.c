@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:10:24 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/20 11:10:25 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:19:43 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_bool	unset_check(char **av, t_var data, t_bool pipe_switcher)
 	len = big_len(av[0], "unset");
 	if (ft_strncmp(av[0], "unset", len) == 0)
 	{
-		printf("run the unset function here\n");
+		ft_unset(av);
 		if (pipe_switcher == true)
 			dup_and_close(data.end, STDIN);
 		close_fds(&data);

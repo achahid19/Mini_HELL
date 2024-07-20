@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:10:38 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/19 19:20:36 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/20 20:21:15 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,10 @@ t_bool		exec_builtin(char **av)
     else if (ft_strncmp(av[0], "env", 3) == 0)
         return (ft_env(av));
     else if (ft_strncmp(av[0], "export", 6) == 0)
+	{
+		printf("hello\n");
         return (ft_export(av));
+	}
     // else if (ft_strncmp(av[0], "cd", 2) == 0)
     //     return (ft_cd(av));
     // else if (ft_strcmp(av[0], "unset") == 0)
