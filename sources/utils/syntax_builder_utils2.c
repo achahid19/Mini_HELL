@@ -78,8 +78,8 @@ void	words_finder(token_ptr *tk_list, t_var d)
 			|| (*tk_list)->previous->token_type == pipe_token)
 			d.type_previous = (*tk_list)->previous->token_type;
 	}
-	if ((*tk_list)->previous->previous == NULL)
-		d.type_previous = 13;
+	/* if ((*tk_list)->previous->previous == NULL)
+		d.type_previous = 13; */
 	if (types_checker(d, 1, NULL) == true)
 	{
 		if (multiple_quotes_check(d, (*tk_list)) == false)
