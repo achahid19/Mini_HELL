@@ -115,35 +115,11 @@
  *   
 */
 static t_bool	ft_readline(char **user_input);
-
-void	check_tokens(token_ptr print_tk)
-{
-	while (print_tk != NULL)
-	{
-		printf("------------------------------\n");
-		printf("token: %s\n", print_tk->token);
-		//printf("order: %d\n", print_tk->order);
-		printf("type: %d\n", print_tk->token_type);
-		//printf("lenght: %d\n", print_tk->token_length);
-		/* if (print_tk->previous != NULL)
-			printf("previous: %s\n", print_tk->previous->token);
-		else if (print_tk->previous == NULL)
-			printf("previous: NULL\n"); */
-		printf("------------------------------\n");
-		print_tk = print_tk->next;
-	}
-}
-
-void 	ft_unlink(token_ptr tokens_list)
-{
-	while (tokens_list)
-	{
-		if (tokens_list->token_type == 8 )
-			if (ft_strncmp(tokens_list->token, "/tmp/heredoc_", 13) == 0)
-				unlink(tokens_list->token);
-		tokens_list = tokens_list->next;
-	}
-}
+static void 	ft_unlink(token_ptr tokens_list);
+static void		ft_init();
+static void		miniHell_helper(token_ptr tokens_list, char *user_input,
+					char **envp, char **e);
+void			check_tokens(token_ptr print_tk);
 
 /**
  * main - Entry point
@@ -154,8 +130,7 @@ int	main(int ac, char **av, char **envp)
 	token_ptr	tokens_list;
 	char		**e;
 
-	signal_handler();
-	init_global();
+	ft_init();
 	g_global.e = init_env(envp);
 	user_input = NULL;
 	while (ft_readline(&user_input) == true)
@@ -173,17 +148,18 @@ int	main(int ac, char **av, char **envp)
 		tokens_list_optimizer(&tokens_list);
 		if (tokens_list == NULL)
 			continue ;
-		syntax_algo(tokens_list);
-		//check_tokens(tokens_list);
-		executor(tokens_list, envp, user_input);
-		/* for (t_env *tmp = g_global.e; tmp; tmp = tmp->next)
-		{
-			printf("%s = %s\n", tmp->key, tmp->value);
-		} */
-		ft_unlink(tokens_list);
-		free_all(tokens_list, user_input, e);
+		miniHell_helper(tokens_list, user_input, envp, e);
 	}
 	return (EXIT_SUCCESS);
+}
+
+/**
+ * ft_init -
+ */
+static void	ft_init()
+{
+	signal_handler();
+	init_global();
 }
 
 /**
@@ -199,4 +175,48 @@ t_bool	ft_readline(char **user_input)
 		exit(EXIT_SUCCESS);
 	}
 	return (true);
+}
+
+static void 	ft_unlink(token_ptr tokens_list)
+{
+	while (tokens_list)
+	{
+		if (tokens_list->token_type == 8 )
+			if (ft_strncmp(tokens_list->token, "/tmp/heredoc_", 13) == 0)
+				unlink(tokens_list->token);
+		tokens_list = tokens_list->next;
+	}
+}
+
+/**
+ * miniHell_helper -
+ */
+static void	miniHell_helper(token_ptr tokens_list, char *user_input,
+			char **envp, char **e)
+{
+	syntax_algo(tokens_list);
+	executor(tokens_list, envp, user_input);
+	ft_unlink(tokens_list);
+	free_all(tokens_list, user_input, e);
+}
+
+/**
+ * check_tokens -
+ */
+void	check_tokens(token_ptr print_tk)
+{
+	while (print_tk != NULL)
+	{
+		printf("------------------------------\n");
+		printf("token: %s\n", print_tk->token);
+		//printf("order: %d\n", print_tk->order);
+		printf("type: %d\n", print_tk->token_type);
+		//printf("lenght: %d\n", print_tk->token_length);
+		/* if (print_tk->previous != NULL)
+			printf("previous: %s\n", print_tk->previous->token);
+		else if (print_tk->previous == NULL)
+			printf("previous: NULL\n"); */
+		printf("------------------------------\n");
+		print_tk = print_tk->next;
+	}
 }
