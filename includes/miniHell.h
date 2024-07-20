@@ -309,4 +309,6 @@ t_bool		unset_check(char **av, t_var data, t_bool pipe_switcher);
 t_bool		exit_check(char **av, t_var data, t_bool pipe_switcher);
 t_bool		cd_check(char **av, t_var data, t_bool pipe_switcher);
 
+/* utils 6 */
+void		get_status();
 #endif /* MINIHELL_H */
