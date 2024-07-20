@@ -35,8 +35,8 @@ t_bool	check_single_quotes(token_ptr node)
 */
 t_bool	builtin_checker(char *built_in)
 {
-	// if (strncmp(built_in, "echo", ft_strlen(built_in)) == 0)
-	// 	return (true);
+	if (strncmp(built_in, "echo", ft_strlen(built_in)) == 0)
+	 	return (true);
 	if (strncmp(built_in, "cd", ft_strlen(built_in)) == 0)
 		return (true);
 	if (strncmp(built_in, "pwd", ft_strlen(built_in)) == 0)
