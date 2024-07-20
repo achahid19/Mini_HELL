@@ -60,9 +60,10 @@ void	close_fds(t_var *data)
 /**
  * export_check -
  */
-
 t_bool	builtin_check(char **av, t_var data, t_bool pipe_switcher)
 {
+	if (av == NULL)
+		return (false);
 	if (export_check(av, data, pipe_switcher) == true)
 		return (true);
 	else if(unset_check(av, data, pipe_switcher) == true)
