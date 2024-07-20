@@ -162,13 +162,13 @@ char **transform_env()
 	envp = (char **)malloc(sizeof(char *) * (i + 1));
 	i = 0;
 	tmp = g_global.e;
+	str = NULL;
 	while (tmp)
 	{
-		str = tmp->key;
+		if (str != NULL)
+			str = tmp->key;
 		envp[i] = ft_strjoin(str, "=");
-		// free(str);
 		envp[i] = ft_strjoin(envp[i], tmp->value);
-		printf("%s\n", envp[i]);
 		i++;
 		tmp = tmp->next;
 	}
@@ -193,9 +193,9 @@ int	main(int ac, char **av, char **envp)
 	e = NULL;
 	while (ft_readline(&user_input) == true)
 	{
-		// if (e != NULL)
-		// // 	free_cmd_table(e);
-		// e = transform_env();
+		if (e != NULL)
+		 	free_cmd_table(e);
+		e = transform_env();
 		if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
 		tokens_list = lexer(user_input);
@@ -211,12 +211,10 @@ int	main(int ac, char **av, char **envp)
 		syntax_algo(tokens_list);
 		//check_tokens(tokens_list);
 		executor(tokens_list, envp, user_input);
-		// int i = 0;
-		// while (g_global.e)
-		// {
-		// 	printf("%s = %s\n", g_global.e->key, g_global.e->value);
-		// 	g_global.e = g_global.e->next;
-		// }
+		/* for (t_env *tmp = g_global.e; tmp; tmp = tmp->next)
+		{
+			printf("%s = %s\n", tmp->key, tmp->value);
+		} */
 		ft_unlink(tokens_list);
 		free_all(tokens_list, user_input, NULL);
 	}
