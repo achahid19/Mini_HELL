@@ -136,11 +136,10 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 		return ;
 	if (pipe(data.end) == -1)
 		exit(EXIT_FAILURE);
-	if (strcmp(av[0], "export") == 0)
-		ft_export(av);
-	if (strcmp(av[0], "export"))
-		data.child_pid = fork();
-	if (data.child_pid == 0 && strcmp(av[0], "export"))
+	if (export_check(av, data, pipe_switcher) == true)
+		return ;
+	data.child_pid = fork();
+	if (data.child_pid == 0)
 		child_exec_cmd(av, &data, pipe_switcher);
 	if (pipe_switcher == true)
 		dup_and_close(data.end, STDIN);
