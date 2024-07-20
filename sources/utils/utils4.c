@@ -111,6 +111,8 @@ char	**transform_env()
 void	join_key_value(char *str, char **envp, int i,
 			t_env *tmp)
 {
+	if (str != NULL)
+		free(str);
 	str = ft_strdup(tmp->key);
 	envp[i] = ft_strjoin(str, "=");
 	envp[i] = ft_strjoin(envp[i], tmp->value);
