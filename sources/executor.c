@@ -136,7 +136,7 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 		return ;
 	if (pipe(data.end) == -1)
 		exit(EXIT_FAILURE);
-	if (export_check(av, data, pipe_switcher) == true)
+	if (builtin_check(av, data, pipe_switcher) == true)
 		return ;
 	data.child_pid = fork();
 	if (data.child_pid == 0)
