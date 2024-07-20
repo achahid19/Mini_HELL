@@ -166,7 +166,7 @@ int	main(int ac, char **av, char **envp)
 		tokens_list = lexer(user_input);
 		if (parser_tokens(tokens_list, g_global.e) == false)
 		{
-			free_all(tokens_list, user_input, NULL);
+			free_all(tokens_list, user_input, e);
 			continue ;
 		}
 		tokens_expander(tokens_list, e);
