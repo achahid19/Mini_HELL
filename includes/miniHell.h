@@ -296,5 +296,8 @@ t_bool		space_trim(token_ptr tokens_list);
 void		quotes_substitut(char **cmd_table);
 void		close_fds(t_var *data);
 t_bool		export_check(char **av, t_var data, t_bool pipe_switcher);
+char		**transform_env();
+void		join_key_value(char *str, char **envp, int i,
+			t_env *tmp);
 
 #endif /* MINIHELL_H */
