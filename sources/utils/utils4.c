@@ -15,6 +15,9 @@
 void	quotes_substitut(char **cmd_table);
 void	close_fds(t_var *data);
 t_bool	export_check(char **av, t_var data, t_bool pipe_switcher);
+char	**transform_env();
+void	join_key_value(char *str, char **envp, int i,
+			t_env *tmp);
 
 /**
  * quotes_substitut -
@@ -68,4 +71,47 @@ t_bool	export_check(char **av, t_var data, t_bool pipe_switcher)
 		return (true);
 	}
 	return (false);
+}
+
+/**
+ * transform_env -
+ */
+char	**transform_env()
+{
+	t_env	*tmp;
+	char	**envp = NULL;
+	int		i;
+	char 	*str;
+
+	i = 0;
+	tmp = g_global.e;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	envp = (char **)malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	tmp = g_global.e;
+	str = NULL;
+	while (tmp)
+	{
+		join_key_value(str, envp, i, tmp);
+		i++;
+		tmp = tmp->next;
+	}
+	envp[i] = NULL;
+	return (envp);
+	
+}
+
+/**
+ * join_key_value -
+ */
+void	join_key_value(char *str, char **envp, int i,
+			t_env *tmp)
+{
+	str = ft_strdup(tmp->key);
+	envp[i] = ft_strjoin(str, "=");
+	envp[i] = ft_strjoin(envp[i], tmp->value);
 }
