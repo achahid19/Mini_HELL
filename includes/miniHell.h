@@ -295,9 +295,15 @@ t_bool		space_trim(token_ptr tokens_list);
 /* utils 4 */
 void		quotes_substitut(char **cmd_table);
 void		close_fds(t_var *data);
-t_bool		export_check(char **av, t_var data, t_bool pipe_switcher);
+t_bool		builtin_check(char **av, t_var data, t_bool pipe_switcher);
 char		**transform_env();
 void		join_key_value(char *str, char **envp, int i,
 			t_env *tmp);
+
+/* utils 5 */
+int			big_len(char *str1, char *str2);
+t_bool		export_check(char **av, t_var data, t_bool pipe_switcher);
+t_bool		unset_check(char **av, t_var data, t_bool pipe_switcher);
+t_bool		exit_check(char **av, t_var data, t_bool pipe_switcher);
 
 #endif /* MINIHELL_H */

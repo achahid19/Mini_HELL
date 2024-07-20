@@ -60,16 +60,15 @@ void	close_fds(t_var *data)
 /**
  * export_check -
  */
-t_bool	export_check(char **av, t_var data, t_bool pipe_switcher)
+
+t_bool	builtin_check(char **av, t_var data, t_bool pipe_switcher)
 {
-	if (strcmp(av[0], "export") == 0 && av[1] != NULL)
-	{
-		ft_export(av);
-		if (pipe_switcher == true)
-			dup_and_close(data.end, STDIN);
-		close_fds(&data);
+	if (export_check(av, data, pipe_switcher) == true)
 		return (true);
-	}
+	else if(unset_check(av, data, pipe_switcher) == true)
+		return (true);
+	else if (exit_check(av, data, pipe_switcher) == true)
+		return (true);
 	return (false);
 }
 
