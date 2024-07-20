@@ -145,38 +145,6 @@ void 	ft_unlink(token_ptr tokens_list)
 	}
 }
 
-char **transform_env()
-{
-	t_env	*tmp;
-	char	**envp = NULL;
-	int		i;
-	char *str;
-
-	i = 0;
-	tmp = g_global.e;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	envp = (char **)malloc(sizeof(char *) * (i + 1));
-	i = 0;
-	tmp = g_global.e;
-	str = NULL;
-	while (tmp)
-	{
-		if (str != NULL)
-			str = tmp->key;
-		envp[i] = ft_strjoin(str, "=");
-		envp[i] = ft_strjoin(envp[i], tmp->value);
-		i++;
-		tmp = tmp->next;
-	}
-	envp[i] = NULL;
-	return (envp);
-	
-}
-
 /**
  * main - Entry point
 */
@@ -190,11 +158,8 @@ int	main(int ac, char **av, char **envp)
 	init_global();
 	g_global.e = init_env(envp);
 	user_input = NULL;
-	e = NULL;
 	while (ft_readline(&user_input) == true)
 	{
-		if (e != NULL)
-		 	free_cmd_table(e);
 		e = transform_env();
 		if (ft_strncmp(user_input, "\0", 1) != 0)
 			add_history(user_input);
@@ -216,7 +181,7 @@ int	main(int ac, char **av, char **envp)
 			printf("%s = %s\n", tmp->key, tmp->value);
 		} */
 		ft_unlink(tokens_list);
-		free_all(tokens_list, user_input, NULL);
+		free_all(tokens_list, user_input, e);
 	}
 	return (EXIT_SUCCESS);
 }
