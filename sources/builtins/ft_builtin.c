@@ -88,8 +88,8 @@ t_bool		ft_env(char **av)
 
 t_bool		exec_builtin(char **av)
 {
-    // if (ft_strncmp(av[0], "echo",4) == 0)
-    //     return (ft_echo(av));
+    if (ft_strncmp(av[0], "echo",4) == 0)
+         return (ft_echo(av));
     if (ft_strncmp(av[0], "pwd", 3) == 0)
         return (ft_pwd(av));
     else if (ft_strncmp(av[0], "env", 3) == 0)
