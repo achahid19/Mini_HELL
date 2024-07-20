@@ -14,6 +14,7 @@
 
 void	quotes_substitut(char **cmd_table);
 void	close_fds(t_var *data);
+t_bool	export_check(char **av, t_var data, t_bool pipe_switcher);
 
 /**
  * quotes_substitut -
@@ -51,4 +52,20 @@ void	close_fds(t_var *data)
 		close(data->end[0]);
 	if (data->end[1] != false)
 		close(data->end[1]);
+}
+
+/**
+ * export_check -
+ */
+t_bool	export_check(char **av, t_var data, t_bool pipe_switcher)
+{
+	if (strcmp(av[0], "export") == 0 && av[1] != NULL)
+	{
+		ft_export(av);
+		if (pipe_switcher == true)
+			dup_and_close(data.end, STDIN);
+		close_fds(&data);
+		return (true);
+	}
+	return (false);
 }
