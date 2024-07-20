@@ -35,19 +35,28 @@ t_bool	check_single_quotes(token_ptr node)
 */
 t_bool	builtin_checker(char *built_in)
 {
-	if (strncmp(built_in, "echo", ft_strlen(built_in)) == 0)
+	int	len;
+
+	len = big_len(built_in, "echo");
+	if (ft_strncmp(built_in, "echo", len) == 0)
 	 	return (true);
-	if (strncmp(built_in, "cd", ft_strlen(built_in)) == 0)
+	len = big_len(built_in, "cd");
+	if (ft_strncmp(built_in, "cd", len) == 0)
 		return (true);
-	if (strncmp(built_in, "pwd", ft_strlen(built_in)) == 0)
+	len = big_len(built_in, "pwd");
+	if (ft_strncmp(built_in, "pwd", len) == 0)
 		return (true);
-	if (strncmp(built_in, "export", ft_strlen(built_in)) == 0)
+	len = big_len(built_in, "export");
+	if (ft_strncmp(built_in, "export", len) == 0)
 		return (true);
-	if (strncmp(built_in, "unset", ft_strlen(built_in)) == 0)
+	len = big_len(built_in, "unset");
+	if (ft_strncmp(built_in, "unset", len) == 0)
 		return (true);
-	if (strncmp(built_in, "env", ft_strlen(built_in)) == 0)
+	len = big_len(built_in, "env");
+	if (ft_strncmp(built_in, "env", len) == 0)
 		return (true);
-	if (strncmp(built_in, "exit", ft_strlen(built_in)) == 0)
+	len = big_len(built_in, "exit");
+	if (ft_strncmp(built_in, "exit", len) == 0)
 		return (true);
 	return (false);
 }
