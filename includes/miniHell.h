@@ -307,5 +307,6 @@ int			big_len(char *str1, char *str2);
 t_bool		export_check(char **av, t_var data, t_bool pipe_switcher);
 t_bool		unset_check(char **av, t_var data, t_bool pipe_switcher);
 t_bool		exit_check(char **av, t_var data, t_bool pipe_switcher);
+t_bool		cd_check(char **av, t_var data, t_bool pipe_switcher);
 
 #endif /* MINIHELL_H */
