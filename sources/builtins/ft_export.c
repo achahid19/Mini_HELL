@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 16:32:51 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/19 19:15:51 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/20 18:53:13 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void    print_env(t_env *env)
     tmp = env;
     while (tmp)
     {
-            printf("declare -x %s=%s\n", tmp->key, tmp->value);
+        if (ft_strlen(tmp->value) == 0)
+            printf("declare -x %s\n", tmp->key);
+        else
+            printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
         tmp = tmp->next;
     }
 }
@@ -165,49 +168,67 @@ void        update_exported_variable(char *variable)
     
     key = ft_key(variable);
     tmp = g_global.e;
+    if (ft_strchr(variable, '=') == NULL)
+        return;
     while (tmp)
     {
         if (strcmp(key, tmp->key) == 0)
         {
             tmp->value = ft_strdup(ft_strchr(variable, '=') + 1);
-
             break;
         }
         tmp = tmp->next;
     }
     free(key);
 }
+void        add_exported_variable(char *variable)
+{
+    t_env *tmp;
+    t_env *new;
+    char *key;
+
+    key = ft_key(variable);
+    tmp = g_global.e;
+    new = (t_env *)malloc(sizeof(t_env));
+    new->key = ft_strdup(key);
+    if (ft_strchr(variable, '=') == NULL)
+        new->value = ft_strdup("");
+    else
+        new->value = ft_strdup(ft_strchr(variable, '=') + 1);
+    new->next = NULL;
+    if (!tmp)
+        g_global.e = new;
+    else
+    {
+        while (tmp->next)
+            tmp = tmp->next;
+        tmp->next = new;
+    }
+    free(key);
+}
 
 t_bool		ft_export(char **av)
 {
-    t_env *tmp;
     int i;
-    
+    t_env *tmp;
+
     tmp = ft_copy_env(g_global.e);
     ft_sort_env(tmp);
     i = 1;
     if (!av[1])
         print_env(tmp);
-
     else
     {
         if (ft_export_check(av) == false)
             return (false);
         while (av[i])
         {
-            // Check if the variable is already exported
             if (is_exported(av[i]))
-            {
                 update_exported_variable(av[i]);
-            }
-            // else
-            // {
-            //     // Add the new variable to the exported variables
-            //     add_exported_variable(av[i], data);
-            // }
+            else
+                add_exported_variable(av[i]);
             i++;
         }
     }
     return (true);
-   
 }
