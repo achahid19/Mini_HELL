@@ -96,7 +96,6 @@ t_bool		exec_builtin(char **av)
         return (ft_env(av));
     else if (ft_strncmp(av[0], "export", 6) == 0)
 	{
-		printf("hello\n");
         return (ft_export(av));
 	}
     // else if (ft_strncmp(av[0], "cd", 2) == 0)
