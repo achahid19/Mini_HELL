@@ -16,6 +16,7 @@ int		big_len(char *str1, char *str2);
 t_bool	export_check(char **av, t_var data, t_bool pipe_switcher);
 t_bool	unset_check(char **av, t_var data, t_bool pipe_switcher);
 t_bool	exit_check(char **av, t_var data, t_bool pipe_switcher);
+t_bool	cd_check(char **av, t_var data, t_bool pipe_switcher);
 
 /**
  * big_len -
@@ -80,6 +81,25 @@ t_bool	exit_check(char **av, t_var data, t_bool pipe_switcher)
 	if (ft_strncmp(av[0], "exit", len) == 0)
 	{
 		printf("run the exit function here\n");
+		if (pipe_switcher == true)
+			dup_and_close(data.end, STDIN);
+		close_fds(&data);
+		return (true);
+	}
+	return (false);
+}
+
+/**
+ * cd_check -
+ */
+t_bool	cd_check(char **av, t_var data, t_bool pipe_switcher)
+{
+	int	len;
+
+	len = big_len(av[0], "cd");
+	if (ft_strncmp(av[0], "cd", len) == 0)
+	{
+		printf("run the cd function here\n");
 		if (pipe_switcher == true)
 			dup_and_close(data.end, STDIN);
 		close_fds(&data);
