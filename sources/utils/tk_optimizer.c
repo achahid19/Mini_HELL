@@ -12,7 +12,7 @@
 
 #include "../../includes/miniHell.h"
 
-t_bool		tokens_list_optimizer(token_ptr *tokens_list);
+void		tokens_list_optimizer(token_ptr *tokens_list);
 static void	blank_nodes_remover(token_ptr *tokens_list,
 				token_ptr free_node, token_ptr previous);
 void		node_remover(token_ptr *node);				
@@ -73,7 +73,7 @@ void	pipe_order_check(token_ptr *tokens_list)
 /**
  * rightred_order_check -
  */
-t_bool	rightred_order_check(token_ptr *tokens_list)
+/* t_bool	rightred_order_check(token_ptr *tokens_list)
 {	
 	token_ptr	tmp;
 	t_bool		filename;
@@ -87,22 +87,14 @@ t_bool	rightred_order_check(token_ptr *tokens_list)
 		{
 			while (tmp)
 			{
-				tmp = tmp->next;
-				if (tmp == NULL && filename == false)
-				{
-					print_error("kssh: ambigious redirect\n");
-					return (false);
-				}
-				else if (tmp == NULL && filename == true)
-					break ;
 				if ((tmp->token_type == rightred_token
 					|| tmp->token_type == append_token)
 					&& (ft_strncmp(tmp->token, ">", tmp->token_length) == 0
 					|| ft_strncmp(tmp->token, ">>", tmp->token_length) == 0))
-				{
+				{ */
 					/* if (open_output_fds(*tokens_list) == false)
 						return (false); */
-					print_error("kssh: ambigious redirect\n");
+/* 					print_error("kssh: ambigious redirect\n");
 					return (false);
 				}
 				if (tmp->token_type == rightred_token
@@ -114,12 +106,12 @@ t_bool	rightred_order_check(token_ptr *tokens_list)
 		tmp = tmp->next;
 	}
 	return (true);
-}
+} */
 
 /**
  * tokens_list_optimizer -
  */
-t_bool	tokens_list_optimizer(token_ptr *tokens_list)
+void	tokens_list_optimizer(token_ptr *tokens_list)
 {
 	token_ptr	tmp;
 	token_ptr	free_node;
@@ -131,9 +123,8 @@ t_bool	tokens_list_optimizer(token_ptr *tokens_list)
 	/* blank_nodes_remover(tokens_list, free_node, previous);
 	tokens_order(*tokens_list); */
 	pipe_order_check(tokens_list);
-	if (rightred_order_check(tokens_list) == false)
-		return (false);
-	return (true);
+	/* if (rightred_order_check(tokens_list) == false)
+		return (false); */
 }
 
 /**
