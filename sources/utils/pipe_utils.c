@@ -26,7 +26,8 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 {
 	if (pipe_switcher == true)
 		dup_and_close(data->end, STDOUT);
-	output_red_stream(data);
+	if (output_red_stream(data) == false)
+		exit(257);
 	if (av == NULL)
 	{
 		close_fds(data);
