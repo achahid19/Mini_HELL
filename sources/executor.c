@@ -33,6 +33,7 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	data.std_in = dup(STDIN);
 	data.fd[0] = 0;
 	data.fd[1] = 0;
+	data.envp = transform_env();
 	while (data.pipes)
 	{
 		dollar_status_check(tokens_list);
@@ -41,6 +42,7 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 		data.tokens_list = tokens_list;
 		data.pipes--;
 	}
+	free_cmd_table(data.envp);
 	dup2(data.std_in, STDIN);
 	close(data.std_in);
 	while (wait(&g_global.status) > 0)
