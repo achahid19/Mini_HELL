@@ -223,6 +223,7 @@ void		free_cmd_table(char **full_cmd);
 void		quotes_error(int quotes_type);
 void		print_error(char *error);
 void		exit_error(char *error, t_var *data, char **av, int exit_code);
+void		free_global_env();
 
 /* utils2 */
 void		tokens_order(token_ptr tokens_list);
