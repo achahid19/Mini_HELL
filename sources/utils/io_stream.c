@@ -17,6 +17,8 @@ t_bool	input_red_stream(t_var *data);
 t_bool	input_red_fd(token_ptr *temp, t_var *data);
 t_bool	output_red_stream(t_var *data);
 t_bool	output_red_fd(token_ptr *temp, t_var *data);
+t_bool	output_red_helper(token_ptr *temp, t_var *data,
+			t_bool *filename);
 
 /**
  * input_red_check -
@@ -114,38 +116,51 @@ t_bool	output_red_stream(t_var *data)
 */
 t_bool	output_red_fd(token_ptr *temp, t_var *data)
 {
-	static t_bool		filename;
-	token_ptr			head;
+	static t_bool	filename;
+	int				n;	
 
-	head = *temp;
 	if (filename == true)
 		return (false);
 	while (*temp)
 	{
-		if (((*temp)->token_type == rightred_token
-			|| (*temp)->token_type == append_token)
-			&& ft_strncmp((*temp)->token, "", ft_strlen((*temp)->token))
-			&& ft_strncmp((*temp)->token, ">", 1)
-			&& ft_strncmp((*temp)->token, ">>", 2))
-		{
-			open_output_fd(temp, data);
-			dup2(data->fd[1], STDOUT);
-			close(data->fd[1]);
+		n =	output_red_helper(temp, data, &filename);
+		if (n == false)
 			break ;
-		}
-		else if (((*temp)->token_type == rightred_token
-			|| (*temp)->token_type == append_token))
-		{
-			print_error("kssh: ambigious redirect\n");
-			filename = true;
+		else if (n == 1337)
 			return (false);
-		}
 		(*temp) = (*temp)->next;
 		if ((*temp) != NULL)
 		{
 			if ((*temp)->token_type == pipe_token)
 				break ;
 		}
+	}
+	return (true);
+}
+
+/**
+ * output_red_helper -
+ */
+t_bool	output_red_helper(token_ptr *temp, t_var *data,
+			t_bool *filename)
+{
+	if (((*temp)->token_type == rightred_token
+		|| (*temp)->token_type == append_token)
+		&& ft_strncmp((*temp)->token, "", ft_strlen((*temp)->token))
+		&& ft_strncmp((*temp)->token, ">", 1)
+		&& ft_strncmp((*temp)->token, ">>", 2))
+	{
+		open_output_fd(temp, data);
+		dup2(data->fd[1], STDOUT);
+		close(data->fd[1]);
+		return (false);
+	}
+	else if (((*temp)->token_type == rightred_token
+			|| (*temp)->token_type == append_token))
+	{
+		print_error("kssh: ambigious redirect\n");
+		*filename = true;
+		return (1337);
 	}
 	return (true);
 }
