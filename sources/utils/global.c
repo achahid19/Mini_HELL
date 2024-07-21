@@ -12,11 +12,9 @@
 
 #include "../../includes/global.h"
 
-//t_global g_global;
+t_global	g_global;
 
-t_global g_global;
-
-void init_global(void)
+void	init_global(void)
 {
-    g_global.status = 0;
+	g_global.status = 0;
 }
