@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 17:10:38 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/20 20:21:15 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/20 23:04:12 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,28 @@ int		nb_args(char **args)
 	while (args[len])
 		len++;
 	return (len);
+}
+
+void	ft_putstr_echo(char *s, int fd)
+{
+	size_t	count;
+
+	if (!s || fd < 0)
+		return ;
+	count = 0;
+	while (s[count])
+	{
+		if (s[count] == ' ')
+		{
+			write(fd, " ",1);
+			while (s[count] && s[count] == ' ')
+				count++;
+		}
+		if (s[count] == '\0')
+			break;
+		ft_putchar_fd(s[count], fd);
+		count++;
+	}
 }
 
 t_bool		ft_echo(char **av)
@@ -38,7 +60,7 @@ t_bool		ft_echo(char **av)
 		}
 		while (av[i])
 		{
-			ft_putstr_fd(av[i], 1);
+			ft_putstr_echo(av[i], 1);
 			if (av[i + 1] && av[i][0] != '\0')
 				write(1, " ", 1);
 			i++;

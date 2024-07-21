@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/20 20:12:58 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/21 00:34:54 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ int		nb_args(char **args);
 t_bool		ft_export(char **av);
 t_bool is_exported(char *variable);
 t_bool		ft_unset(char **av);
-
+t_bool      ft_exit(char **av);
 /* signal handler */
 void		handler(int signum);
 void		signal_handler();
