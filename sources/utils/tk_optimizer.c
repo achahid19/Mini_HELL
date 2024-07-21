@@ -32,12 +32,8 @@ void	tokens_list_optimizer(token_ptr *tokens_list)
 	tmp = *tokens_list;
 	free_node = NULL;
 	previous = NULL;
-	/* blank_nodes_remover(tokens_list, free_node, previous);
-	tokens_order(*tokens_list); */
 	split_words(tokens_list);
 	pipe_order_check(tokens_list);
-	/* if (rightred_order_check(tokens_list) == false)
-		return (false); */
 }
 
 /**
