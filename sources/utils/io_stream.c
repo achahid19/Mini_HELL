@@ -123,7 +123,7 @@ t_bool	output_red_fd(token_ptr *temp, t_var *data)
 		return (false);
 	while (*temp)
 	{
-		n =	output_red_helper(temp, data, &filename);
+		n = output_red_helper(temp, data, &filename);
 		if (n == false)
 			break ;
 		else if (n == 1337)
@@ -145,7 +145,7 @@ t_bool	output_red_helper(token_ptr *temp, t_var *data,
 			t_bool *filename)
 {
 	if (((*temp)->token_type == rightred_token
-		|| (*temp)->token_type == append_token)
+			|| (*temp)->token_type == append_token)
 		&& ft_strncmp((*temp)->token, "", ft_strlen((*temp)->token))
 		&& ft_strncmp((*temp)->token, ">", 1)
 		&& ft_strncmp((*temp)->token, ">>", 2))
