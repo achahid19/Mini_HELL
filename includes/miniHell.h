@@ -255,7 +255,7 @@ void		check_tokens(token_ptr print_tk);
 void		executor(token_ptr tokens_list, char **env, char *user_input);
 
 /* tk_optimizer */
-t_bool		tokens_list_optimizer(token_ptr *tokens_list);
+void		tokens_list_optimizer(token_ptr *tokens_list);
 void 		special_chars_refactor(token_ptr tokens_list);
 void 		node_remover(token_ptr *node);
 t_bool		special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
@@ -277,8 +277,8 @@ char		*ft_find_cmd(char *cmd, char **envp);
 /* IO_stream */
 t_bool		input_red_stream(t_var *data);
 t_bool		input_red_fd(token_ptr *temp, t_var *data);
-void		output_red_stream(t_var *data);
-void		output_red_fd(token_ptr *temp, t_var *data);
+t_bool		output_red_stream(t_var *data);
+t_bool		output_red_fd(token_ptr *temp, t_var *data);
 
 /* status_utils */
 void		dollar_status_check(token_ptr tokens_list);
@@ -311,5 +311,6 @@ t_bool		cd_check(char **av, t_var data, t_bool pipe_switcher);
 
 /* utils 6 */
 void		get_status();
+t_bool	rightred_order_check(token_ptr *tokens_list);
 
 #endif /* MINIHELL_H */
