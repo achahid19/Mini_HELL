@@ -12,6 +12,9 @@
 
 #include "../../includes/miniHell.h"
 
+/**
+ * free_tokens -
+*/
 void	free_tokens(token_ptr tokens_list)
 {
 	token_ptr	tmp;
@@ -25,31 +28,40 @@ void	free_tokens(token_ptr tokens_list)
 	}
 }
 
-void free_env_list(t_env *head) {
-    t_env *current = head;
-    t_env *next_node;
-
-    while (current != NULL) {
-        next_node = current->next;
-        free(current->key);
-        free(current->value);
-        free(current);
-        current = next_node;
-    }
-}
-
-void free_global_env()
+/**
+ * free_env_list
+*/
+void	free_env_list(t_env *head)
 {
-    free_env_list(g_global.e);
-    g_global.e = NULL;
+	t_env	*current;
+	t_env	*next_node;
+
+	current = head;
+	while (current != NULL)
+	{
+		next_node = current->next;
+		free(current->key);
+		free(current->value);
+		free(current);
+		current = next_node;
+	}
 }
 
+/**
+ * free_global_env
+*/
+void	free_global_env(void)
+{
+	free_env_list(g_global.e);
+	g_global.e = NULL;
+}
 
+/**
+ * free_all -
+*/
 void	free_all(token_ptr tokens_list, char *user_input,
 			char **av)
 {
-	/* if (g_global.e != NULL)
-		free_global_env(); */
 	if (tokens_list != NULL)
 		free_tokens(tokens_list);
 	if (user_input != NULL)
