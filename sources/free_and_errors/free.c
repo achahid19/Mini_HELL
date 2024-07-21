@@ -47,8 +47,8 @@ void free_global_env() {
 void	free_all(token_ptr tokens_list, char *user_input,
 			char **av)
 {
-	if (g_global.e != NULL)
-		free_global_env();
+	/* if (g_global.e != NULL)
+		free_global_env(); */
 	if (tokens_list != NULL)
 		free_tokens(tokens_list);
 	if (user_input != NULL)
