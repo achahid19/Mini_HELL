@@ -47,7 +47,7 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 					d.tmp_dollar_len);
 			tokens_list->token_length = ft_strlen(tokens_list->token);
 			if (tokens_list->token_length == 0)
-				tokens_list->token_type = whitespace_token;
+				tokens_list->token_type = 20;
 		}
 		tokens_list = tokens_list->next;
 	}
