@@ -116,7 +116,7 @@
 */
 static t_bool	ft_readline(char **user_input);
 static void 	ft_unlink(token_ptr tokens_list);
-static void		ft_init();
+static void		ft_init(char **envp, char **user_input);
 static void		miniHell_helper(token_ptr tokens_list, char *user_input,
 					char **envp, char **e);
 void			check_tokens(token_ptr print_tk);
@@ -130,14 +130,10 @@ int	main(int ac, char **av, char **envp)
 	token_ptr	tokens_list;
 	char		**e;
 
-	ft_init();
-	g_global.e = init_env(envp);
-	user_input = NULL;
+	ft_init(envp, &user_input);
 	while (ft_readline(&user_input) == true)
 	{
 		e = transform_env();
-		if (ft_strncmp(user_input, "\0", 1) != 0)
-			add_history(user_input);
 		tokens_list = lexer(user_input);
 		if (parser_tokens(tokens_list, g_global.e) == false)
 		{
@@ -159,10 +155,12 @@ int	main(int ac, char **av, char **envp)
 /**
  * ft_init -
  */
-static void	ft_init()
+static void	ft_init(char **envp, char **user_input)
 {
 	signal_handler();
 	init_global();
+	g_global.e = init_env(envp);
+	*user_input = NULL;
 }
 
 /**
@@ -175,6 +173,7 @@ t_bool	ft_readline(char **user_input)
 	{
 		if (isatty(STDIN) == true)
 			printf("exit\n");
+		free_global_env();
 		exit(EXIT_SUCCESS);
 	}
 	return (true);
