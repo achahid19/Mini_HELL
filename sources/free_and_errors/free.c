@@ -38,9 +38,10 @@ void free_env_list(t_env *head) {
     }
 }
 
-void free_global_env() {
+void free_global_env()
+{
     free_env_list(g_global.e);
-    g_global.e = NULL; // Set the pointer to NULL after freeing
+    g_global.e = NULL;
 }
 
 
