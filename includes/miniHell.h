@@ -279,6 +279,8 @@ t_bool		input_red_stream(t_var *data);
 t_bool		input_red_fd(token_ptr *temp, t_var *data);
 t_bool		output_red_stream(t_var *data);
 t_bool		output_red_fd(token_ptr *temp, t_var *data);
+t_bool		output_red_helper(token_ptr *temp, t_var *data,
+				t_bool *filename);
 
 /* status_utils */
 void		dollar_status_check(token_ptr tokens_list);
@@ -318,5 +320,6 @@ void		add_node(token_ptr tk, char *word, int type);
 /* utils 7 */
 void		pipe_order_check(token_ptr *tokens_list);
 void		pipe_node_remover(token_ptr *last);
+void		child_exec_helper(t_var *data, char **av);
 
 #endif /* MINIHELL_H */
