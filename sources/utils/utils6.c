@@ -30,4 +30,6 @@ void	get_status()
 		g_global.status = 2;
 	else if (g_global.status == 13)
 		g_global.status = 0;
+	else if (g_global.status == 127)
+		g_global.status = 1;
 }
