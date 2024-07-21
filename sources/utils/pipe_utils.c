@@ -43,26 +43,7 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 		close_fds(data);
 		exit(EXIT_SUCCESS);
 	}
-	if (ft_strncmp(av[0], "/", 1) == 0)
-	{
-		data->path_to_cmd = av[0];
-		points_checker(*data, av);
-		if (access(data->path_to_cmd, X_OK) == 0)
-		{
-			if (execve(data->path_to_cmd, av, data->envp) == -1)
-				exit_error(" No such file or directory !\n", data, av,
-					126);
-		}
-		else
-			exit_error(" No such file or directory !\n", data, av,
-				EXIT_FAILURE);
-	}
-	
-	data->path_to_cmd = ft_find_cmd(av[0], data->envp);
-	if (data->path_to_cmd == NULL)
-		data->path_to_cmd = av[0];
-	if (execve(data->path_to_cmd, av, data->envp) == -1)
-		exit_error(" command not found !\n", data, av, EXIT_FAILURE);
+	child_exec_helper(data, av);
 }
 
 /**
