@@ -14,6 +14,9 @@
 #include "../../includes/global.h"
 
 void	get_status();
+void	split_words(token_ptr *tk_list);
+void	add_nodes(token_ptr tk, char *word);
+void	add_node(token_ptr tk, char *word, int type);
 
 /**
  * get_status -
@@ -32,4 +35,65 @@ void	get_status()
 		g_global.status = 0;
 	else if (g_global.status == 127)
 		g_global.status = 1;
+}
+
+/**
+ * split_words -
+ */
+void	split_words(token_ptr *tk_list)
+{
+	token_ptr	tk;
+	char		**word;
+	int			i;
+
+	tk = (*tk_list);
+	while (tk)
+	{
+		if (tk->token_type == word_token)
+		{
+			word = ft_split(tk->token, ' ');
+			i = 1;
+			if (word[i] != NULL)
+			{
+				free(tk->token);
+				tk->token = ft_strdup(word[0]);
+			}
+			while (word[i] != NULL)
+			{
+				add_nodes(tk, word[i]);
+				i++;
+			}
+			free_cmd_table(word);
+		}
+		tk = tk->next;
+	}
+}
+
+/**
+ * add_nodes -
+ */
+void	add_nodes(token_ptr tk, char *word)
+{
+	add_node(tk, " ", whitespace_token);
+	add_node(tk, word, word_token);
+	add_node(tk, " ", whitespace_token);
+}
+
+/**
+ * add_word_node -
+ */
+void	add_node(token_ptr tk, char *word, int type)
+{
+	token_ptr	new;
+	token_ptr	last;
+
+	new = malloc(sizeof(t_token));
+	new->token = ft_strdup(word);
+	new->token_length = ft_strlen(new->token);
+	new->previous = find_last_node(tk);
+	new->token_type = type;
+	if (new->previous != NULL)
+		new->next = new->previous->next;
+	last = find_last_node(tk);
+	last->next = new;
 }
