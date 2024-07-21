@@ -255,7 +255,7 @@ void		check_tokens(token_ptr print_tk);
 void		executor(token_ptr tokens_list, char **env, char *user_input);
 
 /* tk_optimizer */
-void		tokens_list_optimizer(token_ptr *tokens_list);
+t_bool		tokens_list_optimizer(token_ptr *tokens_list);
 void 		special_chars_refactor(token_ptr tokens_list);
 void 		node_remover(token_ptr *node);
 t_bool		special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
@@ -311,4 +311,5 @@ t_bool		cd_check(char **av, t_var data, t_bool pipe_switcher);
 
 /* utils 6 */
 void		get_status();
+
 #endif /* MINIHELL_H */
