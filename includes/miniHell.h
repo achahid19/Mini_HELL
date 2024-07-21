@@ -54,6 +54,7 @@ typedef enum e_type
 	heredoc_token = 10,
 	append_token = 11,
 	filename_token = 20,
+	filename_tk = 21,
 	cmd = 12
 }	t_type;
 
@@ -321,5 +322,7 @@ void		add_node(token_ptr tk, char *word, int type);
 void		pipe_order_check(token_ptr *tokens_list);
 void		pipe_node_remover(token_ptr *last);
 void		child_exec_helper(t_var *data, char **av);
+void		spliter(char **word, token_ptr tk, int *i);
+void		set_tk_exp_len(token_ptr *tokens_list);
 
 #endif /* MINIHELL_H */
