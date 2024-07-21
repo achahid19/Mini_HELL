@@ -18,7 +18,6 @@ int		dollars_count(char *token);
 int		get_biggest_len(char *envp, char *dollar_tk);
 void	data_move_helper(t_expand *data, char **token);
 
-
 /**
  * tokens_expander_helper -
 */
