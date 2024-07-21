@@ -145,11 +145,7 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		}
 		tokens_expander(tokens_list, e);
-		if (tokens_list_optimizer(&tokens_list) == false)
-		{
-			free_all(tokens_list, user_input, e);
-			continue ;
-		}
+		tokens_list_optimizer(&tokens_list);
 		if (tokens_list == NULL)
 			continue ;
 		miniHell_helper(tokens_list, user_input, envp, e);
@@ -199,6 +195,7 @@ static void	miniHell_helper(token_ptr tokens_list, char *user_input,
 			char **envp, char **e)
 {
 	syntax_algo(tokens_list);
+	//check_tokens(tokens_list);
 	executor(tokens_list, envp, user_input);
 	ft_unlink(tokens_list);
 	free_all(tokens_list, user_input, e);
