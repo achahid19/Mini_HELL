@@ -42,7 +42,7 @@ void	same_type_finder(token_ptr *tokens_list)
 {
 	while ((*tokens_list)->token_type != word_token
 		&& (*tokens_list)->token_type != string_token
-		&& (*tokens_list)->token_type != filename_token)
+		&& (*tokens_list)->token_type != filename_tk)
 	{
 		(*tokens_list) = (*tokens_list)->next;
 		if ((*tokens_list) == NULL)

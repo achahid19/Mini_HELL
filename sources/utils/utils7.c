@@ -15,6 +15,8 @@
 void	pipe_order_check(token_ptr *tokens_list);
 void	pipe_node_remover(token_ptr *last);
 void	child_exec_helper(t_var *data, char **av);
+void	spliter(char **word, token_ptr tk, int *i);
+void	set_tk_exp_len(token_ptr *tokens_list);
 
 /**
  * pipe_order_check -
@@ -80,14 +82,29 @@ void	child_exec_helper(t_var *data, char **av)
 }
 
 /**
- * space_last_skip -
- */
-/* void	space_last_skip(token_ptr *last)
+ * spliter -
+*/
+void	spliter(char **word, token_ptr tk, int *i)
 {
-	while ((*last)->token_type == whitespace_token)
+	if (word[*i] != NULL)
 	{
-		(*last) = (*last)->previous;
-		if ((*last) == NULL)
-			return ;
+		free(tk->token);
+		tk->token = ft_strdup(word[0]);
 	}
-} */
+	while (word[*i] != NULL)
+	{
+		add_nodes(tk, word[*i]);
+		*i += 1;
+	}
+	free_cmd_table(word);
+}
+
+/**
+ * set_tk_exp_len -
+*/
+void	set_tk_exp_len(token_ptr *tokens_list)
+{
+	(*tokens_list)->token_length = ft_strlen((*tokens_list)->token);
+	if ((*tokens_list)->token_length == 0)
+		(*tokens_list)->token_type = filename_tk;
+}

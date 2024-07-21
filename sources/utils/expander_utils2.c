@@ -18,6 +18,7 @@ int		dollars_count(char *token);
 int		get_biggest_len(char *envp, char *dollar_tk);
 void	data_move_helper(t_expand *data, char **token);
 
+
 /**
  * tokens_expander_helper -
 */
@@ -45,9 +46,7 @@ void	tokens_expander_helper(token_ptr tokens_list, char **envp,
 			d.dollar_tk = get_value(d.dollar_tk, &d.dollar_tk_len, envp);
 			tokens_list->token = expanding(d.dollar_tk, tokens_list->token,
 					d.tmp_dollar_len);
-			tokens_list->token_length = ft_strlen(tokens_list->token);
-			if (tokens_list->token_length == 0)
-				tokens_list->token_type = 20;
+			set_tk_exp_len(&tokens_list);
 		}
 		tokens_list = tokens_list->next;
 	}
