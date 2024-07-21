@@ -14,6 +14,7 @@
 
 void	pipe_order_check(token_ptr *tokens_list);
 void	pipe_node_remover(token_ptr *last);
+void	child_exec_helper(t_var *data, char **av);
 
 /**
  * pipe_order_check -
@@ -49,6 +50,33 @@ void	pipe_node_remover(token_ptr *last)
 	if ((*last))
 		(*last)->next = NULL;
 	free(to_free);
+}
+
+/**
+ * child_exec_helper -
+ */
+void	child_exec_helper(t_var *data, char **av)
+{
+	if (ft_strncmp(av[0], "/", 1) == 0)
+	{
+		data->path_to_cmd = av[0];
+		points_checker(*data, av);
+		if (access(data->path_to_cmd, X_OK) == 0)
+		{
+			if (execve(data->path_to_cmd, av, data->envp) == -1)
+				exit_error(" No such file or directory !\n", data, av,
+					126);
+		}
+		else
+			exit_error(" No such file or directory !\n", data, av,
+				EXIT_FAILURE);
+	}
+	
+	data->path_to_cmd = ft_find_cmd(av[0], data->envp);
+	if (data->path_to_cmd == NULL)
+		data->path_to_cmd = av[0];
+	if (execve(data->path_to_cmd, av, data->envp) == -1)
+		exit_error(" command not found !\n", data, av, EXIT_FAILURE);
 }
 
 /**
