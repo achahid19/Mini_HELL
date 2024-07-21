@@ -39,7 +39,7 @@ t_bool	builtin_checker(char *built_in)
 
 	len = big_len(built_in, "echo");
 	if (ft_strncmp(built_in, "echo", len) == 0)
-	 	return (true);
+		return (true);
 	len = big_len(built_in, "cd");
 	if (ft_strncmp(built_in, "cd", len) == 0)
 		return (true);

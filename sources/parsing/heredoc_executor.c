@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/18 19:17:19 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/21 19:04:55 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ char    *get_unique_filename(int i)
     char    *filename;
 
     filename = ft_strdup("/tmp/heredoc_");
-    filename = ft_strjoin(filename, ft_itoa(i));
+    char *num = ft_itoa(i);  // Allocate memory for the number string
+    filename = ft_strjoin(filename, num);
+    free(num); // Free the memory allocated for the number string
     return (filename);
 }
 
@@ -103,6 +105,7 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp, int flag)
             if (ft_strlen(delimiter) == 0)
                 return NULL;
             write(fd, "\n", 1);
+            free(line);
             continue;
         }
 		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0 &&
@@ -137,6 +140,7 @@ void    ft_enter(token_ptr tokens_list, int i)
         {
             tmp->token = ft_strdup(filename);
             tmp->token_type = 2;
+            free(filename);
             break;
         }
         tmp = tmp->next;
@@ -182,10 +186,10 @@ void	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
                 ft_enter(tokens_list,i);
             else
 			    filename_write(tokens_list, filename, tmp->order);
+            free(test);
+            free(filename);
 		}
 		tmp = tmp->next;
         
 	}
-    // free(test);
-    // free(filename);
 }

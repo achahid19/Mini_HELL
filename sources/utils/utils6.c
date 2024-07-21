@@ -13,7 +13,7 @@
 #include "../../includes/miniHell.h"
 #include "../../includes/global.h"
 
-void	get_status();
+void	get_status(void);
 void	split_words(token_ptr *tk_list);
 void	add_nodes(token_ptr tk, char *word);
 void	add_node(token_ptr tk, char *word, int type);
@@ -21,7 +21,7 @@ void	add_node(token_ptr tk, char *word, int type);
 /**
  * get_status -
  */
-void	get_status()
+void	get_status(void)
 {
 	if (g_global.status == 256)
 		g_global.status = 127;

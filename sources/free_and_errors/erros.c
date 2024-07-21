@@ -48,5 +48,6 @@ void	exit_error(char *error, t_var *data, char **av, int ex_code)
 	print_error("'");
 	print_error(error);
 	free_all(data->tokens_list, data->user_input, av);
+	free_global_env();
 	exit(ex_code);
 }

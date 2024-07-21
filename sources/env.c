@@ -25,8 +25,6 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-
-// Custom implementation of ft_strndup
 char	*ft_strndup(const char *s1, size_t n)
 {
 	char	*copy;
@@ -43,7 +41,6 @@ char	*ft_strndup(const char *s1, size_t n)
 	return (copy);
 }
 
-// Helper function to create a new t_env node
 t_env	*create_env_node(const char *env_var)
 {
 	t_env	*new_node;
@@ -57,7 +54,6 @@ t_env	*create_env_node(const char *env_var)
 	return (new_node);
 }
 
-// Function to create a linked list from the env array
 t_env	*init_env(char **env)
 {
 	t_env	*head;

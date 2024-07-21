@@ -32,6 +32,8 @@ token_ptr	lexer(char *user_input)
 	d.tk_head = NULL;
 	d.o = 1;
 	d.s = true;
+	if (ft_strncmp(user_input, "\0", 1) != 0)
+		add_history(user_input);
 	while (*user_input)
 	{
 		d.type = get_type(*user_input);

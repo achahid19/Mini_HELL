@@ -73,7 +73,6 @@ void	child_exec_helper(t_var *data, char **av)
 			exit_error(" No such file or directory !\n", data, av,
 				EXIT_FAILURE);
 	}
-	
 	data->path_to_cmd = ft_find_cmd(av[0], data->envp);
 	if (data->path_to_cmd == NULL)
 		data->path_to_cmd = av[0];

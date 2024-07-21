@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:31:44 by achahid-          #+#    #+#             */
-/*   Updated: 2024/06/03 14:31:46 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:15:21 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
 
+/**
+ * free_tokens -
+*/
 void	free_tokens(token_ptr tokens_list)
 {
 	token_ptr	tmp;
@@ -25,6 +28,37 @@ void	free_tokens(token_ptr tokens_list)
 	}
 }
 
+/**
+ * free_env_list
+*/
+void	free_env_list(t_env *head)
+{
+	t_env	*current;
+	t_env	*next_node;
+
+	current = head;
+	while (current != NULL)
+	{
+		next_node = current->next;
+		free(current->key);
+		free(current->value);
+		free(current);
+		current = next_node;
+	}
+}
+
+/**
+ * free_global_env
+*/
+void	free_global_env(void)
+{
+	free_env_list(g_global.e);
+	g_global.e = NULL;
+}
+
+/**
+ * free_all -
+*/
 void	free_all(token_ptr tokens_list, char *user_input,
 			char **av)
 {

@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 06:55:10 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/20 21:32:37 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/21 19:07:13 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,9 @@ void	ft_expand_know(char **line, t_env *envp)
 	}
 	free(*line);
 	if (flag == 1)
-	*line = ft_strdup(envp->value);
+		*line = ft_strdup(envp->value);
+	else
+		*line = ft_strdup("");
 }
 
 char	*ft_last_line(char **line_split)
@@ -113,6 +115,7 @@ char	*ft_expand_heredoc(char *line, t_env *envp)
 	char	*new_line = NULL;
 
 	line_split = ft_advanced_split(line);
+	free(line);
 	i = 0;
 	while (line_split[i])
 	{
@@ -145,7 +148,7 @@ char	*ft_expand_heredoc(char *line, t_env *envp)
 		i++;
 	}
 	new_line = ft_last_line(line_split);
-	// ft_free_array(line_split);
+	ft_free_array(line_split);
 	return (new_line);
 }
 

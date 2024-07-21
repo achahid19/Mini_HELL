@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:23:02 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/19 18:05:41 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/21 20:15:07 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_env
 typedef struct s_global
 {
     int		status;
+	int		signal;
+	int     flag;
     t_env   *e;
 }	t_global;
 
