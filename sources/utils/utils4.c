@@ -15,7 +15,7 @@
 void	quotes_substitut(char **cmd_table);
 void	close_fds(t_var *data);
 t_bool	export_check(char **av, t_var data, t_bool pipe_switcher);
-char	**transform_env();
+char	**transform_env(void);
 void	join_key_value(char *str, char **envp, int i,
 			t_env *tmp);
 
@@ -66,11 +66,11 @@ t_bool	builtin_check(char **av, t_var data, t_bool pipe_switcher)
 		return (false);
 	if (export_check(av, data, pipe_switcher) == true)
 		return (true);
-	else if(unset_check(av, data, pipe_switcher) == true)
+	else if (unset_check(av, data, pipe_switcher) == true)
 		return (true);
 	else if (exit_check(av, data, pipe_switcher) == true)
 		return (true);
-	else if(cd_check(av, data, pipe_switcher) == true)
+	else if (cd_check(av, data, pipe_switcher) == true)
 		return (true);
 	return (false);
 }
@@ -78,15 +78,16 @@ t_bool	builtin_check(char **av, t_var data, t_bool pipe_switcher)
 /**
  * transform_env -
  */
-char	**transform_env()
+char	**transform_env(void)
 {
 	t_env	*tmp;
-	char	**envp = NULL;
+	char	**envp;
 	int		i;
-	char 	*str;
+	char	*str;
 
 	i = 0;
 	tmp = g_global.e;
+	envp = NULL;
 	while (tmp)
 	{
 		i++;
@@ -104,7 +105,6 @@ char	**transform_env()
 	}
 	envp[i] = NULL;
 	return (envp);
-	
 }
 
 /**
