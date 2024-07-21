@@ -33,7 +33,6 @@ void	syntax_algo(token_ptr tokens_list)
 		assign_cmd(tokens_list);
 		quotes_handler(tokens_list);
 		special_chars_refactor(tokens_list);
-		//rightred_order_check(&tokens_list);
 		tokens_list = get_next_pipe(tokens_list);
 		if (tokens_list == NULL)
 			break ;
