@@ -53,17 +53,10 @@ void	split_words(token_ptr *tk_list)
 		{
 			word = ft_split(tk->token, ' ');
 			i = 1;
-			if (word[i] != NULL)
-			{
-				free(tk->token);
-				tk->token = ft_strdup(word[0]);
-			}
-			while (word[i] != NULL)
-			{
-				add_nodes(tk, word[i]);
-				i++;
-			}
-			free_cmd_table(word);
+			spliter(word, tk, &i);
+			word = ft_split(tk->token, 9);
+			i = 1;
+			spliter(word, tk, &i);
 		}
 		tk = tk->next;
 	}
