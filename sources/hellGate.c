@@ -147,7 +147,10 @@ int	main(int ac, char **av, char **envp)
 		tokens_expander(tokens_list, e);
 		tokens_list_optimizer(&tokens_list);
 		if (tokens_list == NULL)
+		{
+			free_all(tokens_list, user_input, e);
 			continue ;
+		}
 		miniHell_helper(tokens_list, user_input, envp, e);
 	}
 	return (EXIT_SUCCESS);
