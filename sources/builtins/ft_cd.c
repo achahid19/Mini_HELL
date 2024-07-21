@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:00:17 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/21 03:10:52 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/21 19:07:38 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ t_bool ft_cd(char **av)
             g_global.status = 1;
         }
     }
-
+    return true;
 }
