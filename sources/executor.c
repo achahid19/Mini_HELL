@@ -27,7 +27,6 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	t_var	data;
 
 	data.tokens_list = tokens_list;
-	data.envp = envp;
 	data.user_input = user_input;
 	data.pipes = check_pipes_num(tokens_list);
 	data.std_in = dup(STDIN);
