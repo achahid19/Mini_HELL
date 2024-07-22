@@ -34,6 +34,7 @@ void	tokens_expander(token_ptr tokens_list, char **envp)
 	data.new_token = NULL;
 	if (envp != NULL)
 		tokens_expander_helper(tokens_list, envp, data);
+	split_words(&tokens_list);
 }
 
 /**

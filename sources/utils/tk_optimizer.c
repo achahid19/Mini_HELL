@@ -12,62 +12,10 @@
 
 #include "../../includes/miniHell.h"
 
-void		tokens_list_optimizer(token_ptr *tokens_list);
-static void	blank_nodes_remover(token_ptr *tokens_list,
-				token_ptr free_node, token_ptr previous);
-void		node_remover(token_ptr *node);				
-void		special_chars_refactor(token_ptr tokens_list);
-t_bool		special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
+void	node_remover(token_ptr *node);				
+void	special_chars_refactor(token_ptr tokens_list);
+t_bool	special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
 				int type);
-
-/**
- * tokens_list_optimizer -
- */
-void	tokens_list_optimizer(token_ptr *tokens_list)
-{
-	token_ptr	tmp;
-	token_ptr	free_node;
-	token_ptr	previous;
-
-	tmp = *tokens_list;
-	free_node = NULL;
-	previous = NULL;
-	split_words(tokens_list);
-	pipe_order_check(tokens_list);
-}
-
-/**
- * blank_nodes_remover -
- */
-static void	blank_nodes_remover(token_ptr *tokens_list,
-				token_ptr free_node, token_ptr previous)
-{
-	token_ptr	tmp;
-
-	tmp = *tokens_list;
-	while (tmp)
-	{
-		if (tmp->token_length == 0)
-		{
-			free_node = tmp;
-			previous = tmp->previous;
-			tmp = tmp->next;
-			if (previous != NULL)
-				previous->next = tmp;
-			else
-				*tokens_list = tmp;
-			if (tmp != NULL)
-				tmp->previous = previous;
-			if (previous == NULL && tmp == NULL)
-				*tokens_list = NULL;
-			free(free_node->token);
-			free(free_node);
-			free_node = NULL;
-			continue ;
-		}
-		tmp = tmp->next;
-	}
-}
 
 /**
  * node_remover -

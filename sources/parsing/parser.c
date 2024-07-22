@@ -95,7 +95,3 @@ int	parser_tokens(token_ptr tokens_list, t_env *env)
 	free_tokens(tmp);
 	return true;
 }
-// kssh$ <<>>ls
-// kssh$ <<ls<ls
-
-
