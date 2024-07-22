@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/21 00:34:54 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 17:42:52 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void		space_skip_rev(token_ptr tokens_list);
 char		*get_unique_filename(int i);
 void		new_token_lst(token_ptr tokens_list, int order);
 void		filename_write(token_ptr tokens_list, char *filename, int order);
-void		heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp);
+int		heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp);
 char		*ft_expand_heredoc(char *line, t_env *envp);
 char		*ft_delimiter(token_ptr tokens_list, int order);
 char		**ft_advanced_split(const char *str);

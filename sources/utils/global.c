@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:33:03 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/19 18:08:40 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/22 17:02:39 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,5 @@ t_global	g_global;
 void	init_global(void)
 {
 	g_global.status = 0;
+	g_global.flag = 0;
 }

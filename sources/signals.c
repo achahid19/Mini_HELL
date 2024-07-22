@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:29:00 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/18 15:59:31 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 17:41:24 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void   handler(int signum)
 {
     write(STDOUT, "\n", 1);
     write(STDOUT, "kssh$ ", 6);
+    // rl_on_new_line();
+	// rl_redisplay();
 }
 void  ft_handler(int signum)
 {
@@ -41,6 +43,7 @@ void   handler_heredoc(int signum)
 {
     write(STDOUT, "\n", 1);
     // write(STDOUT, ">", 1);
+    // g_global.flag = 1;
     close(0);
 }
 void  ft_handler_heredoc(int signum)
@@ -66,7 +69,7 @@ void  ft_handler_heredoc(int signum)
 void   signal_handler()
 {
         signal(SIGINT, handler);
-        signal(SIGQUIT, ft_handler);
+        signal(SIGQUIT, SIG_IGN);
 }
 
 void    signal_handler_heredoc()

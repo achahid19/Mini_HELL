@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/21 19:04:55 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 17:41:07 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,18 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp, int flag)
     
 	filename = get_unique_filename(i);
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
-    signal_handler_heredoc();
 	while (1)
 	{
+        signal_handler_heredoc();
 		line = readline(">");
         if (line == NULL)
-            break;
+            return (NULL);
         if (line[0] == '\0')
         {
             if (ft_strlen(delimiter) == 0)
-                return NULL;
-            write(fd, "\n", 1);
+                return (line);
             free(line);
+            write(fd, "\n", 1);
             continue;
         }
 		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0 &&
@@ -120,7 +120,6 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp, int flag)
 		write(fd, "\n", 1);
 		free(line);
 	}
-    signal_handler();
 	close(fd);
     dup2(fd0 , 0);
     close(fd0);
@@ -163,7 +162,7 @@ int     ft_no_expand(token_ptr tmp)
     }
     return 0;
 }
-void	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
+int	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
 {
 	int i;
     int flag;
@@ -181,8 +180,10 @@ void	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
 			i++;
             test = ft_delimiter(tokens_list ,tmp->order);
 			filename = heredoc_storer(test, i,envp,flag);
-			new_token_lst(tokens_list,tmp->order);
             if (filename == NULL)
+                return 1;
+			new_token_lst(tokens_list,tmp->order);
+            if (filename[0] == '\0')
                 ft_enter(tokens_list,i);
             else
 			    filename_write(tokens_list, filename, tmp->order);
@@ -190,6 +191,6 @@ void	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
             free(filename);
 		}
 		tmp = tmp->next;
-        
 	}
+    return 0;
 }

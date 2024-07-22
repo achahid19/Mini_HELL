@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/20 23:12:31 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 17:42:48 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ int	main(int ac, char **av, char **envp)
 		if (parser_tokens(tokens_list, g_global.e) == false)
 		{
 			free_all(tokens_list, user_input, e);
+			signal_handler();
 			continue ;
 		}
+		signal_handler();
 		tokens_expander(tokens_list, e);
 		if (tokens_list == NULL)
 		{
@@ -54,7 +56,6 @@ int	main(int ac, char **av, char **envp)
  */
 static void	ft_init(char **envp, char **user_input)
 {
-	signal_handler();
 	init_global();
 	g_global.e = init_env(envp);
 	*user_input = NULL;
@@ -65,6 +66,7 @@ static void	ft_init(char **envp, char **user_input)
 */
 t_bool	ft_readline(char **user_input)
 {
+	signal_handler();
 	*user_input = readline("kssh$ ");
 	if (*user_input == NULL)
 	{
@@ -97,6 +99,7 @@ static void	minihell_helper(token_ptr tokens_list, char *user_input,
 	executor(tokens_list, envp, user_input);
 	ft_unlink(tokens_list);
 	free_all(tokens_list, user_input, e);
+	signal(SIGINT, handler);
 }
 
 /**

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:57 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/19 19:57:20 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/22 15:57:44 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,27 @@ char	**extract_command(token_ptr tokens_list);
 int		get_infos(token_ptr tokens_list);
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher);
 
+void 		handler_2(int signum)
+{
+	(void)signum;
+	write(1, "\n", 1);
+}
+
+void 		handler_1(int signum)
+{
+	(void)signum;
+	write(1, "Quit: (core dumped)\n", 20);
+}
 /**
  * executor -
 */
 void	executor(token_ptr tokens_list, char **envp, char *user_input)
 {
 	t_var	data;
-
+	signal(SIGINT, handler_2);
+	signal(SIGQUIT, handler_1);
 	data.tokens_list = tokens_list;
+	data.envp = envp;
 	data.user_input = user_input;
 	data.pipes = check_pipes_num(tokens_list);
 	data.std_in = dup(STDIN);
@@ -131,6 +144,7 @@ int	get_infos(token_ptr tokens_list)
 /**
  * ft_pipe -
 */
+
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 {
 	if (input_red_stream(&data) == false)
