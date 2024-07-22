@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/22 17:42:48 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 17:51:47 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ int	main(int ac, char **av, char **envp)
 		if (parser_tokens(tokens_list, g_global.e) == false)
 		{
 			free_all(tokens_list, user_input, e);
-			signal_handler();
 			continue ;
 		}
-		signal_handler();
 		tokens_expander(tokens_list, e);
 		if (tokens_list == NULL)
 		{

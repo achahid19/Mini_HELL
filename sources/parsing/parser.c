@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:47 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/22 16:47:13 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 17:48:20 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,5 @@ int	parser_tokens(token_ptr tokens_list, t_env *env)
 		return false;
 	}
 	free_tokens(tmp);
-	
 	return true;
 }

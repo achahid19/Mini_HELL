@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/22 17:41:07 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 17:58:41 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
 			i++;
             test = ft_delimiter(tokens_list ,tmp->order);
 			filename = heredoc_storer(test, i,envp,flag);
+            signal_handler();
             if (filename == NULL)
                 return 1;
 			new_token_lst(tokens_list,tmp->order);
