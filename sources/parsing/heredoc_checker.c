@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_checker.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aymane <aymane@student.42.fr>              +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:13:04 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/19 17:23:50 by aymane           ###   ########.fr       */
+/*   Updated: 2024/07/22 19:43:05 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		heredoc_checker_first(token_ptr tokens_list)
 	}
 	return (0);
 }
+
 int		append_checker_second(token_ptr tokens_list)
 {
 	token_ptr	tmp;
@@ -42,7 +43,7 @@ int		append_checker_second(token_ptr tokens_list)
 		if (tmp->token_type == 11)
 		{
 			if (tmp->next == NULL || tmp->next->token_type == 10|| tmp->next->token_type == 8 
-			|| tmp->next->token_type == 9 || tmp->next->token_type == 11)
+			|| tmp->next->token_type == 9 || tmp->next->token_type == 11 )
 			{
 				print_error("syntax error near unexpected token `newline'\n");
 				return 1;
@@ -52,6 +53,7 @@ int		append_checker_second(token_ptr tokens_list)
 	}
 	return 0;
 }
+
 int		heredoc_max_checker(token_ptr tokens_list)
 {
 	token_ptr	tmp;
@@ -72,6 +74,7 @@ int		heredoc_max_checker(token_ptr tokens_list)
 	}
 	return 0;
 }
+
 int		heredoc_next_checker(token_ptr tokens_list)
 {
 	token_ptr	tmp;

@@ -6,11 +6,35 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 03:56:29 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/21 19:05:31 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 19:25:28 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
+
+void    ft_last_del_helper(char *tmp, char *delimiter)
+{
+    int i;
+    int count;
+
+    i = 0;
+    count = 0;
+    while (delimiter[i])
+    {
+        if (delimiter[i] == '\'' || delimiter[i] == '\"')
+            while (delimiter[i] && (delimiter[i] == '\'' || delimiter[i] == '\"'))
+                i++;
+        if (delimiter[i] == '\0')
+        {   
+            tmp[count] = '\0';
+            return;
+        }
+        tmp[count] = delimiter[i];
+        count++;
+        i++;
+    }
+    tmp[count] = '\0';
+}
 
 char    *ft_last_del(char *delimiter)
 {
@@ -27,20 +51,7 @@ char    *ft_last_del(char *delimiter)
         i++;
     }
     tmp = (char *)malloc(sizeof(char) * (ft_strlen(delimiter) - count + 1));
-    i = 0;
-    count = 0;
-    while (delimiter[i])
-    {
-        if (delimiter[i] == '\'' || delimiter[i] == '\"')
-            while (delimiter[i] && (delimiter[i] == '\'' || delimiter[i] == '\"'))
-                i++;
-        if (delimiter[i] == '\0')
-            break;
-        tmp[count] = delimiter[i];
-        count++;
-        i++;
-    }
-    tmp[count] = '\0';
+    ft_last_del_helper(tmp, delimiter);
     return (free(delimiter),tmp);
 }
 
@@ -78,7 +89,6 @@ char    *ft_delimiter_handler(token_ptr tokens_list)
         while (tmp && tmp->token_type == 0)
             tmp = tmp->next;
     delimiter = ft_first_del(tmp);
-    // printf("delimiter: (%s)\n", delimiter);
     delimiter = ft_last_del(delimiter);
     printf("delimiter: (%s)\n", delimiter);
     return (delimiter);

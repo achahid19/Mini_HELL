@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/22 17:58:41 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 19:41:19 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,45 +85,52 @@ char    *get_unique_filename(int i)
     return (filename);
 }
 
+t_bool  test(char **line, char *delimiter, int flag, int fd)
+{
+    while (1)
+	{
+        signal_handler_heredoc();
+		*line = readline(">");
+        if (*line == NULL)
+            return (true);
+        if (*line[0] == '\0')
+        {
+            if (ft_strlen(delimiter) == 0)
+                return (false);
+            free(*line);
+            write(fd, "\n", 1);
+            continue ;
+        }
+		if (ft_strncmp(*line, delimiter, ft_strlen(delimiter)) == 0 &&
+                    ft_strlen(*line) == ft_strlen(delimiter))
+			return (free(*line), true);
+        if (flag == 0)
+            *line = ft_expand_heredoc(*line, g_global.e);
+		write(fd, *line, ft_strlen(*line));
+		write(fd, "\n", 1);
+		free(*line);
+	}
+}
 char	*heredoc_storer(char *delimiter, int i, t_env *envp, int flag)
 {
 	char *filename;
 	int fd;
 	char *line;
-    int fd0 = dup(0);
+    int fd0;
     
+    fd0 = dup(0);
 	filename = get_unique_filename(i);
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	while (1)
-	{
-        signal_handler_heredoc();
-		line = readline(">");
-        if (line == NULL)
-            return (NULL);
-        if (line[0] == '\0')
-        {
-            if (ft_strlen(delimiter) == 0)
-                return (line);
-            free(line);
-            write(fd, "\n", 1);
-            continue;
-        }
-		if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0 &&
-                    ft_strlen(line) == ft_strlen(delimiter))
-		{
-			free(line);
-			break;
-		}
-        if (flag == 0)
-            line = ft_expand_heredoc(line, envp);
-		write(fd, line, ft_strlen(line));
-		write(fd, "\n", 1);
-		free(line);
-	}
+    if (test(&line, delimiter, flag, fd) == false)
+        return (line);
 	close(fd);
     dup2(fd0 , 0);
     close(fd0);
-    // free(line);
+    if (line == NULL && g_global.flag == 1)
+    {
+        g_global.flag = 0;
+        return (NULL);
+    }
 	return filename;
 }
 void    ft_enter(token_ptr tokens_list, int i)
@@ -180,7 +187,6 @@ int	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
 			i++;
             test = ft_delimiter(tokens_list ,tmp->order);
 			filename = heredoc_storer(test, i,envp,flag);
-            signal_handler();
             if (filename == NULL)
                 return 1;
 			new_token_lst(tokens_list,tmp->order);

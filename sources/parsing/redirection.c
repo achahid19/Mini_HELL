@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 05:59:00 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/18 15:55:10 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 19:44:14 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	redirections_checker_1(token_ptr tokens_list)
 	tmp = tokens_list;
 	while(tmp)
 	{
-		if (tmp->token_type == 8 || tmp->token_type == 9)
+		if (tmp->token_type == 8 || tmp->token_type == 9 || tmp->token_type == 11)
 		{
 			if (tmp->next == NULL)
 			{
@@ -40,7 +40,7 @@ int	redirections_checker_1(token_ptr tokens_list)
 	return 0;
 }
 
-int 	redirections_checker_2(token_ptr tokens_list) // > > ls
+int 	redirections_checker_2(token_ptr tokens_list)
 {
 	token_ptr tmp;
 
@@ -56,7 +56,7 @@ int 	redirections_checker_2(token_ptr tokens_list) // > > ls
 	return 0;
 }
 
-int	redirections_checker_3(token_ptr tokens_list) // > ls >
+int	redirections_checker_3(token_ptr tokens_list)
 {
 	token_ptr tmp;
 

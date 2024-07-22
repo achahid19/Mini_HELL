@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:47 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/22 17:48:20 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 19:10:28 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,24 @@ token_ptr	find_last_node2(token_ptr list)
 	return (list);
 }
 
+void 	copy_token_helper(token_ptr *new_node, token_ptr tmp)
+{
+	(*new_node) = (token_ptr)malloc(sizeof(t_token));
+	(*new_node)->token = ft_strdup(tmp->token);
+	(*new_node)->token_type = tmp->token_type;
+	(*new_node)->order = tmp->order;
+	(*new_node)->token_length = tmp->token_length;
+	(*new_node)->next = NULL;
+	(*new_node)->previous = NULL;
+}
+
+void 	copy_token_helper2(token_ptr *new_node, token_ptr *last_node, token_ptr *new_list)
+{
+	*last_node = find_last_node2(*new_list);
+	(*last_node)->next = *new_node;
+	(*new_node)->previous = *last_node;
+}
+
 token_ptr	copy_tokens(token_ptr tokens_list)
 {
 	token_ptr	tmp;
@@ -57,21 +75,11 @@ token_ptr	copy_tokens(token_ptr tokens_list)
 			tmp = tmp->next;
 			continue;
 		}
-		new_node = (token_ptr)malloc(sizeof(t_token));
-		new_node->token = ft_strdup(tmp->token);
-		new_node->token_type = tmp->token_type;
-		new_node->order = tmp->order;
-		new_node->token_length = tmp->token_length;
-		new_node->next = NULL;
-		new_node->previous = NULL;
+		copy_token_helper(&new_node, tmp);
 		if (!new_list)
 			new_list = new_node;
 		else
-		{
-			last_node = find_last_node2(new_list);
-			last_node->next = new_node;
-			new_node->previous = last_node;
-		}
+			copy_token_helper2(&new_node, &last_node, &new_list);
 		tmp = tmp->next;
 	}
 	return (new_list);

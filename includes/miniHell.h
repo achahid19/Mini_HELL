@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/22 17:42:52 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 18:36:22 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ t_bool      ft_exit(char **av);
 void		handler(int signum);
 void		signal_handler();
 void		signal_handler_heredoc();
+void  ft_handler(int signum);
 
 /* free_and_errors */
 void		free_tokens(token_ptr tokens_list);
