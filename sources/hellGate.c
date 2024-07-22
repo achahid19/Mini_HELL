@@ -18,7 +18,6 @@ static void		ft_unlink(token_ptr tokens_list);
 static void		ft_init(char **envp, char **user_input);
 static void		minihell_helper(token_ptr tokens_list, char *user_input,
 					char **envp, char **e);
-void			check_tokens(token_ptr print_tk);
 
 /**
  * main - Entry point
@@ -40,7 +39,6 @@ int	main(int ac, char **av, char **envp)
 			continue ;
 		}
 		tokens_expander(tokens_list, e);
-		tokens_list_optimizer(&tokens_list);
 		if (tokens_list == NULL)
 		{
 			free_all(tokens_list, user_input, e);
@@ -82,7 +80,7 @@ static void	ft_unlink(token_ptr tokens_list)
 {
 	while (tokens_list)
 	{
-		if (tokens_list->token_type == 8)
+		if (tokens_list->token_type == leftred_token)
 			if (ft_strncmp(tokens_list->token, "/tmp/heredoc_", 13) == 0)
 				unlink(tokens_list->token);
 		tokens_list = tokens_list->next;
