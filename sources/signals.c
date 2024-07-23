@@ -18,6 +18,7 @@ void   handler(int signum)
     write(STDOUT, "kssh$ ", 6);
     // rl_on_new_line();
 	// rl_redisplay();
+    (void)signum;
 }
 void  ft_handler(int signum)
 {
@@ -37,6 +38,7 @@ void  ft_handler(int signum)
         perror("tcsetattr");
         exit(EXIT_FAILURE);
     }
+    (void)signum;
 }
 
 void   handler_heredoc(int signum)
@@ -45,6 +47,7 @@ void   handler_heredoc(int signum)
     // write(STDOUT, ">", 1);
     g_global.flag = 1;
     close(0);
+    (void)signum;
 }
 void  ft_handler_heredoc(int signum)
 {
@@ -64,6 +67,7 @@ void  ft_handler_heredoc(int signum)
         perror("tcsetattr");
         exit(EXIT_FAILURE);
     }
+    (void)signum;
 }
 
 void   signal_handler()
