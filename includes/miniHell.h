@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 16:30:47 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:18:28 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,10 @@ void	test_norm(int fd, char **line);
 void	eof_printer(char *delimiter);
 void	ft_eraser(token_ptr tmp, char *filename);
 void	error(const char *cmd, const char *msg);
+char	*ft_strstr(const char *haystack, const char *needle);
+int	ft_strcmp(const char *s1, const char *s2);
+char	*ft_strcat(char *dest, const char *src);
+char	*ft_strcpy(char *dest, const char *src);
 
 /* built_in   	*/
 t_bool		exec_builtin(char **av);

@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:31:47 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/20 18:43:04 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:20:55 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    remove_variable(char *key)
     prev = NULL;
     while (tmp)
     {
-        if (!strcmp(tmp->key, key))
+        if (!ft_strcmp(tmp->key, key))
         {
             if (prev)
                 prev->next = tmp->next;

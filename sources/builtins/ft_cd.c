@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:00:17 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 19:16:58 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:20:42 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_env_value(t_env *env, const char *key)
 {
 	while (env)
 	{
-		if (strcmp(env->key, key) == 0)
+		if (ft_strcmp(env->key, key) == 0)
 			return (env->value);
 		env = env->next;
 	}
@@ -37,7 +37,7 @@ void	set_env(t_env *env, const char *key, const char *value)
 	
 	while (env)
 	{
-		if (strcmp(env->key, key) == 0)
+		if (ft_strcmp(env->key, key) == 0)
 		{
 			free(env->value);
 			env->value = ft_strdup(value);
@@ -98,12 +98,12 @@ t_bool	ft_cd(char **av)
 		home = get_env_value(g_global.e, "HOME");
 		if (!home)
 			return (error("cd", "HOME not set"), false);
-		strcpy(new_pwd, home);
+		ft_strcpy(new_pwd, home);
 		return (1);
 	}
 	else
 	{
-		strcpy(new_pwd, av[1]);
+		ft_strcpy(new_pwd, av[1]);
 		if (!check_directory(new_pwd))
 			return (false);
 	}

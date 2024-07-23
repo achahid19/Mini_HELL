@@ -6,24 +6,11 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 18:33:36 by aymane            #+#    #+#             */
-/*   Updated: 2024/07/23 16:27:36 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:33:11 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniHell.h"
-
-char	*ft_strchr(const char *s, int c)
-{
-	while (*s)
-	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
-	}
-	if (c == '\0')
-		return ((char *)s);
-	return (NULL);
-}
 
 char	*ft_strndup(const char *s1, size_t n)
 {
@@ -53,6 +40,14 @@ t_env	*create_env_node(const char *env_var)
 	new_node->next = NULL;
 	return (new_node);
 }
+void	ft_null_helper(char **default_env)
+{
+	free(default_env[0]);
+	free(default_env[1]);
+	free(default_env[2]);
+	free(default_env);
+}
+
 char **ft_null_env(void)
 {
 	char	**default_env;
@@ -64,26 +59,20 @@ char **ft_null_env(void)
 	default_env = (char **)malloc(sizeof(char *) * 4);
 	if (!default_env)
 		return (NULL);
-	pwd = (char *)malloc(strlen("PWD=") + strlen(cwd) + 1);
+	pwd = (char *)malloc(ft_strlen("PWD=") + ft_strlen(cwd) + 1);
 	if (!pwd)
 	{
 		free(default_env);
 		return (NULL);
 	}
-	strcpy(pwd, "PWD=");
-	strcat(pwd, cwd);
+	ft_strcpy(pwd, "PWD=");
+	ft_strcat(pwd, cwd);
 	default_env[0] = pwd;
-	default_env[1] = strdup("SHLVL=1");
-	default_env[2] = strdup("_=/usr/bin/env");
+	default_env[1] = ft_strdup("SHLVL=1");
+	default_env[2] = ft_strdup("_=/usr/bin/env");
 	default_env[3] = NULL;
 	if (!default_env[1] || !default_env[2])
-	{
-		free(default_env[0]);
-		free(default_env[1]);
-		free(default_env[2]);
-		free(default_env);
-		return (NULL);
-	}
+		return (ft_null_helper(default_env), NULL);
 	return (default_env);
 }
 

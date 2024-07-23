@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 03:42:55 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 19:24:31 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:25:36 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_env	*ft_copy_env(t_env *env)
 	prev = NULL;
 	while (tmp)
 	{
-		if (strcmp(tmp->key, "_") != 0)
+		if (ft_strcmp(tmp->key, "_") != 0)
 		{
 			new = (t_env *)malloc(sizeof(t_env));
 			new->key = ft_strdup(tmp->key);
@@ -70,7 +70,7 @@ void	ft_sort_env(t_env *env)
 		tmp2 = tmp->next;
 		while (tmp2)
 		{
-			if (strcmp(tmp->key, tmp2->key) > 0)
+			if (ft_strcmp(tmp->key, tmp2->key) > 0)
 			{
 				key = tmp->key;
 				value = tmp->value;
@@ -160,7 +160,7 @@ t_bool	is_exported(char *variable)
 	tmp = g_global.e;
 	while (tmp)
 	{
-		if (strcmp(key, tmp->key) == 0)
+		if (ft_strcmp(key, tmp->key) == 0)
 		{
 			free(key);
 			return (true);
@@ -171,45 +171,71 @@ t_bool	is_exported(char *variable)
 	return (false);
 }
 
+void	update_value(t_env *tmp, char *variable)
+{
+	char	*new_value;
+
+	if (ft_strstr(variable, "+=") == NULL)
+	{
+		free(tmp->value);
+		tmp->value = ft_strdup(ft_strchr(variable, '=') + 1);
+	}
+	else
+	{
+		new_value = malloc(ft_strlen(tmp->value) + ft_strlen(
+			ft_strchr(variable, '=') + 1) + 1);
+		if (!new_value)
+			return ;
+		ft_strcpy(new_value, tmp->value);
+		ft_strcat(new_value, ft_strchr(variable, '=') + 1);
+		free(tmp->value);
+		tmp->value = new_value;
+	}
+}
+
 void	update_exported_variable(char *variable)
 {
 	t_env	*tmp;
 	char	*key;
-	char	*new_value;
 
 	key = ft_key(variable);
 	tmp = g_global.e;
-	if (strstr(variable, "+=") == NULL)
+	while (tmp)
 	{
-		while (tmp)
+		if (ft_strcmp(key, tmp->key) == 0)
 		{
-			if (strcmp(key, tmp->key) == 0)
-			{
-				free(tmp->value);
-				tmp->value = ft_strdup(strchr(variable, '=') + 1);
-				break ;
-			}
-			tmp = tmp->next;
+			update_value(tmp, variable);
+			break ;
 		}
+		tmp = tmp->next;
+	}
+	free(key);
+}
+
+t_env	*init_new_variable(char *variable, char *key)
+{
+	t_env	*new;
+
+	new = (t_env *)malloc(sizeof(t_env));
+	if (!new)
+		return (NULL);
+	new->key = ft_strdup(key);
+	if (ft_strstr(variable, "+=") == NULL)
+	{
+		if (ft_strchr(variable, '=') == NULL)
+			new->value = ft_strdup("");
+		else
+			new->value = ft_strdup(ft_strchr(variable, '=') + 1);
 	}
 	else
 	{
-		while (tmp)
-		{
-			if (strcmp(key, tmp->key) == 0)
-			{
-				new_value = malloc(strlen(tmp->value) +
-					strlen(strchr(variable, '=') + 1) + 1);
-				strcpy(new_value, tmp->value);
-				strcat(new_value, strchr(variable, '=') + 1);
-				free(tmp->value);
-				tmp->value = new_value;
-				break ;
-			}
-			tmp = tmp->next;
-		}
+		if (ft_strchr(variable, '=') == NULL)
+			new->value = ft_strdup("");
+		else
+			new->value = ft_strdup(ft_strchr(variable, '=') + 1);
 	}
-	free(key);
+	new->next = NULL;
+	return (new);
 }
 
 void	add_exported_variable(char *variable)
@@ -220,23 +246,9 @@ void	add_exported_variable(char *variable)
 
 	key = ft_key(variable);
 	tmp = g_global.e;
-	new = (t_env *)malloc(sizeof(t_env));
-	new->key = ft_strdup(key);
-	if (strstr(variable, "+=") == NULL)
-	{
-		if (strchr(variable, '=') == NULL)
-			new->value = ft_strdup("");
-		else
-			new->value = ft_strdup(strchr(variable, '=') + 1);
-	}
-	else
-	{
-		if (strchr(variable, '=') == NULL)
-			new->value = ft_strdup("");
-		else
-			new->value = ft_strdup(strchr(variable, '=') + 1);
-	}
-	new->next = NULL;
+	new = init_new_variable(variable, key);
+	if (!new)
+		return ;
 	if (!tmp)
 		g_global.e = new;
 	else
@@ -247,6 +259,7 @@ void	add_exported_variable(char *variable)
 	}
 	free(key);
 }
+
 void 		free_global_tmp(t_env *tmp)
 {
 	t_env *tmp2;
@@ -259,9 +272,7 @@ void 		free_global_tmp(t_env *tmp)
 		free(tmp2->value);
 		free(tmp2);
 	}
-
 }
-
 
 t_bool	ft_export(char **av)
 {
