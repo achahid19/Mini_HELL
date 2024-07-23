@@ -66,6 +66,7 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp, int flag)
 	char	*line;
 	int		fd0;
 
+	(void)envp;
 	fd0 = dup(0);
 	filename = get_unique_filename(i);
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
