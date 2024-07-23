@@ -335,6 +335,7 @@ void		get_status();
 void		split_words(token_ptr *tk_list);
 void		add_nodes(token_ptr tk, char *word);
 void		add_node(token_ptr tk, char *word, int type);
+void		io_dup_close(t_var *data);
 
 /* utils 7 */
 void		pipe_order_check(token_ptr *tokens_list);
