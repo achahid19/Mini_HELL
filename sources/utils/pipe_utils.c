@@ -25,24 +25,27 @@ t_bool	cmd_check(t_var *obj);
 void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 {
 		// signal(SIGQUIT, ft_handler);
-
 	if (pipe_switcher == true)
 		dup_and_close(data->end, STDOUT);
+	data->av = av;
 	if (output_red_stream(data) == false)
+	{
+		free_child_process(data, av);
 		exit(257);
+	}
 	if (av == NULL)
 	{
-		close_fds(data);
+		free_close_child(data, av);
 		exit(EXIT_SUCCESS);
 	}
 	if (builtin_checker(av[0]) == true)
 	{
 		if (exec_builtin(av) == false)
 		{
-			close_fds(data);
+			free_close_child(data, av);
 			exit(EXIT_FAILURE);
 		}
-		close_fds(data);
+		free_close_child(data, av);
 		exit(EXIT_SUCCESS);
 	}
 	child_exec_helper(data, av);
