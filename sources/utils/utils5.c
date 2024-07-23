@@ -80,10 +80,14 @@ t_bool	exit_check(char **av, t_var data, t_bool pipe_switcher)
 	len = big_len(av[0], "exit");
 	if (ft_strncmp(av[0], "exit", len) == 0)
 	{
-		ft_exit(av);
 		if (pipe_switcher == true)
 			dup_and_close(data.end, STDIN);
 		close_fds(&data);
+		free_all(data.tokens_list, data.user_input, NULL);
+		free_global_env();
+		free_cmd_table(data.envp);
+		free_cmd_table(data.e);
+		ft_exit(av);
 		return (true);
 	}
 	return (false);
