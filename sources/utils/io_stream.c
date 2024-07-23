@@ -62,12 +62,14 @@ t_bool	input_red_fd(token_ptr *temp, t_var *data)
 			data->fd[0] = open((*temp)->token, O_RDONLY);
 			if (data->fd[0] == -1)
 			{
-				print_error("kssh: No such file or directory\n");
+				if (ft_strncmp((*temp)->token, "", 1) == 0)
+					print_error("kssh: ambigious redirection\n");
+				else
+					print_error("kssh: No such file or directory\n");
 				g_global.status = 1;
 				return (false);
 			}
-			dup2(data->fd[0], STDIN_FILENO);
-			close(data->fd[0]);
+			io_dup_close(data);
 			break ;
 		}
 		(*temp) = (*temp)->next;
