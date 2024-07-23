@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 00:19:17 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 00:26:52 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 23:26:03 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*allocate_segment(const char *start, int length)
 	segment = (char *)malloc((length + 1) * sizeof(char));
 	if (!segment)
 		return (NULL);
-	strncpy(segment, start, length);
+	ft_strncpy(segment, start, length);
 	segment[length] = '\0';
 	return (segment);
 }

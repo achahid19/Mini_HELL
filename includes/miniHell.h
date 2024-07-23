@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 23:14:57 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 23:31:38 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,5 +384,6 @@ void					set_env(t_env *env, const char *key, const char *value);
 /* utils 9 */
 void					handler_2(int signum);
 void					hendler_1(int signum);
+void					ft_strncpy(char *dst, char const *s, int bytes);
 
 #endif /* MINIHELL_H */

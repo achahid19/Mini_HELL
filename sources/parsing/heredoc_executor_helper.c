@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 03:56:29 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 22:10:56 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 23:33:16 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ char	*ft_delimiter_handler(t_ptr tokens_list)
 			tmp = tmp->next;
 	delimiter = ft_first_del(tmp);
 	delimiter = ft_last_del(delimiter);
-	printf("delimiter: (%s)\n", delimiter);
 	return (delimiter);
 }
 
