@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:57 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 22:26:04 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 23:16:27 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	executor(t_ptr tokens_list, char **envp, char *user_input)
 {
 	t_var	data;
 
-	signal(SIGINT, handler_2);
 	data.tokens_list = tokens_list;
 	data.user_input = user_input;
 	data.pipes = check_pipes_num(tokens_list);
@@ -136,6 +135,8 @@ int	get_infos(t_ptr tokens_list)
 
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 {
+	signal(SIGINT, handler_2);
+	signal(SIGQUIT, handler_2);
 	if (input_red_stream(&data) == false)
 		return ;
 	if (pipe(data.end) == -1)

@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 17:29:00 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 22:19:19 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 23:22:09 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_handler_heredoc(int signum)
 void	signal_handler(void)
 {
 	signal(SIGINT, handler);
-	signal(SIGQUIT, ft_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	signal_handler_heredoc(void)

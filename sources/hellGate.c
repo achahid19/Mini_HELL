@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 22:20:57 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 23:21:24 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ static void	minihell_helper(t_ptr tokens_list, char *user_input,
 	executor(tokens_list, e, user_input);
 	ft_unlink(tokens_list);
 	free_all(tokens_list, user_input, e);
-	signal(SIGINT, handler);
 }
 
 /**

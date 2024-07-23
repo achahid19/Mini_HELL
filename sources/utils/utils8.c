@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 21:54:04 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 22:18:38 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 23:22:26 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	change_pwd(t_env *envs, const char *old_pwd, const char *pwd)
 void	handler(int signum)
 {
 	write(STDOUT, "\n", 1);
-	write(STDOUT, "kssh$ ", 6);
+	rl_on_new_line();
+	rl_redisplay();
 	(void)signum;
 }
 
