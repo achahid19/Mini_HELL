@@ -11,7 +11,7 @@ CC = cc
 
 MAKE = make
 
-SRC =   $(addprefix sources/parsing/, pipe_checker.c parser.c redirection.c extra_parse.c heredoc_checker.c echo.c heredoc_executor.c heredoc_executor_helper.c ft_advanced_split.c) \
+SRC =   $(addprefix sources/parsing/, parser_helper.c extra_parse_helper.c pipe_checker.c parser.c redirection.c extra_parse.c heredoc_checker.c echo.c heredoc_executor.c heredoc_executor_helper.c ft_advanced_split.c) \
     	$(addprefix sources/, hellGate.c expander.c lexer.c signals.c syntax_builder.c executor.c env.c) \
 		$(addprefix sources/utils/, expander_utils2.c utils1.c lexer_utils.c expander_utils.c \
 					utils2.c expander_utils3.c tk_optimizer.c syntax_builder_utils.c \

@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 11:23:02 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/21 20:15:07 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 22:44:58 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ typedef struct s_env
 typedef struct s_global
 {
     int		status;
-	int		signal;
+	int		eof;
 	int     flag;
+	int	    ctrd;
     t_env   *e;
 }	t_global;
 

@@ -6,62 +6,14 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 15:36:23 by aymane            #+#    #+#             */
-/*   Updated: 2024/07/16 19:12:05 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 00:26:05 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
 
-int	is_valid_char(char c)
-{
-	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') 
-             || c == '_' || c == '?');
-}
-
-int	count_segments(const char *str)
-{
-	int	count;
-
-	count = 0;
-	while (*str)
-	{
-		if (*str == ' ')
-		{
-			count++;
-			while (*str == ' ')
-				str++;
-		}
-		else if (*str == '$')
-		{
-			count++;
-			str++;
-			while (*str && is_valid_char(*str))
-				str++;
-		}
-		else
-		{
-			count++;
-			while (*str && *str != ' ' && *str != '$')
-				str++;
-		}
-	}
-	return (count);
-}
-
-
-char	*allocate_segment(const char *start, int length)
-{
-	char	*segment;
-
-	segment = (char *)malloc((length + 1) * sizeof(char));
-	if (!segment)
-		return (NULL);
-	strncpy(segment, start, length);
-	segment[length] = '\0';
-	return (segment);
-}
-
-void	fill_segment(const char **str, char **result, int *index, char delimiter)
+void	fill_segment(const char **str, char **result, int *index,
+		char delimiter)
 {
 	const char	*start;
 	int			length;
@@ -118,13 +70,14 @@ void	fill_segments(char **result, const char *str)
 	result[index] = NULL;
 }
 
-
 char	**ft_advanced_split(const char *str)
 {
 	int		segments;
 	char	**result;
+	int		count;
 
-	segments = count_segments(str);
+	count = 0;
+	segments = count_segments(str, count);
 	result = (char **)malloc((segments + 1) * sizeof(char *));
 	if (!result)
 		return (NULL);

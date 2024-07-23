@@ -6,41 +6,16 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 06:55:10 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/22 19:48:10 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 00:22:51 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
 
-
-int	parentheses_checker(token_ptr tokens_list)
-{
-	token_ptr	tmp;
-	int			open;
-	int			close;
-
-	tmp = tokens_list;
-	open = 0;
-	close = 0;
-	while (tmp)
-	{
-		if (ft_strchr(tmp->token, '(') != NULL && tmp->token_type != 3)
-			open++;
-		if (ft_strchr(tmp->token, ')') != NULL && tmp->token_type != 3)
-			close++;
-		tmp = tmp->next;
-	}
-	if (open != close)
-	{
-		ft_putstr_fd("minishell: syntax error near unexpected token `('\n", 2);
-		return (1);
-	}
-	return (0);
-}
 int	ft_env_search(char *tmp, t_env *envp)
 {
 	int	i;
-	int len;
+	int	len;
 
 	i = 1;
 	if (tmp[i] == '\0')
@@ -60,11 +35,12 @@ int	ft_env_search(char *tmp, t_env *envp)
 
 void	ft_expand_know(char **line, t_env *envp)
 {
-	int flag = 0;
+	int	flag;
 
+	flag = 0;
 	while (envp)
 	{
-		if (ft_strncmp(*(line) + 1, envp->key, ft_strlen(envp->key) ) == 0)
+		if (ft_strncmp(*(line) + 1, envp->key, ft_strlen(envp->key)) == 0)
 		{
 			flag = 1;
 			break ;
@@ -83,8 +59,6 @@ char	*ft_last_line(char **line_split)
 	int		i;
 	char	*new_line;
 
-	int f= 0;
-	int d = 0;
 	i = 0;
 	new_line = NULL;
 	while (line_split[i])
@@ -94,35 +68,16 @@ char	*ft_last_line(char **line_split)
 	}
 	return (new_line);
 }
-void 		ft_free_array(char **array)
+
+void	process_line_split(char **line_split, t_env *envp, int i)
 {
-	int i;
+	int	d;
 
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
-
-char	*ft_expand_heredoc(char *line, t_env *envp)
-{
-	int		i;
-	int		d;
-	char	**line_split;
-	char	*new_line;
-
-	line_split = ft_advanced_split(line);
-	free(line);
-	i = 0;
 	while (line_split[i])
 	{
 		d = 0;
 		while (line_split[i][d])
 		{
-	
 			if (line_split[i][d] == '$' && line_split[i][d + 1] != '\0')
 			{
 				if (line_split[i][d + 1] == '?')
@@ -131,7 +86,7 @@ char	*ft_expand_heredoc(char *line, t_env *envp)
 					get_status();
 					line_split[i] = ft_itoa(g_global.status);
 				}
-				else if (ft_env_search(line_split[i], envp) == 0) 
+				else if (ft_env_search(line_split[i], envp) == 0)
 					ft_expand_know(&line_split[i], envp);
 				else
 					line_split[i] = ft_strdup("");
@@ -140,8 +95,19 @@ char	*ft_expand_heredoc(char *line, t_env *envp)
 		}
 		i++;
 	}
+}
+
+char	*ft_expand_heredoc(char *line, t_env *envp)
+{
+	char	**line_split;
+	char	*new_line;
+	int		i;
+
+	i = 0;
+	line_split = ft_advanced_split(line);
+	free(line);
+	process_line_split(line_split, envp, i);
 	new_line = ft_last_line(line_split);
 	ft_free_array(line_split);
 	return (new_line);
 }
-

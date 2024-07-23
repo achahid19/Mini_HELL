@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:36:22 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 00:36:19 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,13 +195,23 @@ int			heredoc_append_checker(token_ptr tokens_list);
 void		space_skip(token_ptr tokens_list);
 void		space_skip_rev(token_ptr tokens_list);
 char		*get_unique_filename(int i);
-void		new_token_lst(token_ptr tokens_list, int order);
+void		new_token_lst(token_ptr tokens_list, int order,char *test);
 void		filename_write(token_ptr tokens_list, char *filename, int order);
-int		heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp);
+int			heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp);
 char		*ft_expand_heredoc(char *line, t_env *envp);
 char		*ft_delimiter(token_ptr tokens_list, int order);
 char		**ft_advanced_split(const char *str);
 t_env		*init_env(char** env);
+int			count_segments(const char *str, int count);
+int			is_valid_char(char c);
+char		*allocate_segment(const char *start, int length);
+token_ptr	find_last_node2(token_ptr list);
+void		ft_free_array(char **array);
+void	ft_enter(token_ptr tokens_list, int i);
+int	ft_no_expand(token_ptr tmp);
+void	test_norm(int fd, char **line);
+void	eof_printer(char *delimiter);
+void	ft_eraser(token_ptr tmp, char *filename);
 
 /* built_in   	*/
 t_bool		exec_builtin(char **av);

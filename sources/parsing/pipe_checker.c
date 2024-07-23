@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 22:46:43 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/21 19:18:46 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 00:16:04 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	first_pipe_checker(token_ptr tokens_list)
 	}
 	return (0);
 }
+
 int	last_pipe_checker(token_ptr tokens_list)
 {
 	token_ptr	tmp;
@@ -72,16 +73,17 @@ int	second_pipe_checker(token_ptr tokens_list)
 	return (0);
 }
 
-int		latest_pipe_checker(token_ptr tokens_list)
+int	latest_pipe_checker(token_ptr tokens_list)
 {
 	token_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp)
 	{
-		if (tmp->token_type == 1 && (tmp->previous->token_type == 8 ||
-		tmp->previous->token_type == 9 || tmp->previous->token_type == 10 ||
-		tmp->previous->token_type == 11))
+		if (tmp->token_type == 1 && (tmp->previous->token_type == 8
+				|| tmp->previous->token_type == 9
+				|| tmp->previous->token_type == 10
+				|| tmp->previous->token_type == 11))
 		{
 			print_error("minishell : syntax error near unexpected token `|'\n");
 			return (1);
@@ -93,13 +95,13 @@ int		latest_pipe_checker(token_ptr tokens_list)
 
 int	pipe_checker(token_ptr tokens_list)
 {
-	if (first_pipe_checker(tokens_list) == 1)// check for the first pipe and double pipe
+	if (first_pipe_checker(tokens_list) == 1)
 		return (1);
 	if (second_pipe_checker(tokens_list) == 1)
 		return (1);
-	if (last_pipe_checker(tokens_list) == 1) // check for the last pipe
+	if (last_pipe_checker(tokens_list) == 1)
 		return (1);
-	if (latest_pipe_checker(tokens_list) == 1) 
+	if (latest_pipe_checker(tokens_list) == 1)
 		return (1);
 	return (0);
 }

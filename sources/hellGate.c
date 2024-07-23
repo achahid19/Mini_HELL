@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:49:14 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/22 22:27:28 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void	minihell_helper(token_ptr tokens_list, char *user_input,
 /**
  * check_tokens -
  */
-/* void	check_tokens(token_ptr print_tk)
+void	check_tokens(token_ptr print_tk)
 {
 	while (print_tk != NULL)
 	{
@@ -119,4 +119,4 @@ static void	minihell_helper(token_ptr tokens_list, char *user_input,
 		printf("------------------------------\n");
 		print_tk = print_tk->next;
 	}
-} */
+}
