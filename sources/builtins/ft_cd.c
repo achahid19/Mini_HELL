@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:00:17 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 04:44:27 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 19:16:58 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,33 @@ t_bool	check_directory(char *dir)
 	return (true);
 }
 
+t_bool	check_cd(char **av, char *old_pwd)
+{
+	if (av[1] != NULL)
+	{
+		if (av[2])
+			return (error("cd", "too many arguments"), false);
+		if (!getcwd(old_pwd, PATH_MAX))
+			return (error("cd", "getcwd failed"), false);
+	}
+	return (true);
+}
+
 t_bool	ft_cd(char **av)
 {
 	char		old_pwd[PATH_MAX];
 	char		new_pwd[PATH_MAX];
 	char *home;
 
-	if (!getcwd(old_pwd, PATH_MAX))
-		return (error("cd", "getcwd failed"), false);
+	if (check_cd(av, old_pwd) == false)
+		return (false);
 	if (!av[1])
 	{
 		home = get_env_value(g_global.e, "HOME");
 		if (!home)
 			return (error("cd", "HOME not set"), false);
 		strcpy(new_pwd, home);
+		return (1);
 	}
 	else
 	{
@@ -98,6 +111,5 @@ t_bool	ft_cd(char **av)
 		return (error("cd", new_pwd), false);
 	if (!getcwd(new_pwd, PATH_MAX))
 		return (error("cd", "getcwd failed"), false);
-	change_pwd(g_global.e, old_pwd, new_pwd);
-	return (true);
+	return (change_pwd(g_global.e, old_pwd, new_pwd), 1);
 }

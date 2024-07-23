@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:31:44 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/21 19:15:21 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 19:18:28 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,15 @@
 /**
  * free_tokens -
 */
+void	error(const char *cmd, const char *msg)
+{
+	g_global.status = 1;
+	if (msg)
+		printf("%s: %s\n", cmd, msg);
+	else
+		perror(cmd);
+}
+
 void	free_tokens(token_ptr tokens_list)
 {
 	token_ptr	tmp;

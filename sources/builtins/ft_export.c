@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 03:42:55 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 17:41:06 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 19:24:31 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,21 @@ void	add_exported_variable(char *variable)
 	}
 	free(key);
 }
+void 		free_global_tmp(t_env *tmp)
+{
+	t_env *tmp2;
+
+	while (tmp)
+	{
+		tmp2 = tmp;
+		tmp = tmp->next;
+		free(tmp2->key);
+		free(tmp2->value);
+		free(tmp2);
+	}
+
+}
+
 
 t_bool	ft_export(char **av)
 {
@@ -261,7 +276,7 @@ t_bool	ft_export(char **av)
 	else
 	{
 		if (ft_export_check(av) == false)
-			return (free_global_env(),false);
+			return (free_global_tmp(tmp),false);
 		while (av[i])
 		{
 			if (is_exported(av[i]))
@@ -271,5 +286,5 @@ t_bool	ft_export(char **av)
 			i++;
 		}
 	}
-	return (free_global_env(),true);
+	return (free_global_tmp(tmp),true);
 }
