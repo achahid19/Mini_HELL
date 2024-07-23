@@ -77,13 +77,12 @@ int	get_token_length(char *user_input, int type, token_ptr tokens_head)
 	}
 	else if (type == string_token)
 	{
-		while (last->token_type != get_type(user_input[len]) && user_input[len])
+		while (last->token_type != (t_type)get_type(user_input[len])
+			&& user_input[len])
 			len++;
 		if (user_input[len] == '\0')
-		{
-			quotes_error(last->token_type);
-			return (free_tokens(tokens_head), false);
-		}
+			return (quotes_error(last->token_type),
+				free_tokens(tokens_head), false);
 	}
 	else if (type == heredoc_token || type == append_token)
 		len = 2;
