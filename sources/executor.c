@@ -39,13 +39,13 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 	t_var	data;
 	signal(SIGINT, handler_2);
 	data.tokens_list = tokens_list;
-	data.envp = envp;
 	data.user_input = user_input;
 	data.pipes = check_pipes_num(tokens_list);
 	data.std_in = dup(STDIN);
 	data.fd[0] = 0;
 	data.fd[1] = 0;
 	data.envp = transform_env();
+	data.e = envp;
 	while (data.pipes)
 	{
 		dollar_status_check(tokens_list);
@@ -154,7 +154,6 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 	if (builtin_check(av, data, pipe_switcher) == true)
 		return ;
 			// signal(SIGQUIT, ft_handler);
-
 	data.child_pid = fork();
 	if (data.child_pid == 0)
 		child_exec_cmd(av, &data, pipe_switcher);
