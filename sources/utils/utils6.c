@@ -17,6 +17,7 @@ void	get_status(void);
 void	split_words(token_ptr *tk_list);
 void	add_nodes(token_ptr tk, char *word);
 void	add_node(token_ptr tk, char *word, int type);
+void	io_dup_close(t_var *data);
 
 /**
  * get_status -
@@ -89,4 +90,13 @@ void	add_node(token_ptr tk, char *word, int type)
 		new->next = new->previous->next;
 	last = find_last_node(tk);
 	last->next = new;
+}
+
+/**
+ * io_dup_close -
+*/
+void	io_dup_close(t_var *data)
+{
+	dup2(data->fd[0], STDIN_FILENO);
+	close(data->fd[0]);
 }
