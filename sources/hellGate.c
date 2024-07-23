@@ -97,6 +97,7 @@ static void	minihell_helper(token_ptr tokens_list, char *user_input,
 				char **e)
 {
 	syntax_algo(tokens_list);
+	//check_tokens(tokens_list);
 	executor(tokens_list, e, user_input);
 	ft_unlink(tokens_list);
 	free_all(tokens_list, user_input, e);
@@ -106,7 +107,7 @@ static void	minihell_helper(token_ptr tokens_list, char *user_input,
 /**
  * check_tokens -
  */
-/* void	check_tokens(token_ptr print_tk)
+void	check_tokens(token_ptr print_tk)
 {
 	while (print_tk != NULL)
 	{
@@ -122,4 +123,4 @@ static void	minihell_helper(token_ptr tokens_list, char *user_input,
 		printf("------------------------------\n");
 		print_tk = print_tk->next;
 	}
-} */
+}
