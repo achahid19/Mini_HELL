@@ -58,6 +58,8 @@ void	special_chars_refactor(token_ptr tokens_list)
 		if (special_chars_checker(type) == true)
 		{
 			tokens_list = tokens_list->next;
+			if (tokens_list == NULL)
+				return ;
 			while (tokens_list->token_type != type)
 			{
 				tokens_list = tokens_list->next;
