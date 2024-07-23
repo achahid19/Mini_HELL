@@ -15,6 +15,8 @@
 
 void	print_error(char *error);
 void	quotes_error(int type);
+void	free_child_process(t_var *data, char **av);
+void	free_close_child(t_var *data, char **av);
 
 /**
  * print_error -
@@ -47,7 +49,26 @@ void	exit_error(char *error, t_var *data, char **av, int ex_code)
 	print_error(data->path_to_cmd);
 	print_error("'");
 	print_error(error);
+	free_child_process(data, av);
+	exit(ex_code);
+}
+
+/**
+ * free_child_process -
+*/
+void	free_child_process(t_var *data, char **av)
+{
 	free_all(data->tokens_list, data->user_input, av);
 	free_global_env();
-	exit(ex_code);
+	free_cmd_table(data->envp);
+	free_cmd_table(data->e);
+}
+
+/**
+ * free_close_child -
+*/
+void	free_close_child(t_var *data, char **av)
+{
+	close_fds(data);
+	free_child_process(data, av);
 }
