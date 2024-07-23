@@ -24,7 +24,6 @@ void	set_tk_exp_len(token_ptr *tokens_list);
 void	pipe_order_check(token_ptr *tokens_list)
 {
 	token_ptr	last;
-	token_ptr	begin;
 
 	if (*tokens_list == NULL)
 		return ;
