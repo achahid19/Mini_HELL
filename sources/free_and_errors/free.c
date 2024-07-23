@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:31:44 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 19:18:28 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 21:17:19 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,4 @@ void	free_all(token_ptr tokens_list, char *user_input,
 /**
  * free_cmd_table -
 */
-void	free_cmd_table(char **full_cmd)
-{
-	size_t	i;
 
-	i = 0;
-	while (full_cmd[i] != NULL)
-	{
-		free(full_cmd[i]);
-		i++;
-	}
-	free(full_cmd);
-}
