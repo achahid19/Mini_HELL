@@ -16,6 +16,7 @@ void	node_remover(token_ptr *node);
 void	special_chars_refactor(token_ptr tokens_list);
 t_bool	special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
 				int type);
+t_bool	special_chars_type(token_ptr *tokens_list, int type);
 
 /**
  * node_remover -
@@ -57,13 +58,8 @@ void	special_chars_refactor(token_ptr tokens_list)
 		type = tokens_list->token_type;
 		if (special_chars_checker(type) == true)
 		{
-			tokens_list = tokens_list->next;
-			while (tokens_list->token_type != type)
-			{
-				tokens_list = tokens_list->next;
-				if (tokens_list == NULL)
-					return ;
-			}
+			if (special_chars_type(&tokens_list, type) == false)
+				return ;
 			node_add = tokens_list;
 			if (special_chars_finder(&tokens_list, node_add, type) == false)
 				return ;
@@ -74,6 +70,23 @@ void	special_chars_refactor(token_ptr tokens_list)
 		if (tokens_list->token_type == pipe_token)
 			return ;
 	}
+}
+
+/**
+ * special_chars_type -
+*/
+t_bool	special_chars_type(token_ptr *tokens_list, int type)
+{
+	(*tokens_list) = (*tokens_list)->next;
+	if ((*tokens_list) == NULL)
+		return (false);
+	while ((*tokens_list)->token_type != (t_type)type)
+	{
+		(*tokens_list) = (*tokens_list)->next;
+		if ((*tokens_list) == NULL)
+			return (false);
+	}
+	return (true);
 }
 
 /**
