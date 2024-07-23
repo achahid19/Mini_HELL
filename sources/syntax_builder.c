@@ -27,6 +27,7 @@ void	syntax_algo(token_ptr tokens_list)
 	int		pipes;
 
 	pipes = check_pipes_num(tokens_list);
+	type = 0;
 	while (pipes--)
 	{
 		special_chars(tokens_list, type);
@@ -126,6 +127,10 @@ static void	quotes_handler(token_ptr tokens_list)
 {
 	t_var	d;
 
+	d.type_next = 12;
+	d.type_next_next = 12;
+	d.type_previous = 12;
+	d.is_space = false;
 	if (tokens_list == NULL)
 		return ;
 	if (tokens_list->token_type == pipe_token)
