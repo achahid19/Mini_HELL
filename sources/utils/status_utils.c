@@ -26,7 +26,6 @@ void	dollar_status_check(token_ptr tokens_list)
 {
 	int		i;
 	char	*tk;
-	t_bool	flag;
 	char	*new_token;
 
 	while (tokens_list)
