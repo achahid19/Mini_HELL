@@ -75,7 +75,12 @@ void	child_exec_helper(t_var *data, char **av)
 	data->path_to_cmd = ft_find_cmd(av[0], data->envp);
 	if (av[0][0] == '.')
 		data->path_to_cmd = av[0];
-	if (execve(data->path_to_cmd, av, data->envp) == -1)
+	if (data->path_to_cmd != NULL)
+	{
+		if (execve(data->path_to_cmd, av, data->envp) == -1)
+			exit_error(" command not found !\n", data, av, EXIT_FAILURE);
+	}
+	else
 		exit_error(" command not found !\n", data, av, EXIT_FAILURE);
 }
 
