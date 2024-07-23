@@ -12,9 +12,9 @@
 
 #include "../../includes/miniHell.h"
 
-int	semicolon_checker(token_ptr tokens_list)
+int	semicolon_checker(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp)
@@ -30,9 +30,9 @@ int	semicolon_checker(token_ptr tokens_list)
 	return (0);
 }
 
-int	backslash_checker(token_ptr tokens_list)
+int	backslash_checker(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp)
@@ -60,9 +60,9 @@ char	*get_unique_filename(int i)
 	return (filename);
 }
 
-void	filename_write(token_ptr tokens_list, char *filename, int order)
+void	filename_write(t_ptr tokens_list, char *filename, int order)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp)
@@ -76,9 +76,9 @@ void	filename_write(token_ptr tokens_list, char *filename, int order)
 	}
 }
 
-void	ft_eraser(token_ptr tmp, char *filename)
+void	ft_eraser(t_ptr tmp, char *filename)
 {
-	token_ptr	tmp2;
+	t_ptr	tmp2;
 
 	tmp2 = tmp->next;
 	if (tmp2->token_type == 0)

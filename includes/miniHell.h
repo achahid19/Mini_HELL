@@ -60,18 +60,18 @@ typedef enum e_type
  * I know u for compiler
 */
 typedef struct s_token	t_token;
-typedef t_token			*token_ptr;
+typedef t_token			*t_ptr;
 
 // lexer: token's data
 typedef struct s_token
 {
-	char				*token;
-	int order;         // index of the token on the input
-	t_type token_type; // define a type of each encoutred token
-	int					token_length;
-	token_ptr			next;
-	token_ptr			previous;
-}						t_token;
+	char	*token;
+	int		order;
+	t_type	token_type;
+	int		token_length;
+	t_ptr	next;
+	t_ptr	previous;
+}	t_token;
 
 /**
  * struct for data expander
@@ -94,70 +94,70 @@ typedef struct s_expand
 typedef struct s_var
 {
 	/* lexer data */
-	token_ptr			tk_head;
-	int					o;
-	int					type;
-	t_bool				s;
-	char				*temp;
-	int					type_count;
-	int					o_type;
-	t_bool				space;
+	t_ptr			tk_head;
+	int				o;
+	int				type;
+	t_bool			s;
+	char			*temp;
+	int				type_count;
+	int				o_type;
+	t_bool			space;
 	/* */
-	char				**token;
-	char				**path;
-	char				*path_to_cmd;
-	char				*env;
-	size_t				i;
+	char			**token;
+	char			**path;
+	char			*path_to_cmd;
+	char			*env;
+	size_t			i;
 	/* for quotes_handler */
-	int					type_next;
-	int					type_previous;
-	int					type_next_next;
-	t_bool				is_space;
-	token_ptr			tmp;
+	int				type_next;
+	int				type_previous;
+	int				type_next_next;
+	t_bool			is_space;
+	t_ptr			tmp;
 	/* executor's data */
-	token_ptr			head;
-	token_ptr			tokens_list;
-	char				**envp;
-	char				*user_input;
-	int					pipes;
-	int					std_in;
-	int					fd[2];
+	t_ptr			head;
+	t_ptr			tokens_list;
+	char			**envp;
+	char			*user_input;
+	int				pipes;
+	int				std_in;
+	int				fd[2];
 	/* pipe data */
-	pid_t				child_pid;
-	int					end[2];
+	pid_t			child_pid;
+	int				end[2];
 	/* transform envp */
-	char				**e;
+	char			**e;
 	/* cmd_table */
-	char				**av;
-}						t_var;
+	char			**av;
+}	t_var;
 
 void					init_global(void);
 
 /* Lexical analyzer */
-token_ptr				lexer(char *user_input);
-t_bool					string_tokens(char **user_input, token_ptr *tokens_head,
+t_ptr					lexer(char *user_input);
+t_bool					string_tokens(char **user_input, t_ptr *tokens_head,
 							int type, int *order);
-t_bool					char_tokens(char **user_input, token_ptr *tokens_head,
+t_bool					char_tokens(char **user_input, t_ptr *tokens_head,
 							int type, int order);
 
 /* Lexer utils */
-t_bool					token_create(char **user_input, token_ptr *tokens_head,
+t_bool					token_create(char **user_input, t_ptr *tokens_head,
 							int type, int order);
 int						get_token_length(char *user_input, int type,
-							token_ptr tokens_head);
+							t_ptr tokens_head);
 char					*get_token(char *user_input, int token_len);
 int						get_type(char user_input);
 void					move_user_input(char **user_input);
 
 /* utilities */
-token_ptr				find_last_node(token_ptr head);
+t_ptr					find_last_node(t_ptr head);
 t_bool					ft_isspace(char c);
 char					*ft_realloc(char *to_free, int new_len);
 void					dup_and_close(int *end, int i);
 void					points_checker(t_var data, char **av);
 
 /* expander */
-void					tokens_expander(token_ptr tokens_list, char **envp);
+void					tokens_expander(t_ptr tokens_list, char **envp);
 char					*extract_dollar_token(char *ptr_token, char *dollar_tk,
 							int dollar_tk_len);
 char					*get_value(char *dollar_tk, int *dtk_len, char **envp);
@@ -173,51 +173,51 @@ char					*retrieve_value(char *envp, char *dollar_tk);
 t_bool					check_type(int token_type);
 
 /* expander utils2 */
-void					tokens_expander_helper(token_ptr tokens_list,
+void					tokens_expander_helper(t_ptr tokens_list,
 							char **envp, t_expand d);
 int						dollars_count(char *token);
 int						get_biggest_len(char *envp, char *dollar_tk);
 void					data_move_helper(t_expand *data, char **token);
 
 /* expander utils3 */
-t_bool					string_handler(token_ptr *tokens_list);
-t_bool					doublequote_handler(token_ptr *tokens_list);
-t_bool					singlequote_handler(token_ptr *tokens_list);
+t_bool					string_handler(t_ptr *tokens_list);
+t_bool					doublequote_handler(t_ptr *tokens_list);
+t_bool					singlequote_handler(t_ptr *tokens_list);
 
 /* Parser */
-int						parser_tokens(token_ptr tokens_list, t_env *env);
-int						pipe_checker(token_ptr tokens_list);
-int						redirections_checker(token_ptr tokens_list);
-int						semicolon_checker(token_ptr tokens_list);
-int						backslash_checker(token_ptr tokens_list);
-void					built_in(token_ptr tokens_list);
-int						parentheses_checker(token_ptr tokens_list);
-int						parser_tokens_2(token_ptr tokens_list);
-int						heredoc_next_checker(token_ptr tokens_list);
-int						heredoc_append_checker(token_ptr tokens_list);
-void					space_skip(token_ptr tokens_list);
-void					space_skip_rev(token_ptr tokens_list);
+int						parser_tokens(t_ptr tokens_list, t_env *env);
+int						pipe_checker(t_ptr tokens_list);
+int						redirections_checker(t_ptr tokens_list);
+int						semicolon_checker(t_ptr tokens_list);
+int						backslash_checker(t_ptr tokens_list);
+void					built_in(t_ptr tokens_list);
+int						parentheses_checker(t_ptr tokens_list);
+int						parser_tokens_2(t_ptr tokens_list);
+int						heredoc_next_checker(t_ptr tokens_list);
+int						heredoc_append_checker(t_ptr tokens_list);
+void					space_skip(t_ptr tokens_list);
+void					space_skip_rev(t_ptr tokens_list);
 char					*get_unique_filename(int i);
-void					new_token_lst(token_ptr tokens_list, int order,
+void					new_token_lst(t_ptr tokens_list, int order,
 							char *test);
-void					filename_write(token_ptr tokens_list, char *filename,
+void					filename_write(t_ptr tokens_list, char *filename,
 							int order);
-int						heredoc(token_ptr tmp, token_ptr tokens_list,
+int						heredoc(t_ptr tmp, t_ptr tokens_list,
 							t_env *envp);
 char					*ft_expand_heredoc(char *line, t_env *envp);
-char					*ft_delimiter(token_ptr tokens_list, int order);
+char					*ft_delimiter(t_ptr tokens_list, int order);
 char					**ft_advanced_split(const char *str);
 t_env					*init_env(char **env);
 int						count_segments(const char *str, int count);
 int						is_valid_char(char c);
 char					*allocate_segment(const char *start, int length);
-token_ptr				find_last_node2(token_ptr list);
+t_ptr					find_last_node2(t_ptr list);
 void					ft_free_array(char **array);
-void					ft_enter(token_ptr tokens_list, int i);
-int						ft_no_expand(token_ptr tmp);
+void					ft_enter(t_ptr tokens_list, int i);
+int						ft_no_expand(t_ptr tmp);
 void					test_norm(int fd, char **line);
 void					eof_printer(char *delimiter);
-void					ft_eraser(token_ptr tmp, char *filename);
+void					ft_eraser(t_ptr tmp, char *filename);
 void					error(const char *cmd, const char *msg);
 char					*ft_strstr(const char *haystack, const char *needle);
 int						ft_strcmp(const char *s1, const char *s2);
@@ -241,8 +241,8 @@ void					signal_handler_heredoc(void);
 void					ft_handler(int signum);
 
 /* free_and_errors */
-void					free_tokens(token_ptr tokens_list);
-void					free_all(token_ptr tokens_list, char *user_input,
+void					free_tokens(t_ptr tokens_list);
+void					free_all(t_ptr tokens_list, char *user_input,
 							char **av);
 void					free_cmd_table(char **full_cmd);
 void					quotes_error(int quotes_type);
@@ -254,52 +254,52 @@ void					free_child_process(t_var *data, char **av);
 void					free_close_child(t_var *data, char **av);
 
 /* utils2 */
-void					tokens_order(token_ptr tokens_list);
-token_ptr				get_next_pipe(token_ptr tokens_list);
-void					get_next_type(token_ptr *tokens_list, t_var d);
+void					tokens_order(t_ptr tokens_list);
+t_ptr					get_next_pipe(t_ptr tokens_list);
+void					get_next_type(t_ptr *tokens_list, t_var d);
 t_bool					special_chars_checker(int type);
 t_bool					quotes_cmd_checker(t_var d);
 
 /* syntax_builder */
-void					syntax_algo(token_ptr tokens_list);
-void					check_no_cmd(token_ptr tokens_list);
+void					syntax_algo(t_ptr tokens_list);
+void					check_no_cmd(t_ptr tokens_list);
 
 /* syntax builder utils */
-int						check_pipes_num(token_ptr tokens_list);
-void					same_type_finder(token_ptr *tokens_list);
+int						check_pipes_num(t_ptr tokens_list);
+void					same_type_finder(t_ptr *tokens_list);
 t_bool					type_checker(int type);
-t_bool					cmd_checker(token_ptr tokens_list);
-void					quotes_handler_helper(token_ptr tokens_list, t_var d);
+t_bool					cmd_checker(t_ptr tokens_list);
+void					quotes_handler_helper(t_ptr tokens_list, t_var d);
 
 /* syntax builder utils 2 */
-t_bool					handle_qt(token_ptr *tokens_list, t_var d);
-void					words_finder(token_ptr *tokens_list, t_var d);
-t_bool					tmp_checker(token_ptr *tokens_list, token_ptr tmp,
+t_bool					handle_qt(t_ptr *tokens_list, t_var d);
+void					words_finder(t_ptr *tokens_list, t_var d);
+t_bool					tmp_checker(t_ptr *tokens_list, t_ptr tmp,
 							t_bool *status);
-t_bool					multiple_quotes_check(t_var d, token_ptr tmp);
-t_bool					types_checker(t_var d, int index, token_ptr tmp);
+t_bool					multiple_quotes_check(t_var d, t_ptr tmp);
+t_bool					types_checker(t_var d, int index, t_ptr tmp);
 
 /* tokens checker (printed on terminal) */
-void					check_tokens(token_ptr print_tk);
+void					check_tokens(t_ptr print_tk);
 
 /* executor */
-void					executor(token_ptr tokens_list, char **env,
+void					executor(t_ptr tokens_list, char **env,
 							char *user_input);
 
 /* tk_optimizer */
-void					tokens_list_optimizer(token_ptr *tokens_list);
-void					special_chars_refactor(token_ptr tokens_list);
-void					node_remover(token_ptr *node);
-t_bool					special_chars_finder(token_ptr *tokens_list,
-							token_ptr node_add, int type);
+void					tokens_list_optimizer(t_ptr *tokens_list);
+void					special_chars_refactor(t_ptr tokens_list);
+void					node_remover(t_ptr *node);
+t_bool					special_chars_finder(t_ptr *tokens_list,
+							t_ptr node_add, int type);
 
 /* exucutor uitls */
-t_bool	extract_cmd_helper(token_ptr *tokens_list,
+t_bool					extract_cmd_helper(t_ptr *tokens_list,
 							int *i,
 							char **full_cmd);
-t_bool	get_infos_helper(token_ptr *tokens_list,
-						t_bool *flag,
-						int *rows);
+t_bool					get_infos_helper(t_ptr *tokens_list,
+							t_bool *flag,
+							int *rows);
 
 /* pipes uitls */
 void					child_exec_cmd(char **av, t_var *data,
@@ -311,25 +311,25 @@ char					*ft_find_cmd(char *cmd, char **envp);
 
 /* IO_stream */
 t_bool					input_red_stream(t_var *data);
-t_bool					input_red_fd(token_ptr *temp, t_var *data);
+t_bool					input_red_fd(t_ptr *temp, t_var *data);
 t_bool					output_red_stream(t_var *data);
-t_bool					output_red_fd(token_ptr *temp, t_var *data);
-t_bool					output_red_helper(token_ptr *temp, t_var *data,
+t_bool					output_red_fd(t_ptr *temp, t_var *data);
+t_bool					output_red_helper(t_ptr *temp, t_var *data,
 							t_bool *filename);
 
 /* status_utils */
-void					dollar_status_check(token_ptr tokens_list);
+void					dollar_status_check(t_ptr tokens_list);
 char					*expand_status(char *tk, int *i);
 int						get_length(char *tk);
 void					before_tk_status(char *before, char *tk);
 void					after_tk_status(char *after, char *tk);
 
 /* utils 3*/
-t_bool					check_single_quotes(token_ptr node);
+t_bool					check_single_quotes(t_ptr node);
 t_bool					builtin_checker(char *built_in);
-void					open_output_fd(token_ptr *temp, t_var *data);
-t_bool					check_quotes(t_var *d, token_ptr *tokens_list);
-t_bool					space_trim(token_ptr tokens_list);
+void					open_output_fd(t_ptr *temp, t_var *data);
+t_bool					check_quotes(t_var *d, t_ptr *tokens_list);
+t_bool					space_trim(t_ptr tokens_list);
 
 /* utils 4 */
 void					quotes_substitut(char **cmd_table);
@@ -351,16 +351,16 @@ t_bool					cd_check(char **av, t_var data, t_bool pipe_switcher);
 
 /* utils 6 */
 void					get_status(void);
-void					split_words(token_ptr *tk_list);
-void					add_nodes(token_ptr tk, char *word);
-void					add_node(token_ptr tk, char *word, int type);
+void					split_words(t_ptr *tk_list);
+void					add_nodes(t_ptr tk, char *word);
+void					add_node(t_ptr tk, char *word, int type);
 void					io_dup_close(t_var *data);
 
 /* utils 7 */
-void					pipe_order_check(token_ptr *tokens_list);
-void					pipe_node_remover(token_ptr *last);
+void					pipe_order_check(t_ptr *tokens_list);
+void					pipe_node_remover(t_ptr *last);
 void					child_exec_helper(t_var *data, char **av);
-void					spliter(char **word, token_ptr tk, int *i);
-void					set_tk_exp_len(token_ptr *tokens_list);
+void					spliter(char **word, t_ptr tk, int *i);
+void					set_tk_exp_len(t_ptr *tokens_list);
 
 #endif /* MINIHELL_H */

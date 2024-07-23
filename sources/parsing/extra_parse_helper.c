@@ -70,7 +70,7 @@ char	*allocate_segment(const char *start, int length)
 	return (segment);
 }
 
-void	space_skip(token_ptr tokens_list)
+void	space_skip(t_ptr tokens_list)
 {
 	if (tokens_list->token_type == 0)
 	{

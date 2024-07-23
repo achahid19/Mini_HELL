@@ -12,16 +12,16 @@
 
 #include "../includes/miniHell.h"
 
-void			syntax_algo(token_ptr tokens_list);
-static void		special_chars(token_ptr tokens_list, int type);
-static void		assign_cmd(token_ptr tokens_list);
-static t_bool	quotes_cmd(token_ptr *tokens_list);
-static void		quotes_handler(token_ptr tokens_list);
+void			syntax_algo(t_ptr tokens_list);
+static void		special_chars(t_ptr tokens_list, int type);
+static void		assign_cmd(t_ptr tokens_list);
+static t_bool	quotes_cmd(t_ptr *tokens_list);
+static void		quotes_handler(t_ptr tokens_list);
 
 /**
  * syntax_algo -
 */
-void	syntax_algo(token_ptr tokens_list)
+void	syntax_algo(t_ptr tokens_list)
 {
 	int		type;
 	int		pipes;
@@ -45,7 +45,7 @@ void	syntax_algo(token_ptr tokens_list)
  * special_chars - spot special chras (>>, <<, <, >)
  * and look for their extensions (tokens of the same type).
 */
-static void	special_chars(token_ptr tokens_list, int type)
+static void	special_chars(t_ptr tokens_list, int type)
 {
 	while (tokens_list)
 	{
@@ -70,7 +70,7 @@ static void	special_chars(token_ptr tokens_list, int type)
 /**
  * assign_cmd -
 */
-static void	assign_cmd(token_ptr tokens_list)
+static void	assign_cmd(t_ptr tokens_list)
 {
 	while (tokens_list)
 	{
@@ -98,7 +98,7 @@ static void	assign_cmd(token_ptr tokens_list)
 /**
  * quotes_cmd -
 */
-static t_bool	quotes_cmd(token_ptr *tokens_list)
+static t_bool	quotes_cmd(t_ptr *tokens_list)
 {
 	t_var	d;
 
@@ -123,7 +123,7 @@ static t_bool	quotes_cmd(token_ptr *tokens_list)
 /**
  * quotes_hanlder -
 */
-static void	quotes_handler(token_ptr tokens_list)
+static void	quotes_handler(t_ptr tokens_list)
 {
 	t_var	d;
 

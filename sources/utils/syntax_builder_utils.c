@@ -12,16 +12,16 @@
 
 #include "../../includes/miniHell.h"
 
-int		check_pipes_num(token_ptr tokens_list);
-void	same_type_finder(token_ptr *tokens_list);
+int		check_pipes_num(t_ptr tokens_list);
+void	same_type_finder(t_ptr *tokens_list);
 t_bool	type_checker(int type);
-t_bool	cmd_checker(token_ptr tokens_list);
-void	quotes_handler_helper(token_ptr tokens_list, t_var d);
+t_bool	cmd_checker(t_ptr tokens_list);
+void	quotes_handler_helper(t_ptr tokens_list, t_var d);
 
 /**
  * check_pipes_num -
 */
-int	check_pipes_num(token_ptr tokens_list)
+int	check_pipes_num(t_ptr tokens_list)
 {
 	int	pipes;
 
@@ -38,7 +38,7 @@ int	check_pipes_num(token_ptr tokens_list)
 /**
  * same_type_finder -
 */
-void	same_type_finder(token_ptr *tokens_list)
+void	same_type_finder(t_ptr *tokens_list)
 {
 	while ((*tokens_list)->token_type != word_token
 		&& (*tokens_list)->token_type != string_token
@@ -62,7 +62,7 @@ t_bool	type_checker(int type)
 /**
  * cmd_checker -
 */
-t_bool	cmd_checker(token_ptr tokens_list)
+t_bool	cmd_checker(t_ptr tokens_list)
 {
 	while (tokens_list)
 	{
@@ -76,7 +76,7 @@ t_bool	cmd_checker(token_ptr tokens_list)
 /**
  * quotes_handler_helper -
 */
-void	quotes_handler_helper(token_ptr tokens_list, t_var d)
+void	quotes_handler_helper(t_ptr tokens_list, t_var d)
 {
 	t_bool	status;
 

@@ -12,7 +12,7 @@
 
 #include "../../includes/miniHell.h"
 
-void	tokens_expander_helper(token_ptr tokens_list, char **envp,
+void	tokens_expander_helper(t_ptr tokens_list, char **envp,
 			t_expand d);
 int		dollars_count(char *token);
 int		get_biggest_len(char *envp, char *dollar_tk);
@@ -21,7 +21,7 @@ void	data_move_helper(t_expand *data, char **token);
 /**
  * tokens_expander_helper -
 */
-void	tokens_expander_helper(token_ptr tokens_list, char **envp,
+void	tokens_expander_helper(t_ptr tokens_list, char **envp,
 			t_expand d)
 {
 	while (tokens_list != NULL)

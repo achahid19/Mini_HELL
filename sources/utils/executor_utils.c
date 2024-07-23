@@ -12,17 +12,17 @@
 
 #include "../../includes/miniHell.h"
 
-t_bool			extract_cmd_helper(token_ptr *tokens_list,
+t_bool			extract_cmd_helper(t_ptr *tokens_list,
 					int *i, char **full_cmd);
-static t_bool	whitespace_checker(token_ptr *tokens_list,
+static t_bool	whitespace_checker(t_ptr *tokens_list,
 					int *i, char **full_cmd);
-t_bool			get_infos_helper(token_ptr *tokens_list,
+t_bool			get_infos_helper(t_ptr *tokens_list,
 					t_bool *flag, int *rows);
 
 /**
  * extract_cmd_helper -
 */
-t_bool	extract_cmd_helper(token_ptr *tokens_list,
+t_bool	extract_cmd_helper(t_ptr *tokens_list,
 			int *i, char **full_cmd)
 {
 	if ((*tokens_list)->token_type == pipe_token)
@@ -54,7 +54,7 @@ t_bool	extract_cmd_helper(token_ptr *tokens_list,
 /**
  * whitespace_checker -
 */
-static t_bool	whitespace_checker(token_ptr *tokens_list,
+static t_bool	whitespace_checker(t_ptr *tokens_list,
 					int *i, char **full_cmd)
 {
 	while ((*tokens_list)->token_type == whitespace_token)
@@ -70,7 +70,7 @@ static t_bool	whitespace_checker(token_ptr *tokens_list,
 	return (true);
 }
 
-t_bool	get_infos_helper(token_ptr *tokens_list,
+t_bool	get_infos_helper(t_ptr *tokens_list,
 			t_bool *flag, int *rows)
 {
 	if ((*tokens_list)->token_type == pipe_token)

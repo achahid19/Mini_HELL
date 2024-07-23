@@ -13,7 +13,7 @@
 #include "../../includes/miniHell.h"
 #include "../../includes/global.h"
 
-void	dollar_status_check(token_ptr tokens_list);
+void	dollar_status_check(t_ptr tokens_list);
 char	*expand_status(char *tk, int *i);
 int		get_length(char *tk);
 void	before_tk_status(char *before, char *tk);
@@ -22,7 +22,7 @@ void	after_tk_status(char *after, char *tk);
 /**
  * dolar_status_check -
 */
-void	dollar_status_check(token_ptr tokens_list)
+void	dollar_status_check(t_ptr tokens_list)
 {
 	int		i;
 	char	*tk;

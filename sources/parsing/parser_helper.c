@@ -12,7 +12,7 @@
 
 #include "../../includes/miniHell.h"
 
-token_ptr	find_last_node2(token_ptr list)
+t_ptr	find_last_node2(t_ptr list)
 {
 	if (!list)
 		return (NULL);
@@ -34,9 +34,9 @@ void	eof_printer(char *delimiter)
 	printf(" delimited by end-of-file (wanted `%s')\n", delimiter);
 }
 
-int	ft_no_expand(token_ptr tmp)
+int	ft_no_expand(t_ptr tmp)
 {
-	token_ptr	tmp2;
+	t_ptr	tmp2;
 
 	tmp2 = tmp->next;
 	while (tmp2)
@@ -51,9 +51,9 @@ int	ft_no_expand(token_ptr tmp)
 	return (0);
 }
 
-void	ft_enter(token_ptr tokens_list, int i)
+void	ft_enter(t_ptr tokens_list, int i)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 	char		*filename;
 
 	g_global.ctrd = 0;

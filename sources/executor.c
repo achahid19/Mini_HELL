@@ -13,10 +13,10 @@
 #include "../includes/miniHell.h"
 #include "../includes/global.h"
 
-void	executor(token_ptr tokens_list, char **envp, char *user_input);
-void	exec_command(token_ptr tokens_list, t_var data);
-char	**extract_command(token_ptr tokens_list);
-int		get_infos(token_ptr tokens_list);
+void	executor(t_ptr tokens_list, char **envp, char *user_input);
+void	exec_command(t_ptr tokens_list, t_var data);
+char	**extract_command(t_ptr tokens_list);
+int		get_infos(t_ptr tokens_list);
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher);
 
 
@@ -34,7 +34,7 @@ void 		hendler_1(int signum)
 /**
  * executor -
 */
-void	executor(token_ptr tokens_list, char **envp, char *user_input)
+void	executor(t_ptr tokens_list, char **envp, char *user_input)
 {
 	t_var	data;
 	signal(SIGINT, handler_2);
@@ -64,7 +64,7 @@ void	executor(token_ptr tokens_list, char **envp, char *user_input)
 /**
  * exec_command -
 */
-void	exec_command(token_ptr tokens_list, t_var data)
+void	exec_command(t_ptr tokens_list, t_var data)
 {
 	char	**full_cmd;
 
@@ -83,7 +83,7 @@ void	exec_command(token_ptr tokens_list, t_var data)
 /**
  * extract_command -
 */
-char	**extract_command(token_ptr tokens_list)
+char	**extract_command(t_ptr tokens_list)
 {
 	char	**full_cmd;
 	int		rows;
@@ -117,7 +117,7 @@ char	**extract_command(token_ptr tokens_list)
  * the cmd + words + string as one token 
  * to be merged later on. [1 token = 1 row].
 */
-int	get_infos(token_ptr tokens_list)
+int	get_infos(t_ptr tokens_list)
 {
 	int		rows;
 	t_bool	flag;

@@ -12,7 +12,7 @@
 
 #include "../includes/miniHell.h"
 
-void	tokens_expander(token_ptr tokens_list, char **envp);
+void	tokens_expander(t_ptr tokens_list, char **envp);
 char	*extract_dollar_token(char *ptr_token, char *dollar_tk,
 			int dollar_tk_len);
 char	*get_value(char *dollar_tk, int *dtk_len, char **envp);
@@ -22,7 +22,7 @@ void	move_data(t_expand *data, char *dollar_tk, char *token);
 /**
  * tokens_expander -
 */
-void	tokens_expander(token_ptr tokens_list, char **envp)
+void	tokens_expander(t_ptr tokens_list, char **envp)
 {
 	t_expand	data;
 

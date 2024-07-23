@@ -12,15 +12,15 @@
 
 #include "../../includes/miniHell.h"
 
-t_bool	string_handler(token_ptr *tokens_list);
-t_bool	doublequote_handler(token_ptr *tokens_list);
-t_bool	singlequote_handler(token_ptr *tokens_list);
+t_bool	string_handler(t_ptr *tokens_list);
+t_bool	doublequote_handler(t_ptr *tokens_list);
+t_bool	singlequote_handler(t_ptr *tokens_list);
 
 /**
  * string_hanlder - handle the execution of the
  * expansion of dollar sign, in double quoted string
 */
-t_bool	string_handler(token_ptr *tokens_list)
+t_bool	string_handler(t_ptr *tokens_list)
 {
 	if ((*tokens_list)->token_type == doublequote_token)
 	{
@@ -38,7 +38,7 @@ t_bool	string_handler(token_ptr *tokens_list)
 /**
  * doublquote_handler -
 */
-t_bool	doublequote_handler(token_ptr *tokens_list)
+t_bool	doublequote_handler(t_ptr *tokens_list)
 {
 	*tokens_list = (*tokens_list)->next;
 	if (*tokens_list == NULL)
@@ -54,7 +54,7 @@ t_bool	doublequote_handler(token_ptr *tokens_list)
 /**
  * singlequote_handler -
 */
-t_bool	singlequote_handler(token_ptr *tokens_list)
+t_bool	singlequote_handler(t_ptr *tokens_list)
 {
 	*tokens_list = (*tokens_list)->next;
 	if (*tokens_list == NULL)

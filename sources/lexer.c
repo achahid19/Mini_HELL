@@ -12,10 +12,10 @@
 
 #include "../includes/miniHell.h"
 
-token_ptr	lexer(char *user_input);
-t_bool		string_tokens(char **user_input, token_ptr *tokens_head,
+t_ptr	lexer(char *user_input);
+t_bool		string_tokens(char **user_input, t_ptr *tokens_head,
 				int type, int *order);
-t_bool		char_tokens(char **user_input, token_ptr *tokens_head,
+t_bool		char_tokens(char **user_input, t_ptr *tokens_head,
 				int type, int order);
 
 /**
@@ -25,7 +25,7 @@ t_bool		char_tokens(char **user_input, token_ptr *tokens_head,
  * 
  * Return: a list of tokens.
 */
-token_ptr	lexer(char *user_input)
+t_ptr	lexer(char *user_input)
 {
 	t_var	d;
 
@@ -65,7 +65,7 @@ token_ptr	lexer(char *user_input)
  * 
  * Return: void.
 */
-t_bool	string_tokens(char **user_input, token_ptr *tokens_head,
+t_bool	string_tokens(char **user_input, t_ptr *tokens_head,
 			int type, int *order)
 {
 	t_bool	s;
@@ -100,7 +100,7 @@ t_bool	string_tokens(char **user_input, token_ptr *tokens_head,
  * 
  * Return: boolean.
 */
-t_bool	char_tokens(char **user_input, token_ptr *tokens_head,
+t_bool	char_tokens(char **user_input, t_ptr *tokens_head,
 						int type, int order)
 {
 	t_bool	s;
