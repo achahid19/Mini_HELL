@@ -225,7 +225,7 @@ int		nb_args(char **args);
 t_bool		ft_export(char **av);
 t_bool is_exported(char *variable);
 t_bool		ft_unset(char **av);
-t_bool      ft_exit(char **av);
+t_bool      ft_exit(char **av, t_var data);
 t_bool		ft_echo(char **av);
 t_bool		ft_env(char **av);
 /* signal handler */
