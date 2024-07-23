@@ -28,6 +28,8 @@ int	main(int ac, char **av, char **envp)
 	token_ptr	tokens_list;
 	char		**e;
 
+	(void)ac;
+	(void)av;
 	ft_init(envp, &user_input);
 	while (ft_readline(&user_input) == true)
 	{
@@ -103,7 +105,7 @@ static void	minihell_helper(token_ptr tokens_list, char *user_input,
 /**
  * check_tokens -
  */
-void	check_tokens(token_ptr print_tk)
+/* void	check_tokens(token_ptr print_tk)
 {
 	while (print_tk != NULL)
 	{
@@ -119,4 +121,4 @@ void	check_tokens(token_ptr print_tk)
 		printf("------------------------------\n");
 		print_tk = print_tk->next;
 	}
-}
+} */
