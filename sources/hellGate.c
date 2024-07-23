@@ -13,9 +13,9 @@
 #include "../includes/miniHell.h"
 
 static t_bool	ft_readline(char **user_input);
-static void		ft_unlink(token_ptr tokens_list);
+static void		ft_unlink(t_ptr tokens_list);
 static void		ft_init(char **envp, char **user_input);
-static void		minihell_helper(token_ptr tokens_list, char *user_input, 
+static void		minihell_helper(t_ptr tokens_list, char *user_input, 
 					char **e);
 
 /**
@@ -24,7 +24,7 @@ static void		minihell_helper(token_ptr tokens_list, char *user_input,
 int	main(int ac, char **av, char **envp)
 {
 	char		*user_input;
-	token_ptr	tokens_list;
+	t_ptr	tokens_list;
 	char		**e;
 
 	(void)ac;
@@ -79,7 +79,7 @@ t_bool	ft_readline(char **user_input)
 	return (true);
 }
 
-static void	ft_unlink(token_ptr tokens_list)
+static void	ft_unlink(t_ptr tokens_list)
 {
 	while (tokens_list)
 	{
@@ -93,7 +93,7 @@ static void	ft_unlink(token_ptr tokens_list)
 /**
  * miniHell_helper -
  */
-static void	minihell_helper(token_ptr tokens_list, char *user_input,
+static void	minihell_helper(t_ptr tokens_list, char *user_input,
 				char **e)
 {
 	syntax_algo(tokens_list);
@@ -107,7 +107,7 @@ static void	minihell_helper(token_ptr tokens_list, char *user_input,
 /**
  * check_tokens -
  */
-void	check_tokens(token_ptr print_tk)
+void	check_tokens(t_ptr print_tk)
 {
 	while (print_tk != NULL)
 	{

@@ -12,9 +12,9 @@
 
 #include "../../includes/miniHell.h"
 
-void	new_token_lst(token_ptr tokens_list, int order, char *test)
+void	new_token_lst(t_ptr tokens_list, int order, char *test)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	free(test);
 	tmp = tokens_list;
@@ -83,7 +83,7 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp, int flag)
 	return (filename);
 }
 
-void	heredoc_norm(token_ptr tokens_list, int order, char *filename, int i)
+void	heredoc_norm(t_ptr tokens_list, int order, char *filename, int i)
 {
 	if (g_global.ctrd == 1)
 		ft_enter(tokens_list, i);
@@ -91,13 +91,13 @@ void	heredoc_norm(token_ptr tokens_list, int order, char *filename, int i)
 		filename_write(tokens_list, filename, order);
 }
 
-int	heredoc(token_ptr tmp, token_ptr tokens_list, t_env *envp)
+int	heredoc(t_ptr tmp, t_ptr tokens_list, t_env *envp)
 {
 	int			i;
 	int			flag;
 	char		*filename;
 	char		*test;
-	token_ptr	tmp2;
+	t_ptr	tmp2;
 
 	i = 0;
 	tmp2 = tokens_list;

@@ -12,18 +12,18 @@
 
 #include "../../includes/miniHell.h"
 
-void	pipe_order_check(token_ptr *tokens_list);
-void	pipe_node_remover(token_ptr *last);
+void	pipe_order_check(t_ptr *tokens_list);
+void	pipe_node_remover(t_ptr *last);
 void	child_exec_helper(t_var *data, char **av);
-void	spliter(char **word, token_ptr tk, int *i);
-void	set_tk_exp_len(token_ptr *tokens_list);
+void	spliter(char **word, t_ptr tk, int *i);
+void	set_tk_exp_len(t_ptr *tokens_list);
 
 /**
  * pipe_order_check -
  */
-void	pipe_order_check(token_ptr *tokens_list)
+void	pipe_order_check(t_ptr *tokens_list)
 {
-	token_ptr	last;
+	t_ptr	last;
 
 	if (*tokens_list == NULL)
 		return ;
@@ -41,9 +41,9 @@ void	pipe_order_check(token_ptr *tokens_list)
 /**
  * pipe_node_remover -
  */
-void	pipe_node_remover(token_ptr *last)
+void	pipe_node_remover(t_ptr *last)
 {
-	token_ptr	to_free;
+	t_ptr	to_free;
 
 	to_free = (*last);
 	free((*last)->token);
@@ -87,7 +87,7 @@ void	child_exec_helper(t_var *data, char **av)
 /**
  * spliter -
 */
-void	spliter(char **word, token_ptr tk, int *i)
+void	spliter(char **word, t_ptr tk, int *i)
 {
 	if (word[*i] != NULL)
 	{
@@ -105,7 +105,7 @@ void	spliter(char **word, token_ptr tk, int *i)
 /**
  * set_tk_exp_len -
 */
-void	set_tk_exp_len(token_ptr *tokens_list)
+void	set_tk_exp_len(t_ptr *tokens_list)
 {
 	(*tokens_list)->token_length = ft_strlen((*tokens_list)->token);
 	if ((*tokens_list)->token_length == 0)

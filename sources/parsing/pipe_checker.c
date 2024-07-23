@@ -12,9 +12,9 @@
 
 #include "../../includes/miniHell.h"
 
-int	first_pipe_checker(token_ptr tokens_list)
+int	first_pipe_checker(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	if (tmp->token_type == 1)
@@ -37,9 +37,9 @@ int	first_pipe_checker(token_ptr tokens_list)
 	return (0);
 }
 
-int	last_pipe_checker(token_ptr tokens_list)
+int	last_pipe_checker(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp->next)
@@ -57,9 +57,9 @@ int	last_pipe_checker(token_ptr tokens_list)
 	return (0);
 }
 
-int	second_pipe_checker(token_ptr tokens_list)
+int	second_pipe_checker(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	if (tmp->token_type == 0)
@@ -73,9 +73,9 @@ int	second_pipe_checker(token_ptr tokens_list)
 	return (0);
 }
 
-int	latest_pipe_checker(token_ptr tokens_list)
+int	latest_pipe_checker(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp)
@@ -93,7 +93,7 @@ int	latest_pipe_checker(token_ptr tokens_list)
 	return (0);
 }
 
-int	pipe_checker(token_ptr tokens_list)
+int	pipe_checker(t_ptr tokens_list)
 {
 	if (first_pipe_checker(tokens_list) == 1)
 		return (1);

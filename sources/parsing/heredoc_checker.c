@@ -12,9 +12,9 @@
 
 #include "../../includes/miniHell.h"
 
-int	heredoc_checker_first(token_ptr tokens_list)
+int	heredoc_checker_first(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp)
@@ -34,9 +34,9 @@ int	heredoc_checker_first(token_ptr tokens_list)
 	return (0);
 }
 
-int	append_checker_second(token_ptr tokens_list)
+int	append_checker_second(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp)
@@ -56,9 +56,9 @@ int	append_checker_second(token_ptr tokens_list)
 	return (0);
 }
 
-int	heredoc_max_checker(token_ptr tokens_list)
+int	heredoc_max_checker(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 	int			count;
 
 	count = 0;
@@ -77,9 +77,9 @@ int	heredoc_max_checker(token_ptr tokens_list)
 	return (0);
 }
 
-int	heredoc_next_checker(token_ptr tokens_list)
+int	heredoc_next_checker(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp && tmp->next)
@@ -95,7 +95,7 @@ int	heredoc_next_checker(token_ptr tokens_list)
 	return (0);
 }
 
-int	heredoc_append_checker(token_ptr tokens_list)
+int	heredoc_append_checker(t_ptr tokens_list)
 {
 	if (heredoc_checker_first(tokens_list) == 1)
 		return (1);

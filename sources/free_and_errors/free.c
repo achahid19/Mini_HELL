@@ -24,9 +24,9 @@ void	error(const char *cmd, const char *msg)
 		perror(cmd);
 }
 
-void	free_tokens(token_ptr tokens_list)
+void	free_tokens(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	while (tokens_list)
 	{
@@ -68,7 +68,7 @@ void	free_global_env(void)
 /**
  * free_all -
 */
-void	free_all(token_ptr tokens_list, char *user_input,
+void	free_all(t_ptr tokens_list, char *user_input,
 			char **av)
 {
 	if (tokens_list != NULL)

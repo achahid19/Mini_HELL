@@ -56,9 +56,9 @@ char	*ft_last_del(char *delimiter)
 	return (free(delimiter), tmp);
 }
 
-char	*ft_first_del(token_ptr tokens_list)
+char	*ft_first_del(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 	char		*delimiter;
 	int			flag;
 
@@ -79,9 +79,9 @@ char	*ft_first_del(token_ptr tokens_list)
 	return (delimiter);
 }
 
-char	*ft_delimiter_handler(token_ptr tokens_list)
+char	*ft_delimiter_handler(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 	char		*delimiter;
 
 	tmp = tokens_list;
@@ -95,10 +95,10 @@ char	*ft_delimiter_handler(token_ptr tokens_list)
 	return (delimiter);
 }
 
-char	*ft_delimiter(token_ptr tokens_list, int order)
+char	*ft_delimiter(t_ptr tokens_list, int order)
 {
 	char		*delimiter;
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp)

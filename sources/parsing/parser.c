@@ -12,7 +12,7 @@
 
 #include "../../includes/miniHell.h"
 
-int	ft_type_check(token_ptr tokens_list)
+int	ft_type_check(t_ptr tokens_list)
 {
 	if (pipe_checker(tokens_list) == 1)
 		return (1);
@@ -23,9 +23,9 @@ int	ft_type_check(token_ptr tokens_list)
 	return (0);
 }
 
-void	copy_token_helper(token_ptr *new_node, token_ptr tmp)
+void	copy_token_helper(t_ptr *new_node, t_ptr tmp)
 {
-	(*new_node) = (token_ptr)malloc(sizeof(t_token));
+	(*new_node) = (t_ptr)malloc(sizeof(t_token));
 	(*new_node)->token = ft_strdup(tmp->token);
 	(*new_node)->token_type = tmp->token_type;
 	(*new_node)->order = tmp->order;
@@ -34,20 +34,20 @@ void	copy_token_helper(token_ptr *new_node, token_ptr tmp)
 	(*new_node)->previous = NULL;
 }
 
-void	copy_token_helper2(token_ptr *new_node, token_ptr *last_node,
-		token_ptr *new_list)
+void	copy_token_helper2(t_ptr *new_node, t_ptr *last_node,
+		t_ptr *new_list)
 {
 	*last_node = find_last_node2(*new_list);
 	(*last_node)->next = *new_node;
 	(*new_node)->previous = *last_node;
 }
 
-token_ptr	copy_tokens(token_ptr tokens_list)
+t_ptr	copy_tokens(t_ptr tokens_list)
 {
-	token_ptr	tmp;
-	token_ptr	new_list;
-	token_ptr	new_node;
-	token_ptr	last_node;
+	t_ptr	tmp;
+	t_ptr	new_list;
+	t_ptr	new_node;
+	t_ptr	last_node;
 
 	tmp = tokens_list;
 	new_list = NULL;
@@ -68,9 +68,9 @@ token_ptr	copy_tokens(token_ptr tokens_list)
 	return (new_list);
 }
 
-int	parser_tokens(token_ptr tokens_list, t_env *env)
+int	parser_tokens(t_ptr tokens_list, t_env *env)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = copy_tokens(tokens_list);
 	if (tmp == NULL)

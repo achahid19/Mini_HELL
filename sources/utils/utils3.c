@@ -12,16 +12,16 @@
 
 #include "../../includes/miniHell.h"
 
-t_bool	check_single_quotes(token_ptr node);
+t_bool	check_single_quotes(t_ptr node);
 t_bool	builtin_checker(char *built_in);
-void	open_output_fd(token_ptr *temp, t_var *data);
-t_bool	check_quotes(t_var *d, token_ptr *tokens_list);
-t_bool	space_trim(token_ptr tokens_list);
+void	open_output_fd(t_ptr *temp, t_var *data);
+t_bool	check_quotes(t_var *d, t_ptr *tokens_list);
+t_bool	space_trim(t_ptr tokens_list);
 
 /**
  * check_single_quotes -
 */
-t_bool	check_single_quotes(token_ptr node)
+t_bool	check_single_quotes(t_ptr node)
 {
 	if (node == NULL)
 		return (false);
@@ -64,7 +64,7 @@ t_bool	builtin_checker(char *built_in)
 /**
  * open_output_fd -
 */
-void	open_output_fd(token_ptr *temp, t_var *data)
+void	open_output_fd(t_ptr *temp, t_var *data)
 {
 	if ((*temp)->token_type == rightred_token)
 		data->fd[1] = open((*temp)->token, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -82,7 +82,7 @@ void	open_output_fd(token_ptr *temp, t_var *data)
 /**
  * check_quotes -
 */
-t_bool	check_quotes(t_var *d, token_ptr *tokens_list)
+t_bool	check_quotes(t_var *d, t_ptr *tokens_list)
 {
 	d->tokens_list = *tokens_list;
 	d->type = (*tokens_list)->token_type;
@@ -94,7 +94,7 @@ t_bool	check_quotes(t_var *d, token_ptr *tokens_list)
 /**
  * space_trim -
  */
-t_bool	space_trim(token_ptr tokens_list)
+t_bool	space_trim(t_ptr tokens_list)
 {
 	while (tokens_list)
 	{

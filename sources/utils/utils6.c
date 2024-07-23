@@ -14,9 +14,9 @@
 #include "../../includes/global.h"
 
 void	get_status(void);
-void	split_words(token_ptr *tk_list);
-void	add_nodes(token_ptr tk, char *word);
-void	add_node(token_ptr tk, char *word, int type);
+void	split_words(t_ptr *tk_list);
+void	add_nodes(t_ptr tk, char *word);
+void	add_node(t_ptr tk, char *word, int type);
 void	io_dup_close(t_var *data);
 
 /**
@@ -41,9 +41,9 @@ void	get_status(void)
 /**
  * split_words -
  */
-void	split_words(token_ptr *tk_list)
+void	split_words(t_ptr *tk_list)
 {
-	token_ptr	tk;
+	t_ptr	tk;
 	char		**word;
 	int			i;
 
@@ -66,7 +66,7 @@ void	split_words(token_ptr *tk_list)
 /**
  * add_nodes -
  */
-void	add_nodes(token_ptr tk, char *word)
+void	add_nodes(t_ptr tk, char *word)
 {
 	add_node(tk, " ", whitespace_token);
 	add_node(tk, word, word_token);
@@ -76,10 +76,10 @@ void	add_nodes(token_ptr tk, char *word)
 /**
  * add_word_node -
  */
-void	add_node(token_ptr tk, char *word, int type)
+void	add_node(t_ptr tk, char *word, int type)
 {
-	token_ptr	new;
-	token_ptr	last;
+	t_ptr	new;
+	t_ptr	last;
 
 	new = malloc(sizeof(t_token));
 	new->token = ft_strdup(word);

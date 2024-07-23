@@ -12,7 +12,7 @@
 
 #include "../../includes/miniHell.h"
 
-token_ptr	find_last_node(token_ptr head);
+t_ptr	find_last_node(t_ptr head);
 t_bool		ft_isspace(char c);
 char		*ft_realloc(char *to_free, int new_len);
 void		dup_and_close(int *end, int i);
@@ -25,7 +25,7 @@ void		points_checker(t_var data, char **av);
  * 
  * Return: pointer to the last node.
 */
-token_ptr	find_last_node(token_ptr head)
+t_ptr	find_last_node(t_ptr head)
 {
 	while (head != NULL)
 	{

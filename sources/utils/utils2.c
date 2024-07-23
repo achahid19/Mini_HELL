@@ -12,16 +12,16 @@
 
 #include "../../includes/miniHell.h"
 
-void		tokens_order(token_ptr tokens_list);
-token_ptr	get_next_pipe(token_ptr tokens_list);
-void		get_next_type(token_ptr *tokens_list, t_var d);
+void		tokens_order(t_ptr tokens_list);
+t_ptr	get_next_pipe(t_ptr tokens_list);
+void		get_next_type(t_ptr *tokens_list, t_var d);
 t_bool		special_chars_checker(int type);
 t_bool		quotes_cmd_checker(t_var d);
 
 /**
  * tokens_order -
 */
-void	tokens_order(token_ptr tokens_list)
+void	tokens_order(t_ptr tokens_list)
 {
 	int	order;
 
@@ -37,7 +37,7 @@ void	tokens_order(token_ptr tokens_list)
 /**
  * get_next_pipe -
 */
-token_ptr	get_next_pipe(token_ptr tokens_list)
+t_ptr	get_next_pipe(t_ptr tokens_list)
 {
 	while (tokens_list)
 	{
@@ -53,7 +53,7 @@ token_ptr	get_next_pipe(token_ptr tokens_list)
 /**
  * get_next_type -
 */
-void	get_next_type(token_ptr *tokens_list, t_var d)
+void	get_next_type(t_ptr *tokens_list, t_var d)
 {
 	if ((*tokens_list)->next != NULL)
 	{

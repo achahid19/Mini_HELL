@@ -14,10 +14,10 @@
 #include "../../includes/global.h"
 
 t_bool	input_red_stream(t_var *data);
-t_bool	input_red_fd(token_ptr *temp, t_var *data);
+t_bool	input_red_fd(t_ptr *temp, t_var *data);
 t_bool	output_red_stream(t_var *data);
-t_bool	output_red_fd(token_ptr *temp, t_var *data);
-t_bool	output_red_helper(token_ptr *temp, t_var *data,
+t_bool	output_red_fd(t_ptr *temp, t_var *data);
+t_bool	output_red_helper(t_ptr *temp, t_var *data,
 			t_bool *filename);
 
 /**
@@ -25,7 +25,7 @@ t_bool	output_red_helper(token_ptr *temp, t_var *data,
 */
 t_bool	input_red_stream(t_var *data)
 {
-	token_ptr	temp;
+	t_ptr	temp;
 
 	temp = data->tokens_list;
 	while (temp)
@@ -53,7 +53,7 @@ t_bool	input_red_stream(t_var *data)
 /**
  * input_red_fd -
 */
-t_bool	input_red_fd(token_ptr *temp, t_var *data)
+t_bool	input_red_fd(t_ptr *temp, t_var *data)
 {
 	while (*temp)
 	{
@@ -87,7 +87,7 @@ t_bool	input_red_fd(token_ptr *temp, t_var *data)
 */
 t_bool	output_red_stream(t_var *data)
 {
-	token_ptr	temp;
+	t_ptr	temp;
 
 	temp = data->tokens_list;
 	while (temp)
@@ -116,7 +116,7 @@ t_bool	output_red_stream(t_var *data)
 /**
  * output_red_fd -
 */
-t_bool	output_red_fd(token_ptr *temp, t_var *data)
+t_bool	output_red_fd(t_ptr *temp, t_var *data)
 {
 	static t_bool	filename;
 	int				n;	
@@ -143,7 +143,7 @@ t_bool	output_red_fd(token_ptr *temp, t_var *data)
 /**
  * output_red_helper -
  */
-t_bool	output_red_helper(token_ptr *temp, t_var *data,
+t_bool	output_red_helper(t_ptr *temp, t_var *data,
 			t_bool *filename)
 {
 	if (((*temp)->token_type == rightred_token

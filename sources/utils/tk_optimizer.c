@@ -12,20 +12,20 @@
 
 #include "../../includes/miniHell.h"
 
-void	node_remover(token_ptr *node);				
-void	special_chars_refactor(token_ptr tokens_list);
-t_bool	special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
+void	node_remover(t_ptr *node);				
+void	special_chars_refactor(t_ptr tokens_list);
+t_bool	special_chars_finder(t_ptr *tokens_list, t_ptr node_add,
 				int type);
-t_bool	special_chars_type(token_ptr *tokens_list, int type);
+t_bool	special_chars_type(t_ptr *tokens_list, int type);
 
 /**
  * node_remover -
 */
-void	node_remover(token_ptr *node)
+void	node_remover(t_ptr *node)
 {
-	token_ptr	tmp;
-	token_ptr	free_node;
-	token_ptr	previous;
+	t_ptr	tmp;
+	t_ptr	free_node;
+	t_ptr	previous;
 
 	tmp = *node;
 	free_node = tmp;
@@ -48,10 +48,10 @@ void	node_remover(token_ptr *node)
 /**
  * special_chars_refactor -
  */
-void	special_chars_refactor(token_ptr tokens_list)
+void	special_chars_refactor(t_ptr tokens_list)
 {
 	int			type;
-	token_ptr	node_add;
+	t_ptr	node_add;
 
 	while (tokens_list)
 	{
@@ -75,7 +75,7 @@ void	special_chars_refactor(token_ptr tokens_list)
 /**
  * special_chars_type -
 */
-t_bool	special_chars_type(token_ptr *tokens_list, int type)
+t_bool	special_chars_type(t_ptr *tokens_list, int type)
 {
 	(*tokens_list) = (*tokens_list)->next;
 	if ((*tokens_list) == NULL)
@@ -92,7 +92,7 @@ t_bool	special_chars_type(token_ptr *tokens_list, int type)
 /**
  * special_chars_finder -
 */
-t_bool	special_chars_finder(token_ptr *tokens_list, token_ptr node_add,
+t_bool	special_chars_finder(t_ptr *tokens_list, t_ptr node_add,
 			int type)
 {
 	while (type != whitespace_token && type != pipe_token)

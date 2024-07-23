@@ -12,9 +12,9 @@
 
 #include "../../includes/miniHell.h"
 
-int	redirections_checker_1(token_ptr tokens_list)
+int	redirections_checker_1(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp)
@@ -40,9 +40,9 @@ int	redirections_checker_1(token_ptr tokens_list)
 	return (0);
 }
 
-int	redirections_checker_2(token_ptr tokens_list)
+int	redirections_checker_2(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	if ((tmp->token_type == 8 || tmp->token_type == 9)
@@ -62,9 +62,9 @@ int	redirections_checker_2(token_ptr tokens_list)
 	return (0);
 }
 
-int	redirections_checker_3(token_ptr tokens_list)
+int	redirections_checker_3(t_ptr tokens_list)
 {
-	token_ptr	tmp;
+	t_ptr	tmp;
 
 	tmp = tokens_list;
 	while (tmp)
@@ -85,7 +85,7 @@ int	redirections_checker_3(token_ptr tokens_list)
 	return (0);
 }
 
-int	redirections_checker(token_ptr tokens_list)
+int	redirections_checker(t_ptr tokens_list)
 {
 	if (redirections_checker_1(tokens_list) == 1)
 		return (1);

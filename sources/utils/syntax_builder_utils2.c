@@ -12,16 +12,16 @@
 
 #include "../../includes/miniHell.h"
 
-t_bool	handle_qt(token_ptr	*tokens_list, t_var d);
-t_bool	tmp_checker(token_ptr *tokens_list, token_ptr tmp, t_bool *status);
-void	words_finder(token_ptr *tokens_list, t_var d);
-t_bool	types_checker(t_var d, int index, token_ptr tmp);
-t_bool	multiple_quotes_check(t_var d, token_ptr tmp);
+t_bool	handle_qt(t_ptr	*tokens_list, t_var d);
+t_bool	tmp_checker(t_ptr *tokens_list, t_ptr tmp, t_bool *status);
+void	words_finder(t_ptr *tokens_list, t_var d);
+t_bool	types_checker(t_var d, int index, t_ptr tmp);
+t_bool	multiple_quotes_check(t_var d, t_ptr tmp);
 
 /**
  * handle_qt -
 */
-t_bool	handle_qt(token_ptr	*tokens_list, t_var d)
+t_bool	handle_qt(t_ptr	*tokens_list, t_var d)
 {
 	t_bool	status;
 	t_bool	success;
@@ -38,7 +38,7 @@ t_bool	handle_qt(token_ptr	*tokens_list, t_var d)
 /**
  * tmp_checker -
 */
-t_bool	tmp_checker(token_ptr *tokens_list, token_ptr tmp, t_bool *status)
+t_bool	tmp_checker(t_ptr *tokens_list, t_ptr tmp, t_bool *status)
 {
 	t_bool	skip;
 
@@ -60,7 +60,7 @@ t_bool	tmp_checker(token_ptr *tokens_list, token_ptr tmp, t_bool *status)
 /**
  * words_finder -
 */
-void	words_finder(token_ptr *tk_list, t_var d)
+void	words_finder(t_ptr *tk_list, t_var d)
 {
 	if ((*tk_list)->next == NULL || cmd_checker(*tk_list) == true)
 		return ;
@@ -90,7 +90,7 @@ void	words_finder(token_ptr *tk_list, t_var d)
 /**
  * word_assign_checker -
 */
-t_bool	types_checker(t_var d, int index, token_ptr tmp)
+t_bool	types_checker(t_var d, int index, t_ptr tmp)
 {
 	if (index == 1)
 	{
@@ -122,7 +122,7 @@ t_bool	types_checker(t_var d, int index, token_ptr tmp)
 /**
  * multiple_quotes_check -
 */
-t_bool	multiple_quotes_check(t_var d, token_ptr tmp)
+t_bool	multiple_quotes_check(t_var d, t_ptr tmp)
 {
 	if (d.type_next_next == doublequote_token
 		|| d.type_next_next == singlequote_token)
