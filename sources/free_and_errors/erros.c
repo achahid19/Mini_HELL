@@ -46,7 +46,7 @@ void	exit_error(char *error, t_var *data, char **av, int ex_code)
 {
 	print_error("kssh: ");
 	print_error("'");
-	print_error(data->path_to_cmd);
+	print_error(av[0]);
 	print_error("'");
 	print_error(error);
 	free_child_process(data, av);
