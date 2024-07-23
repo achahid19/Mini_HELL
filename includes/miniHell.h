@@ -127,6 +127,10 @@ typedef struct s_var
 	/* pipe data */
 	pid_t	child_pid;
 	int		end[2];
+	/* transform envp */
+	char		**e;
+	/* cmd_table */
+	char		**av;
 }	t_var;
 
 void init_global(void);
@@ -235,6 +239,8 @@ void		quotes_error(int quotes_type);
 void		print_error(char *error);
 void		exit_error(char *error, t_var *data, char **av, int exit_code);
 void		free_global_env();
+void		free_child_process(t_var *data, char **av);
+void		free_close_child(t_var *data, char **av);
 
 /* utils2 */
 void		tokens_order(token_ptr tokens_list);
