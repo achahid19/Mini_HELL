@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:10:24 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 22:16:17 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/24 00:14:19 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ t_bool	export_check(char **av, t_var data, t_bool pipe_switcher)
 	len = big_len(av[0], "export");
 	if (ft_strncmp(av[0], "export", len) == 0 && av[1] != NULL)
 	{
-		ft_export(av);
+		if (ft_export(av) == false)
+			g_global.status = 1;
 		if (pipe_switcher == true)
 			dup_and_close(data.end, STDIN);
 		close_fds(&data);

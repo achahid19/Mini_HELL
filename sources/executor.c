@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:57 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 23:16:27 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/24 00:24:23 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,8 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 	data.child_pid = fork();
 	if (data.child_pid == 0)
 		child_exec_cmd(av, &data, pipe_switcher);
+	if (av)
+		ft_underscore(av[0]);
 	if (pipe_switcher == true)
 		dup_and_close(data.end, STDIN);
 	close_fds(&data);

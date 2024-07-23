@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 22:21:45 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 23:30:53 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/24 00:18:31 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,23 @@ void	ft_strncpy(char *dst, char const *s, int bytes)
 		count++;
 	}
 	dst[count] = '\0';
+}
+
+void	ft_underscore(char *av)
+{
+	t_env	*tmp;
+
+	tmp = g_global.e;
+	if (av == NULL)
+		return ;
+	while (tmp)
+	{
+		if (ft_strcmp(tmp->key, "_") == 0)
+		{
+			free(tmp->value);
+			tmp->value = ft_strdup(av);
+			return ;
+		}
+		tmp = tmp->next;
+	}
 }
