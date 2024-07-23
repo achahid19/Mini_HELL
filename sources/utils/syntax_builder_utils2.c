@@ -96,13 +96,15 @@ t_bool	types_checker(t_var d, int index, token_ptr tmp)
 	{
 		return ((d.type_next == doublequote_token
 				|| d.type_next == singlequote_token)
-			&& (d.type_previous == whitespace_token
-				|| d.type_previous == 13
+			&& (d.type_previous == whitespace_token || d.type_previous == 13
 				|| d.type_previous == pipe_token)
 			&& (d.type_next_next == whitespace_token
 				|| d.type_next_next == doublequote_token
 				|| d.type_next_next == singlequote_token
-				|| d.type_next_next == 13));
+				|| d.type_next_next == 13
+				|| d.type_next_next == leftred_token
+				|| d.type_next_next == rightred_token
+				|| d.type_next_next == append_token));
 	}
 	else if (index == 2)
 	{
