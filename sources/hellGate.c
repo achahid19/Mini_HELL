@@ -11,13 +11,12 @@
 /* ************************************************************************** */
 
 #include "../includes/miniHell.h"
-#include "../includes/global.h"
 
 static t_bool	ft_readline(char **user_input);
 static void		ft_unlink(token_ptr tokens_list);
 static void		ft_init(char **envp, char **user_input);
-static void		minihell_helper(token_ptr tokens_list, char *user_input,
-					char **envp, char **e);
+static void		minihell_helper(token_ptr tokens_list, char *user_input, 
+					char **e);
 
 /**
  * main - Entry point
@@ -46,7 +45,7 @@ int	main(int ac, char **av, char **envp)
 			free_all(tokens_list, user_input, e);
 			continue ;
 		}
-		minihell_helper(tokens_list, user_input, envp, e);
+		minihell_helper(tokens_list, user_input, e);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -93,10 +92,10 @@ static void	ft_unlink(token_ptr tokens_list)
  * miniHell_helper -
  */
 static void	minihell_helper(token_ptr tokens_list, char *user_input,
-			char **envp, char **e)
+				char **e)
 {
 	syntax_algo(tokens_list);
-	executor(tokens_list, envp, user_input);
+	executor(tokens_list, e, user_input);
 	ft_unlink(tokens_list);
 	free_all(tokens_list, user_input, e);
 	signal(SIGINT, handler);
