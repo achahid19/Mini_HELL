@@ -74,6 +74,7 @@ void	open_output_fd(token_ptr *temp, t_var *data)
 	{
 		perror("\033[0;35mkssh");
 		write(STDERR, "\033[0m", 4);
+		free_close_child(data, data->av);
 		exit(3);
 	}
 }
