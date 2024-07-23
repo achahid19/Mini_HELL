@@ -53,7 +53,7 @@ t_bool     ft_exit_helper(char **av)
     return (true);
 }
 
-t_bool      ft_exit(char **av)
+t_bool      ft_exit(char **av, t_var data)
 {
     int i;
     
@@ -66,18 +66,18 @@ t_bool      ft_exit(char **av)
     }
     else
     {
-
         if (nb_count(av) == 1)
         {
             write(2, "exit\n", 5);
-            free_cmd_table(av);
+            free_close_child(&data, av);
             exit(g_global.status);
         }
         if (ft_exit_helper(av) == false)
             return (false);
         write(2, "exit\n", 5);
         i = ft_atoi(av[1]);
-        free_cmd_table(av);
+        free_close_child(&data, av);
         exit((unsigned char)i);
     }
+    return (true);
 }
