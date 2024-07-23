@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 00:36:19 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:30:47 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,7 @@ int	ft_no_expand(token_ptr tmp);
 void	test_norm(int fd, char **line);
 void	eof_printer(char *delimiter);
 void	ft_eraser(token_ptr tmp, char *filename);
+void	error(const char *cmd, const char *msg);
 
 /* built_in   	*/
 t_bool		exec_builtin(char **av);
@@ -225,6 +226,8 @@ t_bool		ft_export(char **av);
 t_bool is_exported(char *variable);
 t_bool		ft_unset(char **av);
 t_bool      ft_exit(char **av);
+t_bool		ft_echo(char **av);
+t_bool		ft_env(char **av);
 /* signal handler */
 void		handler(int signum);
 void		signal_handler();

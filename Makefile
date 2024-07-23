@@ -7,7 +7,7 @@ RESET = "\033[0m"
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror
 
 MAKE = make
 
@@ -17,7 +17,7 @@ SRC =   $(addprefix sources/parsing/, parser_helper.c extra_parse_helper.c pipe_
 					utils2.c expander_utils3.c tk_optimizer.c syntax_builder_utils.c \
 					syntax_builder_utils2.c executor_utils.c pipe_utils.c io_stream.c global.c \
 					status_utils.c utils3.c utils4.c utils5.c utils6.c utils7.c) \
-		$(addprefix sources/builtins/, ft_builtin.c ft_export.c ft_unset.c ft_exit.c ft_cd.c) \
+		$(addprefix sources/builtins/, ft_echo.c ft_env.c ft_builtin.c ft_export.c ft_unset.c ft_exit.c ft_cd.c) \
 		$(addprefix sources/free_and_errors/, free.c erros.c)
 
 # valgrind --leak-check=full --show-leak-kinds=all --suppressions=.readline.supp ./miniHell

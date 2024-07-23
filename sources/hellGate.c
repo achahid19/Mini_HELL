@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/22 22:27:28 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:59:04 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	main(int ac, char **av, char **envp)
 /**
  * ft_init -
  */
+
+
 static void	ft_init(char **envp, char **user_input)
 {
 	init_global();
