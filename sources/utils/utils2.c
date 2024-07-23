@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tk_list_opti.c                                     :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 14:33:44 by achahid-          #+#    #+#             */
-/*   Updated: 2024/06/06 20:44:27 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:17:28 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
 
 void		tokens_order(t_ptr tokens_list);
-t_ptr	get_next_pipe(t_ptr tokens_list);
+t_ptr		get_next_pipe(t_ptr tokens_list);
 void		get_next_type(t_ptr *tokens_list, t_var d);
 t_bool		special_chars_checker(int type);
 t_bool		quotes_cmd_checker(t_var d);

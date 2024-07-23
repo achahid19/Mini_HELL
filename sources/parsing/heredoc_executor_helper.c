@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 03:56:29 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 00:11:39 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:10:56 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*ft_last_del(char *delimiter)
 
 char	*ft_first_del(t_ptr tokens_list)
 {
-	t_ptr	tmp;
+	t_ptr		tmp;
 	char		*delimiter;
 	int			flag;
 
@@ -81,7 +81,7 @@ char	*ft_first_del(t_ptr tokens_list)
 
 char	*ft_delimiter_handler(t_ptr tokens_list)
 {
-	t_ptr	tmp;
+	t_ptr		tmp;
 	char		*delimiter;
 
 	tmp = tokens_list;
@@ -98,7 +98,7 @@ char	*ft_delimiter_handler(t_ptr tokens_list)
 char	*ft_delimiter(t_ptr tokens_list, int order)
 {
 	char		*delimiter;
-	t_ptr	tmp;
+	t_ptr		tmp;
 
 	tmp = tokens_list;
 	while (tmp)

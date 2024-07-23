@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/29 13:18:28 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:45:03 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:17:17 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_bool	cmd_check(t_var *obj);
 */
 void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 {
-		// signal(SIGQUIT, ft_handler);
 	if (pipe_switcher == true)
 		dup_and_close(data->end, STDOUT);
 	data->av = av;

@@ -6,150 +6,11 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 03:42:55 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 20:25:36 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:00:10 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
-
-void	print_env(t_env *env)
-{
-	t_env *tmp;
-
-	tmp = env;
-	while (tmp)
-	{
-		if (ft_strlen(tmp->value) == 0)
-			printf("declare -x %s\n", tmp->key);
-		else
-			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
-		tmp = tmp->next;
-	}
-}
-
-t_env	*ft_copy_env(t_env *env)
-{
-	t_env	*tmp;
-	t_env	*new;
-	t_env	*head;
-	t_env	*prev;
-
-	tmp = env;
-	new = NULL;
-	head = NULL;
-	prev = NULL;
-	while (tmp)
-	{
-		if (ft_strcmp(tmp->key, "_") != 0)
-		{
-			new = (t_env *)malloc(sizeof(t_env));
-			new->key = ft_strdup(tmp->key);
-			new->value = ft_strdup(tmp->value);
-			new->next = NULL;
-			if (prev)
-				prev->next = new;
-			else
-				head = new;
-			prev = new;
-		}
-		tmp = tmp->next;
-	}
-	return (head);
-}
-
-void	ft_sort_env(t_env *env)
-{
-	t_env	*tmp;
-	t_env	*tmp2;
-	char	*key;
-	char	*value;
-
-	tmp = env;
-	while (tmp)
-	{
-		tmp2 = tmp->next;
-		while (tmp2)
-		{
-			if (ft_strcmp(tmp->key, tmp2->key) > 0)
-			{
-				key = tmp->key;
-				value = tmp->value;
-				tmp->key = tmp2->key;
-				tmp->value = tmp2->value;
-				tmp2->key = key;
-				tmp2->value = value;
-			}
-			tmp2 = tmp2->next;
-		}
-		tmp = tmp->next;
-	}
-}
-
-t_bool	is_valid_identifier(char c, int i)
-{
-	if (i == 0)
-	{
-		if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
-			return (true);
-	}
-	else
-	{
-		if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') ||
-			(c >= '0' && c <= '9') || c == '_')
-			return (true);
-	}
-	return (false);
-}
-
-t_bool	ft_export_check(char **av)
-{
-	int	d;
-	int	i;
-
-	i = 1;
-	while (av[i])
-	{
-		d = 0;
-		while (av[i][d] == ' ' || av[i][d] == '\t')
-			d++;
-		if (!is_valid_identifier(av[i][d], 0))
-		{
-			printf("minishell: export: `%s': not a valid identifier\n", av[i]);
-			return (false);
-		}
-		d++;
-		while (av[i][d] && av[i][d] != '=' && !(av[i][d] == '+' && av[i][d + 1] == '='))
-		{
-			if (!is_valid_identifier(av[i][d], d))
-			{
-				printf("minishell: export: `%s': not a valid identifier\n", av[i]);
-				return (false);
-			}
-			d++;
-		}
-		i++;
-	}
-	return (true);
-}
-
-char	*ft_key(char *variable)
-{
-	char	*key;
-	int		i;
-
-	i = 0;
-	while (variable[i] && variable[i] != '=' && !(variable[i] == '+' && variable[i + 1] == '='))
-		i++;
-	key = (char *)malloc(sizeof(char) * (i + 1));
-	i = 0;
-	while (variable[i] && variable[i] != '=' && !(variable[i] == '+' && variable[i + 1] == '='))
-	{
-		key[i] = variable[i];
-		i++;
-	}
-	key[i] = '\0';
-	return (key);
-}
 
 t_bool	is_exported(char *variable)
 {
@@ -183,7 +44,7 @@ void	update_value(t_env *tmp, char *variable)
 	else
 	{
 		new_value = malloc(ft_strlen(tmp->value) + ft_strlen(
-			ft_strchr(variable, '=') + 1) + 1);
+					ft_strchr(variable, '=') + 1) + 1);
 		if (!new_value)
 			return ;
 		ft_strcpy(new_value, tmp->value);
@@ -191,25 +52,6 @@ void	update_value(t_env *tmp, char *variable)
 		free(tmp->value);
 		tmp->value = new_value;
 	}
-}
-
-void	update_exported_variable(char *variable)
-{
-	t_env	*tmp;
-	char	*key;
-
-	key = ft_key(variable);
-	tmp = g_global.e;
-	while (tmp)
-	{
-		if (ft_strcmp(key, tmp->key) == 0)
-		{
-			update_value(tmp, variable);
-			break ;
-		}
-		tmp = tmp->next;
-	}
-	free(key);
 }
 
 t_env	*init_new_variable(char *variable, char *key)
@@ -260,20 +102,6 @@ void	add_exported_variable(char *variable)
 	free(key);
 }
 
-void 		free_global_tmp(t_env *tmp)
-{
-	t_env *tmp2;
-
-	while (tmp)
-	{
-		tmp2 = tmp;
-		tmp = tmp->next;
-		free(tmp2->key);
-		free(tmp2->value);
-		free(tmp2);
-	}
-}
-
 t_bool	ft_export(char **av)
 {
 	int		i;
@@ -286,8 +114,8 @@ t_bool	ft_export(char **av)
 		print_env(tmp);
 	else
 	{
-		if (ft_export_check(av) == false)
-			return (free_global_tmp(tmp),false);
+		if (ft_export_check(av, i) == false)
+			return (free_global_tmp(tmp), false);
 		while (av[i])
 		{
 			if (is_exported(av[i]))
@@ -297,5 +125,5 @@ t_bool	ft_export(char **av)
 			i++;
 		}
 	}
-	return (free_global_tmp(tmp),true);
+	return (free_global_tmp(tmp), true);
 }

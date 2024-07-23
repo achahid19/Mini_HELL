@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 00:36:34 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:09:41 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ void	heredoc_norm(t_ptr tokens_list, int order, char *filename, int i)
 
 int	heredoc(t_ptr tmp, t_ptr tokens_list, t_env *envp)
 {
-	int			i;
-	int			flag;
-	char		*filename;
-	char		*test;
+	int		i;
+	int		flag;
+	char	*filename;
+	char	*test;
 	t_ptr	tmp2;
 
 	i = 0;

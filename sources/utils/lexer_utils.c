@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 09:28:12 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/24 18:37:20 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:16:04 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ t_bool	token_create(char **user_input, t_ptr *tokens_head,
 int	get_token_length(char *user_input, int type, t_ptr tokens_head)
 {
 	int			len;
-	t_ptr	last;
+	t_ptr		last;
 
 	len = 0;
 	last = find_last_node(tokens_head);

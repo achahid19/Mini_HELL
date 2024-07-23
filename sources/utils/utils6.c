@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils6.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 21:20:30 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/20 21:20:31 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:12:51 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	get_status(void)
  */
 void	split_words(t_ptr *tk_list)
 {
-	t_ptr	tk;
+	t_ptr		tk;
 	char		**word;
 	int			i;
 

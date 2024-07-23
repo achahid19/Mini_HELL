@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 18:13:04 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 00:09:52 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:10:30 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	append_checker_second(t_ptr tokens_list)
 
 int	heredoc_max_checker(t_ptr tokens_list)
 {
-	t_ptr	tmp;
 	int			count;
+	t_ptr		tmp;
 
 	count = 0;
 	tmp = tokens_list;

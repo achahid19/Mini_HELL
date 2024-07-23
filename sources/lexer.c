@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:17 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/05 10:30:19 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:19:39 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniHell.h"
 
 t_ptr	lexer(char *user_input);
-t_bool		string_tokens(char **user_input, t_ptr *tokens_head,
-				int type, int *order);
-t_bool		char_tokens(char **user_input, t_ptr *tokens_head,
-				int type, int order);
+t_bool	string_tokens(char **user_input, t_ptr *tokens_head,
+			int type, int *order);
+t_bool	char_tokens(char **user_input, t_ptr *tokens_head,
+			int type, int order);
 
 /**
  * lexer - Lexical Analyser; tokenize the

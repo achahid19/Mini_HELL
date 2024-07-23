@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:57 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/22 18:48:59 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:26:04 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,13 @@ char	**extract_command(t_ptr tokens_list);
 int		get_infos(t_ptr tokens_list);
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher);
 
-
-void 		handler_2(int signum)
-{
-	(void)signum;
-	write(1, "\n", 1);
-}
-void 		hendler_1(int signum)
-{
-	(void)signum;
-	write(1, "Quit: 3\n", 8);
-}
-
 /**
  * executor -
 */
 void	executor(t_ptr tokens_list, char **envp, char *user_input)
 {
 	t_var	data;
+
 	signal(SIGINT, handler_2);
 	data.tokens_list = tokens_list;
 	data.user_input = user_input;
@@ -153,7 +142,6 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 		exit(EXIT_FAILURE);
 	if (builtin_check(av, data, pipe_switcher) == true)
 		return ;
-			// signal(SIGQUIT, ft_handler);
 	data.child_pid = fork();
 	if (data.child_pid == 0)
 		child_exec_cmd(av, &data, pipe_switcher);

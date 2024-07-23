@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 00:28:02 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 00:33:31 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:10:02 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_no_expand(t_ptr tmp)
 
 void	ft_enter(t_ptr tokens_list, int i)
 {
-	t_ptr	tmp;
+	t_ptr		tmp;
 	char		*filename;
 
 	g_global.ctrd = 0;

@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 18:33:36 by aymane            #+#    #+#             */
-/*   Updated: 2024/07/23 20:33:11 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:05:12 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_env	*create_env_node(const char *env_var)
 	new_node->next = NULL;
 	return (new_node);
 }
+
 void	ft_null_helper(char **default_env)
 {
 	free(default_env[0]);
@@ -48,7 +49,7 @@ void	ft_null_helper(char **default_env)
 	free(default_env);
 }
 
-char **ft_null_env(void)
+char	**ft_null_env(void)
 {
 	char	**default_env;
 	char	cwd[PATH_MAX];
@@ -81,7 +82,7 @@ t_env	*init_env(char **env)
 	t_env	*head;
 	t_env	*current;
 	t_env	*new_node;
-	
+
 	if (env[0] == NULL)
 		env = ft_null_env();
 	head = NULL;

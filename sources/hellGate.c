@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 16:59:04 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:20:57 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_bool	ft_readline(char **user_input);
 static void		ft_unlink(t_ptr tokens_list);
 static void		ft_init(char **envp, char **user_input);
-static void		minihell_helper(t_ptr tokens_list, char *user_input, 
+static void		minihell_helper(t_ptr tokens_list, char *user_input,
 					char **e);
 
 /**
@@ -24,7 +24,7 @@ static void		minihell_helper(t_ptr tokens_list, char *user_input,
 int	main(int ac, char **av, char **envp)
 {
 	char		*user_input;
-	t_ptr	tokens_list;
+	t_ptr		tokens_list;
 	char		**e;
 
 	(void)ac;
@@ -53,8 +53,6 @@ int	main(int ac, char **av, char **envp)
 /**
  * ft_init -
  */
-
-
 static void	ft_init(char **envp, char **user_input)
 {
 	init_global();
@@ -97,7 +95,6 @@ static void	minihell_helper(t_ptr tokens_list, char *user_input,
 				char **e)
 {
 	syntax_algo(tokens_list);
-	//check_tokens(tokens_list);
 	executor(tokens_list, e, user_input);
 	ft_unlink(tokens_list);
 	free_all(tokens_list, user_input, e);
@@ -107,7 +104,7 @@ static void	minihell_helper(t_ptr tokens_list, char *user_input,
 /**
  * check_tokens -
  */
-void	check_tokens(t_ptr print_tk)
+/*void	check_tokens(t_ptr print_tk)
 {
 	while (print_tk != NULL)
 	{
@@ -123,4 +120,4 @@ void	check_tokens(t_ptr print_tk)
 		printf("------------------------------\n");
 		print_tk = print_tk->next;
 	}
-}
+}*/

@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 14:31:44 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 21:17:19 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:08:32 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	free_global_env(void)
 }
 
 /**
- * free_all -
+ * free_cmd_table
 */
 void	free_all(t_ptr tokens_list, char *user_input,
 			char **av)
@@ -78,8 +78,3 @@ void	free_all(t_ptr tokens_list, char *user_input,
 	if (av != NULL)
 		free_cmd_table(av);
 }
-
-/**
- * free_cmd_table -
-*/
-

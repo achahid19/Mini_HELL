@@ -6,13 +6,13 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 08:36:20 by achahid-          #+#    #+#             */
-/*   Updated: 2024/05/24 18:37:47 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:16:59 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
 
-t_ptr	find_last_node(t_ptr head);
+t_ptr		find_last_node(t_ptr head);
 t_bool		ft_isspace(char c);
 char		*ft_realloc(char *to_free, int new_len);
 void		dup_and_close(int *end, int i);

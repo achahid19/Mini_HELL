@@ -6,18 +6,11 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:00:17 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 20:20:42 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 21:55:39 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
-#include <unistd.h>
-#include <limits.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <sys/stat.h>
-#include <errno.h>
-#include <stdbool.h>
 
 char	*get_env_value(t_env *env, const char *key)
 {
@@ -30,11 +23,10 @@ char	*get_env_value(t_env *env, const char *key)
 	return (NULL);
 }
 
-// Function to set an environment variable's value
 void	set_env(t_env *env, const char *key, const char *value)
 {
 	t_env	*new_env;
-	
+
 	while (env)
 	{
 		if (ft_strcmp(env->key, key) == 0)
@@ -50,12 +42,6 @@ void	set_env(t_env *env, const char *key, const char *value)
 	new_env->value = ft_strdup(value);
 	new_env->next = g_global.e;
 	g_global.e = new_env;
-}
-
-static void	change_pwd(t_env *envs, const char *old_pwd, const char *pwd)
-{
-	set_env(envs, "OLDPWD", old_pwd);
-	set_env(envs, "PWD", pwd);
 }
 
 t_bool	check_directory(char *dir)
@@ -87,9 +73,9 @@ t_bool	check_cd(char **av, char *old_pwd)
 
 t_bool	ft_cd(char **av)
 {
-	char		old_pwd[PATH_MAX];
-	char		new_pwd[PATH_MAX];
-	char *home;
+	char	old_pwd[PATH_MAX];
+	char	new_pwd[PATH_MAX];
+	char	*home;
 
 	if (check_cd(av, old_pwd) == false)
 		return (false);

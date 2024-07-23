@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tk_optimizer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 04:29:05 by achahid-          #+#    #+#             */
-/*   Updated: 2024/06/11 04:29:06 by achahid-         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:16:37 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	node_remover(t_ptr *node);				
 void	special_chars_refactor(t_ptr tokens_list);
 t_bool	special_chars_finder(t_ptr *tokens_list, t_ptr node_add,
-				int type);
+			int type);
 t_bool	special_chars_type(t_ptr *tokens_list, int type);
 
 /**
@@ -51,7 +51,7 @@ void	node_remover(t_ptr *node)
 void	special_chars_refactor(t_ptr tokens_list)
 {
 	int			type;
-	t_ptr	node_add;
+	t_ptr		node_add;
 
 	while (tokens_list)
 	{

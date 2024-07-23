@@ -6,15 +6,15 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 04:46:59 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 04:47:51 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:03:30 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniHell.h"
 
-int		nb_args(char **args)
+int	nb_args(char **args)
 {
-	int		len;
+	int	len;
 
 	len = 0;
 	while (args[len])
@@ -33,21 +33,21 @@ void	ft_putstr_echo(char *s, int fd)
 	{
 		if (s[count] == ' ')
 		{
-			write(fd, " ",1);
+			write(fd, " ", 1);
 			while (s[count] && s[count] == ' ')
 				count++;
 		}
 		if (s[count] == '\0')
-			break;
+			break ;
 		ft_putchar_fd(s[count], fd);
 		count++;
 	}
 }
 
-t_bool		ft_echo(char **av)
+t_bool	ft_echo(char **av)
 {
-	int		i;
-	int		option;
+	int	i;
+	int	option;
 
 	i = 1;
 	option = 0;

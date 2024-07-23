@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 21:23:17 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:22:34 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h> // write ...
+# include <sys/stat.h>
+# include <errno.h>
 
 # define STDIN 0
 # define STDOUT 1
@@ -223,6 +225,15 @@ char					*ft_strstr(const char *haystack, const char *needle);
 int						ft_strcmp(const char *s1, const char *s2);
 char					*ft_strcat(char *dest, const char *src);
 char					*ft_strcpy(char *dest, const char *src);
+/* new one */
+void					free_global_tmp(t_env *tmp);
+void					update_exported_variable(char *variable);
+t_bool					ft_export_check(char **av, int i);
+void					print_env(t_env *env);
+t_env					*ft_copy_env(t_env *env);
+char					*ft_key(char *variable);
+t_bool					is_valid_identifier(char c, int i);
+void					update_value(t_env *tmp, char *variable);
 
 /* built_in   	*/
 t_bool					exec_builtin(char **av);
@@ -363,5 +374,15 @@ void					pipe_node_remover(t_ptr *last);
 void					child_exec_helper(t_var *data, char **av);
 void					spliter(char **word, t_ptr tk, int *i);
 void					set_tk_exp_len(t_ptr *tokens_list);
+
+/* utils 8 */
+void					change_pwd(t_env *envs, const char *old_pwd,
+							const char *pwd);
+void					ft_sort_env(t_env *env);
+void					set_env(t_env *env, const char *key, const char *value);
+
+/* utils 9 */
+void					handler_2(int signum);
+void					hendler_1(int signum);
 
 #endif /* MINIHELL_H */

@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 11:10:24 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 17:10:53 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 22:16:17 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,6 @@ t_bool	exit_check(char **av, t_var data, t_bool pipe_switcher)
 	{
 		if (pipe_switcher == true)
 			return (false);
-		/* close_fds(&data);
-		free_all(data.tokens_list, data.user_input, NULL);
-		free_global_env();
-		free_cmd_table(data.envp);
-		free_cmd_table(data.e); */
 		if (ft_exit(av, data) == false)
 			return (true);
 	}
