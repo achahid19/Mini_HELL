@@ -103,7 +103,7 @@ char	*ft_find_cmd(char *cmd, char **envp)
 	obj.i = 0;
 	obj.env = ft_get_path(envp);
 	if (obj.env == NULL)
-		return (cmd);
+		return (NULL);
 	obj.token = &cmd;
 	if (cmd[0] == '.')
 		return (NULL);
