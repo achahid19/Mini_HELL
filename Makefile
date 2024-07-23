@@ -7,7 +7,7 @@ RESET = "\033[0m"
 
 CC = cc
 
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 MAKE = make
 

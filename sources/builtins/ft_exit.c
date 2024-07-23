@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 19:01:15 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 17:03:41 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 18:18:46 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,29 @@ int     ft_isnumber(char *str)
     }
     return (true);
 }
-t_bool     ft_exit_helper(char **av)
+
+void	ft_exit_helper(char **av, t_var data)
 {
-    int i;
- 
-    i = 1;
-    while (av[i])
-    {
-        if (ft_isnumber(av[i]) == false)
-        {
-            write(2, "exit\n", 5);
-            write(2, "exit: numeric argument required\n", 33);
-            g_global.status = 255;
-            return (false);
-        }
-        i++;
-    }
-    return (true);
+	write(2, "exit\n", 5);
+    write(2, "exit: numeric argument required\n", 33);
+    g_global.status = 2;
+    free_close_child(&data, av);
+    exit(g_global.status);
 }
 
 t_bool      ft_exit(char **av, t_var data)
 {
     int i;
     
-    if (nb_count(av) > 2)
+    if (nb_count(av) == 1)
+    {
+        write(2, "exit\n", 5);
+        free_close_child(&data, av);
+        exit(g_global.status);
+    }
+    if (ft_isnumber(av[1]) == false)
+		ft_exit_helper(av, data);
+    else if (nb_count(av) > 2 && ft_isnumber(av[1]) == true)
     {
         write(2, "exit\n", 5);
         write(2, "exit: too many arguments\n", 25);
@@ -66,14 +65,6 @@ t_bool      ft_exit(char **av, t_var data)
     }
     else
     {
-        if (nb_count(av) == 1)
-        {
-            write(2, "exit\n", 5);
-            free_close_child(&data, av);
-            exit(g_global.status);
-        }
-        if (ft_exit_helper(av) == false)
-            return (false);
         write(2, "exit\n", 5);
         i = ft_atoi(av[1]);
         free_close_child(&data, av);

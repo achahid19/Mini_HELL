@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 03:42:55 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 16:36:06 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/23 17:41:06 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,7 +261,7 @@ t_bool	ft_export(char **av)
 	else
 	{
 		if (ft_export_check(av) == false)
-			return (false);
+			return (free_global_env(),false);
 		while (av[i])
 		{
 			if (is_exported(av[i]))
@@ -271,6 +271,5 @@ t_bool	ft_export(char **av)
 			i++;
 		}
 	}
-	return (true);
+	return (free_global_env(),true);
 }
-
