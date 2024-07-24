@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 00:28:02 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 22:10:02 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/24 01:32:11 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	ft_enter(t_ptr tokens_list, int i)
 	{
 		if (tmp->token_type == 4 || tmp->token_type == 5)
 		{
+			if (tmp->token != NULL)
+				free(tmp->token);
 			tmp->token = ft_strdup(filename);
 			tmp->token_type = 2;
 			free(filename);

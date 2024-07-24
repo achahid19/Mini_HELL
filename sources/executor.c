@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:57 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/24 00:24:23 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/24 01:26:53 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	executor(t_ptr tokens_list, char **envp, char *user_input)
 		dollar_status_check(tokens_list);
 		exec_command(tokens_list, data);
 		tokens_list = get_next_pipe(tokens_list);
-		data.tokens_list = tokens_list;
 		data.pipes--;
 	}
 	free_cmd_table(data.envp);

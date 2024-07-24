@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 23:35:58 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 22:09:41 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/24 01:28:05 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,14 @@ char	*heredoc_storer(char *delimiter, int i, t_env *envp, int flag)
 	filename = get_unique_filename(i);
 	fd = open(filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (test(&line, delimiter, flag, fd) == false)
-		return (line);
+		return (free(filename),line);
 	close(fd);
 	dup2(fd0, 0);
 	close(fd0);
 	if (line == NULL && g_global.flag == 1)
 	{
 		g_global.flag = 0;
+		free(filename);
 		return (NULL);
 	}
 	return (filename);
@@ -110,7 +111,7 @@ int	heredoc(t_ptr tmp, t_ptr tokens_list, t_env *envp)
 			test = ft_delimiter(tokens_list, tmp->order);
 			filename = heredoc_storer(test, i, envp, flag);
 			if (filename == NULL)
-				return (1);
+				return (free(test),1);
 			new_token_lst(tokens_list, tmp->order, test);
 			heredoc_norm(tokens_list, tmp->order, filename, i);
 			free(filename);
