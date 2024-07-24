@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 19:01:15 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 22:01:23 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/24 01:53:26 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,23 @@ void	ft_exit_helper(char **av, t_var data)
 	exit(g_global.status);
 }
 
-t_bool	ft_exit(char **av, t_var data)
+void	ft_exit_helper2(t_var *data, char **av)
 {
 	int	i;
 
+	write(2, "exit\n", 5);
+	i = ft_atoi(av[1]);
+	if (ft_strlen(av[1]) > 19)
+	{
+		ft_putstr_fd("exit numeric argument required", 2);
+		i = 2;
+	}
+	free_close_child(data, av);
+	exit((unsigned char)i);
+}
+
+t_bool	ft_exit(char **av, t_var data)
+{
 	if (nb_count(av) == 1)
 	{
 		write(2, "exit\n", 5);
@@ -65,11 +78,6 @@ t_bool	ft_exit(char **av, t_var data)
 		return (false);
 	}
 	else
-	{
-		write(2, "exit\n", 5);
-		i = ft_atoi(av[1]);
-		free_close_child(&data, av);
-		exit((unsigned char)i);
-	}
+		ft_exit_helper2(&data, av);
 	return (true);
 }
