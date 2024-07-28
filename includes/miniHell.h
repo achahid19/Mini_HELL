@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:31:11 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/24 00:18:51 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/07/29 00:02:30 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,5 +386,6 @@ void					handler_2(int signum);
 void					hendler_1(int signum);
 void					ft_strncpy(char *dst, char const *s, int bytes);
 void					ft_underscore(char *av);
+void					shlvl_init(void);
 
 #endif /* MINIHELL_H */
