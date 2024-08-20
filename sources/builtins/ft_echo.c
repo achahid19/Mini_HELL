@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 04:46:59 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 22:03:30 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/08/20 17:42:11 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ void	ft_putstr_echo(char *s, int fd)
 	}
 }
 
+int	ft_strncmp_echo(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-')
+	{
+		i++;
+		while (str[i] == 'n')
+			i++;
+		if (str[i] == '\0')
+			return (0);
+	}
+	return (1);
+}
+
 t_bool	ft_echo(char **av)
 {
 	int	i;
@@ -53,7 +69,7 @@ t_bool	ft_echo(char **av)
 	option = 0;
 	if (nb_args(av) > 1)
 	{
-		while (av[i] && ft_strncmp(av[i], "-n", ft_strlen(av[i])) == 0)
+		while (av[i] && ft_strncmp_echo(av[i]) == 0)
 		{
 			option = 1;
 			i++;
