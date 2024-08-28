@@ -20,6 +20,20 @@ int		get_infos(t_ptr tokens_list);
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher);
 
 /**
+ * status_handle -
+ */
+void	status_handle()
+{
+	if (WIFEXITED(g_global.status))
+	{
+		int exit_status = WEXITSTATUS(g_global.status);
+		g_global.status = exit_status;
+	}
+	else
+		printf("Child process did not exit normally\n");
+}
+
+/**
  * executor -
 */
 void	executor(t_ptr tokens_list, char **envp, char *user_input)
@@ -45,7 +59,7 @@ void	executor(t_ptr tokens_list, char **envp, char *user_input)
 	dup2(data.std_in, STDIN);
 	close(data.std_in);
 	while (wait(&g_global.status) > 0)
-		;
+		status_handle();
 }
 
 /**
