@@ -19,6 +19,11 @@ static void		minihell_helper(t_ptr tokens_list, char *user_input,
 					char **e);
 
 /**
+ * notes -
+ * ctrl-c in heredoc - fix exit status
+ */
+
+/**
  * main - Entry point
 */
 int	main(int ac, char **av, char **envp)
