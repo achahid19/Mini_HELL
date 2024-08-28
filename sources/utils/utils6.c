@@ -24,7 +24,7 @@ void	io_dup_close(t_var *data);
  */
 void	get_status(void)
 {
-	if (g_global.status == 256)
+	/* if (g_global.status == 256)
 		g_global.status = 127;
 	else if (g_global.status == 768)
 		g_global.status = 1;
@@ -36,6 +36,8 @@ void	get_status(void)
 		g_global.status = 0;
 	else if (g_global.status == 127)
 		g_global.status = 1;
+	else if (g_global.status == 32512)
+		g_global.status = 127; */
 }
 
 /**
