@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:47 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/23 00:30:26 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/08/29 02:06:27 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	parser_tokens(t_ptr tokens_list, t_env *env)
 	}
 	if (heredoc(tmp, tokens_list, env) == 1)
 	{
-		g_global.status = 2;
+		g_global.status = 130;
 		get_status();
 		free_tokens(tmp);
 		return (false);
