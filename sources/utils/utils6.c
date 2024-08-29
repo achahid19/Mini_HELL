@@ -95,5 +95,10 @@ void	status_handle(void)
 		g_global.status = exit_status;
 	}
 	else
-		g_global.status = 130;
+	{
+		if (g_global.child_signal == 1)
+			g_global.status = 130;
+		else if (g_global.child_signal == 2)
+			g_global.status = 131;
+	}
 }
