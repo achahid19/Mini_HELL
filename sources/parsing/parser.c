@@ -85,7 +85,7 @@ int	parser_tokens(t_ptr tokens_list, t_env *env)
 	if (heredoc(tmp, tokens_list, env) == 1)
 	{
 		g_global.status = 130;
-		get_status();
+		//get_status();
 		free_tokens(tmp);
 		return (false);
 	}
