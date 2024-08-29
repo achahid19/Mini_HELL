@@ -20,4 +20,5 @@ void	init_global(void)
 	g_global.flag = 0;
 	g_global.eof = 1;
 	g_global.ctrd = 0;
+	g_global.child_signal = 0;
 }
