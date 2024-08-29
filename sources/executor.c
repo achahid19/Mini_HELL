@@ -134,9 +134,11 @@ int	get_infos(t_ptr tokens_list)
 void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 {
 	signal(SIGINT, handler_2);
-	signal(SIGQUIT, handler_2);
+	signal(SIGQUIT, handler_3);
 	if (input_red_stream(&data) == false)
 		return ;
+	if (av)
+		ft_underscore(av[0]);
 	if (pipe(data.end) == -1)
 		exit(EXIT_FAILURE);
 	if (builtin_check(av, data, pipe_switcher) == true)
@@ -144,8 +146,6 @@ void	ft_pipe(char **av, t_var data, t_bool pipe_switcher)
 	data.child_pid = fork();
 	if (data.child_pid == 0)
 		child_exec_cmd(av, &data, pipe_switcher);
-	if (av)
-		ft_underscore(av[0]);
 	if (pipe_switcher == true)
 		dup_and_close(data.end, STDIN);
 	close_fds(&data);
