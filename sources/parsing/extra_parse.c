@@ -83,7 +83,6 @@ void	process_line_split(char **line_split, t_env *envp, int i)
 				if (line_split[i][d + 1] == '?')
 				{
 					free(line_split[i]);
-					//get_status();
 					line_split[i] = ft_itoa(g_global.status);
 				}
 				else if (ft_env_search(line_split[i], envp) == 0)

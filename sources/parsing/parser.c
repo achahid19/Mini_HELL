@@ -78,14 +78,12 @@ int	parser_tokens(t_ptr tokens_list, t_env *env)
 	if (ft_type_check(tmp) == 1)
 	{
 		g_global.status = 2;
-		//get_status();
 		free_tokens(tmp);
 		return (false);
 	}
 	if (heredoc(tmp, tokens_list, env) == 1)
 	{
 		g_global.status = 130;
-		//get_status();
 		free_tokens(tmp);
 		return (false);
 	}
