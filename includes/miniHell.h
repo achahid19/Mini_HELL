@@ -362,11 +362,11 @@ t_bool					exit_check(char **av, t_var data, t_bool pipe_switcher);
 t_bool					cd_check(char **av, t_var data, t_bool pipe_switcher);
 
 /* utils 6 */
-void					get_status(void);
 void					split_words(t_ptr *tk_list);
 void					add_nodes(t_ptr tk, char *word);
 void					add_node(t_ptr tk, char *word, int type);
 void					io_dup_close(t_var *data);
+void					status_handle();
 
 /* utils 7 */
 void					pipe_order_check(t_ptr *tokens_list);
