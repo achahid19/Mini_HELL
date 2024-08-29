@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 10:30:07 by achahid-          #+#    #+#             */
-/*   Updated: 2024/07/28 23:47:58 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/08/29 01:39:57 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	ft_init(char **envp, char **user_input)
 {
 	init_global();
 	g_global.e = init_env(envp);
-	shlvl_init();
 	*user_input = NULL;
 }
 

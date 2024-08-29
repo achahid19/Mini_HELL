@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 21:22:00 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 22:03:51 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/08/29 01:38:42 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,26 +49,20 @@ t_bool	ft_export_check(char **av, int i)
 {
 	int	d;
 
-	while (av[i])
+	d = 0;
+	if (!is_valid_identifier(av[i][d], 0))
 	{
-		d = 0;
-		while (av[i][d] == ' ' || av[i][d] == '\t')
-			d++;
-		if (!is_valid_identifier(av[i][d], 0))
-		{
-			printf("export: `%s': not a valid identifier\n", av[i]);
-			return (false);
-		}
+		printf("export: `%s': not a valid identifier\n", av[i]);
+		return (false);
+	}
+	d++;
+	while (av[i][d] && av[i][d] != '=' && !(av[i][d] == '+' && av[i][d
+			+ 1] == '='))
+	{
+		if (!is_valid_identifier(av[i][d], d))
+			return (printf("export: `%s': not a valid identifier\n", av[i]),
+				false);
 		d++;
-		while (av[i][d] && av[i][d] != '=' && !(av[i][d] == '+' && av[i][d
-				+ 1] == '='))
-		{
-			if (!is_valid_identifier(av[i][d], d))
-				return (printf("export: `%s': not a valid identifier\n", av[i]),
-					false);
-			d++;
-		}
-		i++;
 	}
 	return (true);
 }

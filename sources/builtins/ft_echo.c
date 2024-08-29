@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 04:46:59 by akajjou           #+#    #+#             */
-/*   Updated: 2024/08/20 17:42:11 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/08/29 01:43:15 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	ft_strncmp_echo(char *str)
 	if (str[i] == '-')
 	{
 		i++;
+		if (str[i] == '\0')
+			return (1);
 		while (str[i] == 'n')
 			i++;
 		if (str[i] == '\0')

@@ -6,7 +6,7 @@
 /*   By: akajjou <akajjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 03:42:55 by akajjou           #+#    #+#             */
-/*   Updated: 2024/07/23 22:00:10 by akajjou          ###   ########.fr       */
+/*   Updated: 2024/08/29 01:38:24 by akajjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	update_value(t_env *tmp, char *variable)
 {
 	char	*new_value;
 
+	if (ft_strchr(variable, '=') == NULL)
+		return ;
 	if (ft_strstr(variable, "+=") == NULL)
 	{
 		free(tmp->value);
@@ -114,11 +116,11 @@ t_bool	ft_export(char **av)
 		print_env(tmp);
 	else
 	{
-		if (ft_export_check(av, i) == false)
-			return (free_global_tmp(tmp), false);
 		while (av[i])
 		{
-			if (is_exported(av[i]))
+			if (ft_export_check(av, i) == false)
+				;
+			else if (is_exported(av[i]))
 				update_exported_variable(av[i]);
 			else
 				add_exported_variable(av[i]);
