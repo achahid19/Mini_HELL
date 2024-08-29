@@ -23,6 +23,7 @@ typedef struct s_env
 typedef struct s_global
 {
 	int				status;
+	int				child_signal;
 	int				eof;
 	int				flag;
 	int				ctrd;
