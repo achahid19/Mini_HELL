@@ -383,7 +383,7 @@ void					set_env(t_env *env, const char *key, const char *value);
 
 /* utils 9 */
 void					handler_2(int signum);
-void					hendler_1(int signum);
+void					handler_3(int signum);
 void					ft_strncpy(char *dst, char const *s, int bytes);
 void					ft_underscore(char *av);
 
