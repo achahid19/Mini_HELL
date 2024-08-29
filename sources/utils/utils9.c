@@ -15,13 +15,15 @@
 void	handler_2(int signum)
 {
 	(void)signum;
+	g_global.child_signal = 1;
 	write(1, "\n", 1);
 }
 
-void	hendler_1(int signum)
+void	handler_3(int signum)
 {
 	(void)signum;
-	write(1, "Quit: 3\n", 8);
+	g_global.child_signal = 2;
+	write(1, "\n", 1);
 }
 
 void	ft_strncpy(char *dst, char const *s, int bytes)
