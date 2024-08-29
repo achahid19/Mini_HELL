@@ -13,32 +13,11 @@
 #include "../../includes/miniHell.h"
 #include "../../includes/global.h"
 
-void	get_status(void);
 void	split_words(t_ptr *tk_list);
 void	add_nodes(t_ptr tk, char *word);
 void	add_node(t_ptr tk, char *word, int type);
 void	io_dup_close(t_var *data);
-
-/**
- * get_status -
- */
-void	get_status(void)
-{
-	/* if (g_global.status == 256)
-		g_global.status = 127;
-	else if (g_global.status == 768)
-		g_global.status = 1;
-	else if (g_global.status == 32256)
-		g_global.status = 126;
-	else if (g_global.status == 512)
-		g_global.status = 2;
-	else if (g_global.status == 13)
-		g_global.status = 0;
-	else if (g_global.status == 127)
-		g_global.status = 1;
-	else if (g_global.status == 32512)
-		g_global.status = 127; */
-}
+void	status_handle();
 
 /**
  * split_words -
@@ -101,4 +80,18 @@ void	io_dup_close(t_var *data)
 {
 	dup2(data->fd[0], STDIN_FILENO);
 	close(data->fd[0]);
+}
+
+/**
+ * status_handle -
+ */
+void	status_handle()
+{
+	if (WIFEXITED(g_global.status))
+	{
+		int exit_status = WEXITSTATUS(g_global.status);
+		g_global.status = exit_status;
+	}
+	else
+		printf("Child process did not exit normally\n");
 }
