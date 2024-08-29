@@ -87,11 +87,13 @@ void	io_dup_close(t_var *data)
  */
 void	status_handle()
 {
+	int	exit_status;
+
 	if (WIFEXITED(g_global.status))
 	{
-		int exit_status = WEXITSTATUS(g_global.status);
+		exit_status = WEXITSTATUS(g_global.status);
 		g_global.status = exit_status;
 	}
 	else
-		printf("Child process did not exit normally\n");
+		g_global.status = 130;
 }
