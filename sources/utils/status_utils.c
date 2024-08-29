@@ -59,7 +59,6 @@ char	*expand_status(char *tk, int *i)
 	char	*before;
 	char	*after;
 
-	//get_status();
 	st = ft_itoa(g_global.status);
 	before = (char *)malloc(sizeof(char) * (*i) + 1);
 	after = (char *)malloc(sizeof(char) * get_length(tk) + 1);
