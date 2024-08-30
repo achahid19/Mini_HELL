@@ -26,12 +26,12 @@ void	child_exec_cmd(char **av, t_var *data, t_bool pipe_switcher)
 {
 	if (pipe_switcher == true)
 		dup_and_close(data->end, STDOUT);
-	data->av = av;
-	if (output_red_stream(data) == false)
+	else if (pipe_switcher == false)
 	{
-		free_child_process(data, av);
-		exit(257);
+		if (output_red_stream(data) == false)
+			free_child_process(data, av, true);
 	}
+	data->av = av;
 	if (av == NULL)
 	{
 		free_close_child(data, av);
