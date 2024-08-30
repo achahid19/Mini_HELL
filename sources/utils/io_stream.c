@@ -104,11 +104,6 @@ t_bool	output_red_stream(t_var *data)
 				break ;
 		}
 		temp = temp->next;
-		if (temp != NULL)
-		{
-			if (temp->token_type == pipe_token)
-				break ;
-		}
 	}
 	return (true);
 }
@@ -119,7 +114,7 @@ t_bool	output_red_stream(t_var *data)
 t_bool	output_red_fd(t_ptr *temp, t_var *data)
 {
 	static t_bool	filename;
-	int				n;	
+	int				n;
 
 	if (filename == true)
 		return (false);
