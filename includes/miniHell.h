@@ -262,7 +262,7 @@ void					print_error(char *error);
 void					exit_error(char *error, t_var *data, char **av,
 							int exit_code);
 void					free_global_env(void);
-void					free_child_process(t_var *data, char **av);
+void					free_child_process(t_var *data, char **av, t_bool ex);
 void					free_close_child(t_var *data, char **av);
 
 /* utils2 */
@@ -387,4 +387,5 @@ void					handler_3(int signum);
 void					ft_strncpy(char *dst, char const *s, int bytes);
 void					ft_underscore(char *av);
 void					shlvl_init(void);
+
 #endif /* MINIHELL_H */
